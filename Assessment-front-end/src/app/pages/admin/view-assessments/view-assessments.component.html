@@ -1,0 +1,30 @@
+<mat-card class="mt30 mr20 ml20" *ngFor="let a of assessments">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>
+      {{ a.assessmentTitle }}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{ a.category.categoryTitle }}
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>{{ a.assessmentDescription }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button class="ml20" color="primary">Questions</button>
+    <button mat-stroked-button class="ml20" color="primary">
+      Max Marks {{ a.maxMarks }}
+    </button>
+    <button mat-stroked-button class="ml20" color="primary">
+      Questions {{ a.numberOfQuestions }}
+    </button>
+    <button mat-flat-button class="ml20" color="primary">Update</button>
+    <button mat-flat-button class="ml20" color="primary">Attempts</button>
+  </mat-card-actions>
+</mat-card>
+<div class="container text-center mt20">
+  <button routerLink="/admin/add-assessment" mat-raised-button color="accent">
+    Add New Assessment
+  </button>
+</div>
