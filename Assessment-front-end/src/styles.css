@@ -1,0 +1,125 @@
+/* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.self-center {
+  align-self: center;
+}
+
+.ml20 {
+  margin-left: 20px !important;
+}
+.mr20 {
+  margin-right: 20px !important;
+}
+.mt20 {
+  margin-top: 20px !important;
+}
+.mb20 {
+  margin-bottom: 20px !important;
+}
+.ml10 {
+  margin-left: 10px !important;
+}
+.mr10 {
+  margin-right: 10px !important;
+}
+.mt10 {
+  margin-top: 10px !important;
+}
+.mb10 {
+  margin-bottom: 10px !important;
+}
+.ml30 {
+  margin-left: 30px !important;
+}
+.mr30 {
+  margin-right: 30px !important;
+}
+.mt30 {
+  margin-top: 30px !important;
+}
+.mb30 {
+  margin-bottom: 30px !important;
+}
+.ml40 {
+  margin-left: 40px !important;
+}
+.mr40 {
+  margin-right: 40px !important;
+}
+.mt40 {
+  margin-top: 40px !important;
+}
+.mb40 {
+  margin-bottom: 40px !important;
+}
+.ml50 {
+  margin-left: 50px !important;
+}
+.mr50 {
+  margin-right: 50px !important;
+}
+.mt50 {
+  margin-top: 50px !important;
+}
+.mb50 {
+  margin-bottom: 50px !important;
+}
+.ml100 {
+  margin-left: 100px !important;
+}
+.mr100 {
+  margin-right: 100px !important;
+}
+.mt100 {
+  margin-top: 100px !important;
+}
+.mb100 {
+  margin-bottom: 100px !important;
+}
+.ml200 {
+  margin-left: 200px !important;
+}
+.mr200 {
+  margin-right: 200px !important;
+}
+.mt200 {
+  margin-top: 200px !important;
+}
+.mb200 {
+  margin-bottom: 200px !important;
+}
+
+.mat-icon {
+  vertical-align: middle;
+}
+
+.mat-divider {
+  display: block;
+  margin: 0;
+  border-top-width: 1px;
+  border-top-style: solid;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.w100 {
+  width: 100%;
+}
