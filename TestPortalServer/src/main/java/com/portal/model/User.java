@@ -44,7 +44,7 @@ public class User implements UserDetails {
 	@Column(length = 50)
 	private String username;
 
-	@Column(length = 50)
+	@Column(length = 500)
 	private String password;
 
 	@Column(length = 50)
