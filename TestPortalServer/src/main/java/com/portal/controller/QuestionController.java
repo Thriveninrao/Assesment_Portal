@@ -25,27 +25,27 @@ public class QuestionController {
 	@Autowired
 	private QuestionServiceInterface questionService;
 
-	@PostMapping("/")
+	@PostMapping("/addQuestion")
 	public ResponseEntity<?> addQuestion(@RequestBody Question question) {
 		return ResponseEntity.ok(this.questionService.addQuestion(question));
 	}
 
-	@GetMapping("/{questionId}")
+	@GetMapping("/fetchQuestionById/{questionId}")
 	public Question getQuestion(@PathVariable("questionId") Long questionId) {
 		return this.questionService.getQuestion(questionId);
 	}
 
-	@PutMapping("/")
+	@PutMapping("/updateQuestion")
 	public ResponseEntity<Question> updateQuestion(@RequestBody Question question) {
 		return ResponseEntity.ok(this.questionService.updateQuestion(question));
 	}
 
-	@GetMapping("/")
+	@GetMapping("/fetchAllQuestions")
 	public ResponseEntity<?> getQuestions() {
 		return ResponseEntity.ok(this.questionService.getQuestions());
 	}
 
-	@GetMapping("/assessment/{assessmentId}")
+	@GetMapping("/fetchAssessmentQuestions/{assessmentId}")
 	public ResponseEntity<?> getQuestionsOfAssessment(@PathVariable("assessmentId") Long assessmentId) {
 		Assessment assessment = new Assessment();
 		assessment.setAssessmentId(assessmentId);
@@ -53,7 +53,7 @@ public class QuestionController {
 		return ResponseEntity.ok(questionsOfAssessment);
 	}
 	
-	@DeleteMapping("/{questionId}")
+	@DeleteMapping("deleteQuestion/{questionId}")
 	public void deleteQuestion(@PathVariable("questionId") Long questionId ) {
 		this.questionService.deleteQuestion(questionId);
 	}
