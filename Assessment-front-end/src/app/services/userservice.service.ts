@@ -13,4 +13,9 @@ export class UserserviceService {
   public addUser(user: any) {
     return this.http.post(`${baseUrl}/user/create`,user)
   }
+
+  //add Admin
+  public addAdmin(user: any) {
+    return this.http.post(`${baseUrl}/admin/create`,user)
+  }
 }

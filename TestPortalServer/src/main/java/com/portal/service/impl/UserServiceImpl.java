@@ -1,12 +1,17 @@
 package com.portal.service.impl;
 
 import java.security.SecureRandom;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.portal.model.Role;
 import com.portal.model.User;
 import com.portal.model.UserRole;
 import com.portal.repository.RoleRepository;
@@ -21,6 +26,9 @@ public class UserServiceImpl implements UserServiceInterface {
 
 	@Autowired
 	private RoleRepository roleRepo;
+
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	/**
 	 * Creating User
@@ -86,11 +94,12 @@ public class UserServiceImpl implements UserServiceInterface {
 	public String generateUserName(User user) {
 		String userName = user.getFirstName().concat("." + user.getLastName());
 		User userWithSameUserName = null;
+		int count = 0;
 		do {
-			int count = 0;
 			userWithSameUserName = getUser(userName);
 			if (userWithSameUserName != null) {
-				userName = userName.concat("0" + count++);
+				count++;
+				userName = userName.concat("" + count);
 			}
 		} while (userWithSameUserName != null);
 		return userName;
@@ -116,5 +125,38 @@ public class UserServiceImpl implements UserServiceInterface {
 			password.append(randomChar);
 		}
 		return password.toString();
+	}
+
+	@PostConstruct
+	@Override
+	public void createADefaultAdmin() throws Exception {
+		Set<UserRole> roles = new HashSet<>();
+
+		User user = new User();
+		user.setFirstName("admin");
+		user.setLastName("admin");
+		user.setEmail("admin.softtek.com");
+		user.setPhone("9999999999");
+		Role role = new Role();
+		role.setRoleId(44L);
+		role.setRoleName("ADMIN");
+
+		UserRole userRole = new UserRole();
+		userRole.setRole(role);
+		userRole.setUser(user);
+
+		if (!(userExists(user))) {
+
+			roles.add(userRole);
+			user.setUsername(generateUserName(user));
+
+			user.setPassword(this.bCryptPasswordEncoder.encode("admin"));
+
+			user.setProfile("Admin.jpg");
+
+			// encoding password with BCryptPasswordEncoder
+
+			createUser(user, roles);
+		}
 	}
 }

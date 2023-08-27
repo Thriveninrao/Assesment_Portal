@@ -14,9 +14,9 @@ public interface UserServiceInterface {
 	// Get User
 	public User getUser(String username);
 
-	//Get all Users
+	// Get all Users
 	public List<User> getAllUsers();
-	
+
 	// Delete User
 	public String deleteUser(Long userId);
 
@@ -25,4 +25,6 @@ public interface UserServiceInterface {
 	public String generateUserName(User user);
 
 	public String generatePassword();
+
+	public void createADefaultAdmin() throws Exception;
 }
