@@ -11,36 +11,10 @@
                   alt=""
                 />
               </div>
-              <h1 class="text-center">Register Here !!</h1>
+              <h1 class="text-center">Provide User Details</h1>
               <!-- {{user | json}} -->
               <form (ngSubmit)="formSubmit()">
                 <!--User : Field-->
-                <mat-form-field class="full-width" appearance="outline">
-                  <mat-label>Username</mat-label>
-                  <input
-                    required
-                    [(ngModel)]="user.username"
-                    name="username"
-                    type="text"
-                    matInput
-                    placeholder="Enter Your Username"
-                  />
-                  <!-- <mat-hint>Username must be Unique</mat-hint> -->
-                </mat-form-field>
-  
-                <!--Password : Field-->
-                <mat-form-field class="full-width" appearance="outline">
-                  <mat-label>Password</mat-label>
-                  <input
-                    required
-                    [(ngModel)]="user.password"
-                    name="password"
-                    type="password"
-                    matInput
-                    placeholder="Enter Your Password"
-                  />
-                </mat-form-field>
-  
                 <!--First Name : Field-->
                 <mat-form-field class="full-width" appearance="outline">
                   <mat-label>First Name</mat-label>
@@ -94,7 +68,7 @@
                 </mat-form-field>
   
                 <button type="submit" mat-raised-button color="primary">
-                  Register
+                  Add User
                 </button>
                 <button
                   type="reset"

@@ -26,7 +26,7 @@ public class UserController {
 
 	@Autowired
 	private UserServiceInterface userService;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -37,22 +37,30 @@ public class UserController {
 		Set<UserRole> roles = new HashSet<>();
 
 		Role role = new Role();
-		role.setRoleId(44L);
-		role.setRoleName("ADMIN");
+		role.setRoleId(45L);
+		role.setRoleName("USER");
 
 		UserRole userRole = new UserRole();
 		userRole.setRole(role);
 		userRole.setUser(user);
 
-		roles.add(userRole);
+		User createdUser = null;
 		
-		user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
-		
-		user.setProfile("Muskan.png");
-		
-		// encoding password with BCryptPasswordEncoder
+		if (!(userService.userExists(user))) {
 
-		return userService.createUser(user, roles);
+			roles.add(userRole);
+			user.setUsername(userService.generateUserName(user));
+
+			user.setPassword(this.bCryptPasswordEncoder.encode(userService.generatePassword()));
+
+			user.setProfile("User.jpg");
+
+			// encoding password with BCryptPasswordEncoder
+
+			createdUser= userService.createUser(user, roles);
+		} 
+			return createdUser;
+		
 	}
 
 	@GetMapping("/{username}")

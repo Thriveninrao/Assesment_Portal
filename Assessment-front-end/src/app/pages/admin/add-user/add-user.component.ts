@@ -17,8 +17,6 @@ export class AddUserComponent implements OnInit{
   }
 
   public user = {
-    username: '',
-    password: '',
     firstName: '',
     lastName: '',
     email: '',
@@ -26,18 +24,6 @@ export class AddUserComponent implements OnInit{
   };
 
   formSubmit() {
-    // alert('submit');
-    if (this.user.username == '' || this.user.username == null) {
-      this.snack.open('UserName is Required', '', {
-        duration: 3000,
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center',
-      });
-      return;
-    }
-
-    //validate
-
     //addUser : userservice
     this.userservice.addUser(this.user).subscribe(
       (data: any) => {
@@ -45,7 +31,7 @@ export class AddUserComponent implements OnInit{
         //Success
         Swal.fire(
           'Successfully Done',
-          this.user.username + ' is Registered as User',
+          this.user.firstName + ' is Registered as User',
           'success'
         );
       },

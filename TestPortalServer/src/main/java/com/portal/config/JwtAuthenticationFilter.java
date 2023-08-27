@@ -36,22 +36,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		String username = null;
 		String jwtToken = null;
 
-		if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer")) {
-			// yes
-			try {
-				jwtToken = requestTokenHeader.substring(7);
-				username = this.jwtUtil.extractUsername(jwtToken);
-			} catch (ExpiredJwtException e) {
-				System.out.println("Jwt Token has expired");
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("Error");
-			}
-		} else {
-			// no
-			System.out.println("Invalid token, not start with bearer string");
-		}
+			if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer")) {
+				// yes
+				try {
+					jwtToken = requestTokenHeader.substring(7);
+					username = this.jwtUtil.extractUsername(jwtToken);
+				} catch (ExpiredJwtException e) {
+					System.out.println("Jwt Token has expired");
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.println("Error");
+				}
+			} 
+//				else {
+//				// no
+//
+//				System.out.println("Invalid token, not start with bearer string");
+//			}
 
 		// validated
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -64,7 +66,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 				SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthentication);
 			}
-		}else {
+		} else {
 			// token is invalid
 			System.out.println("Token Is Invalid");
 		}
