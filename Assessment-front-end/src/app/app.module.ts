@@ -35,6 +35,8 @@ import { ViewAssessmentsComponent } from './pages/admin/view-assessments/view-as
 import { AddAssessmentComponent } from './pages/admin/add-assessment/add-assessment.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
+import { AddAdminComponent } from './pages/admin/add-admin/add-admin.component';
+import { AddUserComponent } from './pages/admin/add-user/add-user.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import { MatSelectModule } from '@angular/material/select';
     AddCategoryComponent,
     ViewAssessmentsComponent,
     AddAssessmentComponent,
+    AddAdminComponent,
+    AddUserComponent,
   ],
   imports: [
     BrowserModule,
