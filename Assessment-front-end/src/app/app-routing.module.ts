@@ -14,6 +14,8 @@ import { ViewCategoriesComponent } from './pages/admin/view-categories/view-cate
 import { AddCategoryComponent } from './pages/admin/add-category/add-category.component';
 import { ViewAssessmentsComponent } from './pages/admin/view-assessments/view-assessments.component';
 import { AddAssessmentComponent } from './pages/admin/add-assessment/add-assessment.component';
+import { AddAdminComponent } from './pages/admin/add-admin/add-admin.component';
+import { AddUserComponent } from './pages/admin/add-user/add-user.component';
 
 const routes: Routes = [
   {
@@ -59,6 +61,14 @@ const routes: Routes = [
       {
         path: 'add-assessment',
         component: AddAssessmentComponent,
+      },
+      {
+        path: 'add-user',
+        component: AddUserComponent,
+      },
+      {
+        path: 'add-admin',
+        component: AddAdminComponent,
       },
     ],
   },

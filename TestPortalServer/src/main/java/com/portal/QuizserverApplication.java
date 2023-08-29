@@ -23,7 +23,10 @@ public class QuizserverApplication  {
 //	private BCryptPasswordEncoder encoder;
 
 	public static void main(String[] args) {
+		
 		SpringApplication.run(QuizserverApplication.class, args);
+	
+	
 	}
 
 //	@Override
