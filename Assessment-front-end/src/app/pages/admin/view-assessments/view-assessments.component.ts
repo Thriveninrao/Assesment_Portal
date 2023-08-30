@@ -21,6 +21,30 @@ export class ViewAssessmentsComponent implements OnInit {
     );
   }
   constructor(private assessmentService: AssessmentService) {}
+  deleteAssessment(assessmentId: any) {
+    Swal.fire({
+      icon: 'info',
+      title: 'Are you sure to delete this Assessment ?',
+      confirmButtonText: 'Delete',
+      showCancelButton: true,
+    }).then((result) => {
+      //delete
+      // alert(result.value === true)
+      if (result.value) {
+        this.assessmentService.deleteAssessment(assessmentId).subscribe(
+          (data) => {
+            this.assessments = this.assessments.filter(
+              (test) => test.assessmentId != assessmentId
+            );
+            Swal.fire('Success', 'Assessment Deleted', 'success');
+          },
+          (error) => {
+            Swal.fire('Error', 'Error in deleting', 'error');
+          }
+        );
+      }
+    });
+  }
 
   assessments = [
     {

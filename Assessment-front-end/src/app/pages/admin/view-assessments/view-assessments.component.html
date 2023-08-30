@@ -19,8 +19,14 @@
     <button mat-stroked-button class="ml20" color="primary">
       Questions {{ a.numberOfQuestions }}
     </button>
-    <button mat-flat-button class="ml20" color="primary">Update</button>
     <button mat-flat-button class="ml20" color="primary">Attempts</button>
+    <button (click)="deleteAssessment(a.assessmentId)" 
+      mat-raised-button
+      class="ml20"
+      color="warn"
+    >
+      Delete
+    </button>
   </mat-card-actions>
 </mat-card>
 <div class="container text-center mt20">
