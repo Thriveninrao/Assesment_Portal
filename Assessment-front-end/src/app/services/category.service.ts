@@ -17,4 +17,10 @@ export class CategoryService {
   public addCategory(category: any) {
     return this._http.post(`${baseUrl}/category/`, category);
   }
+
+  // delete Category
+  public deleteCategory(categoryId: any) {
+    console.log(categoryId)
+    return this._http.delete(`${baseUrl}/category/${categoryId}`);
+  }
 }

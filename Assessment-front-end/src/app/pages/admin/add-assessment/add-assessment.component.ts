@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { AssessmentService } from 'src/app/services/assessment.service';
 import { CategoryService } from 'src/app/services/category.service';
 import Swal from 'sweetalert2';
@@ -28,7 +29,8 @@ export class AddAssessmentComponent implements OnInit {
   constructor(
     private _category: CategoryService,
     private _snack: MatSnackBar,
-    private _assessmentService: AssessmentService
+    private _assessmentService: AssessmentService,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -73,11 +75,14 @@ export class AddAssessmentComponent implements OnInit {
           active: true,
           category: { categoryId: '' },
         };
+       
       },
       (error) => {
         console.log(error);
         Swal.fire('Error !', 'error while adding assessment', 'error');
       }
+      
     );
+    
   }
 }
