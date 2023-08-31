@@ -105,6 +105,9 @@ public class UserServiceImpl implements UserServiceInterface {
 		return userName;
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public String generatePassword() {
 

@@ -38,29 +38,30 @@ public class UserController {
 
 		Role role = new Role();
 		role.setRoleId(45L);
-		role.setRoleName("USER");
+		role.setRoleName("NORMAL");
 
 		UserRole userRole = new UserRole();
 		userRole.setRole(role);
 		userRole.setUser(user);
 
 		User createdUser = null;
-		
-		if (!(userService.userExists(user))) {
 
+		if (!(userService.userExists(user))) {
 			roles.add(userRole);
 			user.setUsername(userService.generateUserName(user));
-
-			user.setPassword(this.bCryptPasswordEncoder.encode(userService.generatePassword()));
+			String generatedPassword = userService.generatePassword();
+			System.out.println(" User Password :: " + generatedPassword);
+			user.setPassword(this.bCryptPasswordEncoder.encode(generatedPassword));
 
 			user.setProfile("User.jpg");
 
 			// encoding password with BCryptPasswordEncoder
 
-			createdUser= userService.createUser(user, roles);
-		} 
-			return createdUser;
-		
+			createdUser = userService.createUser(user, roles);
+
+		}
+		return createdUser;
+
 	}
 
 	@GetMapping("/{username}")

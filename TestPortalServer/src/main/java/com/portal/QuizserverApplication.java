@@ -1,18 +1,7 @@
 package com.portal;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import com.portal.model.Role;
-import com.portal.model.User;
-import com.portal.model.UserRole;
-import com.portal.service.UserServiceInterface;
 
 @SpringBootApplication
 public class QuizserverApplication  {
@@ -25,7 +14,6 @@ public class QuizserverApplication  {
 	public static void main(String[] args) {
 		
 		SpringApplication.run(QuizserverApplication.class, args);
-	
 	
 	}
 

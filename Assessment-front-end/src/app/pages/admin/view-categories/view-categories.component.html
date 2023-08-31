@@ -1,5 +1,5 @@
 <mat-card class="mt20">
-  <h1>All Categories</h1>
+  <h1 class="mt20 ml20">All Categories</h1>
   <mat-card class="mt30 mr20 ml20" *ngFor="let c of categories">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
@@ -10,7 +10,7 @@
         {{ c.categoryDescription }}
       </mat-card-subtitle>
     </mat-card-header>
-    <mat-card-actions>
+    <mat-card-actions class="mt10 mb10">
       <button
         (click)="deleteCategory(c.categoryId)"
         mat-raised-button
@@ -21,7 +21,7 @@
       </button>
     </mat-card-actions>
   </mat-card>
-  <div class="container text-center mt20">
+  <div class="container text-center mt20 mb20">
     <button routerLink="/admin/add-category/" mat-raised-button color="accent">
       Add New Category
     </button>
