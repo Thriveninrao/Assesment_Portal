@@ -70,7 +70,7 @@ export class ViewCategoriesComponent implements OnInit {
   }
   deleteCategory(categoryId: any) {
     this.assessments = this.assessments.filter(
-      (test) => test.category.categoryId == categoryId
+      (test) => test.category.categoryId === categoryId
     );
     if (this.assessments.length == 0) {
       Swal.fire({
@@ -87,7 +87,7 @@ export class ViewCategoriesComponent implements OnInit {
               this.categories = this.categories.filter(
                 (test: any) => test.categoryId != categoryId
               );
-              Swal.fire('Success', 'Assessment Deleted', 'success');
+              Swal.fire('Success', 'Category Deleted', 'success');
             },
             (error) => {
               Swal.fire('Error', 'Error in deleting', 'error');
@@ -101,6 +101,7 @@ export class ViewCategoriesComponent implements OnInit {
         'Unable to delete the Category. There are some Assessment linked to it.',
         'error'
       );
+      this.ngOnInit();
     }
   }
 }
