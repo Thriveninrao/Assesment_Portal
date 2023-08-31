@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 130%;
+  width: 100%;
+  background-color:aliceblue;
+  background-image: url("../../../assets/images/Softtek1.jpg");
+  background-size: contain;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  
+}
+
+
+h1 {
+  font-size: 48px;
+  color: black;
+  font-style: initial;
+  position: absolute;
+  top: 70%; /* Start from the top */
+  left: 10%; /* Start from the right side */
+  animation: fadeInMove 4s  ease-in-out,
+           bounce-once-fade-in 2s  ease-in-out;
+}
+
+@keyframes fadeInMove {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(100px);
+  }
+}
+
+
+
+
