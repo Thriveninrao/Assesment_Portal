@@ -57,7 +57,7 @@ public class AdminController {
 			user.setPassword(this.bCryptPasswordEncoder.encode(generatePassword));
 			System.out.println("password :: " + generatePassword);
 
-			user.setProfile("User.jpg");
+			user.setProfile("Admin.jpg");
 
 			// encoding password with BCryptPasswordEncoder
 
