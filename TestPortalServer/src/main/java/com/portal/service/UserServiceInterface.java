@@ -1,5 +1,6 @@
 package com.portal.service;
 
+import java.util.List;
 import java.util.Set;
 
 import com.portal.model.User;
@@ -13,6 +14,17 @@ public interface UserServiceInterface {
 	// Get User
 	public User getUser(String username);
 
+	// Get all Users
+	public List<User> getAllUsers();
+
 	// Delete User
 	public String deleteUser(Long userId);
+
+	public Boolean userExists(User user);
+
+	public String generateUserName(User user);
+
+	public String generatePassword();
+
+	public void createADefaultAdmin() throws Exception;
 }

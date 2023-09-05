@@ -15,3 +15,4 @@ export class SidebarComponent implements OnInit {
     window.location.reload();
   }
 }
+
