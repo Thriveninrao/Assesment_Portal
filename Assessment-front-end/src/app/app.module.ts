@@ -36,7 +36,11 @@ import { AddAssessmentComponent } from './pages/admin/add-assessment/add-assessm
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { AddAdminComponent } from './pages/admin/add-admin/add-admin.component';
-import { AddUserComponent } from './pages/admin/add-user/add-user.component';
+//import { AddUserComponent } from './pages/admin/add-user/add -user.component';
+import {FileServicesService} from './services/file-services.service';
+import {AddUserComponent } from './pages/admin/add-user/add-user.component';
+
+
 
 @NgModule({
   declarations: [
@@ -78,7 +82,7 @@ import { AddUserComponent } from './pages/admin/add-user/add-user.component';
     MatSlideToggleModule,
     MatSelectModule,
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders,FileServicesService,],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

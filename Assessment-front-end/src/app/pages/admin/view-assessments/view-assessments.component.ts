@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AssessmentService } from 'src/app/services/assessment.service';
 import Swal from 'sweetalert2';
+import { FileServicesService } from 'src/app/services/file-services.service';
 
 @Component({
   selector: 'app-view-assessments',
@@ -20,7 +21,7 @@ export class ViewAssessmentsComponent implements OnInit {
       }
     );
   }
-  constructor(private assessmentService: AssessmentService) {}
+  constructor(private assessmentService: AssessmentService,private fileService: FileServicesService) {}
   deleteAssessment(assessmentId: any) {
     Swal.fire({
       icon: 'info',
@@ -45,6 +46,21 @@ export class ViewAssessmentsComponent implements OnInit {
       }
     });
   }
+
+  downloadFile(assessmentId: any) {
+    this.fileService.downloadXLSXFile(assessmentId).subscribe((data) => {
+      const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'QuizQuestions.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    });
+  }
+
+  
 
   assessments = [
     {
