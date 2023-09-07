@@ -16,6 +16,10 @@ import { ViewAssessmentsComponent } from './pages/admin/view-assessments/view-as
 import { AddAssessmentComponent } from './pages/admin/add-assessment/add-assessment.component';
 import { AddAdminComponent } from './pages/admin/add-admin/add-admin.component';
 import { AddUserComponent } from './pages/admin/add-user/add-user.component';
+import { UpdateAssessmentComponent } from './pages/admin/update-assessment/update-assessment.component';
+import { ViewAssessmentQuestionsComponent } from './pages/admin/view-assessment-questions/view-assessment-questions.component';
+import { AddQuestionComponent } from './pages/admin/add-question/add-question.component';
+import { UpdateSingleQuestionComponent } from './pages/admin/update-single-question/update-single-question.component';
 
 const routes: Routes = [
   {
@@ -69,6 +73,22 @@ const routes: Routes = [
       {
         path: 'add-admin',
         component: AddAdminComponent,
+      },
+      {
+        path: 'update-assessment/:assessmentId',
+        component: UpdateAssessmentComponent,
+      },
+      {
+        path: 'view-assessment-questions/:assessmentId/:assessmentTitle',
+        component: ViewAssessmentQuestionsComponent,
+      },
+      {
+        path: 'add-question/:assessmentId/:assessmentTitle',
+        component: AddQuestionComponent,
+      },
+      {
+        path: 'update-single-question/:assessmentId/:assessmentTitle/:questionId',
+        component: UpdateSingleQuestionComponent,
       },
     ],
   },

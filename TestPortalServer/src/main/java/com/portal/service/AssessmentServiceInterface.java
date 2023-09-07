@@ -1,5 +1,6 @@
 package com.portal.service;
 
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Set;
@@ -19,4 +20,5 @@ public interface AssessmentServiceInterface {
 	public void deleteAssessment(Long assessmentId);
 	
 	public ByteArrayInputStream getAllQuestions(long AssesmentId) throws IOException;
+	public Assessment updateAssessmentQuestions(Long assessmentId);
 }

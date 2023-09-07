@@ -61,12 +61,12 @@ public class AssessmentController {
 	public void deleteAssessment(@PathVariable("assessmentId") Long assessmentId) {
 		this.assessmentService.deleteAssessment(assessmentId);
 	}
-	
+
 	@GetMapping(value = "/ExportAllQuestions/{assesmentId}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public ResponseEntity<?> downloadExcel(@PathVariable String assesmentId ) {
+	public ResponseEntity<?> downloadExcel(@PathVariable String assesmentId) {
 		try {
 			System.out.println(assesmentId);
-			long assesmentId1 =Long.parseLong(assesmentId);
+			long assesmentId1 = Long.parseLong(assesmentId);
 			ByteArrayInputStream exportPensionDataToExcel = assessmentService.getAllQuestions(assesmentId1);
 
 			Resource resource = new InputStreamResource(exportPensionDataToExcel);
@@ -79,5 +79,10 @@ public class AssessmentController {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
 
 		}
+	}
+
+	@GetMapping("/question/{assessmentId}")
+	public ResponseEntity<Assessment> updateAssessmentQuestionsList(@PathVariable("assessmentId") Long assessmentId) {
+		return ResponseEntity.ok(this.assessmentService.updateAssessmentQuestions(assessmentId));
 	}
 }
