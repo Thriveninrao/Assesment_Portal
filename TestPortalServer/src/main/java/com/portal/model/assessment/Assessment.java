@@ -38,9 +38,9 @@ public class Assessment {
 	@Column(length = 5000)
 	private String assessmentDescription;
 
-	private String maxMarks;
+	private Integer maxMarks;
 
-	private String numberOfQuestions;
+	private Integer numberOfQuestions;
 
 	private boolean active = false;
 

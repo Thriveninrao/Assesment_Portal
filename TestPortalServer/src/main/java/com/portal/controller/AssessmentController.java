@@ -1,5 +1,7 @@
 package com.portal.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.portal.model.assessment.Assessment;
+import com.portal.model.assessment.Question;
 import com.portal.service.AssessmentServiceInterface;
 
 @RestController
@@ -54,5 +58,10 @@ public class AssessmentController {
 	@DeleteMapping("/{assessmentId}")
 	public void deleteAssessment(@PathVariable("assessmentId") Long assessmentId) {
 		this.assessmentService.deleteAssessment(assessmentId);
+	}
+
+	@GetMapping("/question/{assessmentId}")
+	public ResponseEntity<Assessment> updateAssessmentQuestionsList(@PathVariable("assessmentId") Long assessmentId) {
+		return ResponseEntity.ok(this.assessmentService.updateAssessmentQuestions(assessmentId));
 	}
 }

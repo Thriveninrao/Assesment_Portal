@@ -53,6 +53,14 @@ public class QuestionController {
 		return ResponseEntity.ok(questionsOfAssessment);
 	}
 	
+	@GetMapping("/assessment/all/{assessmentId}")
+	public ResponseEntity<?> getQuestionsOfAssessmentAdmin(@PathVariable("assessmentId") Long assessmentId) {
+		Assessment assessment = new Assessment();
+		assessment.setAssessmentId(assessmentId);
+		Set<Question> questionsOfAssessment = this.questionService.getQuestionsOfAssessment(assessment);
+		return ResponseEntity.ok(questionsOfAssessment);
+	}
+	
 	@DeleteMapping("/{questionId}")
 	public void deleteQuestion(@PathVariable("questionId") Long questionId ) {
 		this.questionService.deleteQuestion(questionId);

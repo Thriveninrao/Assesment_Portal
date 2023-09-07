@@ -37,6 +37,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { AddAdminComponent } from './pages/admin/add-admin/add-admin.component';
 import { AddUserComponent } from './pages/admin/add-user/add-user.component';
+import { UpdateAssessmentComponent } from './pages/admin/update-assessment/update-assessment.component';
+import { ViewAssessmentQuestionsComponent } from './pages/admin/view-assessment-questions/view-assessment-questions.component';
+import { AddQuestionComponent } from './pages/admin/add-question/add-question.component';
+import { UpdateSingleQuestionComponent } from './pages/admin/update-single-question/update-single-question.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +61,10 @@ import { AddUserComponent } from './pages/admin/add-user/add-user.component';
     AddAssessmentComponent,
     AddAdminComponent,
     AddUserComponent,
+    UpdateAssessmentComponent,
+    ViewAssessmentQuestionsComponent,
+    AddQuestionComponent,
+    UpdateSingleQuestionComponent,
   ],
   imports: [
     BrowserModule,
