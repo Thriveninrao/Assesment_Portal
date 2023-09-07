@@ -1,5 +1,6 @@
 package com.portal.model.assessment;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,16 +25,24 @@ public class Question {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long questionId;
 
+	@Column(length = 5000)
 	private String content;
 
+	@Column(length = 5000)
 	private String image;
 
+	@Column(length = 1000)
 	private String option1;
+	@Column(length = 1000)
 	private String option2;
+	@Column(length = 1000)
 	private String option3;
+	@Column(length = 1000)
 	private String option4;
-
+	@Column(length = 1000)
 	private String answer;
+	
+	private Integer marks;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Assessment assessment;

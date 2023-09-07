@@ -1,0 +1,150 @@
+<div class="bootstrap-wrapper">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="heading mt20 ml20">
+        Adding Question to {{ assessmentTitle }}
+      </h1>
+      <mat-card>
+        <mat-card-content class="text-center">
+          <form class="mt30" (submit)="formSubmit()">
+            <!-- Content field -->
+            <mat-form-field class="w100">
+              <mat-label><b>Write your Question</b></mat-label>
+              <textarea
+                rows="5"
+                name="content"
+                [(ngModel)]="question.content"
+                matInput
+                placeholder="Enter your Question Content"
+              ></textarea>
+            </mat-form-field>
+            <!-- options field -->
+            <div class="row">
+              <div class="col-md-6">
+                <!-- option1 -->
+                <mat-form-field class="w100">
+                  <mat-label>Enter Option 1</mat-label>
+                  <textarea
+                    rows="1"
+                    name="option1"
+                    [(ngModel)]="question.option1"
+                    matInput
+                    placeholder="Enter the first option"
+                  ></textarea>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <!-- option2 -->
+                <mat-form-field class="w100">
+                  <mat-label>Enter Option 2</mat-label>
+                  <textarea
+                    rows="1"
+                    name="option2"
+                    [(ngModel)]="question.option2"
+                    matInput
+                    placeholder="Enter the second option"
+                  ></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <!-- option3 -->
+                <mat-form-field class="w100">
+                  <mat-label>Enter Option 3</mat-label>
+                  <textarea
+                    rows="1"
+                    name="option3"
+                    [(ngModel)]="question.option3"
+                    matInput
+                    placeholder="Enter the third option"
+                  ></textarea>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <!-- option4 -->
+                <mat-form-field class="w100">
+                  <mat-label>Enter Option 4</mat-label>
+                  <textarea
+                    rows="1"
+                    name="option4"
+                    [(ngModel)]="question.option4"
+                    matInput
+                    placeholder="Enter the fourth option"
+                  ></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- answer -->
+            <mat-form-field class="w100">
+              <mat-label>Select Answer</mat-label>
+              <mat-select
+                name="answer"
+                [(ngModel)]="question.answer"
+                placeholder="Select Correct Option"
+              >
+                <mat-option
+                  *ngIf="question.option1"
+                  [value]="question.option1"
+                  >{{ question.option1 }}</mat-option
+                >
+                <mat-option
+                  *ngIf="question.option2"
+                  [value]="question.option2"
+                  >{{ question.option2 }}</mat-option
+                >
+                <mat-option
+                  *ngIf="question.option3"
+                  [value]="question.option3"
+                  >{{ question.option3 }}</mat-option
+                >
+                <mat-option
+                  *ngIf="question.option4"
+                  [value]="question.option4"
+                  >{{ question.option4 }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Marks</mat-label>
+              <input
+                matInput
+                placeholder="Enter Question Marks"
+                [(ngModel)]="question.marks"
+                [defaultValue]="1"
+                name="marks"
+              />
+            </mat-form-field>
+            <div class="container">
+              <button mat-raised-button style="background-color: aqua">
+                Add Question
+              </button>
+              <button
+                type="reset"
+                class="ml30"
+                mat-raised-button
+                style="background-color: rgb(78, 21, 122); color: aliceblue"
+              >
+                Reset
+              </button>
+              <button
+                [routerLink]="
+                  '/admin/view-assessment-questions/' +
+                  assessmentId +
+                  '/' +
+                  assessmentTitle
+                "
+                class="ml30"
+                mat-raised-button
+                style="background-color: rgb(205, 210, 35); color: rgb(0, 0, 0)"
+              >
+                View Questions
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<!-- {{ question | json }} -->

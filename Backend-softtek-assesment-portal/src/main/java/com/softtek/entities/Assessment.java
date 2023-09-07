@@ -18,11 +18,12 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
+import lombok.Getter;
 
 @Entity
 @Data
 @Table(name="assessment")
-
+@Getter
 public class Assessment {
 
 	@Id
