@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AssessmentService } from 'src/app/services/assessment.service';
 import Swal from 'sweetalert2';
 import { FileServicesService } from 'src/app/services/file-services.service';
@@ -9,6 +9,8 @@ import { FileServicesService } from 'src/app/services/file-services.service';
   styleUrls: ['./view-assessments.component.css'],
 })
 export class ViewAssessmentsComponent implements OnInit {
+  selectedFile: File | null = null;
+  @ViewChild('xlsxInput') xlsxInput: ElementRef | undefined;
   ngOnInit(): void {
     this.assessmentService.assessments().subscribe(
       (data: any) => {
@@ -21,7 +23,10 @@ export class ViewAssessmentsComponent implements OnInit {
       }
     );
   }
-  constructor(private assessmentService: AssessmentService,private fileService: FileServicesService) {}
+  constructor(
+    private assessmentService: AssessmentService,
+    private fileService: FileServicesService
+  ) {}
   deleteAssessment(assessmentId: any) {
     Swal.fire({
       icon: 'info',
@@ -49,7 +54,9 @@ export class ViewAssessmentsComponent implements OnInit {
 
   downloadFile(assessmentId: any) {
     this.fileService.downloadXLSXFile(assessmentId).subscribe((data) => {
-      const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const blob = new Blob([data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -59,8 +66,9 @@ export class ViewAssessmentsComponent implements OnInit {
       window.URL.revokeObjectURL(url);
     });
   }
-
-  
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
 
   assessments = [
     {
@@ -88,4 +96,19 @@ export class ViewAssessmentsComponent implements OnInit {
       },
     },
   ];
+
+  onSubmit(assessmentId: any) {
+    if (this.selectedFile) {
+      this.fileService.postXLSXFile(assessmentId, this.selectedFile).subscribe(
+        (response) => {
+          console.log('File uploaded successfully!', response);
+        },
+        (error) => {
+          console.error('File upload failed:', error);
+        }
+      );
+    } else {
+      console.error('No file selected.');
+    }
+  }
 }

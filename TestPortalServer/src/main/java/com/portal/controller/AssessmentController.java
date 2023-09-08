@@ -17,10 +17,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.portal.model.assessment.Assessment;
 import com.portal.service.AssessmentServiceInterface;
+
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/assessment")
@@ -78,6 +82,21 @@ public class AssessmentController {
 			e.printStackTrace();
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
 
+		}
+	}
+	
+	
+	@PostMapping("/InsertAllQuestionInAssesment/{AssesmentId}")
+	public ResponseEntity<?> uploadBulkFileUpdate(@PathVariable("AssesmentId")Long AssesmentId ,@RequestParam("file") MultipartFile file) {
+		try {
+			System.out.println("AssessmentController.uploadBulkFileUpdate()");
+			System.out.println(AssesmentId);
+			System.out.println(file);
+			String bulkEmployeesFromCsvCount = assessmentService.InsertAllQuestions(AssesmentId, file);
+			return ResponseEntity.ok().body(bulkEmployeesFromCsvCount);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file!!!");
 		}
 	}
 }

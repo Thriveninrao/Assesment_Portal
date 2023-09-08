@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Set;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.portal.model.assessment.Assessment;
 
 public interface AssessmentServiceInterface {
@@ -19,4 +21,7 @@ public interface AssessmentServiceInterface {
 	public void deleteAssessment(Long assessmentId);
 	
 	public ByteArrayInputStream getAllQuestions(long AssesmentId) throws IOException;
+	
+	public String InsertAllQuestions(long AssesmentId,MultipartFile excelFile) throws IOException;
+	
 }
