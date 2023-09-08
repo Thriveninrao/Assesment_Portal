@@ -36,7 +36,19 @@ import { AddAssessmentComponent } from './pages/admin/add-assessment/add-assessm
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { AddAdminComponent } from './pages/admin/add-admin/add-admin.component';
+
+import {FileServicesService} from './services/file-services.service';
 import { AddUserComponent } from './pages/admin/add-user/add-user.component';
+import { UpdateAssessmentComponent } from './pages/admin/update-assessment/update-assessment.component';
+import { ViewAssessmentQuestionsComponent } from './pages/admin/view-assessment-questions/view-assessment-questions.component';
+import { AddQuestionComponent } from './pages/admin/add-question/add-question.component';
+import { UpdateSingleQuestionComponent } from './pages/admin/update-single-question/update-single-question.component';
+import { AccessRequestComponent } from './pages/admin/access-request/access-request.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { AssignTestComponent } from './pages/admin/assign-test/assign-test.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -57,6 +69,12 @@ import { AddUserComponent } from './pages/admin/add-user/add-user.component';
     AddAssessmentComponent,
     AddAdminComponent,
     AddUserComponent,
+    UpdateAssessmentComponent,
+    ViewAssessmentQuestionsComponent,
+    AddQuestionComponent,
+    UpdateSingleQuestionComponent,
+    AccessRequestComponent,
+    AssignTestComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,8 +95,12 @@ import { AddUserComponent } from './pages/admin/add-user/add-user.component';
     MatGridListModule,
     MatSlideToggleModule,
     MatSelectModule,
+    MatPaginatorModule,
+    MatCheckboxModule,
+    MatTabsModule,
+    MatTooltipModule,
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders,FileServicesService,],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

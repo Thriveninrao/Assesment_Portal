@@ -1,30 +1,89 @@
-<mat-card class="mt30 mr20 ml20" *ngFor="let a of assessments">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>
-      {{ a.assessmentTitle }}
-    </mat-card-title>
-    <mat-card-subtitle>
-      {{ a.category.categoryTitle }}
-    </mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <p>{{ a.assessmentDescription }}</p>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button class="ml20" color="primary">Questions</button>
-    <button mat-stroked-button class="ml20" color="primary">
-      Max Marks {{ a.maxMarks }}
+<mat-card class="mt20 mr20 ml20">
+  <h1
+    class="text-center mt10"
+    style="
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: rgb(37, 66, 50);
+      font-size: 40px;
+      font-weight: 700;">
+    Assessments List
+  </h1>
+  <div class="container text-left mt20">
+    <button routerLink="/admin/add-assessment" mat-raised-button color="accent">
+      Add New Assessment
     </button>
-    <button mat-stroked-button class="ml20" color="primary">
-      Questions {{ a.numberOfQuestions }}
-    </button>
-    <button mat-flat-button class="ml20" color="primary">Update</button>
-    <button mat-flat-button class="ml20" color="primary">Attempts</button>
-  </mat-card-actions>
+  </div>
+  <div class="container mt20 ml10">
+    <div *ngIf="assessments.length === 0" class="text-center">
+      <p>No assessments found</p>
+    </div>
+  </div>
+  <mat-card class="mt30 mr20 ml20 mb20" *ngFor="let a of pagedAssessments">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image" style="
+          background-image: url('../../../../assets/assessments/assessment.png');
+        "></div>
+
+      <mat-card-title>
+        {{ a.assessmentTitle }}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{ a.category.categoryTitle }}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ a.assessmentDescription }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        [routerLink]="
+          '/admin/view-assessment-questions/' +
+          a.assessmentId +
+          '/' +
+          a.assessmentTitle
+        "
+        class="ml20"
+        color="primary"
+      >
+        Questions
+      </button>
+      <button mat-stroked-button class="ml20" color="primary">
+        Max Marks {{ a.maxMarks }}
+      </button>
+      <button mat-stroked-button class="ml20" color="primary">
+        Questions {{ a.numberOfQuestions }}
+      </button>
+      <button mat-flat-button class="ml20" color="primary">Attempts</button>
+
+      <button
+        [routerLink]="'/admin/update-assessment/' + a.assessmentId"
+        mat-raised-button
+        class="ml20"
+        color="accent"
+      >
+        Update
+      </button>
+      <button
+        (click)="deleteAssessment(a.assessmentId)"
+        mat-raised-button
+        class="ml20"
+        color="warn"
+      >
+        Delete
+      </button>
+      <button (click)="downloadFile(a.assessmentId)" mat-raised-button class="ml20" color="primary">
+        Export Assessment
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </mat-card>
-<div class="container text-center mt20">
-  <button routerLink="/admin/add-assessment" mat-raised-button color="accent">
-    Add New Assessment
-  </button>
-</div>
+
+<mat-paginator
+  [pageSizeOptions]="[3, 6, 10]"
+  [pageSize]="pageSize"
+  [pageIndex]="pageIndex"
+  [length]="assessments.length"
+  (page)="onPageChange($event)"
+  showFirstLastButtons
+></mat-paginator>

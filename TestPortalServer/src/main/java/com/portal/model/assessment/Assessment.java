@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.portal.model.UserAssessmentAssignment;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,11 +36,12 @@ public class Assessment {
 
 	private String assessmentTitle;
 
+	@Column(length = 5000)
 	private String assessmentDescription;
 
-	private String maxMarks;
+	private Integer maxMarks;
 
-	private String numberOfQuestions;
+	private Integer numberOfQuestions;
 
 	private boolean active = false;
 
@@ -50,6 +53,10 @@ public class Assessment {
 	@OneToMany(mappedBy = "assessment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Question> questions = new HashSet<>();
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "assessment")
+	@JsonIgnore
+	private Set<UserAssessmentAssignment> userAssessmentAssignment = new HashSet<>();
 
 	// add more Attributes
 }

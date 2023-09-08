@@ -31,7 +31,7 @@ export class AddAdminComponent implements OnInit{
         //Success
         Swal.fire(
           'Successfully Done',
-          this.user.firstName + ' is Registered as User',
+          this.user.firstName + ' is Registered as Admin',
           'success'
         );
       },

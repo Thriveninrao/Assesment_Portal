@@ -14,8 +14,14 @@ import { ViewCategoriesComponent } from './pages/admin/view-categories/view-cate
 import { AddCategoryComponent } from './pages/admin/add-category/add-category.component';
 import { ViewAssessmentsComponent } from './pages/admin/view-assessments/view-assessments.component';
 import { AddAssessmentComponent } from './pages/admin/add-assessment/add-assessment.component';
+import { AssignTestComponent } from './pages/admin/assign-test/assign-test.component';
 import { AddAdminComponent } from './pages/admin/add-admin/add-admin.component';
 import { AddUserComponent } from './pages/admin/add-user/add-user.component';
+import { UpdateAssessmentComponent } from './pages/admin/update-assessment/update-assessment.component';
+import { ViewAssessmentQuestionsComponent } from './pages/admin/view-assessment-questions/view-assessment-questions.component';
+import { AddQuestionComponent } from './pages/admin/add-question/add-question.component';
+import { UpdateSingleQuestionComponent } from './pages/admin/update-single-question/update-single-question.component';
+import { AccessRequestComponent } from './pages/admin/access-request/access-request.component';
 
 const routes: Routes = [
   {
@@ -63,6 +69,10 @@ const routes: Routes = [
         component: AddAssessmentComponent,
       },
       {
+        path: 'assign-test',
+        component: AssignTestComponent,
+      },
+      {
         path: 'add-user',
         component: AddUserComponent,
       },
@@ -70,6 +80,26 @@ const routes: Routes = [
         path: 'add-admin',
         component: AddAdminComponent,
       },
+      {
+        path: 'update-assessment/:assessmentId',
+        component: UpdateAssessmentComponent,
+      },
+      {
+        path: 'view-assessment-questions/:assessmentId/:assessmentTitle',
+        component: ViewAssessmentQuestionsComponent,
+      },
+      {
+        path: 'add-question/:assessmentId/:assessmentTitle',
+        component: AddQuestionComponent,
+      },
+      {
+        path: 'update-single-question/:assessmentId/:assessmentTitle/:questionId',
+        component: UpdateSingleQuestionComponent,
+      },
+      {
+        path: 'access-request',
+        component: AccessRequestComponent,
+      }
     ],
   },
   {
@@ -84,4 +114,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -1,42 +1,30 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import baseUrl from './helper';
-import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class QuestionServiceService {
-
+export class QuestionService {
   constructor(private _http: HttpClient) {}
 
-  //add questions for assessments
-  public addQuestions(question:any) {
-    return this._http.get(`${baseUrl}/question/addQuestion`,question);
+  public getAssessmentQuestions(assessmentId: any) {
+    return this._http.get(`${baseUrl}/question/assessment/all/${assessmentId}`);
   }
 
-  //fetch Question based on Question Id
-  public fetchQuestionsById(id: number):Observable<any> {
-    return this._http.get(`${baseUrl}/question/fetchQuestionById/${id}`);
+  public getSingleQuestion(questionId: any) {
+    return this._http.get(`${baseUrl}/question/${questionId}`);
   }
 
-  //fetchAll Quetions
-  public fetchAllQuestions() {
-    return this._http.get(`${baseUrl}/question/fetchAllQuestions`);
+  public addQuestion(question: any) {
+    return this._http.post(`${baseUrl}/question/`, question);
   }
 
-  //Update Question
-  public updateQuestion(question:any) {
-    return this._http.get(`${baseUrl}/question/updateQuestion`,question);
+  public deleteQuestion(questionId: any) {
+    return this._http.delete(`${baseUrl}/question/${questionId}`);
   }
 
-  //fetch Questions by AssessmentId
-  public fetchQuestionsByAssessmentId(id: number):Observable<any> {
-    return this._http.get(`${baseUrl}/question/fetchAssessmentQuestions/${id}`);
-  }
-
-  //Delete Questions by Question ID
-  public deleteQuestionById(id: number):Observable<any> {
-    return this._http.get(`${baseUrl}/question/deleteQuestion/${id}`);
+  public updateQuestion(question: any) {
+    return this._http.put(`${baseUrl}/question/`, question);
   }
 }

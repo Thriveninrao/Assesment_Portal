@@ -1,30 +1,32 @@
-<mat-toolbar color="primary">
+<mat-toolbar style="color: rgb(0, 0, 0); background-image: linear-gradient(315deg, #d5fefd 0%, #fffcff 74%);">
   <a
     [routerLink]="'/'"
     mat-button
     class="example-icon"
-    aria-label="Example icon-button with menu icon"
+    aria-label="Example icon-button with menu icon font-size-larger"
+    style="height: 60px;"
   >
-    <mat-icon>home</mat-icon>
+  <img src="../../../assets/Softtek-logo.png" style="max-width: 100px;" alt="">
   </a>
-  <span>Assessment Portal</span>
+  
+  <span class="ml30 font-size-x-large" >Softtek Assessment Portal</span>
   <span class="example-spacer"></span>
   <a
     *ngIf="!isLoggedIn"
     [routerLink]="'/login'"
     mat-button
     style="margin-left: 0"
-    class="example-icon favorite-icon mr20 ml20"
+    class="example-icon favorite-icon mr20 ml20 font-size-larger"
     aria-label="Example icon-button with heart icon"
   >
-    <mat-icon>login</mat-icon>Login
+    <img src="../../../assets/login icon.png" class="mt10" style="max-width: 20px;"> Login
   </a>
   
 
   <a
     *ngIf="isLoggedIn && user"
     mat-button
-    class="example-icon favorite-icon mr10 ml40" style="margin-right: 150px;"
+    class="example-icon favorite-icon mr10 ml40 font-size-large" style="margin-right: 150px;"
     aria-label="Example icon-button with heart icon"
     routerLink="/admin/profile"
   >
@@ -35,9 +37,9 @@
     (click)="logout()"
     *ngIf="isLoggedIn"
     mat-button
-    class="example-icon favorite-icon mr10 ml40"
+    class="example-icon favorite-icon mr10 ml40 font-size-large"
     aria-label="Example icon-button with heart icon"
   >
-    <mat-icon>logout</mat-icon>Logout
+   <mat-icon style="max-width: 20px;">logout</mat-icon> Logout
   </a>
 </mat-toolbar>

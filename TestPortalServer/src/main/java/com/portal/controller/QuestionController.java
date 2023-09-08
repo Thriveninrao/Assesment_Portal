@@ -25,27 +25,27 @@ public class QuestionController {
 	@Autowired
 	private QuestionServiceInterface questionService;
 
-	@PostMapping("/addQuestion")
+	@PostMapping("/")
 	public ResponseEntity<?> addQuestion(@RequestBody Question question) {
 		return ResponseEntity.ok(this.questionService.addQuestion(question));
 	}
 
-	@GetMapping("/fetchQuestionById/{questionId}")
+	@GetMapping("/{questionId}")
 	public Question getQuestion(@PathVariable("questionId") Long questionId) {
 		return this.questionService.getQuestion(questionId);
 	}
 
-	@PutMapping("/updateQuestion")
+	@PutMapping("/")
 	public ResponseEntity<Question> updateQuestion(@RequestBody Question question) {
 		return ResponseEntity.ok(this.questionService.updateQuestion(question));
 	}
 
-	@GetMapping("/fetchAllQuestions")
+	@GetMapping("/")
 	public ResponseEntity<?> getQuestions() {
 		return ResponseEntity.ok(this.questionService.getQuestions());
 	}
 
-	@GetMapping("/fetchAssessmentQuestions/{assessmentId}")
+	@GetMapping("/assessment/{assessmentId}")
 	public ResponseEntity<?> getQuestionsOfAssessment(@PathVariable("assessmentId") Long assessmentId) {
 		Assessment assessment = new Assessment();
 		assessment.setAssessmentId(assessmentId);
@@ -53,7 +53,15 @@ public class QuestionController {
 		return ResponseEntity.ok(questionsOfAssessment);
 	}
 	
-	@DeleteMapping("deleteQuestion/{questionId}")
+	@GetMapping("/assessment/all/{assessmentId}")
+	public ResponseEntity<?> getQuestionsOfAssessmentAdmin(@PathVariable("assessmentId") Long assessmentId) {
+		Assessment assessment = new Assessment();
+		assessment.setAssessmentId(assessmentId);
+		Set<Question> questionsOfAssessment = this.questionService.getQuestionsOfAssessment(assessment);
+		return ResponseEntity.ok(questionsOfAssessment);
+	}
+	
+	@DeleteMapping("/{questionId}")
 	public void deleteQuestion(@PathVariable("questionId") Long questionId ) {
 		this.questionService.deleteQuestion(questionId);
 	}
