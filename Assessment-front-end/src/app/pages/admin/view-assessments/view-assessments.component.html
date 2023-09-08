@@ -8,6 +8,11 @@
       font-weight: 700;">
     Assessments List
   </h1>
+  <div class="container text-left mt20">
+    <button routerLink="/admin/add-assessment" mat-raised-button color="accent">
+      Add New Assessment
+    </button>
+  </div>
   <div class="container mt20 ml10">
     <div *ngIf="assessments.length === 0" class="text-center">
       <p>No assessments found</p>
@@ -73,11 +78,6 @@
     </mat-card-actions>
   </mat-card>
 </mat-card>
-<div class="container text-center mt20">
-  <button routerLink="/admin/add-assessment" mat-raised-button color="accent">
-    Add New Assessment
-  </button>
-</div>
 
 <mat-paginator
   [pageSizeOptions]="[3, 6, 10]"

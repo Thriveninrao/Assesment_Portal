@@ -10,6 +10,11 @@
     ">
     Categories
   </h1>
+  <div class="container text-left mt20">
+    <button routerLink="/admin/add-category" mat-raised-button color="accent">
+      Add New Category
+    </button>
+  </div>
   <div class="container  mt20 ml10">
     <div *ngIf="categories.length === 0" class="text-center mt10">
       <p>No categories found</p>
@@ -37,9 +42,3 @@
     </mat-card-actions>
   </mat-card>
 </mat-card>
-
-<div class="container text-center mt20">
-  <button routerLink="/admin/add-category" mat-raised-button color="accent">
-    Add New Category
-  </button>
-</div>
