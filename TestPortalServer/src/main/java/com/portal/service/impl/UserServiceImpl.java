@@ -83,10 +83,11 @@ public class UserServiceImpl implements UserServiceInterface {
 	@Override
 	public Boolean userExists(User user) {
 		List<User> userList = getAllUsers();
+		System.out.println(userList.size());
 		
 		Boolean isExist = false;
 		for (User userInList : userList) {
-			if (userInList.getPhone() == user.getPhone()) {
+			if(user.getEmail().equals(userInList.getEmail()) || user.getPhone().equals(userInList.getPhone())) {
 				isExist = true;
 			}
 		}
@@ -139,7 +140,7 @@ public class UserServiceImpl implements UserServiceInterface {
 		User user = new User();
 		user.setFirstName("admin");
 		user.setLastName("admin");
-		user.setEmail("admin.softtek.com");
+		user.setEmail("admin.admin@softtek.com");
 		user.setPhone("9999999999");
 		Role role = new Role();
 		role.setRoleId(44L);

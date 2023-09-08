@@ -77,6 +77,8 @@ export class AssignTestComponent implements OnInit {
 
   // Function to update filtered users based on search input
   updateFilteredUsers() {
+    console.log(this.userSearch)
+    console.log(this.filteredUsers)
     this.filteredUsers = this.users.filter((user) =>
       user.firstName.toLowerCase().includes(this.userSearch.toLowerCase()) || user.lastName.toLowerCase().includes(this.userSearch.toLowerCase()) || user.username.toLowerCase().includes(this.userSearch.toLowerCase())
     );
