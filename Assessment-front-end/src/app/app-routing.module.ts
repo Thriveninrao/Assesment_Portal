@@ -22,6 +22,8 @@ import { ViewAssessmentQuestionsComponent } from './pages/admin/view-assessment-
 import { AddQuestionComponent } from './pages/admin/add-question/add-question.component';
 import { UpdateSingleQuestionComponent } from './pages/admin/update-single-question/update-single-question.component';
 import { AccessRequestComponent } from './pages/admin/access-request/access-request.component';
+import { UserWelcomeComponent } from './pages/user/user-welcome/user-welcome.component';
+import { ViewUserAssessmentsComponent } from './pages/user/view-user-assessments/view-user-assessments.component';
 
 const routes: Routes = [
   {
@@ -103,11 +105,31 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'user-dashboard',
-    component: UserDashboardComponent,
-    pathMatch: 'full',
+    path:'user',
+    component:UserDashboardComponent,
     canActivate: [NormalGuard],
+    children:[
+      {
+        path:'',
+        component:UserWelcomeComponent,
+      },
+      {
+        path:'profile',
+        component:ProfileComponent,        
+      },
+      {
+        path:'view-user-assessments',
+        component:ViewUserAssessmentsComponent,
+      },
+    ],
+
   },
+  // {
+  //   path: 'user-dashboard',
+  //   component: UserDashboardComponent,
+  //   pathMatch: 'full',
+  //   canActivate: [NormalGuard],
+  // },
 ];
 
 @NgModule({
