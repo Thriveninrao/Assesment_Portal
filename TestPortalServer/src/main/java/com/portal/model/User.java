@@ -1,7 +1,9 @@
 package com.portal.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -76,7 +78,7 @@ public class User implements UserDetails {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
 	@JsonIgnore
-	private Set<UserAssessmentAssignment> userAssessmentAssignment = new HashSet<>();
+	private List<UserAssessmentAssignment> userAssessmentAssignment = new ArrayList<>();
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

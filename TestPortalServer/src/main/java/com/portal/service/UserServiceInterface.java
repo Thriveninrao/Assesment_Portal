@@ -38,5 +38,5 @@ public interface UserServiceInterface {
 
 	public Long getRoleId(String username);
 	
-	public User updateUser(User user);
+	public List<User> updateUser(List<User> userList);
 }

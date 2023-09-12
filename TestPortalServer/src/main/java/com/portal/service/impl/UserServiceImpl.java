@@ -206,7 +206,7 @@ public class UserServiceImpl implements UserServiceInterface {
 	}
 
 	@Override
-	public User updateUser(User user) {
-		return this.userRepo.save(user);
+	public List<User> updateUser(List<User> userList) {
+		return this.userRepo.saveAll(userList);
 	}
 }
