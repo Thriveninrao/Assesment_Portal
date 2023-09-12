@@ -1,42 +1,90 @@
-body {
+/* Reset some default styles */
+body, h1, h2, p, ul, li {
   margin: 0;
+  padding: 0;
+}
+
+/* Global styles */
+body {
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 0;
+}
+
+nav ul {
+  list-style: none;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  height: 130%;
-  width: 100%;
-  background-color:aliceblue;
-  background-image: url("../../../assets/images/Softtek1.jpg");
-  background-size: contain;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  
 }
 
-
-h1 {
-  font-size: 48px;
-  color: black;
-  font-style: initial;
-  position: absolute;
-  top: 70%; /* Start from the top */
-  left: 10%; /* Start from the right side */
-  animation: fadeInMove 4s  ease-in-out,
-           bounce-once-fade-in 2s  ease-in-out;
+nav li {
+  margin: 0 20px;
 }
 
-@keyframes fadeInMove {
-  0% {
-    opacity: 0;
-    transform: translateY(0);
+nav a {
+  text-decoration: none;
+  color: #fff;
+}
+
+main {
+  padding: 20px;
+}
+
+.hero {
+  text-align: center;
+  background-color: #f0f0f0;
+  padding: 50px 0;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.features {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.feature {
+  text-align: center;
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 0 10px;
+}
+
+footer {
+  text-align: center;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 0;
+}
+
+/* Media Queries for responsiveness */
+@media screen and (max-width: 768px) {
+  nav ul {
+      flex-direction: column;
+      text-align: center;
   }
-  100% {
-    opacity: 1;
-    transform: translateY(100px);
+  nav li {
+      margin: 10px 0;
+  }
+  .features {
+      flex-direction: column;
+  }
+  .feature {
+      margin: 10px 0;
   }
 }
-
-
-
-
