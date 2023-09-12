@@ -1,0 +1,10 @@
+mat-action-list {
+  background-image: linear-gradient(-225deg, #fffeff 0%, #d7fffe 100%);
+}
+
+.matHeader{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: x-large;
+  font-style: initial;
+  font-weight: 500;
+}

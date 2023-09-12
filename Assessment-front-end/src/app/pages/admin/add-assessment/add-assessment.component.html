@@ -1,0 +1,120 @@
+<mat-card class="mt20">
+  <div class="container text-center">
+    <img
+      style="max-width: 100px"
+      src="../../../../assets/assessments/assessment (1).png"
+      alt=""
+    />
+  </div>
+  <h1
+    class="mt10 ml20 text-center"
+    style="
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+        sans-serif;
+    "
+  >
+    Add new Assessment
+  </h1>
+  <div class="container mb50">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <form (ngSubmit)="addAssessment()">
+          <!-- title field -->
+          <mat-form-field class="w100" appearance="fill">
+            <mat-label>Enter Title</mat-label>
+            <input
+              type="text"
+              name="assessmentTitle"
+              placeholder="Enter here"
+              matInput
+              [(ngModel)]="assessmentData.assessmentTitle"
+              required
+            />
+          </mat-form-field>
+
+          <!-- description field -->
+          <mat-form-field class="w100" appearance="fill">
+            <mat-label>Enter Description</mat-label>
+            <textarea
+              type="text"
+              name="assessmentDescription"
+              placeholder="Enter here"
+              matInput
+              rows="5"
+              required
+              [(ngModel)]="assessmentData.assessmentDescription"
+            ></textarea>
+          </mat-form-field>
+
+          <div class="row">
+            <div class="col-md-6">
+              <!-- max marks -->
+              <mat-form-field class="w100" appearance="fill">
+                <mat-label>Maximum Marks</mat-label>
+                <input
+                  type="text"
+                  name="maxMarks"
+                  placeholder="Enter here"
+                  required
+                  matInput
+                  [(ngModel)]="assessmentData.maxMarks"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <!-- number of questions to be shown -->
+              <mat-form-field class="w100" appearance="fill">
+                <mat-label>Number of Questions</mat-label>
+                <input
+                  type="text"
+                  name="numberOfQuestions"
+                  placeholder="Enter here"
+                  required
+                  matInput
+                  [(ngModel)]="assessmentData.numberOfQuestions"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+          <!-- active field -->
+          <mat-slide-toggle
+            name="active"
+            [(ngModel)]="assessmentData.active"
+            class="example-margin mt20"
+          >
+            Publish Status!
+          </mat-slide-toggle>
+          <br />
+
+          <!-- category select -->
+          <mat-form-field class="mt20 w100">
+            <mat-label>Category</mat-label>
+            <mat-select
+              name="food"
+              [(ngModel)]="assessmentData.category.categoryId"
+            >
+              <mat-option *ngFor="let c of categories" [value]="c.categoryId">
+                {{ c.categoryTitle }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="container text-center">
+            <button mat-raised-button color="primary">Add Assessment</button>
+            <button class="ml30" type="reset" mat-raised-button color="accent">
+              Reset
+            </button>
+            <button
+              class="ml20"
+              routerLink="/admin/view-assessments/"
+              mat-raised-button
+              color="accent"
+            >
+              View Assessments List
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</mat-card>
+<!-- {{ assessmentData | json }} -->
