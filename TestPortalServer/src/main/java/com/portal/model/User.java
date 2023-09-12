@@ -1,7 +1,9 @@
 package com.portal.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -33,7 +35,7 @@ import lombok.Setter;
 public class User implements UserDetails {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -68,7 +70,11 @@ public class User implements UserDetails {
 	// user many roles
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
 	@JsonIgnore
-	private Set<UserRole> userRoles = new HashSet<>();
+	private UserRole userRole;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+	@JsonIgnore
+	private List<UserAssessmentAssignment> userAssessmentAssignment = new ArrayList<>();
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

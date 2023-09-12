@@ -27,4 +27,16 @@ public interface UserServiceInterface {
 	public String generatePassword();
 
 	public void createADefaultAdmin() throws Exception;
+
+	public Set<User> getUserAccessRequest();
+
+	public Boolean updateRejectUserRequest(String username);
+
+	public Boolean updateApproveUserRequest(String username);
+
+	public Set<User> getUsers();
+
+	public Long getRoleId(String username);
+
+	public List<User> updateUser(List<User> userList);
 }

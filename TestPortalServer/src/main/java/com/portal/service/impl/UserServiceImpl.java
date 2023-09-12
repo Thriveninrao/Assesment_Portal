@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserServiceInterface {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@Override
 	public String generatePassword() {
@@ -161,5 +161,51 @@ public class UserServiceImpl implements UserServiceInterface {
 
 			createUser(user, roles);
 		}
+	}
+
+	@Override
+	public Set<User> getUserAccessRequest() {
+		return new LinkedHashSet<>(this.userRepo.findByLoginRequestedTrue());
+	}
+
+	@Override
+	public Boolean updateRejectUserRequest(String username) {
+		userRepo.updateLoginRequestedToFalseByUsername(username);
+		User user=userRepo.findByUsername(username);
+		if(user.getLoginRequested()==false) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	@Override
+	public Boolean updateApproveUserRequest(String username) {
+		String newPassword=this.generatePassword();
+		System.out.println("New password :: "+newPassword);
+		userRepo.updateLoggedInToFalseByUsername(username);
+		userRepo.updateLoginRequestedToFalseByUsername(username);
+		userRepo.updatePasswordByUsername(username, this.bCryptPasswordEncoder.encode(newPassword));
+		User user=userRepo.findByUsername(username);
+		if(user.getLoginRequested()==false && user.getLoggedIn() == false) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	@Override
+	public Set<User> getUsers() {
+		return new LinkedHashSet<User>(this.userRepo.findAll());
+	}
+
+	@Override
+	public Long getRoleId(String username) {
+		return this.userRepo.findRoleRoleIdByUsername(username);
+	}
+
+	@Override
+	public List<User> updateUser(List<User> userList) {
+		return this.userRepo.saveAll(userList);
 	}
 }
