@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -21,21 +22,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 @Entity
 @Table(name = "USERS")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class User implements UserDetails {
 
 	/**
-	 *
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -65,13 +60,22 @@ public class User implements UserDetails {
 	private Boolean enabled = true;
 
 	@Column
+	private Boolean loggedIn = false;
+
+	@Column
+	private Boolean loginRequested = false;
+
+	@Column
+	private Boolean testAttwmpted = false;
+
+	@Column
 	private String profile;
 
 	// user many roles
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
 	@JsonIgnore
 	private UserRole userRole;
-
+	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
 	@JsonIgnore
 	private List<UserAssessmentAssignment> userAssessmentAssignment = new ArrayList<>();
@@ -80,9 +84,7 @@ public class User implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 
 		Set<Authority> set = new HashSet<>();
-		this.userRoles.forEach(userRole -> {
-			set.add(new Authority(userRole.getRole().getRoleName()));
-		});
+		set.add(new Authority(userRole.getRole().getRoleName()));
 		System.out.println(set);
 		return set;
 	}

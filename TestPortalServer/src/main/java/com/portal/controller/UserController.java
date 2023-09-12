@@ -4,18 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.portal.model.DataSent;
 import com.portal.model.Role;
+import com.portal.model.SuccessMessage;
 import com.portal.model.User;
+import com.portal.model.UserAssessmentAssignment;
 import com.portal.model.UserRole;
 import com.portal.model.assessment.Assessment;
 import com.portal.service.AssessmentServiceInterface;
@@ -23,7 +29,7 @@ import com.portal.service.UserServiceInterface;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("*")
 public class UserController {
 
 	@Autowired
@@ -39,8 +45,6 @@ public class UserController {
 	@PostMapping("/create")
 	public User createUser(@RequestBody User user) throws Exception {
 
-		Set<UserRole> roles = new HashSet<>();
-
 		Role role = new Role();
 		role.setRoleId(45L);
 		role.setRoleName("NORMAL");
@@ -52,7 +56,6 @@ public class UserController {
 		User createdUser = null;
 
 		if (!(userService.userExists(user))) {
-			roles.add(userRole);
 			user.setUsername(userService.generateUserName(user));
 			String generatedPassword = userService.generatePassword();
 			System.out.println(" User Password :: " + generatedPassword);
@@ -62,7 +65,7 @@ public class UserController {
 
 			// encoding password with BCryptPasswordEncoder
 
-			createdUser = userService.createUser(user, roles);
+			createdUser = userService.createUser(user, userRole);
 
 		}
 		return createdUser;

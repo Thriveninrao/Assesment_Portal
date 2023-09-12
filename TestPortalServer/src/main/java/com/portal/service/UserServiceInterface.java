@@ -9,7 +9,7 @@ import com.portal.model.UserRole;
 public interface UserServiceInterface {
 
 	// Creating User
-	public User createUser(User user, Set<UserRole> userRoles) throws Exception;
+	public User createUser(User user, UserRole userRoles) throws Exception;
 
 	// Get User
 	public User getUser(String username);
@@ -37,6 +37,6 @@ public interface UserServiceInterface {
 	public Set<User> getUsers();
 
 	public Long getRoleId(String username);
-
+	
 	public List<User> updateUser(List<User> userList);
 }
