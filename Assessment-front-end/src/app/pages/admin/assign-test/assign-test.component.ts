@@ -125,14 +125,12 @@ export class AssignTestComponent implements OnInit {
         
         console.log(data);
         //Success
-        Swal.fire(
-          'Successfully Done'
-        );
+          Swal.fire('Success', data.message, 'success');
       },
       (error) => {
         //Error
         console.log('error');
-        this.snack.open('User with this Username is already there please try with new one', '', {
+        this.snack.open('Error in Test assignment', '', {
           duration: 3000,
           verticalPosition: 'bottom',
           horizontalPosition: 'center',

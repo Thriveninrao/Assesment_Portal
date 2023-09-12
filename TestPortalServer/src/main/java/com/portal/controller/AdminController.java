@@ -1,9 +1,7 @@
 package com.portal.controller;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.portal.model.Role;
+import com.portal.model.SuccessMessage;
 import com.portal.model.User;
 import com.portal.model.UserRole;
 import com.portal.service.UserServiceInterface;
@@ -32,7 +31,9 @@ public class AdminController {
 
 	// creating user
 	@PostMapping("/create")
-	public User createUser(@RequestBody User user) throws Exception {
+	public ResponseEntity<?> createUser(@RequestBody User user) throws Exception {
+		
+		System.out.println("HI");
 
 		Role role = new Role();
 		role.setRoleId(44L);
@@ -44,6 +45,8 @@ public class AdminController {
 
 		User createdUser = null;
 
+		SuccessMessage message;
+		
 		if (!(userService.userExists(user))) {
 
 			String generateUserName = userService.generateUserName(user);
@@ -56,11 +59,13 @@ public class AdminController {
 
 			user.setProfile("Admin.jpg");
 
-			// encoding password with BCryptPasswordEncoder
-
 			createdUser = userService.createUser(user, userRole);
+			
+			message=new SuccessMessage("Success");
+		} else {
+			message=new SuccessMessage("Already Exists");
 		}
-		return createdUser;
+		return ResponseEntity.ok(message);
 	}
 
 	@GetMapping("/{username}")

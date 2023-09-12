@@ -87,7 +87,11 @@ public class UserServiceImpl implements UserServiceInterface {
 		
 		Boolean isExist = false;
 		for (User userInList : userList) {
+			System.out.println("in for");
 			if(user.getEmail().equals(userInList.getEmail()) || user.getPhone().equals(userInList.getPhone())) {
+				System.out.println(user.getEmail()+" :: "+userInList.getEmail());
+				System.out.println(user.getPhone()+" :: "+userInList.getPhone());
+				System.out.println("in if");
 				isExist = true;
 			}
 		}
