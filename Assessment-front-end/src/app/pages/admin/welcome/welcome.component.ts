@@ -17,7 +17,7 @@ export class WelcomeComponent implements OnInit {
   noOfCategories: any;
   noOfAssessments: any;
   noOfUsers: any;
-  assessmentsOfCategory: any;
+  dashboardCategory: any;
 
   constructor(private _assessmentService: AssessmentService, private _categoryService: CategoryService, private _userService: UserserviceService) { }
   ngOnInit(): void {
@@ -41,6 +41,9 @@ export class WelcomeComponent implements OnInit {
         this.categories = data;
         console.log("categories :: ", this.categories);
         this.noOfCategories = this.categories.length;
+        this.dashboardCategory = this.categories;
+        this.dashboardCategory.length = 3;
+        console.log(this.dashboardCategory.length);
       },
       //error
       (error) => {
@@ -61,6 +64,7 @@ export class WelcomeComponent implements OnInit {
         Swal.fire('Error', 'Error in fetching Users', 'error');
       }
     )
-  }
 
+
+  }
 }

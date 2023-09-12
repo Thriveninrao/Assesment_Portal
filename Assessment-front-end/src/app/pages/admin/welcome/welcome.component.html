@@ -1,12 +1,6 @@
 <div class="container">
     <h1 class="mt20 ml20">Welcome to Admin Dashboard</h1>
 
-    <!-- <div id="main">
-      <div class="col-div-6"></div>
-
-      <div class="clearfix"></div>
-    </div> -->
-
     <div class="clearfix"></div>
 
     <br />
@@ -58,9 +52,9 @@
 
     <div class="col-div-8 mt40 mb40" style="text-align: center">
       <mat-card>
-        <div class="box-8">
+        <div>
           <div class="content-box mt10 text-center">
-            <p>All Categories</p>
+            <p>Categories</p>
 
             <br />
 
@@ -75,7 +69,7 @@
                 <!-- <th>json</th> -->
               </tr>
 
-              <tr *ngFor="let c of categories" style="text-align: center">
+              <tr *ngFor="let c of dashboardCategory" style="text-align: center">
                 <td>{{ c.categoryTitle }}</td>
                 <td>{{ c.categoryDescription }}</td>
                 <td>{{ c.assessmentSize }}</td>
