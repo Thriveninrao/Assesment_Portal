@@ -1,24 +1,22 @@
 <mat-card class="mt20 mr20 ml20">
+
   <h1
     class="text-center mt10"
     style="
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: rgb(37, 66, 50);
       font-size: 40px;
-      font-weight: 700;">
+      font-weight: 700;
+    "
+  >
     Assessments List
   </h1>
-  <div class="container text-left mt20">
+  <div class="container mt20 ml10">
     <button routerLink="/admin/add-assessment" mat-raised-button color="accent">
       Add New Assessment
     </button>
   </div>
-  <div class="container mt20 ml10">
-    <div *ngIf="assessments.length === 0" class="text-center">
-      <p>No assessments found</p>
-    </div>
-  </div>
-  <mat-card class="mt30 mr20 ml20 mb20" *ngFor="let a of pagedAssessments">
+  <mat-card class="mt30 mr20 ml20 mb20" *ngFor="let a of assessments">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image" style="
           background-image: url('../../../../assets/assessments/assessment.png');
@@ -55,7 +53,6 @@
         Questions {{ a.numberOfQuestions }}
       </button>
       <button mat-flat-button class="ml20" color="primary">Attempts</button>
-
       <button
         [routerLink]="'/admin/update-assessment/' + a.assessmentId"
         mat-raised-button
@@ -78,12 +75,8 @@
     </mat-card-actions>
   </mat-card>
 </mat-card>
-
-<mat-paginator
-  [pageSizeOptions]="[3, 6, 10]"
-  [pageSize]="pageSize"
-  [pageIndex]="pageIndex"
-  [length]="assessments.length"
-  (page)="onPageChange($event)"
-  showFirstLastButtons
-></mat-paginator>
+<div class="container text-center mt20">
+  <button routerLink="/admin/add-assessment" mat-raised-button color="accent">
+    Add New Assessment
+  </button>
+</div>

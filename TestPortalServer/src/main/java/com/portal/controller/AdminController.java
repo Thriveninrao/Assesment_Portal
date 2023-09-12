@@ -34,6 +34,8 @@ public class AdminController {
 	@PostMapping("/create")
 	public User createUser(@RequestBody User user) throws Exception {
 
+		Set<UserRole> roles = new HashSet<>();
+
 		Role role = new Role();
 		role.setRoleId(44L);
 		role.setRoleName("ADMIN");
@@ -46,6 +48,7 @@ public class AdminController {
 
 		if (!(userService.userExists(user))) {
 
+			roles.add(userRole);
 			String generateUserName = userService.generateUserName(user);
 			System.out.println("username :: " + generateUserName);
 			user.setUsername(generateUserName);
@@ -58,7 +61,7 @@ public class AdminController {
 
 			// encoding password with BCryptPasswordEncoder
 
-			createdUser = userService.createUser(user, userRole);
+			createdUser = userService.createUser(user, roles);
 		}
 		return createdUser;
 	}

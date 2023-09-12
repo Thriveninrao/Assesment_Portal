@@ -2,7 +2,6 @@ package com.portal.service.impl;
 
 import java.security.SecureRandom;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -15,8 +14,6 @@ import org.springframework.stereotype.Service;
 import com.portal.model.Role;
 import com.portal.model.User;
 import com.portal.model.UserRole;
-import com.portal.model.assessment.Assessment;
-import com.portal.model.assessment.Category;
 import com.portal.repository.RoleRepository;
 import com.portal.repository.UserRepository;
 import com.portal.service.UserServiceInterface;
@@ -37,7 +34,7 @@ public class UserServiceImpl implements UserServiceInterface {
 	 * Creating User
 	 */
 	@Override
-	public User createUser(User user, UserRole userRole) throws Exception {
+	public User createUser(User user, Set<UserRole> userRoles) throws Exception {
 
 		User local = userRepo.findByUsername(user.getUsername());
 		if (local != null) {
@@ -45,9 +42,10 @@ public class UserServiceImpl implements UserServiceInterface {
 			throw new Exception("User Is Already There !!");
 		} else {
 			// user create
-			roleRepo.save(userRole.getRole());
-
-			user.setUserRole(userRole);
+			for (UserRole ur : userRoles) {
+				roleRepo.save(ur.getRole());
+			}
+			user.getUserRoles().addAll(userRoles);
 			local = userRepo.save(user);
 		}
 
@@ -83,11 +81,9 @@ public class UserServiceImpl implements UserServiceInterface {
 	@Override
 	public Boolean userExists(User user) {
 		List<User> userList = getAllUsers();
-		System.out.println(userList.size());
-		
 		Boolean isExist = false;
 		for (User userInList : userList) {
-			if(user.getEmail().equals(userInList.getEmail()) || user.getPhone().equals(userInList.getPhone())) {
+			if (userInList.getEmail().equals(user.getEmail()) || userInList.getPhone() == user.getPhone()) {
 				isExist = true;
 			}
 		}
@@ -96,7 +92,7 @@ public class UserServiceImpl implements UserServiceInterface {
 
 	@Override
 	public String generateUserName(User user) {
-		String userName = user.getFirstName().toLowerCase().concat("." + user.getLastName().toLowerCase());
+		String userName = user.getFirstName().concat("." + user.getLastName());
 		User userWithSameUserName = null;
 		int count = 0;
 		do {
@@ -137,10 +133,12 @@ public class UserServiceImpl implements UserServiceInterface {
 	@PostConstruct
 	@Override
 	public void createADefaultAdmin() throws Exception {
+		Set<UserRole> roles = new HashSet<>();
+
 		User user = new User();
 		user.setFirstName("admin");
 		user.setLastName("admin");
-		user.setEmail("admin.admin@softtek.com");
+		user.setEmail("admin.softtek.com");
 		user.setPhone("9999999999");
 		Role role = new Role();
 		role.setRoleId(44L);
@@ -152,6 +150,7 @@ public class UserServiceImpl implements UserServiceInterface {
 
 		if (!(userExists(user))) {
 
+			roles.add(userRole);
 			user.setUsername(generateUserName(user));
 
 			user.setPassword(this.bCryptPasswordEncoder.encode("admin"));
@@ -160,53 +159,7 @@ public class UserServiceImpl implements UserServiceInterface {
 
 			// encoding password with BCryptPasswordEncoder
 
-			createUser(user, userRole);
+			createUser(user, roles);
 		}
-	}
-
-	@Override
-	public Set<User> getUserAccessRequest() {
-		return new LinkedHashSet<>(this.userRepo.findByLoginRequestedTrue());
-	}
-	
-	@Override
-	public Boolean updateRejectUserRequest(String username) {
-		userRepo.updateLoginRequestedToFalseByUsername(username);
-		User user=userRepo.findByUsername(username);
-		if(user.getLoginRequested()==false) {
-			return true;
-		}else {
-			return false;
-		}
-	}
-
-	@Override
-	public Boolean updateApproveUserRequest(String username) {
-		String newPassword=this.generatePassword();
-		System.out.println("New password :: "+newPassword);
-		userRepo.updateLoggedInToFalseByUsername(username);
-		userRepo.updateLoginRequestedToFalseByUsername(username);
-		userRepo.updatePasswordByUsername(username, this.bCryptPasswordEncoder.encode(newPassword));
-		User user=userRepo.findByUsername(username);
-		if(user.getLoginRequested()==false && user.getLoggedIn() == false) {
-			return true;
-		}else {
-			return false;
-		}
-	}
-
-	@Override
-	public Set<User> getUsers() {
-		return new LinkedHashSet<User>(this.userRepo.findAll());
-	}
-
-	@Override
-	public Long getRoleId(String username) {
-		return this.userRepo.findRoleRoleIdByUsername(username);
-	}
-
-	@Override
-	public User updateUser(User user) {
-		return this.userRepo.save(user);
 	}
 }

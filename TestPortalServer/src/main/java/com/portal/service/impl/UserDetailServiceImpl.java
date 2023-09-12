@@ -25,8 +25,4 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		return user;
 	}
 
-	public User updateUser(User user) throws UsernameNotFoundException {
-		return userRepo.save(user);
-	}
-
 }

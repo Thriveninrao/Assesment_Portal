@@ -15,7 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.portal.model.UserAssessmentAssignment;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -53,10 +52,6 @@ public class Assessment {
 	@OneToMany(mappedBy = "assessment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Question> questions = new HashSet<>();
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "assessment")
-	@JsonIgnore
-	private Set<UserAssessmentAssignment> userAssessmentAssignment = new HashSet<>();
 
 	// add more Attributes
 }
