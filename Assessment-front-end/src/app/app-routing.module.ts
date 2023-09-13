@@ -22,6 +22,7 @@ import { ViewAssessmentQuestionsComponent } from './pages/admin/view-assessment-
 import { AddQuestionComponent } from './pages/admin/add-question/add-question.component';
 import { UpdateSingleQuestionComponent } from './pages/admin/update-single-question/update-single-question.component';
 import { AccessRequestComponent } from './pages/admin/access-request/access-request.component';
+import { UserDetailsComponent } from './pages/admin/user-details/user-details.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,10 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+      },
+      {
+        path: 'user-details',
+        component: UserDetailsComponent,
       },
       {
         path: 'categories',

@@ -1,0 +1,14 @@
+<div class="user-list">
+    <h2>User List with Assessments</h2>
+    <ul>
+      <li *ngFor="let user of users">
+        <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+        <ul>
+          <li *ngFor="let assessment of user.assessments">
+            {{ assessment.assessmentTitle }} - {{ assessment.score }}
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  

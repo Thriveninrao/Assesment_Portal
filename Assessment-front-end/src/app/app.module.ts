@@ -49,6 +49,7 @@ import { AssignTestComponent } from './pages/admin/assign-test/assign-test.compo
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { UserDetailsComponent } from './pages/admin/user-details/user-details.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     UpdateSingleQuestionComponent,
     AccessRequestComponent,
     AssignTestComponent,
+    UserDetailsComponent,
   ],
   imports: [
     BrowserModule,
