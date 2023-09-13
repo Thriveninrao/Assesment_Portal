@@ -1,5 +1,6 @@
 package com.portal.repository;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -10,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.portal.model.User;
+import com.portal.model.UserAssessmentAssignment;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
@@ -35,4 +37,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query("SELECT ur.role.roleId FROM UserRole ur WHERE ur.user.id = (SELECT u.id FROM User u WHERE u.username = :username)")
     public Long findRoleRoleIdByUsername(@Param("username") String username);
 
+	@Query("SELECT uss.assessment.assessmentId FROM UserAssessmentAssignment uss WHERE uss.user.id = (SELECT u.id FROM User u WHERE u.username = :username)")
+	public List<Long> getUserAssessmentAssignmentIdByUserName(@Param("username") String username);
+	
+	@Query("SELECT count(uss.assignId) FROM UserAssessmentAssignment uss")
+	public Integer getCountOfUserAssessmentAssignIdByUserName();
 }

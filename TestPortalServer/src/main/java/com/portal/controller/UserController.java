@@ -1,8 +1,5 @@
 package com.portal.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +18,7 @@ import com.portal.model.DataSent;
 import com.portal.model.Role;
 import com.portal.model.SuccessMessage;
 import com.portal.model.User;
-import com.portal.model.UserAssessmentAssignment;
 import com.portal.model.UserRole;
-import com.portal.model.assessment.Assessment;
-import com.portal.service.AssessmentServiceInterface;
 import com.portal.service.UserServiceInterface;
 
 @RestController
@@ -34,9 +28,6 @@ public class UserController {
 
 	@Autowired
 	private UserServiceInterface userService;
-
-	@Autowired
-	private AssessmentServiceInterface assessService;
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -123,48 +114,6 @@ public class UserController {
 	@PostMapping("/assignTest")
 	public ResponseEntity<?> assignTest(@RequestBody DataSent assignAssessmentData) {
 		System.out.println("Hi from backend");
-
-		List<User> userList = new ArrayList<>(); // Create a container for User objects
-		List<Assessment> assessList = new ArrayList<>();
-
-		assignAssessmentData.getSelectedAssessments().forEach((assessmentData) -> {
-			Assessment assessment = assessService.getAssessment(assessmentData.getAssessmentId());
-			assessList.add(assessment);
-		});
-		assignAssessmentData.getSelectedUsers().forEach((userData) -> {
-			User user = userService.getUser(userData.getUsername());
-			userList.add(user);
-		});
-
-		List<User> userListUpdated = new ArrayList<>();
-
-		userList.forEach((user) -> {
-			List<UserAssessmentAssignment> userAssessmentList = new ArrayList<>(); // Create a new set for each user
-			assessList.forEach((assessment) -> {
-				UserAssessmentAssignment userAssessment = new UserAssessmentAssignment();
-				userAssessment.setUser(user);
-				userAssessment.setAssessment(assessment);
-				userAssessmentList.add(userAssessment);
-			});
-			user.setUserAssessmentAssignment(userAssessmentList);
-			userListUpdated.add(user);
-		});
-		userService.updateUser(userListUpdated);
-		SuccessMessage message;
-		if (userList.size() == 1) {
-			if (assessList.size() == 1) {
-				message = new SuccessMessage("A test was assigned successfully to a user");
-			} else {
-				message = new SuccessMessage(assessList.size() + " tests assigned successfully to a user");
-			}
-		} else {
-			if (assessList.size() == 1) {
-				message = new SuccessMessage("A test was assigned successfully to " + userList.size() + " users");
-			} else {
-				message = new SuccessMessage(
-						assessList.size() + " tests assigned successfully to " + userList.size() + " users");
-			}
-		}
-		return ResponseEntity.ok(message);
+		return ResponseEntity.ok(userService.assignTest(assignAssessmentData));
 	}
 }

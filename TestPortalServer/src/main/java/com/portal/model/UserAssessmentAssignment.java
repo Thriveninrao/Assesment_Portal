@@ -3,6 +3,7 @@ package com.portal.model;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,6 +25,9 @@ public class UserAssessmentAssignment {
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private User user;
+	
+	@Column
+	private Boolean testAttempted = false;
 	
 	@ManyToOne
 	private Assessment assessment;

@@ -33,8 +33,6 @@ public class AdminController {
 	@PostMapping("/create")
 	public ResponseEntity<?> createUser(@RequestBody User user) throws Exception {
 		
-		System.out.println("HI");
-
 		Role role = new Role();
 		role.setRoleId(44L);
 		role.setRoleName("ADMIN");
@@ -42,8 +40,6 @@ public class AdminController {
 		UserRole userRole = new UserRole();
 		userRole.setRole(role);
 		userRole.setUser(user);
-
-		User createdUser = null;
 
 		SuccessMessage message;
 		
@@ -59,7 +55,7 @@ public class AdminController {
 
 			user.setProfile("Admin.jpg");
 
-			createdUser = userService.createUser(user, userRole);
+			userService.createUser(user, userRole);
 			
 			message=new SuccessMessage("Success");
 		} else {
