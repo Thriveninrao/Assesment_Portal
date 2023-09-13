@@ -43,7 +43,7 @@ public class UserController {
 		UserRole userRole = new UserRole();
 		userRole.setRole(role);
 		userRole.setUser(user);
-		
+
 		SuccessMessage message;
 
 		if (!(userService.userExists(user))) {
@@ -55,7 +55,7 @@ public class UserController {
 			user.setProfile("User.jpg");
 
 			userService.createUser(user, userRole);
-			
+
 			message=new SuccessMessage("Success");
 		}else {
 			message=new SuccessMessage("Already Exists");

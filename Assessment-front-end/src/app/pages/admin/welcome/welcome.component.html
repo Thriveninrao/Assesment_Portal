@@ -1,1 +1,85 @@
-<h1>Welcome to Admin Panel</h1>
+<div class="container">
+    <h1 class="mt20 ml20">Welcome to Admin Dashboard</h1>
+
+    <div class="clearfix"></div>
+
+    <br />
+
+    <div class="col-div-3">
+      <div
+        class="box"
+        style="
+          background-image: linear-gradient(0deg, #d5d3de 20%, #8feaeb 100%);
+          text-align: center;
+        "
+      >
+        <p>{{ noOfCategories }}<br /><span>Categories</span></p>
+
+        <i class="fa fa-users box-icon"></i>
+      </div>
+    </div>
+
+    <div class="col-div-3">
+      <div
+        class="box"
+        style="
+          background-image: linear-gradient(0deg, #d5d3de 20%, #8090e0 100%);
+          text-align: center;
+        "
+      >
+        <p>{{ noOfAssessments }}<br /><span>Assessments</span></p>
+
+        <i class="fa fa-list box-icon"> </i>
+      </div>
+    </div>
+
+    <div class="col-div-3">
+      <div
+        class="box"
+        style="
+          background-image: linear-gradient(0deg, #d5d3de 20%, #efce90 100%);
+          text-align: center;
+        "
+      >
+        <p>{{ noOfUsers }}<br /><span>Total Users</span></p>
+
+        <i class="fa fa-users box-icon"></i>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <br />
+
+    <div class="col-div-8 mt40 mb40" style="text-align: center">
+      <mat-card>
+        <div>
+          <div class="content-box mt10 text-center">
+            <p>Categories</p>
+
+            <br />
+
+            <table>
+              <tr>
+                <th>Category Name</th>
+
+                <th>Category Discription</th>
+
+                <th>Total No Of Assessments</th>
+
+                <!-- <th>json</th> -->
+              </tr>
+
+              <tr *ngFor="let c of dashboardCategory" style="text-align: center">
+                <td>{{ c.categoryTitle }}</td>
+                <td>{{ c.categoryDescription }}</td>
+                <td>{{ c.assessmentSize }}</td>
+
+                <!-- <td>{{c | json}}</td> -->
+              </tr>
+            </table>
+            <!-- </div> -->
+          </div>
+        </div>
+      </mat-card>
+    </div>
+</div>

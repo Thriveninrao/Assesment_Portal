@@ -18,17 +18,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	public User findByUsername(String username);
 
 	public Set<User> findByLoginRequestedTrue();
-	
+
 	@Modifying
     @Transactional
     @Query("UPDATE User u SET u.loginRequested = false WHERE u.username = ?1")
     public void updateLoginRequestedToFalseByUsername(String username);
-	
+
 	@Modifying
 	@Transactional
 	@Query("UPDATE User u SET u.loggedIn = false WHERE u.username = ?1")
 	public void updateLoggedInToFalseByUsername(String username);
-	
+
 	@Modifying
 	@Transactional
 	@Query("UPDATE User u SET u.password = ?2 WHERE u.username = ?1")
@@ -39,7 +39,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	@Query("SELECT uss.assessment.assessmentId FROM UserAssessmentAssignment uss WHERE uss.user.id = (SELECT u.id FROM User u WHERE u.username = :username)")
 	public List<Long> getUserAssessmentAssignmentIdByUserName(@Param("username") String username);
-	
+
 	@Query("SELECT count(uss.assignId) FROM UserAssessmentAssignment uss")
 	public Integer getCountOfUserAssessmentAssignIdByUserName();
 }

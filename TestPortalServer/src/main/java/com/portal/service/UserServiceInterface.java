@@ -42,12 +42,12 @@ public interface UserServiceInterface {
 	public Set<User> getUsers();
 
 	public Long getRoleId(String username);
-	
+
 	public List<User> updateUser(List<User> userList);
-	
+
 	public SuccessMessage assignTest(DataSent assignAssessmentData);
-	
+
 	public List<Long> getUserAssessmentAssignmentIdByUserName(String username);
-	
+
 	public Integer getCountOfUserAssessmentAssignIdByUserName();
 }
