@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { CategoryService } from 'src/app/services/category.service';
 import Swal from 'sweetalert2';
 
@@ -15,7 +16,8 @@ export class AddCategoryComponent implements OnInit {
   };
   constructor(
     private _category: CategoryService,
-    private _snack: MatSnackBar
+    private _snack: MatSnackBar,
+    private _router: Router
   ) {}
   ngOnInit(): void {}
 
@@ -34,7 +36,13 @@ export class AddCategoryComponent implements OnInit {
       (data) => {
         this.category.categoryTitle = '';
         this.category.categoryDescription = '';
-        Swal.fire('Success !!', 'Category is added successfully', 'success');
+        Swal.fire(
+          'Success !!',
+          'Category is added successfully',
+          'success'
+        ).then((result) => {
+          this._router.navigate(['admin/categories']);
+        });
       },
       (error) => {
         console.log(error);

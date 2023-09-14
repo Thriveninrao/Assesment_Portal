@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AssessmentService } from 'src/app/services/assessment.service';
 import { QuestionService } from 'src/app/services/question.service';
 import Swal from 'sweetalert2';
@@ -20,7 +20,8 @@ export class ViewAssessmentQuestionsComponent implements OnInit {
     private _route: ActivatedRoute,
     private _question: QuestionService,
     private _assessment: AssessmentService,
-    private fileService: FileServicesService
+    private fileService: FileServicesService,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -89,6 +90,7 @@ export class ViewAssessmentQuestionsComponent implements OnInit {
       this.fileService.postXLSXFile(assessmentId, this.selectedFile).subscribe(
         (response) => {
           console.log('File uploaded successfully!', response);
+          Swal.fire('Success', 'Successfully updated', 'success');
         },
         (error) => {
           console.error('File upload failed:', error);
@@ -97,5 +99,6 @@ export class ViewAssessmentQuestionsComponent implements OnInit {
     } else {
       console.error('No file selected.');
     }
+    window.location.reload();
   }
 }

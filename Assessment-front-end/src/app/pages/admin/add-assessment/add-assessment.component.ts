@@ -65,7 +65,11 @@ export class AddAssessmentComponent implements OnInit {
     this._assessmentService.addAssessment(this.assessmentData).subscribe(
       //success
       (data) => {
-        Swal.fire('Success', 'Assessment is Added', 'success');
+        Swal.fire('Success', 'Assessment is Added', 'success').then(
+          (result) => {
+            this._router.navigate(['/admin/view-assessments']);
+          }
+        );
         this.assessmentData = {
           assessmentId: 23,
           assessmentTitle: '',
@@ -75,14 +79,11 @@ export class AddAssessmentComponent implements OnInit {
           active: true,
           category: { categoryId: '' },
         };
-       
       },
       (error) => {
         console.log(error);
         Swal.fire('Error !', 'error while adding assessment', 'error');
       }
-      
     );
-    
   }
 }

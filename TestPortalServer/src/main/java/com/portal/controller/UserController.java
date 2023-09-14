@@ -41,37 +41,38 @@ public class UserController {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	// creating user
 	@PostMapping("/create")
-	public User createUser(@RequestBody User user) throws Exception {
-
+	public ResponseEntity<?> createUser(@RequestBody User user) throws Exception {
+		
 		Role role = new Role();
-		role.setRoleId(45L);
+		role.setRoleId(44L);
 		role.setRoleName("NORMAL");
 
 		UserRole userRole = new UserRole();
 		userRole.setRole(role);
 		userRole.setUser(user);
 
-		User createdUser = null;
-
+		SuccessMessage message;
+		
 		if (!(userService.userExists(user))) {
-			String generatedUserName = userService.generateUserName(user);
-			user.setUsername(generatedUserName);
-			String generatedPassword = userService.generatePassword();
-			System.out.println(" UserName :: " + generatedUserName);
-			System.out.println(" User Password :: " + generatedPassword);
-			user.setPassword(this.bCryptPasswordEncoder.encode(generatedPassword));
 
-			user.setProfile("User.jpg");
+			String generateUserName = userService.generateUserName(user);
+			System.out.println("username :: " + generateUserName);
+			user.setUsername(generateUserName);
 
-			// encoding password with BCryptPasswordEncoder
+			String generatePassword = userService.generatePassword();
+			user.setPassword(this.bCryptPasswordEncoder.encode(generatePassword));
+			System.out.println("password :: " + generatePassword);
 
-			createdUser = userService.createUser(user, userRole);
+			user.setProfile("Normal.jpg");
 
+			userService.createUser(user, userRole);
+			
+			message=new SuccessMessage("Success");
+		} else {
+			message=new SuccessMessage("Already Exists");
 		}
-		return createdUser;
-
+		return ResponseEntity.ok(message);
 	}
 
 	@GetMapping("/{username}")

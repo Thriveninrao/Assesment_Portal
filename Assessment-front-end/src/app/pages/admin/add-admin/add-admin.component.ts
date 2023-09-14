@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { UserserviceService } from 'src/app/services/userservice.service';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-admin.component.html',
-  styleUrls: ['./add-admin.component.css']
+  styleUrls: ['./add-admin.component.css'],
 })
 export class AddAdminComponent implements OnInit {
   constructor(
     private userservice: UserserviceService,
-    private snack: MatSnackBar
-  ) { }
-  ngOnInit(): void {
-  }
+    private snack: MatSnackBar,
+    private _router: Router
+  ) {}
+  ngOnInit(): void {}
 
   public user = {
     firstName: '',
@@ -44,20 +45,22 @@ export class AddAdminComponent implements OnInit {
     //addUser : userservice
     this.userservice.addAdmin(this.user).subscribe(
       (data: any) => {
-        if (data.message === "Success") {
+        if (data.message === 'Success') {
           //Success
           Swal.fire(
             data.message,
             this.user.firstName + ' is Registered as Admin',
             'success'
-          );
+          ).then((result) => {
+            this._router.navigate(['/admin/user-details']);
+          });
           this.user = {
             firstName: '',
             lastName: '',
             email: '',
             phone: '',
           };
-        }else{
+        } else {
           Swal.fire(
             data.message,
             'Email or Phone Number already exists',
@@ -77,7 +80,9 @@ export class AddAdminComponent implements OnInit {
     );
   }
   private isValidEmail(email: string): boolean {
-    return /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|outlook\.com|hotmail\.com|icloud\.com|softtek\.com)$/i.test(email); // Replace with actual validation logic
+    return /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|outlook\.com|hotmail\.com|icloud\.com|softtek\.com)$/i.test(
+      email
+    ); // Replace with actual validation logic
   }
 
   private isValidPhone(phone: string): boolean {

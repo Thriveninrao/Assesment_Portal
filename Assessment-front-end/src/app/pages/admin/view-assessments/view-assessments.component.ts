@@ -50,7 +50,7 @@ export class ViewAssessmentsComponent implements OnInit {
       if (result.value) {
         this.assessmentService.deleteAssessment(assessmentId).subscribe(
           (data) => {
-            this.assessments = this.assessments.filter(
+            this.pagedAssessments = this.pagedAssessments.filter(
               (test) => test.assessmentId != assessmentId
             );
             Swal.fire('Success', 'Assessment Deleted', 'success');

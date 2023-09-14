@@ -37,7 +37,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { AddAdminComponent } from './pages/admin/add-admin/add-admin.component';
 
-import {FileServicesService} from './services/file-services.service';
+import { FileServicesService } from './services/file-services.service';
 import { AddUserComponent } from './pages/admin/add-user/add-user.component';
 import { UpdateAssessmentComponent } from './pages/admin/update-assessment/update-assessment.component';
 import { ViewAssessmentQuestionsComponent } from './pages/admin/view-assessment-questions/view-assessment-questions.component';
@@ -50,6 +50,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { UserDetailsComponent } from './pages/admin/user-details/user-details.component';
+import { UserWelcomeComponent } from './pages/user/user-welcome/user-welcome.component';
+import { ViewUserAssessmentsComponent } from './pages/user/view-user-assessments/view-user-assessments.component';
+import { UserSidebarComponent } from './pages/user/user-sidebar/user-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +80,9 @@ import { UserDetailsComponent } from './pages/admin/user-details/user-details.co
     AccessRequestComponent,
     AssignTestComponent,
     UserDetailsComponent,
+    UserWelcomeComponent,
+    ViewUserAssessmentsComponent,
+    UserSidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -102,7 +108,7 @@ import { UserDetailsComponent } from './pages/admin/user-details/user-details.co
     MatTabsModule,
     MatTooltipModule,
   ],
-  providers: [authInterceptorProviders,FileServicesService,],
+  providers: [authInterceptorProviders, FileServicesService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

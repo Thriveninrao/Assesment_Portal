@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AssessmentService } from 'src/app/services/assessment.service';
 import { QuestionService } from 'src/app/services/question.service';
 import Swal from 'sweetalert2';
@@ -30,7 +30,8 @@ export class AddQuestionComponent implements OnInit {
     private _route: ActivatedRoute,
     private _questions: QuestionService,
     private _snack: MatSnackBar,
-    private _assessment: AssessmentService
+    private _assessment: AssessmentService,
+    private _router: Router
   ) {}
   ngOnInit(): void {
     this.assessmentId = this._route.snapshot.params['assessmentId'];
@@ -79,10 +80,7 @@ export class AddQuestionComponent implements OnInit {
       this._snack.open('Answer Required !!', '', {
         duration: 3000,
       });
-    } else if (
-      this.question.marks == 0 ||
-      this.question.marks == null
-    ) {
+    } else if (this.question.marks == 0 || this.question.marks == null) {
       this._snack.open('Answer Required !!', '', {
         duration: 3000,
       });
@@ -95,7 +93,13 @@ export class AddQuestionComponent implements OnInit {
             'Success',
             `Question Added Successfully to ${this.assessmentTitle}`,
             'success'
-          );
+          ).then((result) => {
+            this._router.navigate([
+              `/admin/view-assessment-questions/
+            ${this.assessmentId}/
+            ${this.assessmentTitle}`,
+            ]);
+          });
         },
         (error) => {
           console.log('Error', error);

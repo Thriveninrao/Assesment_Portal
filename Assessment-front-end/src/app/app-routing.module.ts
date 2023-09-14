@@ -24,6 +24,7 @@ import { UpdateSingleQuestionComponent } from './pages/admin/update-single-quest
 import { AccessRequestComponent } from './pages/admin/access-request/access-request.component';
 import { UserWelcomeComponent } from './pages/user/user-welcome/user-welcome.component';
 import { ViewUserAssessmentsComponent } from './pages/user/view-user-assessments/view-user-assessments.component';
+import { UserDetailsComponent } from './pages/admin/user-details/user-details.component';
 
 const routes: Routes = [
   {

@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewUserAssessmentsComponent implements OnInit{
   ngOnInit(): void {
-    throw new Error();
+    
   }
   assessments = [
     {
