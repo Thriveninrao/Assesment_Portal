@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.portal.model.assessment.Assessment;
 
-public interface AssessmentRepository extends JpaRepository<Assessment, Long>{
+public interface AssessmentRepository extends JpaRepository<Assessment, Long> {
 
 }
