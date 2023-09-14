@@ -97,13 +97,15 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 			headerRow.createCell(3).setCellValue("Option 3");
 			headerRow.createCell(4).setCellValue("Option 4");
 			headerRow.createCell(5).setCellValue("Answer");
+			headerRow.createCell(6).setCellValue("Marks");
 
 			
 			// till 10th column style will be aplied
-			for (int j = 0; j <=5; j++)
+			for (int j = 0; j <=6; j++)
 				headerRow.getCell(j).setCellStyle(style);
 
 			int rowNum = 1;
+			System.out.println(questionsList);
 			for (Question quest : questionsList) {
 				Row row = sheet.createRow(rowNum++);
 				row.createCell(0).setCellValue(quest.getContent());
@@ -112,6 +114,7 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 				row.createCell(3).setCellValue(quest.getOption3());
 				row.createCell(4).setCellValue(quest.getOption4());
 				row.createCell(5).setCellValue(quest.getAnswer());
+				row.createCell(6).setCellValue(quest.getMarks());
 			}
 			// Auto-size columns
 			for (int i = 0; i <= 10; i++) {
