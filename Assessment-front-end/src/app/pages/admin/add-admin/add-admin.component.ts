@@ -8,11 +8,11 @@ import Swal from 'sweetalert2';
   templateUrl: './add-admin.component.html',
   styleUrls: ['./add-admin.component.css']
 })
-export class AddAdminComponent implements OnInit{
+export class AddAdminComponent implements OnInit {
   constructor(
     private userservice: UserserviceService,
     private snack: MatSnackBar
-  ) {}
+  ) { }
   ngOnInit(): void {
   }
 
@@ -24,21 +24,51 @@ export class AddAdminComponent implements OnInit{
   };
 
   formSubmit() {
+    if (!this.isValidEmail(this.user.email)) {
+      this.snack.open('Please enter a valid email address.', '', {
+        duration: 3000,
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+      });
+      return;
+    }
+
+    if (!this.isValidPhone(this.user.phone)) {
+      this.snack.open('Please enter a valid 10-digit phone number.', '', {
+        duration: 3000,
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+      });
+      return;
+    }
     //addUser : userservice
     this.userservice.addAdmin(this.user).subscribe(
       (data: any) => {
-        console.log("entered signup");
-        //Success
-        Swal.fire(
-          'Successfully Done',
-          this.user.firstName + ' is Registered as Admin',
-          'success'
-        );
+        if (data.message === "Success") {
+          //Success
+          Swal.fire(
+            data.message,
+            this.user.firstName + ' is Registered as Admin',
+            'success'
+          );
+          this.user = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+          };
+        }else{
+          Swal.fire(
+            data.message,
+            'Email or Phone Number already exists',
+            'warning'
+          );
+        }
       },
       (error) => {
         //Error
-        console.log('error');
-        this.snack.open('User with this Username is already there please try with new one', '', {
+        console.log(error);
+        this.snack.open('Error', '', {
           duration: 3000,
           verticalPosition: 'bottom',
           horizontalPosition: 'center',
@@ -46,5 +76,13 @@ export class AddAdminComponent implements OnInit{
       }
     );
   }
-  // this.user
+  private isValidEmail(email: string): boolean {
+    return /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|outlook\.com|hotmail\.com|icloud\.com|softtek\.com)$/i.test(email); // Replace with actual validation logic
+  }
+
+  private isValidPhone(phone: string): boolean {
+    phone = phone.replace(/^\+91/, '');
+    this.user.phone = phone;
+    return /^[6789]\d{9}$/.test(phone); // Check if it's a 10-digit number
+  }
 }

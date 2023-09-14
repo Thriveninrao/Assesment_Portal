@@ -11,7 +11,7 @@
                   alt=""
                 />
               </div>
-              <h1 class="text-center">Provide User Details</h1>
+              <h1 class="text-center">Provide Admin Details</h1>
               <!-- {{user | json}} -->
               <form (ngSubmit)="formSubmit()">
                 <!--User : Field-->
@@ -67,20 +67,18 @@
                   />
                 </mat-form-field>
   
-                <button type="submit" mat-raised-button color="primary">
-                  Add Admin
-                </button>
-                <button
+                <div class="container text-left mt15">
+                  <button type="submit" mat-raised-button color="primary">
+                    Add Admin
+                  </button>
+                  <button
                   type="reset"
-                  style="margin-left: 140px"
+                  style="margin-left: 20px"
                   mat-stroked-button
-                  color="warn"
-                >
+                  color="warn">
                   Clear
                 </button>
-                <button mat-raised-button class="back-button" routerLink="/admin" style="float: right" color="warn">
-                  Back
-                </button>
+                </div>
               </form>
             </mat-card-content>
           </mat-card>

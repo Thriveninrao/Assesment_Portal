@@ -55,6 +55,10 @@ const routes: Routes = [
         component: ProfileComponent,
       },
       {
+        path: 'user-details',
+        component: UserDetailsComponent,
+      },
+      {
         path: 'categories',
         component: ViewCategoriesComponent,
       },
@@ -115,7 +119,7 @@ const routes: Routes = [
       },
       {
         path:'profile',
-        component:ProfileComponent,        
+        component:ProfileComponent,
       },
       {
         path:'view-user-assessments',

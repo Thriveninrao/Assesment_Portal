@@ -1,7 +1,7 @@
 package com.portal.service.impl;
 
 import java.security.SecureRandom;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,13 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.portal.model.DataSent;
 import com.portal.model.Role;
+import com.portal.model.SuccessMessage;
 import com.portal.model.User;
+import com.portal.model.UserAssessmentAssignment;
 import com.portal.model.UserRole;
 import com.portal.model.assessment.Assessment;
-import com.portal.model.assessment.Category;
 import com.portal.repository.RoleRepository;
 import com.portal.repository.UserRepository;
+import com.portal.service.AssessmentServiceInterface;
 import com.portal.service.UserServiceInterface;
 
 @Service
@@ -32,6 +35,9 @@ public class UserServiceImpl implements UserServiceInterface {
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Autowired
+	private AssessmentServiceInterface assessService;
 
 	/**
 	 * Creating User
@@ -83,11 +89,10 @@ public class UserServiceImpl implements UserServiceInterface {
 	@Override
 	public Boolean userExists(User user) {
 		List<User> userList = getAllUsers();
-		System.out.println(userList.size());
-		
+
 		Boolean isExist = false;
 		for (User userInList : userList) {
-			if(user.getEmail().equals(userInList.getEmail()) || user.getPhone().equals(userInList.getPhone())) {
+			if (user.getEmail().equals(userInList.getEmail()) || user.getPhone().equals(userInList.getPhone())) {
 				isExist = true;
 			}
 		}
@@ -110,7 +115,7 @@ public class UserServiceImpl implements UserServiceInterface {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	@Override
 	public String generatePassword() {
@@ -168,29 +173,29 @@ public class UserServiceImpl implements UserServiceInterface {
 	public Set<User> getUserAccessRequest() {
 		return new LinkedHashSet<>(this.userRepo.findByLoginRequestedTrue());
 	}
-	
+
 	@Override
 	public Boolean updateRejectUserRequest(String username) {
 		userRepo.updateLoginRequestedToFalseByUsername(username);
-		User user=userRepo.findByUsername(username);
-		if(user.getLoginRequested()==false) {
+		User user = userRepo.findByUsername(username);
+		if (user.getLoginRequested() == false) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
 
 	@Override
 	public Boolean updateApproveUserRequest(String username) {
-		String newPassword=this.generatePassword();
-		System.out.println("New password :: "+newPassword);
+		String newPassword = this.generatePassword();
+		System.out.println("New password :: " + newPassword);
 		userRepo.updateLoggedInToFalseByUsername(username);
 		userRepo.updateLoginRequestedToFalseByUsername(username);
 		userRepo.updatePasswordByUsername(username, this.bCryptPasswordEncoder.encode(newPassword));
-		User user=userRepo.findByUsername(username);
-		if(user.getLoginRequested()==false && user.getLoggedIn() == false) {
+		User user = userRepo.findByUsername(username);
+		if (user.getLoginRequested() == false && user.getLoggedIn() == false) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
@@ -208,5 +213,87 @@ public class UserServiceImpl implements UserServiceInterface {
 	@Override
 	public List<User> updateUser(List<User> userList) {
 		return this.userRepo.saveAll(userList);
+	}
+
+	@Override
+	public SuccessMessage assignTest(DataSent assignAssessmentData) {
+		List<User> userList = new ArrayList<>(); // Create a container for User objects
+		List<Assessment> assessList = new ArrayList<>();
+		Integer oldUserAssignmentCount = this.getCountOfUserAssessmentAssignIdByUserName();
+
+		assignAssessmentData.getSelectedAssessments().forEach((assessmentData) -> {
+			Assessment assessment = assessService.getAssessment(assessmentData.getAssessmentId());
+			assessList.add(assessment);
+		});
+		assignAssessmentData.getSelectedUsers().forEach((userData) -> {
+			User user = this.getUser(userData.getUsername());
+			userList.add(user);
+		});
+
+		List<User> userListUpdated = new ArrayList<>();
+
+		userList.forEach((user) -> {
+			System.out.println("1");
+			List<UserAssessmentAssignment> newUserAssessmentList = new ArrayList<>(); // Create a new set for each user
+			List<Long> dbUserAssessmentIdList = this.getUserAssessmentAssignmentIdByUserName(user.getUsername());
+
+			assessList.forEach((assessment) -> {
+				System.out.println("2");
+				UserAssessmentAssignment userAssessment = new UserAssessmentAssignment();
+				userAssessment.setUser(user);
+				Boolean found = false;
+				for (Long dbUserAssessmentId : dbUserAssessmentIdList) {
+					System.out.println("3");
+					System.out.println(dbUserAssessmentId + " :: " + assessment.getAssessmentId());
+					if (assessment.getAssessmentId() == dbUserAssessmentId) {
+						found = true;
+						System.out.println("found :: " + found);
+					}
+				}
+				if (!found) {
+					System.out.println("4");
+					userAssessment.setAssessment(assessment);
+					System.out.println("5");
+					newUserAssessmentList.add(userAssessment);
+				}
+			});
+			System.out.println("6");
+			user.setUserAssessmentAssignment(newUserAssessmentList);
+			userListUpdated.add(user);
+		});
+		this.updateUser(userListUpdated);
+		Integer newUserAssignmentCount = this.getCountOfUserAssessmentAssignIdByUserName();
+		SuccessMessage message;
+		Integer rowsAdded = newUserAssignmentCount - oldUserAssignmentCount;
+		if (rowsAdded == (userList.size() * assessList.size())) {
+			if (userList.size() == 1) {
+				if (assessList.size() == 1) {
+					message = new SuccessMessage("A test was assigned successfully to a user");
+				} else {
+					message = new SuccessMessage(assessList.size() + " tests assigned successfully to a user");
+				}
+			} else {
+				if (assessList.size() == 1) {
+					message = new SuccessMessage("A test was assigned successfully to " + userList.size() + " users");
+				} else {
+					message = new SuccessMessage(
+							assessList.size() + " tests assigned successfully to " + userList.size() + " users");
+				}
+			}
+		} else {
+			message = new SuccessMessage("Few tests already assigned, " + rowsAdded + " new test assignments added");
+		}
+
+		return message;
+	}
+
+	@Override
+	public List<Long> getUserAssessmentAssignmentIdByUserName(String username) {
+		return userRepo.getUserAssessmentAssignmentIdByUserName(username);
+	}
+
+	@Override
+	public Integer getCountOfUserAssessmentAssignIdByUserName() {
+		return userRepo.getCountOfUserAssessmentAssignIdByUserName();
 	}
 }

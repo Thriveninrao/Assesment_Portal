@@ -5,19 +5,38 @@
         <mat-card-header>
           <mat-card-title>Assessments</mat-card-title>
         </mat-card-header>
-        <mat-card-content [class.scrollable-list]="filteredAssessments.length > 6">
+        <mat-card-content
+          [class.scrollable-list]="filteredAssessments.length > 6"
+        >
           <!-- Add a search input for Assignments -->
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Search Assessments" [(ngModel)]="assessmentSearch" (ngModelChange)="updateFilteredAssessments()">
+            <input
+              matInput
+              placeholder="Search Assessments"
+              [(ngModel)]="assessmentSearch"
+              (ngModelChange)="updateFilteredAssessments()"
+            />
           </mat-form-field>
           <mat-list>
             <!-- List of Assignments with Checkboxes and Filtering -->
             <mat-list-item *ngFor="let assessment of filteredAssessments">
-              <mat-checkbox [(ngModel)]="assessment.selected" (change)="toggleAssessmentSelection(assessment)">{{ assessment.assessmentTitle }}</mat-checkbox>
+              <mat-checkbox
+                [(ngModel)]="assessment.selected"
+                (change)="toggleAssessmentSelection(assessment)"
+                >{{ assessment.assessmentTitle }}</mat-checkbox
+              >
             </mat-list-item>
           </mat-list>
         </mat-card-content>
       </mat-card>
+      <div class="container text-center mt15">
+        <button
+          routerLink="/admin/add-assessment"
+          mat-raised-button
+          color="accent">
+          Add New Assessment
+        </button>
+      </div>
     </div>
 
     <div class="col-md-6">
@@ -28,23 +47,51 @@
         <mat-card-content [class.scrollable-list]="filteredUsers.length > 6">
           <!-- Add a search input for Users -->
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Search Users" [(ngModel)]="userSearch" (ngModelChange)="updateFilteredUsers()">
+            <input
+              matInput
+              placeholder="Search Users"
+              [(ngModel)]="userSearch"
+              (ngModelChange)="updateFilteredUsers()"
+            />
           </mat-form-field>
           <mat-list>
             <!-- List of Users with Checkboxes and Filtering -->
             <mat-list-item *ngFor="let user of filteredUsers">
-              <mat-checkbox [(ngModel)]="user.selected" (change)="toggleUserSelection(user)">{{ user.firstName + " " + user.lastName + " ["+ user.username +"]" }}</mat-checkbox>
+              <mat-checkbox
+                [(ngModel)]="user.selected"
+                (change)="toggleUserSelection(user)"
+                >{{
+                  user.firstName +
+                    " " +
+                    user.lastName +
+                    " [" +
+                    user.username +
+                    "]"
+                }}</mat-checkbox
+              >
             </mat-list-item>
           </mat-list>
         </mat-card-content>
       </mat-card>
+      <div class="container text-center mt15">
+        <button
+          routerLink="/admin/add-user"
+          mat-raised-button
+          color="accent">
+          Add New User
+        </button>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="container text-center mt20">
+<div class="container text-center">
   <div class="col-md-12 fab-container">
-    <button mat-fab color="primary" (click)="handleFABClick(dataToSend)" matTooltip="Assign Test">
+    <button
+      mat-fab
+      color="primary"
+      (click)="handleFABClick()"
+      matTooltip="Assign Test">
       <mat-icon>send</mat-icon>
     </button>
   </div>

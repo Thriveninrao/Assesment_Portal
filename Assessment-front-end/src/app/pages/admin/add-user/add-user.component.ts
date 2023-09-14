@@ -8,11 +8,11 @@ import Swal from 'sweetalert2';
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.css']
 })
-export class AddUserComponent implements OnInit{
+export class AddUserComponent implements OnInit {
   constructor(
     private userservice: UserserviceService,
     private snack: MatSnackBar
-  ) {}
+  ) { }
   ngOnInit(): void {
   }
 
@@ -44,18 +44,32 @@ export class AddUserComponent implements OnInit{
     //addUser : userservice
     this.userservice.addUser(this.user).subscribe(
       (data: any) => {
-        console.log("entered signup");
-        //Success
-        Swal.fire(
-          'Successfully Done',
-          this.user.firstName + ' is Registered as User',
-          'success'
-        );
+        console.log(data.message);
+        if (data.message === "Success") {
+          //Success
+          Swal.fire(
+            data.message,
+            this.user.firstName + ' is Registered as User',
+            'success'
+          );
+          this.user = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+          };
+        }else{
+          Swal.fire(
+            data.message,
+            'Email or Phone Number already exists',
+            'warning'
+          );
+        }
       },
       (error) => {
         //Error
-        console.log('error');
-        this.snack.open('User with this Username is already there please try with new one', '', {
+        console.log(error);
+        this.snack.open('Error: Check the entered email or phone number', '', {
           duration: 3000,
           verticalPosition: 'bottom',
           horizontalPosition: 'center',
@@ -63,17 +77,14 @@ export class AddUserComponent implements OnInit{
       }
     );
 
-
   }
   private isValidEmail(email: string): boolean {
-    // Implement email validation logic (e.g., regex or other checks)
-    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email); // Replace with actual validation logic
+    return /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|outlook\.com|hotmail\.com|icloud\.com|softtek\.com)$/i.test(email); // Replace with actual validation logic
   }
 
   private isValidPhone(phone: string): boolean {
-    // Implement phone validation logic (e.g., regex or other checks)
     phone = phone.replace(/^\+91/, '');
-    this.user.phone=phone;
+    this.user.phone = phone;
     return /^[6789]\d{9}$/.test(phone); // Check if it's a 10-digit number
   }
 }

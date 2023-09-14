@@ -15,6 +15,7 @@ export class AccessRequestComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'username', 'email', 'testAttwmpted', 'actions'];
   users: User[] = []; // Initialize an empty array to hold user data
   dataSource!: MatTableDataSource<User>;
+  searchQuery: string = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -35,6 +36,18 @@ export class AccessRequestComponent implements OnInit {
         Swal.fire('Error !!', 'Error in loading data', 'error');
       }
     );
+  }
+
+  performSearch() {
+    const filteredUsers = this.users.filter(user => {
+      const usernameMatch = user.username.toLowerCase().includes(this.searchQuery.toLowerCase());
+      const emailMatch = user.email.toLowerCase().includes(this.searchQuery.toLowerCase());
+      const nameMatch = (user.firstName+" "+user.lastName).toLowerCase().includes(this.searchQuery.toLowerCase());
+      const lastNameMatch = user.lastName.toLowerCase().includes(this.searchQuery.toLowerCase());
+      return usernameMatch || emailMatch || nameMatch || lastNameMatch;
+    });
+  
+    this.dataSource.data = filteredUsers;
   }
 
   public rejectUser(user: User) {

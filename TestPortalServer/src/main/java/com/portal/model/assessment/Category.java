@@ -46,5 +46,9 @@ public class Category {
 		this.categoryTitle = categoryTitle;
 		this.categoryDescription = categoryDescription;
 	}
+	
+	public int getAssessmentSize() {
+		return this.assessments.size();
+	}
 
 }

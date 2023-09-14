@@ -106,12 +106,33 @@ export class AssignTestComponent implements OnInit {
     }
   }
 
-  public dataToSend = {
-    selectedAssessments: this.selectedAssessments,
-    selectedUsers: this.selectedUsers,
-  };
+  public handleFABClick() {
 
-  public handleFABClick(dataToSend: any) {
+    if (this.selectedUsers.length === 0) {
+      console.log('Please select at least one user');
+      this.snack.open('Please select at least one user', '', {
+        duration: 2000,
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+      });
+      return; 
+    }
+
+    if (this.selectedAssessments.length === 0) {
+      console.log('Please select at least one assessment.');
+      this.snack.open('Please select at least one assessment', '', {
+        duration: 2000,
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+      });
+      return; 
+    }
+   
+    const dataToSend = {
+      selectedAssessments: this.selectedAssessments,
+      selectedUsers: this.selectedUsers,
+    };
+
     // Add your logic here for what should happen when the FAB button is clicked
     console.log('FAB button clicked');
     // You can open a dialog, navigate to a different page, or perform any other action you need.
@@ -125,14 +146,12 @@ export class AssignTestComponent implements OnInit {
         
         console.log(data);
         //Success
-        Swal.fire(
-          'Successfully Done'
-        );
+          Swal.fire('Success', data.message, 'success');
       },
       (error) => {
         //Error
         console.log('error');
-        this.snack.open('User with this Username is already there please try with new one', '', {
+        this.snack.open('Error in Test assignment', '', {
           duration: 3000,
           verticalPosition: 'bottom',
           horizontalPosition: 'center',

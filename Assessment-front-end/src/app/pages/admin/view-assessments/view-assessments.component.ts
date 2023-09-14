@@ -16,8 +16,8 @@ export class ViewAssessmentsComponent implements OnInit {
   pageIndex = 0; // Current page index
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private assessmentService: AssessmentService, private fileService: FileServicesService) {}
-
+  constructor(private assessmentService: AssessmentService, private fileService: FileServicesService) { }
+  
   ngOnInit(): void {
     this.assessmentService.assessments().subscribe(
       (data: any) => {
@@ -36,8 +36,8 @@ export class ViewAssessmentsComponent implements OnInit {
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
     const startIndex = this.pageIndex * this.pageSize;
-  const endIndex = startIndex + this.pageSize;
-  this.pagedAssessments = this.assessments.slice(startIndex, endIndex);
+    const endIndex = startIndex + this.pageSize;
+    this.pagedAssessments = this.assessments.slice(startIndex, endIndex);
   }
 
   deleteAssessment(assessmentId: any) {
