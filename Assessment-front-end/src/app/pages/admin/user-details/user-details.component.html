@@ -29,12 +29,23 @@
                 <th mat-header-cell *matHeaderCellDef>Prifile Image</th>
                 <td mat-cell *matCellDef="let user">
                   <img
-            src={{image}} style="max-width: 50px;"
-            alt=""
-            class="profile-image"
-          /></td>
+                    *ngIf="user.profile === 'Admin.jpg'; else userImage"
+                    src="../../../assets/Profile Pictures/Admin.jpg"
+                    style="max-width: 50px"
+                    alt=""
+                    class="profile-image"
+                  />
+                  <ng-template #userImage>
+                    <img
+                      src="../../../assets/Profile Pictures/User.jpg"
+                      style="max-width: 50px"
+                      alt=""
+                      class="profile-image"
+                    />
+                  </ng-template>
+                </td>
               </ng-container>
-              
+
               <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef>ID</th>
                 <td mat-cell *matCellDef="let user">{{ user.id }}</td>

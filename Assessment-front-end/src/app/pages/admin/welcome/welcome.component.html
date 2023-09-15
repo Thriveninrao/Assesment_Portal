@@ -63,7 +63,7 @@
             <br />
 
             <table>
-              <tr>
+              <tr >
                 <th>Category Name</th>
 
                 <th>Category Discription</th>
@@ -73,7 +73,7 @@
                 <!-- <th>json</th> -->
               </tr>
 
-              <tr *ngFor="let c of dashboardCategory" style="text-align: center">
+              <tr *ngFor="let c of pagedCategories" style="text-align: center">
                 <td>{{ c.categoryTitle }}</td>
                 <td>{{ c.categoryDescription }}</td>
                 <td>{{ c.assessmentSize }}</td>
@@ -84,6 +84,12 @@
             <!-- </div> -->
           </div>
         </div>
+        <mat-paginator
+  [length]="dashboardCategory.length"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[3, 6, 10, 12]"
+  (page)="onPageChange($event)"
+></mat-paginator>
       </mat-card>
     </div>
 </div>

@@ -25,6 +25,25 @@ export class UserDetailsComponent implements OnInit {
       (data: any) => {
         console.log(data);
         this.users = data;
+        this.users = data.filter((user: User) => user.username !== 'admin.admin');
+
+        this.users.sort((a, b) => {
+          if (a.profile === 'Admin.jpg' && b.profile !== 'Admin.jpg') {
+            return -1; // a should come before b
+          } else if (a.profile !== 'Admin.jpg' && b.profile === 'Admin.jpg') {
+            return 1; // b should come before a
+          } else {
+            return 0; // maintain the order of other users
+          }
+        });
+
+        console.log("users :: "+this.users);
+
+        this.users.forEach(user => {
+     console.log("users :: "+user.profile);
+     
+    });
+        
         this.dataSource.data = this.users;
         this.dataSource.paginator = this.paginator;
         console.log(this.users);
@@ -34,7 +53,6 @@ export class UserDetailsComponent implements OnInit {
         Swal.fire('Error !!', 'Error in loading data', 'error');
       }
     );
-    this.image = "../../../assets/Profile Pictures/User.jpg";
   }
 
   performSearch() {
@@ -55,5 +73,5 @@ interface User {
   firstName: string;
   lastName: string;
   email: string;
-  image: string;
+  profile: string;
 }

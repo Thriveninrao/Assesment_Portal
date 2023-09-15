@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AssessmentService } from 'src/app/services/assessment.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { UserserviceService } from 'src/app/services/userservice.service';
+import { MatPaginator } from '@angular/material/paginator';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,13 +12,17 @@ import Swal from 'sweetalert2';
 })
 export class WelcomeComponent implements OnInit {
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   categories: any;
   assessments: any;
   users: any;
   noOfCategories: any;
   noOfAssessments: any;
   noOfUsers: any;
-  dashboardCategory: any;
+  dashboardCategory: any[]=[];
+  pagedCategories: any[] = []; 
+  pageSize: number = 3;
 
   constructor(private _assessmentService: AssessmentService, private _categoryService: CategoryService, private _userService: UserserviceService) { }
   ngOnInit(): void {
@@ -42,7 +47,8 @@ export class WelcomeComponent implements OnInit {
         console.log("categories :: ", this.categories);
         this.noOfCategories = this.categories.length;
         this.dashboardCategory = this.categories;
-        this.dashboardCategory.length = 3;
+        this.updatePagedData();
+        // this.dashboardCategory.length = 3;
         console.log(this.dashboardCategory.length);
       },
       //error
@@ -65,6 +71,16 @@ export class WelcomeComponent implements OnInit {
       }
     )
 
+  }
 
+  updatePagedData() {
+    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+    const endIndex = startIndex + this.paginator.pageSize;
+    this.pagedCategories = this.dashboardCategory.slice(startIndex, endIndex);
+  }
+
+  // Function to handle page changes
+  onPageChange(event: any) {
+    this.updatePagedData();
   }
 }
