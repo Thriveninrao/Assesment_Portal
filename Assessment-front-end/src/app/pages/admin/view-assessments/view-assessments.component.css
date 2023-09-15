@@ -2,8 +2,8 @@
     max-width: 400px;
   }
   
-  .example-header-image {
-    /* background-image: url('../../../../assets/assessments/assessment.png'); */
+  .assessment-image {
+    background-image: url('../../../../assets/assessments/assessment.png');
     background-size: cover;
   }
   

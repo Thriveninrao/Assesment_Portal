@@ -1,40 +1,55 @@
 import { Component, OnInit } from '@angular/core';
+import { AssessmentService } from 'src/app/services/assessment.service';
+import { LoginService } from 'src/app/services/login.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-view-user-assessments',
   templateUrl: './view-user-assessments.component.html',
   styleUrls: ['./view-user-assessments.component.css']
 })
-export class ViewUserAssessmentsComponent implements OnInit{
+
+export class ViewUserAssessmentsComponent implements OnInit {
+
+  assessments: Assessment[] = [];
+  user: any =null;
+
+  constructor(private assessmentService: AssessmentService, private login: LoginService) { }
+
   ngOnInit(): void {
-    
+
+    this.login.getCurrentUser().subscribe(
+      (data)=>{console.log(data);
+        this.user=data;
+        this.assessmentService.userAssessments(this.user.id).subscribe(
+          (assessData: any) => {
+            this.assessments = assessData;
+          },
+          (error) => {
+            console.log(error);
+            Swal.fire('Error !', 'Error Loading data', 'error');
+          }
+        );
+      },
+      (error)=>{
+        alert("Error");
+      }
+    )
   }
-  assessments = [
-    {
-      assessmentId: 23,
-      assessmentTitle: 'Basic Java Assessment',
-      assessmentDescription:
-        'Core Java is a part of the Java programming language that one can use for developing or creating a general-purpose app.',
-      maxMarks: '50',
-      numberOfQuestions: '20',
-      active: '',
-      category: {
-        categoryId: 23,
-        categoryTitle: 'Programming',
-      },
-    },
-    {
-      assessmentId: 23,
-      assessmentTitle: 'Basic Java Assessment',
-      assessmentDescription:
-        'Core Java is a part of the Java programming language that one can use for developing or creating a general-purpose app.',
-      maxMarks: '50',
-      numberOfQuestions: '20',
-      active: '',
-      category: {
-        categoryId: 23,
-        categoryTitle: 'Programming',
-      },
-    },
-  ];
 }
+
+interface Assessment {
+  assessmentId: number;
+  assessmentTitle: string;
+  assessmentDescription: string;
+  maxMarks: string;
+  numberOfQuestions: string;
+  active: string;
+  category: {
+    categoryTitle: string;
+  }
+}
+
+// interface User {
+//   id: number,
+// }

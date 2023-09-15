@@ -1,6 +1,8 @@
 package com.portal.controller;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -21,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.portal.model.UserAssessmentAssignment;
 import com.portal.model.assessment.Assessment;
 import com.portal.service.AssessmentServiceInterface;
+import com.portal.service.UserAssessmentServiceInterface;
 
 @RestController
 @RequestMapping("/assessment")
@@ -31,6 +35,9 @@ public class AssessmentController {
 
 	@Autowired
 	private AssessmentServiceInterface assessmentService;
+	
+	@Autowired
+	private UserAssessmentServiceInterface userAssessService;
 
 	@PostMapping("/")
 	public ResponseEntity<?> addAssessment(@RequestBody Assessment assessment) {
@@ -46,6 +53,16 @@ public class AssessmentController {
 	@GetMapping("/{assessmentId}")
 	public Assessment getAssessment(@PathVariable("assessmentId") Long assessmentId) {
 		return assessmentService.getAssessment(assessmentId);
+	}
+	
+	@GetMapping("/userAssessment/{userId}")
+	public ResponseEntity<?> getUserAssessment(@PathVariable("userId") Long userId) {
+		List<UserAssessmentAssignment> userAssessList= userAssessService.getAllUserAssesemenAssignmentByUserId(userId);
+		List<Assessment> assessList = new ArrayList<Assessment>();
+		userAssessList.forEach((userAssess) -> {
+			assessList.add(userAssess.getAssessment());
+		});
+		return ResponseEntity.ok(assessList);
 	}
 
 	@PutMapping("/")

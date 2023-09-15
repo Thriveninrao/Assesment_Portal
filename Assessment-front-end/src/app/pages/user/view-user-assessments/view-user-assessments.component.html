@@ -8,11 +8,6 @@
         font-weight: 700;">
       Assessments List
     </h1>
-    <div class="container text-left mt20">
-      <button routerLink="/admin/add-assessment" mat-raised-button color="accent">
-        Add New Assessment
-      </button>
-    </div>
     <div class="container mt20 ml10">
       <div *ngIf="assessments.length === 0" class="text-center">
         <p>No assessments found</p>
@@ -20,10 +15,7 @@
     </div>
     <mat-card class="mt30 mr20 ml20 mb20" *ngFor="let a of assessments">
       <mat-card-header>
-        <div mat-card-avatar class="example-header-image" style="
-            background-image: url('../../../../assets/assessments/assessment\ \(1\).png');
-          "></div>
-  
+        <div mat-card-avatar class="assessment-image"></div>
         <mat-card-title>
           {{ a.assessmentTitle }}
         </mat-card-title>

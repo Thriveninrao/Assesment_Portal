@@ -187,6 +187,11 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 		}
 	return "Please upload the file";
 }
+
+	@Override
+	public Set<Assessment> getUserAssessment(Long userId) {
+		return null;
+	}
 	
 
 }

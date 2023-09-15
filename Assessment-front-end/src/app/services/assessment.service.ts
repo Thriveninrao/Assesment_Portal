@@ -15,6 +15,12 @@ export class AssessmentService {
     return this._http.get(`${baseUrl}/assessment/`);
   }
 
+  public userAssessments(userId: any) {
+    console.log("In service");
+    console.log(userId);
+    return this._http.get(`${baseUrl}/assessment/userAssessment/${userId}`);
+  }
+
   // add Assessment
   public addAssessment(assessment: any) {
     return this._http.post(`${baseUrl}/assessment/`, assessment);

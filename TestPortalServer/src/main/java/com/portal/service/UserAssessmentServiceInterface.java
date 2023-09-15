@@ -6,6 +6,6 @@ import com.portal.model.UserAssessmentAssignment;
 
 public interface UserAssessmentServiceInterface {
 
-	public List<UserAssessmentAssignment>  getAllUserAssesemenAssignment(Long user);
+	public List<UserAssessmentAssignment>  getAllUserAssesemenAssignmentByUserId(Long userId);
 
 }

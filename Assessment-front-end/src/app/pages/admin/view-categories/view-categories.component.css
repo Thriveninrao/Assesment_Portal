@@ -2,7 +2,7 @@
     max-width: 400px;
   }
   
-  .example-header-image {
+  .category-image {
     background-image: url('../../../../assets/category.png');
     background-size: cover;
   }

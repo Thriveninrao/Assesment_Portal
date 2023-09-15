@@ -10,16 +10,14 @@ import com.portal.repository.UserAssessmentRepository;
 import com.portal.service.UserAssessmentServiceInterface;
 
 @Service
-public class UserAssessmentServiceImpl implements UserAssessmentServiceInterface{
-	
+public class UserAssessmentServiceImpl implements UserAssessmentServiceInterface {
+
 	@Autowired
 	private UserAssessmentRepository userAssessmentRepo;
 
 	@Override
-	public List<UserAssessmentAssignment> getAllUserAssesemenAssignment(Long user) {
-		List<UserAssessmentAssignment> findByUserAssessment = userAssessmentRepo.getByUserAssessment(user);
-		return findByUserAssessment;
+	public List<UserAssessmentAssignment> getAllUserAssesemenAssignmentByUserId(Long userId) {
+		return userAssessmentRepo.getUserAssessmentByUserId(userId);
 	}
-
 
 }

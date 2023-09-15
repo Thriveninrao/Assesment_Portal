@@ -12,7 +12,7 @@ import { MatPaginator } from '@angular/material/paginator';
 export class ViewAssessmentsComponent implements OnInit {
   assessments: Assessment[] = []; // Replace YourAssessmentType with the actual type of your assessments
   pagedAssessments: Assessment[] = [];
-  pageSize = 10; // Number of items to display per page
+  pageSize = 3; // Number of items to display per page
   pageIndex = 0; // Current page index
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
