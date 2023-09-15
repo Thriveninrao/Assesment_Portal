@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { UserserviceService } from 'src/app/services/userservice.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-details',
@@ -6,43 +10,50 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-details.component.css']
 })
 export class UserDetailsComponent implements OnInit {
-    users: User[] = []; // Initialize an empty array to hold user data
-  
-    constructor() {} // No need to inject a service for static data
-  
-    ngOnInit(): void {
-      // Simulated data (static values)
-      this.users = [
-        {
-          id: 1,
-          firstName: 'John',
-          lastName: 'Doe',
-          assessments: [
-            { assessmentTitle: 'Math', score: 90 },
-            { assessmentTitle: 'Science', score: 85 }
-          ]
-        },
-        {
-          id: 2,
-          firstName: 'Jane',
-          lastName: 'Smith',
-          assessments: [
-            { assessmentTitle: 'Math', score: 78 },
-            { assessmentTitle: 'Science', score: 92 }
-          ]
-        }
-      ];
-    }
+  displayedColumns: string[] = ['image', 'id', 'name', 'username', 'email'];
+  users: User[] = []; // Initialize an empty array to hold user data
+  dataSource!: MatTableDataSource<User>;
+  searchQuery: string = '';
+  image: any;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  constructor(private _user: UserserviceService,) { this.dataSource = new MatTableDataSource<User>([]); } // No need to inject a service for static data
+
+  ngOnInit(): void {
+    this._user.getUsers().subscribe(
+      (data: any) => {
+        console.log(data);
+        this.users = data;
+        this.dataSource.data = this.users;
+        this.dataSource.paginator = this.paginator;
+        console.log(this.users);
+      },
+      (error) => {
+        console.log(error);
+        Swal.fire('Error !!', 'Error in loading data', 'error');
+      }
+    );
+    this.image = "../../../assets/Profile Pictures/User.jpg";
   }
-  
-  interface User {
-    id: number;
-    firstName: string;
-    lastName: string;
-    assessments: Assessment[];
+
+  performSearch() {
+    const filteredUsers = this.users.filter(user => {
+      const usernameMatch = user.username.toLowerCase().includes(this.searchQuery.toLowerCase());
+      const emailMatch = user.email.toLowerCase().includes(this.searchQuery.toLowerCase());
+      const nameMatch = (user.firstName + " " + user.lastName).toLowerCase().includes(this.searchQuery.toLowerCase());
+      const lastNameMatch = user.lastName.toLowerCase().includes(this.searchQuery.toLowerCase());
+      return usernameMatch || emailMatch || nameMatch || lastNameMatch;
+    });
+    this.dataSource.data = filteredUsers;
   }
-  
-  interface Assessment {
-    assessmentTitle: string;
-    score: number;
-  }
+}
+
+interface User {
+  id: number;
+  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  image: string;
+}
