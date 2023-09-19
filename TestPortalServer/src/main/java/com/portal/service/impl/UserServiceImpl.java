@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserServiceInterface {
 
 	@Autowired
 	private AssessmentServiceInterface assessService;
-	
+
 	@Autowired
 	private EmailServiceInterface emailService;
 
@@ -77,13 +77,29 @@ public class UserServiceImpl implements UserServiceInterface {
 	 * Delete User By User ID
 	 */
 	@Override
-	public String deleteUser(Long userId) {
-		if (userRepo.findById(userId).isPresent()) {
-			userRepo.deleteById(userId);
-			return "User with user Id :: {" + userId + "} is deleted Successfully";
+	public String deleteUser(String username) {
+		User user = this.getUser(username);
+		if (user.getUserAssessmentAssignment().size() != 0) {
+			return user.getUserAssessmentAssignment().size() + " assessments assigned to " + user.getFirstName();
 		} else {
-			return "The User with ID :: {" + userId + "} is not available";
+			userRepo.deleteById(user.getId());
+			User userDeleteConfirm = this.getUser(username);
+			if (userDeleteConfirm != null)
+				return "error in deletion";
+			else
+				return "deleted Successfully";
 		}
+	}
+
+	@Override
+	public String deleteAdmin(String username) {
+		User user = this.getUser(username);
+		userRepo.deleteById(user.getId());
+		User userDeleteConfirm = this.getUser(username);
+		if (userDeleteConfirm != null)
+			return "error in deletion";
+		else
+			return "deleted Successfully";
 	}
 
 	@Override
@@ -183,13 +199,13 @@ public class UserServiceImpl implements UserServiceInterface {
 	public Boolean updateRejectUserRequest(String username) {
 		userRepo.updateLoginRequestedToFalseByUsername(username);
 		User user = userRepo.findByUsername(username);
-		
+
 		try {
-			emailService.sendEmail(user, "no password","approveNewPass");
+			emailService.sendEmail(user, "no password", "rejectNewPass");
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
-		
+
 		if (user.getLoginRequested() == false) {
 			return true;
 		} else {
@@ -204,15 +220,15 @@ public class UserServiceImpl implements UserServiceInterface {
 		userRepo.updateLoggedInToFalseByUsername(username);
 		userRepo.updateLoginRequestedToFalseByUsername(username);
 		userRepo.updatePasswordByUsername(username, this.bCryptPasswordEncoder.encode(newPassword));
-		
+
 		User user = userRepo.findByUsername(username);
-		
+
 		try {
-			emailService.sendEmail(user, newPassword,"approveNewPass");
+			emailService.sendEmail(user, newPassword, "approveNewPass");
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
-		
+
 		if (user.getLoginRequested() == false && user.getLoggedIn() == false) {
 			return true;
 		} else {
@@ -232,7 +248,29 @@ public class UserServiceImpl implements UserServiceInterface {
 
 	@Override
 	public List<User> updateUser(List<User> userList) {
-		return this.userRepo.saveAll(userList);
+		List<User> updatedList = this.userRepo.saveAll(userList);
+		updatedList.forEach((user) -> {
+			List<Assessment> assessmentList = new ArrayList<Assessment>();
+			System.out.println(user.getUserAssessmentAssignment().size());
+			user.getUserAssessmentAssignment().forEach((uaa) -> {
+				if (!uaa.getTestAttempted()) {
+					assessmentList.add(uaa.getAssessment());
+				}
+			});
+
+			if (assessmentList.size() != 0) {
+				try {
+					emailService.sendAssessmentEmail(user, assessmentList);
+				} catch (MessagingException e) {
+					e.printStackTrace();
+				}
+			} else {
+				System.out.println("No new test assigned to :: " + user.getFirstName());
+			}
+
+		});
+
+		return updatedList;
 	}
 
 	@Override
@@ -253,31 +291,23 @@ public class UserServiceImpl implements UserServiceInterface {
 		List<User> userListUpdated = new ArrayList<>();
 
 		userList.forEach((user) -> {
-			System.out.println("1");
 			List<UserAssessmentAssignment> newUserAssessmentList = new ArrayList<>(); // Create a new set for each user
 			List<Long> dbUserAssessmentIdList = this.getUserAssessmentAssignmentIdByUserName(user.getUsername());
 
 			assessList.forEach((assessment) -> {
-				System.out.println("2");
 				UserAssessmentAssignment userAssessment = new UserAssessmentAssignment();
 				userAssessment.setUser(user);
 				Boolean found = false;
 				for (Long dbUserAssessmentId : dbUserAssessmentIdList) {
-					System.out.println("3");
-					System.out.println(dbUserAssessmentId + " :: " + assessment.getAssessmentId());
 					if (assessment.getAssessmentId() == dbUserAssessmentId) {
 						found = true;
-						System.out.println("found :: " + found);
 					}
 				}
 				if (!found) {
-					System.out.println("4");
 					userAssessment.setAssessment(assessment);
-					System.out.println("5");
 					newUserAssessmentList.add(userAssessment);
 				}
 			});
-			System.out.println("6");
 			user.setUserAssessmentAssignment(newUserAssessmentList);
 			userListUpdated.add(user);
 		});
@@ -316,4 +346,5 @@ public class UserServiceImpl implements UserServiceInterface {
 	public Integer getCountOfUserAssessmentAssignIdByUserName() {
 		return userRepo.getCountOfUserAssessmentAssignIdByUserName();
 	}
+
 }

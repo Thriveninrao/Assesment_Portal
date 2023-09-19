@@ -14,6 +14,14 @@ export class UserserviceService {
     return this.http.post(`${baseUrl}/user/create`, user);
   }
 
+  public deleteUser(username: any){
+    return this.http.delete(`${baseUrl}/user/${username}`);
+  }
+
+  public forceDelete(username: any){
+    return this.http.delete(`${baseUrl}/admin/${username}`);
+  }
+
   //add Admin
   public addAdmin(user: any) {
     return this.http.post(`${baseUrl}/admin/create`, user);

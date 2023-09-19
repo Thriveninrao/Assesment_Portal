@@ -32,7 +32,7 @@ public class AdminController {
 	// creating user
 	@PostMapping("/create")
 	public ResponseEntity<?> createUser(@RequestBody User user) throws Exception {
-		
+
 		Role role = new Role();
 		role.setRoleId(44L);
 		role.setRoleName("ADMIN");
@@ -42,7 +42,7 @@ public class AdminController {
 		userRole.setUser(user);
 
 		SuccessMessage message;
-		
+
 		if (!(userService.userExists(user))) {
 
 			String generateUserName = userService.generateUserName(user);
@@ -56,10 +56,10 @@ public class AdminController {
 			user.setProfile("Admin.jpg");
 
 			userService.createUser(user, userRole);
-			
-			message=new SuccessMessage("Success");
+
+			message = new SuccessMessage("Success");
 		} else {
-			message=new SuccessMessage("Already Exists");
+			message = new SuccessMessage("Already Exists");
 		}
 		return ResponseEntity.ok(message);
 	}
@@ -69,9 +69,10 @@ public class AdminController {
 		return userService.getUser(username);
 	}
 
-	@DeleteMapping("/{userId}")
-	public String deleteUser(@PathVariable("userId") Long userId) {
-		return userService.deleteUser(userId);
+	@DeleteMapping("/{username}")
+	public ResponseEntity<?> deleteUser(@PathVariable("username") String username) {
+		SuccessMessage message = new SuccessMessage(userService.deleteAdmin(username));
+		return ResponseEntity.ok(message);
 	}
 
 }

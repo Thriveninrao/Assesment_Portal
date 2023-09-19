@@ -79,15 +79,15 @@ public class UserController {
 		return userService.getUser(username);
 	}
 
-	@DeleteMapping("/{userId}")
-	public String deleteUser(@PathVariable("userId") Long userId) {
-		return userService.deleteUser(userId);
+	@DeleteMapping("/{username}")
+	public ResponseEntity<?> deleteUser(@PathVariable("username") String username) {
+		SuccessMessage message = new SuccessMessage(userService.deleteUser(username));
+		return ResponseEntity.ok(message);
 	}
 
 	// get all categories
 	@GetMapping("/accessRequest")
 	public ResponseEntity<?> getUserAccessRequest() {
-		System.out.println("z6 hi");
 		this.userService.getUserAccessRequest().forEach(user -> System.out.println(user.getFirstName()));
 		return ResponseEntity.ok(this.userService.getUserAccessRequest());
 	}

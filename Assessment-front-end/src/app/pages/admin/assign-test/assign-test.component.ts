@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./assign-test.component.css']
 })
 export class AssignTestComponent implements OnInit {
+  disabled = false;
   assessments: Assessment[] = [];
   users: User[] = [];
   testUserRoleId !: number;
@@ -140,6 +141,7 @@ export class AssignTestComponent implements OnInit {
     console.log('Selected Assessments:', this.selectedAssessments);
 
     console.log(dataToSend)
+    this.disabled = true;
     this.userService.assignTest(dataToSend).subscribe(
       (data: any) => {
         console.log("In promice");
@@ -156,6 +158,8 @@ export class AssignTestComponent implements OnInit {
           verticalPosition: 'bottom',
           horizontalPosition: 'center',
         });
+      },() => {
+        this.disabled = false;
       }
     );
 

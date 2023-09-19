@@ -23,7 +23,7 @@ public interface UserServiceInterface {
 	public List<User> getAllUsers();
 
 	// Delete User
-	public String deleteUser(Long userId);
+	public String deleteUser(String username);
 
 	public Boolean userExists(User user);
 
@@ -50,4 +50,6 @@ public interface UserServiceInterface {
 	public List<Long> getUserAssessmentAssignmentIdByUserName(String username);
 
 	public Integer getCountOfUserAssessmentAssignIdByUserName();
+
+	public String deleteAdmin(String username);
 }
