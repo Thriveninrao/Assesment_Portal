@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./add-user.component.css'],
 })
 export class AddUserComponent implements OnInit {
+  disabled= false;
   constructor(
     private userservice: UserserviceService,
     private snack: MatSnackBar,
@@ -43,6 +44,7 @@ export class AddUserComponent implements OnInit {
       return;
     }
     //addUser : userservice
+    this.disabled = true;
     this.userservice.addUser(this.user).subscribe(
       (data: any) => {
         console.log(data.message);
@@ -77,6 +79,8 @@ export class AddUserComponent implements OnInit {
           verticalPosition: 'bottom',
           horizontalPosition: 'center',
         });
+      },() => {
+        this.disabled = false;
       }
     );
   }

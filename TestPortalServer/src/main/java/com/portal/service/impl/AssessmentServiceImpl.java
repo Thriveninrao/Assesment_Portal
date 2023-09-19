@@ -50,6 +50,11 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 
 		return new LinkedHashSet<Assessment>(this.assessRepo.findAll());
 	}
+	
+//	@Override
+//	public Set<Assessment> getUserAssessment(Long userId) {
+//		return new LinkedHashSet<Assessment>(this.assessRepo.findAllByUserId());
+//	}
 
 	@Override
 	public Assessment getAssessment(Long assessmentId) {
@@ -187,11 +192,6 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 		}
 	return "Please upload the file";
 }
-
-	@Override
-	public Set<Assessment> getUserAssessment(Long userId) {
-		return null;
-	}
 	
 
 }

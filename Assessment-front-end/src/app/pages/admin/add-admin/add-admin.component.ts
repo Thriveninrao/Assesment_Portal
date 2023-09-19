@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./add-admin.component.css'],
 })
 export class AddAdminComponent implements OnInit {
+  disabled = false;
   constructor(
     private userservice: UserserviceService,
     private snack: MatSnackBar,
@@ -43,6 +44,7 @@ export class AddAdminComponent implements OnInit {
       return;
     }
     //addUser : userservice
+    this.disabled=true;
     this.userservice.addAdmin(this.user).subscribe(
       (data: any) => {
         if (data.message === 'Success') {
@@ -76,6 +78,8 @@ export class AddAdminComponent implements OnInit {
           verticalPosition: 'bottom',
           horizontalPosition: 'center',
         });
+      },() => {
+        this.disabled = false;
       }
     );
   }

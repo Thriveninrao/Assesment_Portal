@@ -57,7 +57,7 @@
                     class="ml20 mr20"
                     mat-raised-button
                     style="background-color: forestgreen; color: aliceblue"
-                    (click)="approveUser(user)">
+                    (click)="approveUser(user)" [disabled]="disabled">
                     Approve
                   </button>
                   <span class="action-button-spacing"></span>
@@ -65,7 +65,7 @@
                     class="ml20 mr20"
                     mat-raised-button
                     style="background-color: rgb(225, 70, 14); color: aliceblue"
-                    (click)="rejectUser(user)">
+                    (click)="rejectUser(user)" [disabled]="disabled">
                     Reject
                   </button>
                 </td>

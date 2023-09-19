@@ -12,6 +12,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 })
 
 export class AccessRequestComponent implements OnInit {
+  disabled=false;
   displayedColumns: string[] = ['id', 'name', 'username', 'email', 'testAttwmpted', 'actions'];
   users: User[] = []; // Initialize an empty array to hold user data
   dataSource!: MatTableDataSource<User>;
@@ -61,6 +62,7 @@ export class AccessRequestComponent implements OnInit {
       showCancelButton: true,
     }).then((result) => {
       if (result.value) {
+        this.disabled=true;
         this._user.rejectUserRequest(user.username).subscribe(
           (data: any) => {
             console.log("hi i am subscribed")
@@ -77,6 +79,8 @@ export class AccessRequestComponent implements OnInit {
           (error) => {
             console.log(error);
             Swal.fire('Error', 'Error', 'error');
+          },() => {
+            this.disabled = false;
           }
         );
       }
@@ -96,6 +100,7 @@ export class AccessRequestComponent implements OnInit {
       showCancelButton: true,
     }).then((result) => {
       if (result.value) {
+        this.disabled=true;
         this._user.approveUserRequest(user.username).subscribe(
           (data: any) => {
             console.log("hi i am subscribed to approve")
@@ -112,6 +117,8 @@ export class AccessRequestComponent implements OnInit {
           (error) => {
             console.log(error);
             Swal.fire('Error', 'Error', 'error');
+          },() => {
+            this.disabled = false;
           }
         );
       }

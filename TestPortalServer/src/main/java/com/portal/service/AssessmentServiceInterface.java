@@ -25,5 +25,5 @@ public interface AssessmentServiceInterface {
 	public Assessment updateAssessmentQuestions(Long assessmentId);
 	public String InsertAllQuestions(long AssesmentId,MultipartFile excelFile) throws IOException;
 
-	public Set<Assessment> getUserAssessment(Long userId);
+//	public Set<Assessment> getUserAssessment(Long userId);
 }

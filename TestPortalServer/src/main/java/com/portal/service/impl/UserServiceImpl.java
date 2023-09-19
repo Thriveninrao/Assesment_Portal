@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
+import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,6 +23,7 @@ import com.portal.model.assessment.Assessment;
 import com.portal.repository.RoleRepository;
 import com.portal.repository.UserRepository;
 import com.portal.service.AssessmentServiceInterface;
+import com.portal.service.EmailServiceInterface;
 import com.portal.service.UserServiceInterface;
 
 @Service
@@ -38,6 +40,9 @@ public class UserServiceImpl implements UserServiceInterface {
 
 	@Autowired
 	private AssessmentServiceInterface assessService;
+	
+	@Autowired
+	private EmailServiceInterface emailService;
 
 	/**
 	 * Creating User
@@ -178,6 +183,13 @@ public class UserServiceImpl implements UserServiceInterface {
 	public Boolean updateRejectUserRequest(String username) {
 		userRepo.updateLoginRequestedToFalseByUsername(username);
 		User user = userRepo.findByUsername(username);
+		
+		try {
+			emailService.sendEmail(user, "no password","approveNewPass");
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		
 		if (user.getLoginRequested() == false) {
 			return true;
 		} else {
@@ -192,7 +204,15 @@ public class UserServiceImpl implements UserServiceInterface {
 		userRepo.updateLoggedInToFalseByUsername(username);
 		userRepo.updateLoginRequestedToFalseByUsername(username);
 		userRepo.updatePasswordByUsername(username, this.bCryptPasswordEncoder.encode(newPassword));
+		
 		User user = userRepo.findByUsername(username);
+		
+		try {
+			emailService.sendEmail(user, newPassword,"approveNewPass");
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		
 		if (user.getLoginRequested() == false && user.getLoggedIn() == false) {
 			return true;
 		} else {
