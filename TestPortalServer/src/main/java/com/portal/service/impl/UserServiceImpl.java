@@ -267,9 +267,7 @@ public class UserServiceImpl implements UserServiceInterface {
 			} else {
 				System.out.println("No new test assigned to :: " + user.getFirstName());
 			}
-
 		});
-
 		return updatedList;
 	}
 
@@ -318,13 +316,17 @@ public class UserServiceImpl implements UserServiceInterface {
 		if (rowsAdded == (userList.size() * assessList.size())) {
 			if (userList.size() == 1) {
 				if (assessList.size() == 1) {
-					message = new SuccessMessage("A test was assigned successfully to a user");
+					message = new SuccessMessage(
+							assessList.get(0).getAssessmentTitle() + " test was assigned successfully to "
+									+ userList.get(0).getFirstName() + " " + userList.get(0).getLastName());
 				} else {
-					message = new SuccessMessage(assessList.size() + " tests assigned successfully to a user");
+					message = new SuccessMessage(assessList.size() + " tests assigned successfully to "
+							+ userList.get(0).getFirstName() + " " + userList.get(0).getLastName());
 				}
 			} else {
 				if (assessList.size() == 1) {
-					message = new SuccessMessage("A test was assigned successfully to " + userList.size() + " users");
+					message = new SuccessMessage(assessList.get(0).getAssessmentTitle()
+							+ " test was assigned successfully to " + userList.size() + " users");
 				} else {
 					message = new SuccessMessage(
 							assessList.size() + " tests assigned successfully to " + userList.size() + " users");
