@@ -25,17 +25,7 @@ export class UserDetailsComponent implements OnInit {
       (data: any) => {
         console.log(data);
         this.users = data;
-        this.users = data.filter((user: User) => user.username !== 'admin.admin');
-
-        this.users.sort((a, b) => {
-          if (a.profile === 'Admin.jpg' && b.profile !== 'Admin.jpg') {
-            return -1; // a should come before b
-          } else if (a.profile !== 'Admin.jpg' && b.profile === 'Admin.jpg') {
-            return 1; // b should come before a
-          } else {
-            return 0; // maintain the order of other users
-          }
-        });
+        this.users = data.filter((user: User) => user.profile === 'User.jpg');
 
         console.log("users :: " + this.users);
 

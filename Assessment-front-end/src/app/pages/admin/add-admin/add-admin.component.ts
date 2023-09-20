@@ -54,7 +54,7 @@ export class AddAdminComponent implements OnInit {
             this.user.firstName + ' is Registered as Admin',
             'success'
           ).then((result) => {
-            this._router.navigate(['/admin/user-details']);
+            this._router.navigate(['/admin/admin-details']);
           });
           this.user = {
             firstName: '',

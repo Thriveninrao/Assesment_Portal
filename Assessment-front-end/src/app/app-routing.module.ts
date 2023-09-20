@@ -25,6 +25,7 @@ import { AccessRequestComponent } from './pages/admin/access-request/access-requ
 import { UserWelcomeComponent } from './pages/user/user-welcome/user-welcome.component';
 import { ViewUserAssessmentsComponent } from './pages/user/view-user-assessments/view-user-assessments.component';
 import { UserDetailsComponent } from './pages/admin/user-details/user-details.component';
+import { AdminDetailsComponent } from './pages/admin/admin-details/admin-details.component';
 
 const routes: Routes = [
   {
@@ -58,6 +59,10 @@ const routes: Routes = [
       {
         path: 'user-details',
         component: UserDetailsComponent,
+      },
+      {
+        path: 'admin-details',
+        component: AdminDetailsComponent,
       },
       {
         path: 'categories',

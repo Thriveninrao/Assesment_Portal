@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
       (error)=>{
         alert("Error");
       }
-    )
+    );
     this.image = "../../../assets/Profile Pictures/" + this.login.getuserDetail().profile;
   }
 }

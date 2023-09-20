@@ -16,7 +16,7 @@ export class WelcomeComponent implements OnInit {
 
   categories: any;
   assessments: any;
-  users: any;
+  users: User[]=[];
   noOfCategories: any;
   noOfAssessments: any;
   noOfUsers: any;
@@ -60,9 +60,10 @@ export class WelcomeComponent implements OnInit {
 
     this._userService.getUsers().subscribe(
       //success
-      (data) => {
+      (data: any) => {
         this.users = data;
-        this.noOfUsers = this.users.length;
+        const filteredUsers = this.users.filter((user: User) => user.profile === 'User.jpg');
+        this.noOfUsers = filteredUsers.length;
       },
       //error
       (error) => {
@@ -83,4 +84,13 @@ export class WelcomeComponent implements OnInit {
   onPageChange(event: any) {
     this.updatePagedData();
   }
+}
+
+interface User {
+  id: number;
+  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  profile: string;
 }
