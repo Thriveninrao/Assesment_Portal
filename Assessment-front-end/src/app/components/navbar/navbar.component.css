@@ -2,3 +2,10 @@
   flex: 1 1 auto;
 }
  
+.fixed-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Set a z-index to ensure it's above other content */
+}
