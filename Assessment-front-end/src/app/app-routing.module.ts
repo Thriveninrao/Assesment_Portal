@@ -26,6 +26,9 @@ import { UserWelcomeComponent } from './pages/user/user-welcome/user-welcome.com
 import { ViewUserAssessmentsComponent } from './pages/user/view-user-assessments/view-user-assessments.component';
 import { UserDetailsComponent } from './pages/admin/user-details/user-details.component';
 import { AdminDetailsComponent } from './pages/admin/admin-details/admin-details.component';
+
+import { TakeUserAssessmentQuestionsComponent } from './pages/user/take-user-assessment-questions/take-user-assessment-questions.component';
+
 import { UserAssessmentDetailsComponent } from './pages/admin/user-assessment-details/user-assessment-details.component';
 
 const routes: Routes = [
@@ -135,6 +138,10 @@ const routes: Routes = [
       {
         path:'view-user-assessments',
         component:ViewUserAssessmentsComponent,
+      },
+      {
+        path:'take-user-assessment-questions/:assessmentId/:assessmentTitle',
+        component:TakeUserAssessmentQuestionsComponent,
       },
     ],
 
