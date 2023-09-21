@@ -55,8 +55,12 @@ import { UserWelcomeComponent } from './pages/user/user-welcome/user-welcome.com
 import { ViewUserAssessmentsComponent } from './pages/user/view-user-assessments/view-user-assessments.component';
 import { UserSidebarComponent } from './pages/user/user-sidebar/user-sidebar.component';
 import { AdminDetailsComponent } from './pages/admin/admin-details/admin-details.component';
+
 import { TakeUserAssessmentQuestionsComponent } from './pages/user/take-user-assessment-questions/take-user-assessment-questions.component';
 
+
+
+import { UserAssessmentDetailsComponent } from './pages/admin/user-assessment-details/user-assessment-details.component';
 
 
 @NgModule({
@@ -89,7 +93,11 @@ import { TakeUserAssessmentQuestionsComponent } from './pages/user/take-user-ass
     ViewUserAssessmentsComponent,
     UserSidebarComponent,
     AdminDetailsComponent,
+
     TakeUserAssessmentQuestionsComponent,
+
+    UserAssessmentDetailsComponent,
+
   ],
   imports: [
     BrowserModule,

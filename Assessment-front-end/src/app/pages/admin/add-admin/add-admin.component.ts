@@ -15,8 +15,8 @@ export class AddAdminComponent implements OnInit {
     private userservice: UserserviceService,
     private snack: MatSnackBar,
     private _router: Router
-  ) {}
-  ngOnInit(): void {}
+  ) { }
+  ngOnInit(): void { }
 
   public user = {
     firstName: '',
@@ -44,7 +44,7 @@ export class AddAdminComponent implements OnInit {
       return;
     }
     //addUser : userservice
-    this.disabled=true;
+    this.disabled = true;
     this.userservice.addAdmin(this.user).subscribe(
       (data: any) => {
         if (data.message === 'Success') {
@@ -78,7 +78,7 @@ export class AddAdminComponent implements OnInit {
           verticalPosition: 'bottom',
           horizontalPosition: 'center',
         });
-      },() => {
+      }, () => {
         this.disabled = false;
       }
     );

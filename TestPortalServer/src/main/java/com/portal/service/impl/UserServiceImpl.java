@@ -18,6 +18,7 @@ import com.portal.model.Role;
 import com.portal.model.SuccessMessage;
 import com.portal.model.User;
 import com.portal.model.UserAssessmentAssignment;
+import com.portal.model.UserModel;
 import com.portal.model.UserRole;
 import com.portal.model.assessment.Assessment;
 import com.portal.repository.RoleRepository;
@@ -237,8 +238,44 @@ public class UserServiceImpl implements UserServiceInterface {
 	}
 
 	@Override
-	public Set<User> getUsers() {
-		return new LinkedHashSet<User>(this.userRepo.findAll());
+	public Set<UserModel> getUsers() {
+
+		Set<User> rawUserSet = new LinkedHashSet<User>(this.userRepo.findAll());
+		Set<UserModel> userSet = new LinkedHashSet<UserModel>();
+
+		rawUserSet.stream().forEach((user) -> {
+			UserModel userModel = new UserModel();
+			userModel.setEmail(user.getEmail());
+			userModel.setFirstName(user.getFirstName());
+			userModel.setLastName(user.getLastName());
+			userModel.setId(user.getId());
+			userModel.setPhone(user.getPhone());
+			userModel.setProfile(user.getProfile());
+			userModel.setUsername(user.getUsername());
+
+			int testAssigned = 0;
+			int testAttempted = 0;
+
+			for (UserAssessmentAssignment uaa : user.getUserAssessmentAssignment()) {
+
+				testAssigned++;
+
+				if (uaa.getTestAttempted()) {
+					testAttempted++;
+
+				}
+			}
+
+			userModel.setTestsAttempted(testAttempted);
+			userModel.setTestsAssigned(testAssigned);
+
+			userSet.add(userModel);
+
+		});
+
+		System.out.println("Size of model :: " + userSet.size());
+
+		return userSet;
 	}
 
 	@Override

@@ -11,4 +11,6 @@ public interface EmailServiceInterface {
 	public void sendEmail(User user, String generatedPassword, String userType) throws MessagingException;
 
 	public void sendAssessmentEmail(User user, List<Assessment> assessmentList) throws MessagingException;
+
+	public void sendEmailAdmin(User user, String generatedPassword) throws MessagingException;
 }

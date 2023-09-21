@@ -16,6 +16,17 @@
             />
           </mat-form-field>
         </div>
+      </div>
+      <div class="container text-left mt20">
+        <button
+          routerLink="/admin/add-admin"
+          mat-raised-button
+          color="accent"
+          class="left-button"
+        ><mat-icon mat-list-icon>engineering</mat-icon>  
+          Add Admin
+        </button>
+      </div>
   
         <div class="container">
           <div class="row">
@@ -74,9 +85,6 @@
                     <button mat-icon-button color="danger" (click)="editUser(user)" [disabled]="user.disabled">
                       <mat-icon>edit</mat-icon>
                     </button>
-                    <button mat-icon-button (click)="deleteUser(user)" class="delete-button" [disabled]="user.disabled">
-                      <mat-icon>delete</mat-icon>
-                    </button>
                   </td>
                 </ng-container>
   
@@ -84,7 +92,6 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
               </table>
             </div>
-          </div>
         </div>
       </div>
     </mat-card-content>

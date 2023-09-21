@@ -17,7 +17,7 @@ export class AdminDetailsComponent {
   searchQuery: string = '';
   image: any;
   loggedInAdmin!: User;
-  disabled=false;
+  disabled = true;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -25,10 +25,11 @@ export class AdminDetailsComponent {
 
   ngOnInit(): void {
     this._login.getCurrentUser().subscribe(
-      (data:any)=>{console.log(data);
-        this.loggedInAdmin=data;
+      (data: any) => {
+        console.log(data);
+        this.loggedInAdmin = data;
       },
-      (error)=>{
+      (error) => {
         console.log(error);
         alert("Error");
       }
@@ -40,12 +41,21 @@ export class AdminDetailsComponent {
         this.users = data;
 
         this.users.forEach(user => {
-          if (user.username === this.loggedInAdmin.username || user.username === 'admin.admin') {
-            user.disabled = true;
-          } else {
+          if (user.username === this.loggedInAdmin.username) {
             user.disabled = false;
+          } else {
+            user.disabled = true;
           }
         });
+
+        const adminIndex = this.users.findIndex(user => user.username === this.loggedInAdmin.username);
+
+        if (adminIndex !== -1) {
+          // Remove the loggedInAdmin user from the array
+          this.users.splice(adminIndex, 1);
+          // Add the loggedInAdmin user back at the beginning of the array
+          this.users.unshift(this.loggedInAdmin);
+        }
 
         this.users = data.filter((user: User) => user.profile === 'Admin.jpg');
 
@@ -82,37 +92,7 @@ export class AdminDetailsComponent {
     // Implement edit logic here, e.g., set a flag or open a dialog
   }
 
-  // Function to delete a user
-  deleteUser(user: any) {
-
-      Swal.fire({
-        icon: 'warning',
-        title: `Are you sure about your decision to remove ${user.firstName} ${user.lastName} ?`,
-        confirmButtonText: 'Yes, Delete',
-        confirmButtonColor: 'red',
-        cancelButtonText: 'No',
-        showCancelButton: true,
-      }).then((result) => {
-        if (result.value) {
-          this._user.forceDelete(user.username).subscribe((dataOfDelete: any) => {
-            console.log("Data:", dataOfDelete);
-            if (dataOfDelete.message === "deleted Successfully") {
-              const index = this.users.findIndex(u => u.username === user.username);
-              if (index !== -1) {
-                this.users.splice(index, 1);
-              }
-              this.dataSource.data = this.users;
-              Swal.fire('Success', user.firstName + ' ' + user.lastName + ' successfully deleted', 'success');
-            } else
-              Swal.fire('Error', 'Error in deletion, Try again!', 'error');
-          }, (error) => {
-            console.log(error);
-            Swal.fire('Error', 'Error', 'error');
-          });
-        }
-      });
-    }
-  }
+}
 
 interface User {
   id: number;

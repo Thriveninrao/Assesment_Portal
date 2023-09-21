@@ -113,7 +113,7 @@ public class UserController {
 	}
 
 	@GetMapping("/getUsers")
-	public ResponseEntity<?> getAssessments() {
+	public ResponseEntity<?> getUsers() {
 		return ResponseEntity.ok(this.userService.getUsers());
 	}
 
