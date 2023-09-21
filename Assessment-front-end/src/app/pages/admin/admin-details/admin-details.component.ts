@@ -17,7 +17,7 @@ export class AdminDetailsComponent {
   searchQuery: string = '';
   image: any;
   loggedInAdmin!: User;
-  disabled = true;
+  isAdmin: boolean = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -28,25 +28,22 @@ export class AdminDetailsComponent {
       (data: any) => {
         console.log(data);
         this.loggedInAdmin = data;
+        if (this.loggedInAdmin.username === 'admin.admin') {
+          this.isAdmin = true;
+        }
+
       },
       (error) => {
         console.log(error);
         alert("Error");
       }
+
     );
 
     this._user.getUsers().subscribe(
       (data: any) => {
         console.log(data);
         this.users = data;
-
-        this.users.forEach(user => {
-          if (user.username === this.loggedInAdmin.username) {
-            user.disabled = false;
-          } else {
-            user.disabled = true;
-          }
-        });
 
         const adminIndex = this.users.findIndex(user => user.username === this.loggedInAdmin.username);
 
@@ -101,5 +98,4 @@ interface User {
   lastName: string;
   email: string;
   profile: string;
-  disabled: boolean;
 }

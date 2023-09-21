@@ -61,6 +61,7 @@ import { TakeUserAssessmentQuestionsComponent } from './pages/user/take-user-ass
 
 
 import { UserAssessmentDetailsComponent } from './pages/admin/user-assessment-details/user-assessment-details.component';
+import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
 
 
 @NgModule({
@@ -97,6 +98,7 @@ import { UserAssessmentDetailsComponent } from './pages/admin/user-assessment-de
     TakeUserAssessmentQuestionsComponent,
 
     UserAssessmentDetailsComponent,
+      PasswordResetComponent,
 
   ],
   imports: [
