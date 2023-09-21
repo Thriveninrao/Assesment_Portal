@@ -36,6 +36,7 @@ import { AddAssessmentComponent } from './pages/admin/add-assessment/add-assessm
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { AddAdminComponent } from './pages/admin/add-admin/add-admin.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { FileServicesService } from './services/file-services.service';
 import { AddUserComponent } from './pages/admin/add-user/add-user.component';
@@ -54,6 +55,9 @@ import { UserWelcomeComponent } from './pages/user/user-welcome/user-welcome.com
 import { ViewUserAssessmentsComponent } from './pages/user/view-user-assessments/view-user-assessments.component';
 import { UserSidebarComponent } from './pages/user/user-sidebar/user-sidebar.component';
 import { AdminDetailsComponent } from './pages/admin/admin-details/admin-details.component';
+import { TakeUserAssessmentQuestionsComponent } from './pages/user/take-user-assessment-questions/take-user-assessment-questions.component';
+
+
 
 @NgModule({
   declarations: [
@@ -85,6 +89,7 @@ import { AdminDetailsComponent } from './pages/admin/admin-details/admin-details
     ViewUserAssessmentsComponent,
     UserSidebarComponent,
     AdminDetailsComponent,
+    TakeUserAssessmentQuestionsComponent,
   ],
   imports: [
     BrowserModule,
@@ -109,8 +114,9 @@ import { AdminDetailsComponent } from './pages/admin/admin-details/admin-details
     MatCheckboxModule,
     MatTabsModule,
     MatTooltipModule,
+    MatRadioModule,
   ],
   providers: [authInterceptorProviders, FileServicesService],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
