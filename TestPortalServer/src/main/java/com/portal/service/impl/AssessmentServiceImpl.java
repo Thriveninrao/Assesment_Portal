@@ -4,8 +4,10 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -152,7 +154,8 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 	@Override
 	public String InsertAllQuestions(long AssesmentId, MultipartFile file) throws IOException {
 		System.out.println("AssessmentServiceImpl.InsertAllQuestions()");
-		 List<Question> questionlist =new ArrayList<Question>(); 
+		 Set<Question> questionlist =new HashSet<Question>();
+		  Set<Question> questionsAlreadyExist = assessRepo.getReferenceById(AssesmentId).getQuestions();
 		Integer count = 0;
 		Workbook workbook = null;
 		try {
@@ -165,9 +168,8 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 				if (row.getRowNum() == 0) {
 					continue;
 				}
-
+				
 				Question Q=new Question();
-
 				Q.setContent(row.getCell(0).getStringCellValue());
 				Q.setOption1(row.getCell(1).getStringCellValue());
 				Q.setOption2(row.getCell(2).getStringCellValue());
@@ -179,7 +181,10 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 				Q.setAssessment(assessRepo.getReferenceById(AssesmentId));
 				questionlist.add(Q);
 			}
-
+			 //questionlist.addAll(questionsAlreadyExist);
+			 
+			
+			
 			List<Question> savedAll = questionRepo.saveAll(questionlist);
 			System.out.println(savedAll.size());
 		//	System.out.println(savedAll);
