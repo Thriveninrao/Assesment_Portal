@@ -19,6 +19,7 @@
       </div>
       <div class="container text-left mt20">
         <button
+        *ngIf="isAdmin"
           routerLink="/admin/add-admin"
           mat-raised-button
           color="accent"
@@ -82,7 +83,7 @@
                 <ng-container matColumnDef="actions">
                   <th mat-header-cell *matHeaderCellDef></th>
                   <td mat-cell *matCellDef="let user">
-                    <button mat-icon-button color="danger" (click)="editUser(user)" [disabled]="user.disabled">
+                    <button mat-icon-button color="danger" (click)="editUser(user)" *ngIf="user.username === loggedInAdmin.username && user.username !== 'admin.admin'">
                       <mat-icon>edit</mat-icon>
                     </button>
                   </td>
