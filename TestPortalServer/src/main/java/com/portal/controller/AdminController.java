@@ -16,6 +16,7 @@ import com.portal.model.Role;
 import com.portal.model.SuccessMessage;
 import com.portal.model.User;
 import com.portal.model.UserRole;
+import com.portal.service.EmailServiceInterface;
 import com.portal.service.UserServiceInterface;
 
 @RestController
@@ -28,6 +29,9 @@ public class AdminController {
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	private EmailServiceInterface emailService;
 
 	// creating user
 	@PostMapping("/create")
@@ -58,6 +62,14 @@ public class AdminController {
 			userService.createUser(user, userRole);
 
 			message = new SuccessMessage("Success");
+			
+			try {
+				emailService.sendEmailAdmin(user, generatePassword);
+				System.out.println("Email sent successfully!");
+			} catch (Exception e) {
+				System.out.println("Failed to send email: " + e.getMessage());
+			}
+			
 		} else {
 			message = new SuccessMessage("Already Exists");
 		}

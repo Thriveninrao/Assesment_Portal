@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./user-details.component.css']
 })
 export class UserDetailsComponent implements OnInit {
-  displayedColumns: string[] = ['image', 'id', 'name', 'username', 'email', 'actions'];
+  displayedColumns: string[] = ['image', 'id', 'name', 'username', 'email', 'testsAssigned', 'testsAttempted', 'actions'];
   users: User[] = []; // Initialize an empty array to hold user data
   dataSource!: MatTableDataSource<User>;
   searchQuery: string = '';
@@ -122,6 +122,14 @@ export class UserDetailsComponent implements OnInit {
       }
     });
   }
+
+  onTestsAttemptedClicked(user: any) {
+    console.log("Hi", user.username);
+
+  }
+  onTestsAssignedClicked(user: any) {
+    console.log("Hi", user.username);
+  }
 }
 
 interface User {
@@ -131,4 +139,7 @@ interface User {
   lastName: string;
   email: string;
   profile: string;
+  phone: string;
+  testsAttempted: number;
+  testsAssigned: number;
 }

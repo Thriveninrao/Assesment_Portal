@@ -54,6 +54,7 @@ import { UserWelcomeComponent } from './pages/user/user-welcome/user-welcome.com
 import { ViewUserAssessmentsComponent } from './pages/user/view-user-assessments/view-user-assessments.component';
 import { UserSidebarComponent } from './pages/user/user-sidebar/user-sidebar.component';
 import { AdminDetailsComponent } from './pages/admin/admin-details/admin-details.component';
+import { UserAssessmentDetailsComponent } from './pages/admin/user-assessment-details/user-assessment-details.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { AdminDetailsComponent } from './pages/admin/admin-details/admin-details
     ViewUserAssessmentsComponent,
     UserSidebarComponent,
     AdminDetailsComponent,
+    UserAssessmentDetailsComponent,
   ],
   imports: [
     BrowserModule,
