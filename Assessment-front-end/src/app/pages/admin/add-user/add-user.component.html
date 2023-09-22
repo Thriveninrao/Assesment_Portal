@@ -14,10 +14,7 @@
             <h1 class="text-center">
               {{ mode === "add" ? "Provide" : "Update" }} User Details
             </h1>
-            <!-- {{user | json}} -->
             <form (ngSubmit)="formSubmit()">
-              <!--User : Field-->
-              <!--First Name : Field-->
               <mat-form-field class="full-width" appearance="outline">
                 <mat-label>First Name</mat-label>
                 <input
@@ -31,7 +28,6 @@
                 />
               </mat-form-field>
 
-              <!--Last Name : Field-->
               <mat-form-field class="full-width" appearance="outline">
                 <mat-label>Last Name</mat-label>
                 <input
@@ -45,7 +41,6 @@
                 />
               </mat-form-field>
 
-              <!--Email : Field-->
               <mat-form-field class="full-width" appearance="outline">
                 <mat-label>Email</mat-label>
                 <input
@@ -59,7 +54,6 @@
                 />
               </mat-form-field>
 
-              <!--Phone : Field-->
               <mat-form-field class="full-width" appearance="outline">
                 <mat-label>Phone</mat-label>
                 <input

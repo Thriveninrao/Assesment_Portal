@@ -339,8 +339,6 @@ public class UserServiceImpl implements UserServiceInterface {
 
 		});
 
-		System.out.println("Size of model :: " + userSet.size());
-
 		return userSet;
 	}
 

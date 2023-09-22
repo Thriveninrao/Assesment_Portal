@@ -58,11 +58,10 @@ export class UserDetailsComponent implements OnInit {
   }
 
   editUser(user: any) {
-    const userId = user.id; // Assuming you have a unique identifier for users
-    this.router.navigate(['/admin/add-user/edit',userId], { queryParams: { mode: 'edit', userId: userId } });
+    const userId = user.id;
+    this.router.navigate(['/admin/add-user/edit', userId], { queryParams: { mode: 'edit', userId: userId } });
   }
 
-  // Function to delete a user
   deleteUser(user: any) {
     Swal.fire({
       icon: 'question',

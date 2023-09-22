@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class AdminDetailsComponent {
   displayedColumns: string[] = ['image', 'id', 'name', 'username', 'email', 'actions'];
-  admins: Admin[] = []; // Initialize an empty array to hold user data
+  admins: Admin[] = []; 
   dataSource!: MatTableDataSource<Admin>;
   searchQuery: string = '';
   image: any;
@@ -49,9 +49,7 @@ export class AdminDetailsComponent {
         const adminIndex = this.admins.findIndex(admin => admin.username === this.loggedInAdmin.username);
 
         if (adminIndex !== -1) {
-          // Remove the loggedInAdmin user from the array
           this.admins.splice(adminIndex, 1);
-          // Add the loggedInAdmin user back at the beginning of the array
           this.admins.unshift(this.loggedInAdmin);
         }
 
@@ -87,7 +85,7 @@ export class AdminDetailsComponent {
   }
 
   editAdmin(admin: any) {
-    const adminId = admin.id; // Assuming you have a unique identifier for users
+    const adminId = admin.id;
     this.router.navigate(['/admin/add-admin/edit',adminId], { queryParams: { mode: 'edit', adminId: adminId } });
   }
   deleteAdmin(admin: any) {
