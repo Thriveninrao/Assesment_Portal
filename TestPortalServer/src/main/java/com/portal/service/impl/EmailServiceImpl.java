@@ -151,17 +151,18 @@ public class EmailServiceImpl implements EmailServiceInterface {
 				+ "! </h2>\r\n" + "        <p> You have " + assessmentList.size()
 				+ " new tests to complete. Kindly login to the portal and complete the assigned tests. </p>";
 
-		htmlContent += "<div style=\"display: flex; color: white; justify-content: center; align-items: center; height: 200px;\">"; // Centering container
+		htmlContent += "<div style=\"display: flex; color: white; justify-content: center; align-items: center; height: 200px;\">"; // Centering
+																																	// container
 		htmlContent += "<mat-card class=\"mat-card\">";
 		htmlContent += "<mat-card-content>";
 		htmlContent += "<table class=\"centered-table\" border=\"1\" cellpadding=\"5\">";
 		htmlContent += "<tr><th><h3> Test Name </h3></th><th><h3> Category </h3></th></tr>";
 
 		for (Assessment assessment : assessmentList) {
-		    htmlContent += "<tr>";
-		    htmlContent += "<td style=\" color: cyan ;\">" + assessment.getAssessmentTitle() + "</td>";
-		    htmlContent += "<td style=\" color: cyan ;\">" + assessment.getCategory().getCategoryTitle() + "</td>";
-		    htmlContent += "</tr>";
+			htmlContent += "<tr>";
+			htmlContent += "<td style=\" color: cyan ;\">" + assessment.getAssessmentTitle() + "</td>";
+			htmlContent += "<td style=\" color: cyan ;\">" + assessment.getCategory().getCategoryTitle() + "</td>";
+			htmlContent += "</tr>";
 		}
 
 		htmlContent += "</table>";
@@ -182,13 +183,54 @@ public class EmailServiceImpl implements EmailServiceInterface {
 
 	@Override
 	public void sendEmailAdmin(User admin, String generatedPassword) throws MessagingException {
+		MimeMessage message = javaMailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+		String subject = admin.getFirstName() + " " + admin.getLastName() + " | ADMIN | Softtek Assessment Portal";
+
+		helper.setTo(admin.getEmail());
+		helper.setSubject(subject);
+
+		String htmlContent = "<html>";
+		htmlContent += "<head>" + "    <style>" + "      .card {" + "            background-color: grey;"
+				+ "            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);" + "            max-width: 600px;"
+				+ "            margin: 0 auto;" + "            padding: 20px;" + "            text-align: center;"
+				+ "        }" + "        h2 {" + "            color: cyan;" + "        }" + "        p {"
+				+ "            color: white;" + "            margin-bottom: 20px;" + "        }"
+				+ "    </style> </head>";
+
+		htmlContent += "<body><div class=\"card\">";
+		htmlContent += "<h2 style =\"color: white;\"> Welcome, " + admin.getFirstName() + " " + admin.getLastName()
+				+ "! </h2>\r\n"
+				+ "        <p> You are now registered with Softtek Assessment Portal as an ADMIN. Below are your login credentials: </p>";
+
+		htmlContent += "<h2> Username: " + admin.getUsername() + " </h2>";
+
+		htmlContent += "<h2> Password: " + generatedPassword + " </h2>";
+
+		htmlContent += "<p> Visit our portal at <a href=\"http://localhost:4200/login\">Softtek Assessment Portal</a> and use the provided credentials to log in. </p>";
+		htmlContent += "<p> If you have any questions or encounter any issues, please don't hesitate to reach out to our support team at <a href=\"mailto:softtek.assessment.portal@gmail.com\">softtek.assessment.portal@gmail.com </a>. </p>";
+
+		htmlContent += "<p> Best regards, </p>" + "<p> The Softtek Team </p>";
+		htmlContent += "</div></body></html>";
+
+		helper.setText(htmlContent, true);
+
+		javaMailSender.send(message);
+
+	}
+
+	@Override
+	public void sendEmailForUpdatedCredemtials(User user, String generatedPassword, String role)
+			throws MessagingException {
+		if (!(role.equals("ADMIN"))) {
 			MimeMessage message = javaMailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-			String subject = admin.getFirstName() + " " + admin.getLastName()
-					+ " | ADMIN | Softtek Assessment Portal";
+			String subject = user.getFirstName() + " " + user.getLastName()
+					+ " credentials updated | Softtek Assessment Portal";
 
-			helper.setTo(admin.getEmail());
+			helper.setTo(user.getEmail());
 			helper.setSubject(subject);
 
 			String htmlContent = "<html>";
@@ -200,11 +242,11 @@ public class EmailServiceImpl implements EmailServiceInterface {
 					+ "    </style> </head>";
 
 			htmlContent += "<body><div class=\"card\">";
-			htmlContent += "<h2 style =\"color: white;\"> Welcome, " + admin.getFirstName() + " " + admin.getLastName()
+			htmlContent += "<h2 style =\"color: white;\"> Hi, " + user.getFirstName() + " " + user.getLastName()
 					+ "! </h2>\r\n"
-					+ "        <p> You are now registered with Softtek Assessment Portal as an ADMIN. Below are your login credentials: </p>";
+					+ "        <p> Your credentials were updated. Below are your new login credentials: </p>";
 
-			htmlContent += "<h2> Username: " + admin.getUsername() + " </h2>";
+			htmlContent += "<h2> Username: " + user.getUsername() + " </h2>";
 
 			htmlContent += "<h2> Password: " + generatedPassword + " </h2>";
 
@@ -217,7 +259,15 @@ public class EmailServiceImpl implements EmailServiceInterface {
 			helper.setText(htmlContent, true);
 
 			javaMailSender.send(message);
-		
+		}
 	}
 
+	@Override
+	public void sendEmailForUpdatedEmail(User user, String generatedPassword, String role) throws MessagingException {
+		if (role.equals("ADMIN")) {
+			this.sendEmailAdmin(user, generatedPassword);
+		} else {
+			this.sendEmail(user, generatedPassword, "new");
+		}
+	}
 }

@@ -3,13 +3,12 @@
   }
 
   .left-button {
-  align-self: flex-start; /* Align the button to the left */
-  margin-right: 20px; /* Add some margin to separate it from other elements */
+  align-self: flex-start; 
+  margin-right: 20px; 
 }
 
 .clickable-row:hover {
   cursor: pointer;
-  background-color: #f0f0f0; /* Change the background color on hover to indicate interactivity */
-  /* Add other styles as needed, such as text color or box-shadow */
+  background-color: #f0f0f0; 
 }
 

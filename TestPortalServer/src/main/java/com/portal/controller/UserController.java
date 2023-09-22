@@ -18,6 +18,7 @@ import com.portal.model.DataSent;
 import com.portal.model.Role;
 import com.portal.model.SuccessMessage;
 import com.portal.model.User;
+import com.portal.model.UserModel;
 import com.portal.model.UserRole;
 import com.portal.service.EmailServiceInterface;
 import com.portal.service.UserServiceInterface;
@@ -39,6 +40,8 @@ public class UserController {
 	// creating user
 	@PostMapping("/create")
 	public ResponseEntity<?> createUser(@RequestBody User user) throws Exception {
+		
+		System.out.println("Hi");
 
 		Role role = new Role();
 		role.setRoleId(45L);
@@ -73,10 +76,22 @@ public class UserController {
 		}
 		return ResponseEntity.ok(message);
 	}
+	
+	@PutMapping("/update")
+	public ResponseEntity<?> updateUser(@RequestBody UserModel user) throws Exception {
+		System.out.println("Hi from backend :: to update"+ user);
+		SuccessMessage message = new SuccessMessage(userService.updateUser(user));
+		return ResponseEntity.ok(message);
+	}
 
 	@GetMapping("/{username}")
 	public User getUser(@PathVariable("username") String username) {
 		return userService.getUser(username);
+	}
+	
+	@GetMapping("/getUserById/{userId}")
+	public ResponseEntity<?> getUserById(@PathVariable("userId") Long userId) {
+		return ResponseEntity.ok(this.userService.getUserById(userId));
 	}
 
 	@DeleteMapping("/{username}")

@@ -42,7 +42,15 @@
     </div>
   </mat-card-content>
   <mat-card-actions class="self-center">
-    <button mat-raised-button color="primary" class="mr20"><mat-icon>edit</mat-icon>Edit Profile</button>
+    <button mat-raised-button color="primary" class="ml20"><mat-icon>edit</mat-icon>Edit Profile</button>
     <button mat-raised-button color="accent" class="ml20"><mat-icon>download</mat-icon>Export User Report</button>
+    <button
+    mat-raised-button
+    color="warn"
+    class="ml20"
+    *ngIf="user.profile === 'Admin.jpg' || user.email.includes('@softtek.com')"
+  >
+    <mat-icon>password</mat-icon>Password Reset
+  </button> 
   </mat-card-actions>
 </mat-card>

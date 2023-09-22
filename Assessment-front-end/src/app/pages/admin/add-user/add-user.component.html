@@ -1,93 +1,126 @@
 <div class="bootstrap-wrapper mt20">
-    <div class="container">
-      <div class="row" style="margin-top: 20px">
-        <div class="col-md-6 offset-md-3">
-          <mat-card>
-            <mat-card-content>
-              <div class="container text-center">
-                <img
-                  style="max-width: 100px"
-                  src="../../../../assets/man.png"
-                  alt=""
+  <div class="container">
+    <div class="row" style="margin-top: 20px">
+      <div class="col-md-6 offset-md-3">
+        <mat-card>
+          <mat-card-content>
+            <div class="container text-center">
+              <img
+                style="max-width: 100px"
+                src="../../../../assets/man.png"
+                alt=""
+              />
+            </div>
+            <h1 class="text-center">
+              {{ mode === "add" ? "Provide" : "Update" }} User Details
+            </h1>
+            <form (ngSubmit)="formSubmit()">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input
+                  required
+                  [(ngModel)]="user.firstName"
+                  name="firstName"
+                  type="text"
+                  matInput
+                  placeholder="Enter Your First Name"
+                  (ngModelChange)="inputFieldsModified = true"
                 />
+              </mat-form-field>
+
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input
+                  required
+                  [(ngModel)]="user.lastName"
+                  name="lastName"
+                  type="text"
+                  matInput
+                  placeholder="Enter Your Last Name"
+                  (ngModelChange)="inputFieldsModified = true"
+                />
+              </mat-form-field>
+
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input
+                  required
+                  [(ngModel)]="user.email"
+                  name="email"
+                  type="text"
+                  matInput
+                  placeholder="Enter Your Email"
+                  (ngModelChange)="inputFieldsModified = true"
+                />
+              </mat-form-field>
+
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Phone</mat-label>
+                <input
+                  required
+                  [(ngModel)]="user.phone"
+                  name="phone"
+                  type="text"
+                  matInput
+                  placeholder="Enter Your Phone"
+                  (ngModelChange)="inputFieldsModified = true"
+                />
+              </mat-form-field>
+              <div *ngIf="mode === 'edit'">
+                <mat-slide-toggle
+                  [(ngModel)]="editUsername"
+                  name="editUsername"
+                  style="margin-bottom: 16px"
+                  >Edit Username</mat-slide-toggle
+                >
+
+                <div *ngIf="editUsername">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Username</mat-label>
+                    <input
+                      [(ngModel)]="user.username"
+                      name="username"
+                      type="text"
+                      matInput
+                      placeholder="Enter Your Username"
+                      (ngModelChange)="inputFieldsModified = true"
+                    />
+                  </mat-form-field>
+                </div>
               </div>
-              <h1 class="text-center">Provide User Details</h1>
-              <!-- {{user | json}} -->
-              <form (ngSubmit)="formSubmit()">
-                <!--User : Field-->
-                <!--First Name : Field-->
-                <mat-form-field class="full-width" appearance="outline">
-                  <mat-label>First Name</mat-label>
-                  <input
-                    required
-                    [(ngModel)]="user.firstName"
-                    name="firstName"
-                    type="text"
-                    matInput
-                    placeholder="Enter Your First Name"
-                  />
-                </mat-form-field>
-  
-                <!--Last Name : Field-->
-                <mat-form-field class="full-width" appearance="outline">
-                  <mat-label>Last Name</mat-label>
-                  <input
-                    required
-                    [(ngModel)]="user.lastName"
-                    name="lastName"
-                    type="text"
-                    matInput
-                    placeholder="Enter Your Last Name"
-                  />
-                </mat-form-field>
-  
-                <!--Email : Field-->
-                <mat-form-field class="full-width" appearance="outline">
-                  <mat-label>Email</mat-label>
-                  <input
-                    required
-                    [(ngModel)]="user.email"
-                    name="email"
-                    type="text"
-                    matInput
-                    placeholder="Enter Your Email"
-                  />
-                </mat-form-field>
-  
-                <!--Phone : Field-->
-                <mat-form-field class="full-width" appearance="outline">
-                  <mat-label>Phone</mat-label>
-                  <input
-                    required
-                    [(ngModel)]="user.phone"
-                    name="phone"
-                    type="text"
-                    matInput
-                    placeholder="Enter Your Phone"
-                  />
-                </mat-form-field>
-  
-                <div class="container text-left mt15">
-                  <button type="submit" mat-raised-button color="primary" [disabled]="disabled">
-                    Add User
-                  </button>
-                  <button
+
+              <div class="container text-left mt15">
+                <button
+                  type="submit"
+                  mat-raised-button
+                  color="primary"
+                  [disabled]="disabled || !inputFieldsModified"
+                >
+                  {{ mode === "add" ? "Add" : "Update" }} User
+                </button>
+                <button
                   type="reset"
                   style="margin-left: 20px"
                   mat-stroked-button
-                  color="warn">
+                  color="warn"
+                  [disabled]="mode === 'edit'"
+                  *ngIf="mode !== 'edit'"
+                >
                   Clear
                 </button>
-                <button mat-raised-button color="warn" style="margin-left: 20px" routerLink="/admin/user-details">
-                 Back
+                <button
+                  mat-raised-button
+                  color="warn"
+                  style="margin-left: 20px"
+                  routerLink="/admin/user-details"
+                >
+                  Back
                 </button>
-                <!-- <mat-spinner *ngIf="disabled" diameter="24" color="accent"></mat-spinner> -->
-                </div>
-              </form>
-            </mat-card-content>
-          </mat-card>
-        </div>
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
       </div>
     </div>
   </div>
-  
+</div>

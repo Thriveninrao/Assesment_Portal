@@ -1,5 +1,7 @@
 package com.portal.model.assessment;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -46,4 +48,34 @@ public class Question {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Assessment assessment;
+
+	@Override
+	public String toString() {
+		return "Question [questionId=" + questionId + ", content=" + content + ", option1=" + option1 + ", option2="
+				+ option2 + ", option3=" + option3 + ", option4=" + option4 + ", answer=" + answer + ", marks=" + marks
+				+ "]";
+	}
+
+	 @Override
+	    public int hashCode() {
+	        return Objects.hash(content, option1, option2, option3, option4, answer, marks);
+	    }
+	 
+	 @Override
+	    public boolean equals(Object obj) {
+	        if (this == obj)
+	            return true;
+	        if (obj == null || getClass() != obj.getClass())
+	            return false;
+	        Question other = (Question) obj;
+	        return Objects.equals(content, other.content)
+	                && Objects.equals(option1, other.option1)
+	                && Objects.equals(option2, other.option2)
+	                && Objects.equals(option3, other.option3)
+	                && Objects.equals(option4, other.option4)
+	                && Objects.equals(answer, other.answer)
+	                && Objects.equals(marks, other.marks);
+	    }
+	
+	
 }

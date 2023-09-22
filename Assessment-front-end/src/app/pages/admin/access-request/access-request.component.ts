@@ -54,7 +54,7 @@ export class AccessRequestComponent implements OnInit {
   public rejectUser(user: User) {
     console.log('Rejecting user:', user.username);
     Swal.fire({
-      icon: 'warning',
+      icon: 'question',
       title: `Are you certain about your decision to decline ${user.firstName} ${user.lastName}'s request?`,
       confirmButtonText: 'Yes, Reject',
       confirmButtonColor: 'red',
@@ -91,7 +91,7 @@ export class AccessRequestComponent implements OnInit {
   public approveUser(user: User) {
     console.log('Approving user:', user.username);
     Swal.fire({
-      icon: 'info',
+      icon: 'question',
       title: `Are you certain about granting ${user.firstName} ${user.lastName} permission to log in with a new password?`,
       confirmButtonText: 'Yes',
       confirmButtonColor: 'green',

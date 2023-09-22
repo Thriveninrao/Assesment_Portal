@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserserviceService } from 'src/app/services/userservice.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,7 +19,7 @@ export class UserDetailsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private _user: UserserviceService,) { this.dataSource = new MatTableDataSource<User>([]); } // No need to inject a service for static data
+  constructor(private _user: UserserviceService, private router: Router) { this.dataSource = new MatTableDataSource<User>([]); } // No need to inject a service for static data
 
   ngOnInit(): void {
     this._user.getUsers().subscribe(
@@ -57,13 +58,13 @@ export class UserDetailsComponent implements OnInit {
   }
 
   editUser(user: any) {
-    // Implement edit logic here, e.g., set a flag or open a dialog
+    const userId = user.id;
+    this.router.navigate(['/admin/add-user/edit', userId], { queryParams: { mode: 'edit', userId: userId } });
   }
 
-  // Function to delete a user
   deleteUser(user: any) {
     Swal.fire({
-      icon: 'warning',
+      icon: 'question',
       title: `Are you sure about your decision to remove ${user.firstName} ${user.lastName} ?`,
       confirmButtonText: 'Yes, Delete',
       confirmButtonColor: 'red',
@@ -91,7 +92,7 @@ export class UserDetailsComponent implements OnInit {
               timer: 2000,
             }).then(() => {
               return Swal.fire({
-                icon: 'warning',
+                icon: 'question',
                 title: `Continue to delete ${user.firstName} ${user.lastName} ?`,
                 confirmButtonText: 'Yes, Force Delete',
                 confirmButtonColor: 'red',

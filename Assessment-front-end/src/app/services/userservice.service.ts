@@ -11,19 +11,28 @@ export class UserserviceService {
 
   //add User
   public addUser(user: any) {
+    console.log("in service add");
+    
     return this.http.post(`${baseUrl}/user/create`, user);
   }
 
-  public deleteUser(username: any){
+  public updateUser(user: any) {
+    console.log("in service update");
+    return this.http.put(`${baseUrl}/user/update`, user);
+  }
+
+  public deleteUser(username: any) {
     return this.http.delete(`${baseUrl}/user/${username}`);
   }
 
-  public forceDelete(username: any){
+  public forceDelete(username: any) {
     return this.http.delete(`${baseUrl}/admin/${username}`);
   }
 
   //add Admin
   public addAdmin(user: any) {
+    console.log("in add service");
+    
     return this.http.post(`${baseUrl}/admin/create`, user);
   }
 
@@ -41,6 +50,10 @@ export class UserserviceService {
 
   public getUsers() {
     return this.http.get(`${baseUrl}/user/getUsers`);
+  }
+
+  public getUserById(userId: number) {
+    return this.http.get(`${baseUrl}/user/getUserById/${userId}`);
   }
 
   public getRoleId(username: string) {

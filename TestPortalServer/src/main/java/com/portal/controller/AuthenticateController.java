@@ -53,16 +53,19 @@ public class AuthenticateController {
 				System.out.println("You have already logged in.");
 				user.setLoginRequested(true);
 				userDetailService.updateUser(user);
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-						"You have already logged in");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You have already logged in");
 			} else {
 				// Generate the token
 				String token = this.jwtUtils.generateToken(userDetails);
 				System.out.println(token);
+
+				System.out.println(user.getEmail());
 				if (!user.getUserRole().getRole().getRoleName().toUpperCase().equals("ADMIN")) {
-					System.out.println("Hi");
-					user.setLoggedIn(true);
-					this.userDetailService.updateUser(user);
+					if (!user.getEmail().contains("@softtek.com")) {
+						System.out.println("Hi");
+						user.setLoggedIn(true);
+						this.userDetailService.updateUser(user);
+					}
 				}
 				System.out.println("NCCCCC" + user.getUserRole().getRole().getRoleName().toUpperCase());
 				// Regular login, no password change needed

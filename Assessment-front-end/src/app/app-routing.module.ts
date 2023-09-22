@@ -26,6 +26,10 @@ import { UserWelcomeComponent } from './pages/user/user-welcome/user-welcome.com
 import { ViewUserAssessmentsComponent } from './pages/user/view-user-assessments/view-user-assessments.component';
 import { UserDetailsComponent } from './pages/admin/user-details/user-details.component';
 import { AdminDetailsComponent } from './pages/admin/admin-details/admin-details.component';
+import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
+
+import { TakeUserAssessmentQuestionsComponent } from './pages/user/take-user-assessment-questions/take-user-assessment-questions.component';
+
 import { UserAssessmentDetailsComponent } from './pages/admin/user-assessment-details/user-assessment-details.component';
 
 const routes: Routes = [
@@ -58,6 +62,10 @@ const routes: Routes = [
         component: ProfileComponent,
       },
       {
+        path: 'password-reset',
+        component: PasswordResetComponent,
+      },
+      {
         path: 'user-details',
         component: UserDetailsComponent,
       },
@@ -86,8 +94,19 @@ const routes: Routes = [
         component: AssignTestComponent,
       },
       {
-        path: 'add-user',
+        path: 'add-user/:mode',
         component: AddUserComponent,
+      },{
+        path: 'add-user/edit/:userId',
+        component: AddUserComponent,
+        data: { mode: 'edit' } 
+      },{
+        path: 'add-admin/:mode',
+        component: AddAdminComponent,
+      },{
+        path: 'add-admin/edit/:adminId',
+        component: AddAdminComponent,
+        data: { mode: 'edit' } 
       },
       {
         path: 'add-admin',
@@ -135,6 +154,10 @@ const routes: Routes = [
       {
         path:'view-user-assessments',
         component:ViewUserAssessmentsComponent,
+      },
+      {
+        path:'take-user-assessment-questions/:assessmentId/:assessmentTitle',
+        component:TakeUserAssessmentQuestionsComponent,
       },
     ],
 

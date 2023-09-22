@@ -17,10 +17,9 @@ export class AssignTestComponent implements OnInit {
   selectedUsers: any[] = [];
   selectedAssessments: any[] = [];
 
-  assessmentSearch: string = ''; // Search input for assignments
-  userSearch: string = ''; // Search input for users
+  assessmentSearch: string = '';
+  userSearch: string = '';
 
-  // Define filtered arrays for assignments and users
   filteredAssessments: Assessment[] = this.assessments;
   filteredUsers: User[] = this.users;
 
@@ -31,7 +30,7 @@ export class AssignTestComponent implements OnInit {
       (data: any) => {
         this.assessments = data.map((assessment: any) => ({
           ...assessment,
-          selected: false, // Initialize it as false
+          selected: false,
         }));
         this.filteredAssessments = [...this.assessments];
         console.log(this.assessments);
@@ -55,7 +54,7 @@ export class AssignTestComponent implements OnInit {
             if (this.testUserRoleId === 44) {
               const index = this.users.indexOf(user);
               if (index !== -1) {
-                this.users.splice(index, 1); // Removes one element at the found index
+                this.users.splice(index, 1); 
               }
             }
             this.filteredUsers = [...this.users]
@@ -69,14 +68,12 @@ export class AssignTestComponent implements OnInit {
       });
   }
 
-  // Function to update filtered assignments based on search input
   updateFilteredAssessments() {
     this.filteredAssessments = this.assessments.filter((assessment) =>
       assessment.assessmentTitle.toLowerCase().includes(this.assessmentSearch.toLowerCase()) || assessment.category.categoryTitle.toLowerCase().includes(this.assessmentSearch.toLowerCase())
     );
   }
 
-  // Function to update filtered users based on search input
   updateFilteredUsers() {
     console.log(this.userSearch)
     console.log(this.filteredUsers)
@@ -128,24 +125,15 @@ export class AssignTestComponent implements OnInit {
       });
       return; 
     }
-   
+
     const dataToSend = {
       selectedAssessments: this.selectedAssessments,
       selectedUsers: this.selectedUsers,
     };
 
-    // Add your logic here for what should happen when the FAB button is clicked
-    console.log('FAB button clicked');
-    // You can open a dialog, navigate to a different page, or perform any other action you need.
-    console.log('Selected Users:', this.selectedUsers);
-    console.log('Selected Assessments:', this.selectedAssessments);
-
-    console.log(dataToSend)
     this.disabled = true;
     this.userService.assignTest(dataToSend).subscribe(
       (data: any) => {
-        console.log("In promice");
-        
         console.log(data);
         //Success
           Swal.fire('Success', data.message, 'success');

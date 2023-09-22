@@ -19,7 +19,8 @@
     </div>
     <div class="container text-left mt20">
       <button
-        routerLink="/admin/add-user"
+        [routerLink]="['/admin/add-user/add']"
+        [queryParams]="{ mode: 'add' }"
         mat-raised-button
         color="accent"
         class="left-button"
