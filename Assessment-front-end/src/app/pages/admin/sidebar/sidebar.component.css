@@ -1,22 +1,87 @@
 mat-action-list {
-  background-image: linear-gradient(-225deg, #fffeff 0%, #d7fffe 100%);
+  color: rgb(0, 0, 0);
+  background-image: linear-gradient(315deg, #d5fefd 0%, #fffcff 74%);
 }
 
-.matHeader{
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-size: x-large;
+.matHeader {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: large;
   font-style: initial;
+  color: #000000;
   font-weight: 500;
+}
+
+.container {
+  color: #000000;
 }
 
 .sidebar {
   position: fixed;
-  top: 20;
-  left: 0;
-  width: 250px; /* Adjust the width as needed */
-  height: 100%; /* Make it full height */
-  background-color: #fff; /* Set the background color */
-  border-right: 1px solid #ddd; /* Add a border if desired */
-  overflow-y: auto; /* Enable scrolling if content exceeds sidebar height */
-  z-index: 1000; /* Ensure it's on top of other content */
+  top: 0px;
+  left: 0px;
+  width: 66px;
+  height: 100%;
+  color: rgb(255, 255, 255);
+  background-image: linear-gradient(315deg, #d5fefd 0%, #fffcff 74%);
+  overflow: hidden;
+  transition: all 500ms ease-in-out;
+}
+
+.icon{
+  margin-bottom: 5px;
+}
+
+.sidebar:hover {
+  width: 240px;
+}
+
+.sidebar .wrapper {
+  width: 250px;
+  height: 100%;
+}
+
+.sidebar .links {
+  padding: 0px 5px;
+}
+
+.sidebar .links .link {
+  margin: 8px 0px;
+  height: 50px;
+  color: #888;
+  display: flex;
+  align-items: center;
+  padding: 0px 5px;
+  padding-block: inherit;
+  border-radius: 5px;
+  transition: all 300ms ease-in-out;
+}
+
+.sidebar .links .link ion-icon {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+}
+
+.sidebar .links .link span {
+  display: inline-block;
+  font-size: 17px;
+  margin-left: 20px;
+}
+
+.sidebar .divider {
+  border-bottom: 1px solid #222;
+  margin: 20px 0px;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.sidebar .links .link:hover {
+  background: #99b6db;
+  margin-inline-end: 10px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.sidebar .links .link button {
+  color: #fff;
 }

@@ -24,6 +24,7 @@ export class ViewAssessmentsComponent implements OnInit {
         this.assessments = data;
         this.pagedAssessments = this.assessments;
         console.log(data);
+  
       },
       (error) => {
         console.log(error);
