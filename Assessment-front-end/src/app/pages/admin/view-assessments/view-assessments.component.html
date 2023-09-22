@@ -13,12 +13,20 @@
       Add New Assessment
     </button>
   </div>
-  <div class="container mt20 ml10">
+  <mat-paginator
+  [pageSizeOptions]="[3, 6, 10]"
+  [pageSize]="pageSize"
+  [pageIndex]="pageIndex"
+  [length]="assessments.length"
+  (page)="onPageChange($event)"
+  showFirstLastButtons
+></mat-paginator>
+  <div class="container ml10">
     <div *ngIf="assessments.length === 0" class="text-center">
       <p>No assessments found</p>
     </div>
   </div>
-  <mat-card class="mt30 mr20 ml20 mb20" *ngFor="let a of pagedAssessments">
+  <mat-card class="mr20 ml20 mb20" *ngFor="let a of pagedAssessments">
     <mat-card-header>
       <div mat-card-avatar class="assessment-image"></div>
 
@@ -77,11 +85,3 @@
   </mat-card>
 </mat-card>
 
-<mat-paginator
-  [pageSizeOptions]="[3, 6, 10]"
-  [pageSize]="pageSize"
-  [pageIndex]="pageIndex"
-  [length]="assessments.length"
-  (page)="onPageChange($event)"
-  showFirstLastButtons
-></mat-paginator>

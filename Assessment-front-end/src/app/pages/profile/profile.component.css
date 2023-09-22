@@ -20,6 +20,7 @@
   text-align: center;
 }
 
+
 mat-card {
   /* background: linear-gradient(135deg, #71b7e6, #9b59b6); */
 
@@ -36,6 +37,8 @@ mat-card {
   /* background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%); */
 
   background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+
+  margin: 100px;
 
   text-align: center;
 
