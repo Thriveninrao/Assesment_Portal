@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  hidePassword: boolean = true;
   constructor(private snack: MatSnackBar, private login: LoginService, private user: UserserviceService, private router: Router) { }
   ngOnInit(): void {
   }

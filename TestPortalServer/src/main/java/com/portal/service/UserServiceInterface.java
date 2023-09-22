@@ -50,4 +50,10 @@ public interface UserServiceInterface {
 	public Integer getCountOfUserAssessmentAssignIdByUserName();
 
 	public String deleteAdmin(String username);
+
+	public UserModel getUserById(Long userId);
+
+	public String updateUser(UserModel user);
+
+	public User getUserDetailById(Long userId);
 }

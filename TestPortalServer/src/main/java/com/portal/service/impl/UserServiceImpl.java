@@ -74,6 +74,26 @@ public class UserServiceImpl implements UserServiceInterface {
 		return userRepo.findByUsername(username);
 	}
 
+	@Override
+	public UserModel getUserById(Long userId) {
+		User user = userRepo.getReferenceById(userId);
+
+		UserModel userMod = new UserModel();
+		userMod.setEmail(user.getEmail());
+		userMod.setFirstName(user.getFirstName());
+		userMod.setLastName(user.getLastName());
+		userMod.setId(user.getId());
+		userMod.setPhone(user.getPhone());
+		userMod.setUsername(user.getUsername());
+
+		return userMod;
+	}
+
+	@Override
+	public User getUserDetailById(Long userId) {
+		return userRepo.getReferenceById(userId);
+	}
+
 	/**
 	 * Delete User By User ID
 	 */
@@ -90,6 +110,52 @@ public class UserServiceImpl implements UserServiceInterface {
 			else
 				return "deleted Successfully";
 		}
+	}
+
+	@Override
+	public String updateUser(UserModel userMod) {
+		User user = this.getUserDetailById(userMod.getId());
+		user.setFirstName(userMod.getFirstName());
+		user.setLastName(userMod.getLastName());
+		user.setPhone(userMod.getPhone());
+		if (!(userMod.getUsername().equals(user.getUsername()))) {
+			System.out.println("hi username changed");
+			user.setUsername(userMod.getUsername());
+			String generatedPassword = this.generatePassword();
+			System.out.println(" User Password :: " + generatedPassword);
+			user.setPassword(this.bCryptPasswordEncoder.encode(generatedPassword));
+
+			try {
+				emailService.sendEmailForUpdatedCredemtials(user, generatedPassword,
+						user.getUserRole().getRole().getRoleName().toUpperCase());
+				System.out.println("Email sent successfully!");
+			} catch (Exception e) {
+				System.out.println("Failed to send email: " + e.getMessage());
+			}
+		}
+
+		if (!(userMod.getEmail().equals(user.getEmail()))) {
+			System.out.println("hi email changed");
+			user.setEmail(userMod.getEmail());
+			String generatedPassword = this.generatePassword();
+			System.out.println(" User Password :: " + generatedPassword);
+			user.setPassword(this.bCryptPasswordEncoder.encode(generatedPassword));
+
+			try {
+				emailService.sendEmailForUpdatedEmail(user, generatedPassword,
+						user.getUserRole().getRole().getRoleName().toUpperCase());
+				System.out.println("Email sent successfully!");
+			} catch (Exception e) {
+				System.out.println("Failed to send email: " + e.getMessage());
+			}
+		}
+
+		User updatedUser = userRepo.save(user);
+		if (updatedUser.equals(user))
+			return "Success";
+		else
+			return "update error";
+
 	}
 
 	@Override

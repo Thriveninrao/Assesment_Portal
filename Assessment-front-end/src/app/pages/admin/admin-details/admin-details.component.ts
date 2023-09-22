@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import Swal from 'sweetalert2';
 import { LoginService } from 'src/app/services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-details',
@@ -12,16 +13,16 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class AdminDetailsComponent {
   displayedColumns: string[] = ['image', 'id', 'name', 'username', 'email', 'actions'];
-  users: User[] = []; // Initialize an empty array to hold user data
-  dataSource!: MatTableDataSource<User>;
+  admins: Admin[] = []; // Initialize an empty array to hold user data
+  dataSource!: MatTableDataSource<Admin>;
   searchQuery: string = '';
   image: any;
-  loggedInAdmin!: User;
+  loggedInAdmin!: Admin;
   isAdmin: boolean = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private _user: UserserviceService, private _login: LoginService) { this.dataSource = new MatTableDataSource<User>([]); } // No need to inject a service for static data
+  constructor(private _user: UserserviceService, private _login: LoginService,private router: Router) { this.dataSource = new MatTableDataSource<Admin>([]); }
 
   ngOnInit(): void {
     this._login.getCurrentUser().subscribe(
@@ -43,29 +44,29 @@ export class AdminDetailsComponent {
     this._user.getUsers().subscribe(
       (data: any) => {
         console.log(data);
-        this.users = data;
+        this.admins = data;
 
-        const adminIndex = this.users.findIndex(user => user.username === this.loggedInAdmin.username);
+        const adminIndex = this.admins.findIndex(admin => admin.username === this.loggedInAdmin.username);
 
         if (adminIndex !== -1) {
           // Remove the loggedInAdmin user from the array
-          this.users.splice(adminIndex, 1);
+          this.admins.splice(adminIndex, 1);
           // Add the loggedInAdmin user back at the beginning of the array
-          this.users.unshift(this.loggedInAdmin);
+          this.admins.unshift(this.loggedInAdmin);
         }
 
-        this.users = data.filter((user: User) => user.profile === 'Admin.jpg');
+        this.admins = data.filter((admin: Admin) => admin.profile === 'Admin.jpg' && admin.username !== 'admin.admin');
 
-        console.log("users :: " + this.users);
+        console.log("admins :: " + this.admins);
 
-        this.users.forEach(user => {
-          console.log("users :: " + user.profile);
+        this.admins.forEach(admin => {
+          console.log("users :: " + admin.profile);
 
         });
 
-        this.dataSource.data = this.users;
+        this.dataSource.data = this.admins;
         this.dataSource.paginator = this.paginator;
-        console.log(this.users);
+        console.log(this.admins);
       },
       (error) => {
         console.log(error);
@@ -75,23 +76,49 @@ export class AdminDetailsComponent {
   }
 
   performSearch() {
-    const filteredUsers = this.users.filter(user => {
-      const usernameMatch = user.username.toLowerCase().includes(this.searchQuery.toLowerCase());
-      const emailMatch = user.email.toLowerCase().includes(this.searchQuery.toLowerCase());
-      const nameMatch = (user.firstName + " " + user.lastName).toLowerCase().includes(this.searchQuery.toLowerCase());
-      const lastNameMatch = user.lastName.toLowerCase().includes(this.searchQuery.toLowerCase());
+    const filteredAdmins = this.admins.filter(admin => {
+      const usernameMatch = admin.username.toLowerCase().includes(this.searchQuery.toLowerCase());
+      const emailMatch = admin.email.toLowerCase().includes(this.searchQuery.toLowerCase());
+      const nameMatch = (admin.firstName + " " + admin.lastName).toLowerCase().includes(this.searchQuery.toLowerCase());
+      const lastNameMatch = admin.lastName.toLowerCase().includes(this.searchQuery.toLowerCase());
       return usernameMatch || emailMatch || nameMatch || lastNameMatch;
     });
-    this.dataSource.data = filteredUsers;
+    this.dataSource.data = filteredAdmins;
   }
 
-  editUser(user: any) {
-    // Implement edit logic here, e.g., set a flag or open a dialog
+  editAdmin(admin: any) {
+    const adminId = admin.id; // Assuming you have a unique identifier for users
+    this.router.navigate(['/admin/add-admin/edit',adminId], { queryParams: { mode: 'edit', adminId: adminId } });
+  }
+  deleteAdmin(admin: any) {
+    Swal.fire({
+      icon: 'question',
+      title: `Are you sure about your decision to remove ${admin.firstName} ${admin.lastName} ?`,
+      confirmButtonText: 'Yes, Delete',
+      confirmButtonColor: 'red',
+      cancelButtonText: 'No',
+      showCancelButton: true,
+    }).then((result) => {
+      if (result.value) {
+        this._user.forceDelete(admin.username).subscribe((dataOfForceDelete: any) => {
+          console.log("Data:", dataOfForceDelete);
+          if (dataOfForceDelete.message === "deleted Successfully") {
+            const index = this.admins.findIndex(a => a.username === admin.username);
+            if (index !== -1) {
+              this.admins.splice(index, 1);
+            }
+            this.dataSource.data = this.admins;
+            Swal.fire('Success', admin.firstName + ' ' + admin.lastName + ' successfully deleted', 'success');
+          } else
+            Swal.fire('Error', 'Error in deletion, Try again!', 'error');
+        });
+      }
+    });
   }
 
 }
 
-interface User {
+interface Admin {
   id: number;
   username: string;
   firstName: string;

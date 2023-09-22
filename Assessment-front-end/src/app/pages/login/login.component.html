@@ -22,9 +22,10 @@
 
                 <mat-form-field class="full-width" appearance="outline">
                   <mat-label>Password</mat-label>
-                  <input [(ngModel)]="loginData.password" required name="password" type="password" matInput
+                  <input [(ngModel)]="loginData.password" required name="password" [type]="hidePassword ? 'password' : 'text'" matInput
                     placeholder="Enter Your Password" />
                   <mat-hint></mat-hint>
+                  <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
                 </mat-form-field>
 
                 <div class="container text-center">

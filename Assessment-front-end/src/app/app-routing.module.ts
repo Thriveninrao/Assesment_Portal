@@ -94,8 +94,19 @@ const routes: Routes = [
         component: AssignTestComponent,
       },
       {
-        path: 'add-user',
+        path: 'add-user/:mode',
         component: AddUserComponent,
+      },{
+        path: 'add-user/edit/:userId',
+        component: AddUserComponent,
+        data: { mode: 'edit' } 
+      },{
+        path: 'add-admin/:mode',
+        component: AddAdminComponent,
+      },{
+        path: 'add-admin/edit/:adminId',
+        component: AddAdminComponent,
+        data: { mode: 'edit' } 
       },
       {
         path: 'add-admin',
