@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.portal.model.User;
 import com.portal.model.UserAssessmentAssignment;
 
 import lombok.AllArgsConstructor;
@@ -49,6 +50,8 @@ public class Assessment {
 	private Category category;
 
 	private String assessmentImage;
+	@ManyToOne(fetch = FetchType.EAGER)
+	private User user;
 
 	@OneToMany(mappedBy = "assessment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnore

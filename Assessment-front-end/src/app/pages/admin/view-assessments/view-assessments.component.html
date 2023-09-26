@@ -5,7 +5,9 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: rgb(37, 66, 50);
       font-size: 40px;
-      font-weight: 700;">
+      font-weight: 700;
+    "
+  >
     Assessments List
   </h1>
   <div class="container text-left mt20">
@@ -14,13 +16,13 @@
     </button>
   </div>
   <mat-paginator
-  [pageSizeOptions]="[3, 6, 10]"
-  [pageSize]="pageSize"
-  [pageIndex]="pageIndex"
-  [length]="assessments.length"
-  (page)="onPageChange($event)"
-  showFirstLastButtons
-></mat-paginator>
+    [pageSizeOptions]="[3, 6, 10]"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [length]="assessments.length"
+    (page)="onPageChange($event)"
+    showFirstLastButtons
+  ></mat-paginator>
   <div class="container ml10">
     <div *ngIf="assessments.length === 0" class="text-center">
       <p>No assessments found</p>
@@ -36,8 +38,11 @@
       <mat-card-subtitle>
         {{ a.category.categoryTitle }}
       </mat-card-subtitle>
+      <!-- <mat-card-subtitle>
+        {{ a.user.username }}
+      </mat-card-subtitle> -->
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content class="mb10">
       <p>{{ a.assessmentDescription }}</p>
     </mat-card-content>
     <mat-card-actions>
@@ -53,6 +58,14 @@
         color="primary"
       >
         Questions
+      </button>
+      <button
+        routerLink="/admin/profile"
+        mat-stroked-button
+        class="ml20"
+        color="primary"
+      >
+        Created By <b>{{ a.user.username }}</b>
       </button>
       <button mat-stroked-button class="ml20" color="primary">
         Max Marks {{ a.maxMarks }}
@@ -78,10 +91,14 @@
       >
         Delete
       </button>
-      <button (click)="downloadFile(a.assessmentId)" mat-raised-button class="ml20" color="primary">
-        Export Assessment
+      <button
+        (click)="downloadFile(a.assessmentId)"
+        mat-raised-button
+        class="ml20"
+        color="primary"
+      >
+        Export Assessment Questions
       </button>
     </mat-card-actions>
   </mat-card>
 </mat-card>
-

@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AssessmentService } from 'src/app/services/assessment.service';
 import { CategoryService } from 'src/app/services/category.service';
+import { LoginService } from 'src/app/services/login.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -25,12 +26,16 @@ export class AddAssessmentComponent implements OnInit {
     numberOfQuestions: '',
     active: true,
     category: { categoryId: '' },
+    user: {
+      id: 10,
+    },
   };
   constructor(
     private _category: CategoryService,
     private _snack: MatSnackBar,
     private _assessmentService: AssessmentService,
-    private _router: Router
+    private _router: Router,
+    private _login: LoginService
   ) {}
 
   ngOnInit(): void {
@@ -59,8 +64,9 @@ export class AddAssessmentComponent implements OnInit {
       });
       return;
     }
-    // we can provide multiple Validations for all the Fields.
 
+    // we can provide multiple Validations for all the Fields.
+    this.assessmentData.user.id = this._login.getuserDetail().id;
     // call server
     this._assessmentService.addAssessment(this.assessmentData).subscribe(
       //success
@@ -78,6 +84,9 @@ export class AddAssessmentComponent implements OnInit {
           numberOfQuestions: '',
           active: true,
           category: { categoryId: '' },
+          user: {
+            id: 0,
+          },
         };
       },
       (error) => {

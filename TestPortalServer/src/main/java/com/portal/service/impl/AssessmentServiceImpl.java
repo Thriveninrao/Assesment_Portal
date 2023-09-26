@@ -3,11 +3,9 @@ package com.portal.service.impl;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -23,10 +21,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.portal.model.User;
 import com.portal.model.assessment.Assessment;
 import com.portal.model.assessment.Question;
 import com.portal.repository.AssessmentRepository;
 import com.portal.repository.QuestionRepository;
+import com.portal.repository.UserRepository;
 import com.portal.service.AssessmentServiceInterface;
 
 @Service
@@ -36,9 +36,13 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 	private AssessmentRepository assessRepo;
 	@Autowired
 	private QuestionRepository questionRepo;
+	@Autowired
+	private UserRepository userRepo;
 
 	@Override
 	public Assessment addAssessment(Assessment assessment) {
+		User user = userRepo.findById(assessment.getUser().getId()).get();
+		assessment.setUser(user);
 		return this.assessRepo.save(assessment);
 	}
 
@@ -52,7 +56,7 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 
 		return new LinkedHashSet<Assessment>(this.assessRepo.findAll());
 	}
-	
+
 //	@Override
 //	public Set<Assessment> getUserAssessment(Long userId) {
 //		return new LinkedHashSet<Assessment>(this.assessRepo.findAllByUserId());
@@ -106,9 +110,8 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 			headerRow.createCell(5).setCellValue("Answer");
 			headerRow.createCell(6).setCellValue("Marks");
 
-			
 			// till 10th column style will be aplied
-			for (int j = 0; j <=6; j++)
+			for (int j = 0; j <= 6; j++)
 				headerRow.getCell(j).setCellStyle(style);
 
 			int rowNum = 1;
@@ -151,11 +154,12 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 		assessment.setMaxMarks(totalMarks);
 		return this.assessRepo.save(assessment);
 	}
+
 	@Override
 	public String InsertAllQuestions(long AssesmentId, MultipartFile file) throws IOException {
 		System.out.println("AssessmentServiceImpl.InsertAllQuestions()");
-		 Set<Question> questionlist =new HashSet<Question>();
-		  Set<Question> questionsAlreadyExist = assessRepo.getReferenceById(AssesmentId).getQuestions();
+		Set<Question> questionlist = new HashSet<Question>();
+		Set<Question> questionsAlreadyExist = assessRepo.getReferenceById(AssesmentId).getQuestions();
 		Integer count = 0;
 		Workbook workbook = null;
 		try {
@@ -168,26 +172,24 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 				if (row.getRowNum() == 0) {
 					continue;
 				}
-				
-				Question Q=new Question();
+
+				Question Q = new Question();
 				Q.setContent(row.getCell(0).getStringCellValue());
 				Q.setOption1(row.getCell(1).getStringCellValue());
 				Q.setOption2(row.getCell(2).getStringCellValue());
 				Q.setOption3(row.getCell(3).getStringCellValue());
 				Q.setOption4(row.getCell(4).getStringCellValue());
 				Q.setAnswer(row.getCell(5).getStringCellValue());
-			//	Q.setMarks(Integer.parseInt(row.getCell(6).getStringCellValue()));
-				Q.setMarks((int)row.getCell(6).getNumericCellValue());
+				// Q.setMarks(Integer.parseInt(row.getCell(6).getStringCellValue()));
+				Q.setMarks((int) row.getCell(6).getNumericCellValue());
 				Q.setAssessment(assessRepo.getReferenceById(AssesmentId));
 				questionlist.add(Q);
 			}
-			 //questionlist.addAll(questionsAlreadyExist);
-			 
-			
-			
+			// questionlist.addAll(questionsAlreadyExist);
+
 			List<Question> savedAll = questionRepo.saveAll(questionlist);
 			System.out.println(savedAll.size());
-		//	System.out.println(savedAll);
+			// System.out.println(savedAll);
 			return "File uploaded successfully!!! and " + count + " number of questions are added";
 
 		} catch (Exception e) {
@@ -195,8 +197,7 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 		} finally {
 			workbook.close();
 		}
-	return "Please upload the file";
-}
-	
+		return "Please upload the file";
+	}
 
 }

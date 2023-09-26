@@ -16,15 +16,17 @@ export class ViewAssessmentsComponent implements OnInit {
   pageIndex = 0; // Current page index
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private assessmentService: AssessmentService, private fileService: FileServicesService) { }
-  
+  constructor(
+    private assessmentService: AssessmentService,
+    private fileService: FileServicesService
+  ) {}
+
   ngOnInit(): void {
     this.assessmentService.assessments().subscribe(
       (data: any) => {
         this.assessments = data;
         this.pagedAssessments = this.assessments;
         console.log(data);
-  
       },
       (error) => {
         console.log(error);
@@ -89,5 +91,10 @@ interface Assessment {
   active: string;
   category: {
     categoryTitle: string;
+  };
+  user: {
+    id: number;
+    username: string;
+    firstName: string;
   };
 }
