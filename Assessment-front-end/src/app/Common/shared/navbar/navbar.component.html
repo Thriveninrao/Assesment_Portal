@@ -7,7 +7,7 @@
     <span class="example-spacer"></span>
   </span>
 
-  <div class="user-profile" id="user-profile">
+  <div class="user-profile" id="user-profile" *ngIf="isLoggedIn">
     <img src="../../../assets/login icon.png" alt="User Profile Image" id="profile-image">
     <span class="user-name">John Doe</span>
 
@@ -22,6 +22,9 @@
         </li>
       </ul>
     </div>
+  </div>
+  <div class="user-profile">
+    <button class="login-button" (click)="onClickLogin()">Login / Register</button>
   </div>
 
 </div>

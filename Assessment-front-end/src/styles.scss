@@ -144,3 +144,54 @@ body {
 
 // html, body { height: 100%; }
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.container{
+  margin: 0px;
+}
+
+.container-inner{
+  margin-left: 70px;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+
+
+.text-center{
+  align-items: center;
+}
+
+mat-form-field{
+  width: 350px;
+}
+
+.input-icon{
+  padding-left: 10px;
+}
+
+mat-card{
+  background: transparent !important;
+  border-radius: 15px;
+}
+
+.login-button{
+  border: 2px solid #d5fefd; 
+  color: #000; 
+  background: transparent; 
+  margin-bottom: 5px; 
+  padding: 4px 15px;
+  border-radius: 8px;
+  font-weight: 400;
+}
+
+.login-button:hover{
+  background: #fff; color: #198f8d; border-color: #198f8d;
+}
+
+mat-error{
+  font-size: 14px;
+}
+
+mat-paginator{
+  background: transparent !important;
+}

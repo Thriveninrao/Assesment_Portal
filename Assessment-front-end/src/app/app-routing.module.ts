@@ -13,13 +13,11 @@ const routes: Routes = [
   },
   {
     path: 'signup',
-    component: SignupComponent,
-    pathMatch: 'full',
+    component: SignupComponent
   },
   {
     path: 'login',
-    component: LoginComponent,
-    pathMatch: 'full',
+    component: LoginComponent
   },
   {
     path: 'user',

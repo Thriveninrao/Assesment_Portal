@@ -21,6 +21,7 @@ import { ViewCategoriesComponent } from './view-categories/view-categories.compo
 import { WelcomeComponent } from './welcome/welcome.component';
 import { MaterialModule } from 'src/app/Common/material/material.module';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/Common/shared/shared.module';
 
 
 
@@ -49,7 +50,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     AdminRoutingModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ]
 })
 export class AdminModule { }

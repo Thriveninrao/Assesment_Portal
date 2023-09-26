@@ -22,6 +22,10 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  onClickLogin(){
+    this.router.navigateByUrl('/login')
+  }
+
   public logout() {
     
     if(this.login.logout()){

@@ -12,22 +12,24 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { authInterceptorProviders } from './services/auth.interceptor';
 import { FileServicesService } from './services/file-services.service';
-import { NavbarComponent } from './Common/components/navbar/navbar.component';
+import { NavbarComponent } from './Common/shared/navbar/navbar.component';
 import { SignupComponent } from './authentication/signup/signup.component';
 import { PasswordResetComponent } from './authentication/password-reset/password-reset.component';
 import { ProfileComponent } from './Common/components/profile/profile.component';
+import { LayoutComponent } from './Common/components/layout/layout.component';
+import { SharedModule } from './Common/shared/shared.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
     FooterComponent,
     SignupComponent,
     LoginComponent,
     HomeComponent,
     PasswordResetComponent,
-    ProfileComponent
+    ProfileComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,8 @@ import { ProfileComponent } from './Common/components/profile/profile.component'
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    SharedModule
   ],
   providers: [authInterceptorProviders, FileServicesService],
   bootstrap: [AppComponent],

@@ -1,0 +1,37 @@
+<div class="container" style="width: 100%;">
+    <!-- <app-header></app-header> -->
+    <div class="content">
+        <!-- <app-sidenav></app-sidenav> -->
+
+        <div id="mySidebar" class="sidebar" (mouseover)="toggleSidebar(true)" (mouseout)="toggleSidebar(false)">
+            <a><span>
+                <img src="/assets/home.svg" alt="Home"><span class="svg-text">Home</span>
+                <!-- <i class="material-icons">Home</i><span class="icon-text">about</span><br> -->
+            </span>
+            </a><br>
+            <!-- <a (click)="navigate('user')"><span>
+                <img src="/assets/users.svg" alt="Home"><span class="svg-text">Users</span>
+            </span>
+            </a><br> -->
+            <a><span>
+                <img src="/assets/file-text.svg" alt="Home"><span class="svg-text">File Text</span>
+            </span>
+            </a><br>
+            <a><span>
+                <img src="/assets/credit-card.svg" alt="Home"><span class="svg-text">Credit Card</span>
+            </span>
+            </a><br>
+            <!-- <a href="#"><i class="material-icons">monetization_on</i><span class="icon-text"></span>clients</a><br>
+            <a href="#"><i class="material-icons">email</i><span class="icon-text"></span>contact</a> -->
+          </div>
+          
+          <div id="main" class="main-class">
+            <router-outlet></router-outlet>
+          </div>
+          
+
+        <!-- <div>
+            <router-outlet></router-outlet>
+        </div> -->
+    </div>
+</div>

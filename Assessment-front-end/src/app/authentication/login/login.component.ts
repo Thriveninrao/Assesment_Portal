@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
@@ -8,12 +9,23 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  loginForm! : FormGroup
   hidePassword: boolean = true;
-  constructor(private snack: MatSnackBar, private login: LoginService, private user: UserserviceService, private router: Router) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private snack: MatSnackBar, 
+    private login: LoginService, 
+    private user: UserserviceService, 
+    private router: Router
+  ) { }
   ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      username:['', Validators.required],
+      password: ['', Validators.required]
+    })
   }
 
   loginData: any = {
@@ -27,51 +39,56 @@ export class LoginComponent implements OnInit {
   }; // Define your new password request form data structure here
   showNewPasswordForm: boolean = false;
 
-  formSubmit() {
-    console.log('Login button click');
-    this.newPasswordData.username = this.loginData.username;
-    if (
-      this.loginData.username.trim() == '' ||
-      this.loginData.username == null
-    ) {
-      this.snack.open('Username is required!!', '', {
+  onSubmit() {
+    if(this.loginForm.invalid){
+      this.snack.open('Username and Password is required!!', '', {
         duration: 3000,
       });
       return;
     }
-    if (
-      this.loginData.password.trim() == '' ||
-      this.loginData.password == null
-    ) {
-      this.snack.open('Password is required!!', '', {
-        duration: 3000,
-      });
-      return;
+    // console.log('Login button click');
+    // this.newPasswordData.username = this.loginData.username;
+    // if (
+    //   this.loginData.username.trim() == '' ||
+    //   this.loginData.username == null
+    // ) {
+    //   this.snack.open('Username is required!!', '', {
+    //     duration: 3000,
+    //   });
+    //   return;
+    // }
+    // if (
+    //   this.loginData.password.trim() == '' ||
+    //   this.loginData.password == null
+    // ) {
+    //   this.snack.open('Password is required!!', '', {
+    //     duration: 3000,
+    //   });
+    //   return;
+    // }
+
+    const payload = {
+      username : this.loginForm.controls['username'].value,
+      password : this.loginForm.controls['password'].value
     }
 
     //Request to server to generate token.
-    this.login.generateToken(this.loginData).subscribe(
+    this.login.generateToken(payload).subscribe(
       (data: any) => {
-        console.log('success');
-        console.log(data);
-
-        //Login...
         this.login.loginUser(data.token);
-
         this.login.getCurrentUser().subscribe((user: any) => {
           this.login.setUserDetail(user);
-          console.log(user);
           // redirect ...ADMIN:: Admin-dashboard
           // redirect ...Normal:: Normal-dashboard
           if (this.login.getUserRole() == 'ADMIN') {
             // admin dashboard
             // window.location.href = '/admin';
-            this.router.navigate(['admin']);
+            this.router.navigate(['/admin']);
             this.login.loginStatusSubject.next(true);
           } else if (this.login.getUserRole() == 'NORMAL') {
             // normal dashboard
             // window.location.href = '/user-dashboard';
-            this.router.navigate(['user-dashboard'])
+            this.router.navigate(['/user'])
             this.login.loginStatusSubject.next(true);
           } else {
             this.login.logout();
