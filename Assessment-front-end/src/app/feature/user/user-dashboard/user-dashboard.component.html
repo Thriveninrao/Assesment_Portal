@@ -1,14 +1,10 @@
-<!-- <app-navbar></app-navbar> -->
-<div class="bootstrap-wrapper">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2">
-                <app-user-sidebar></app-user-sidebar>
-            </div>
-            <!-- <h1>Welcome to User Dashboard</h1> -->
-            <div class="col-md-10">
-               <router-outlet></router-outlet>
-            </div>
-        </div>
-    </div>
+<app-navbar [profileName]="'User'"></app-navbar>
+<div class="content">
+  <div id="mySidebar" class="sidebar" (mouseover)="toggleSidebar(true)" (mouseout)="toggleSidebar(false)">
+    <app-user-sidebar></app-user-sidebar>
+  </div>
+
+  <div id="main" class="main-class">
+    <router-outlet></router-outlet>
+  </div>
 </div>

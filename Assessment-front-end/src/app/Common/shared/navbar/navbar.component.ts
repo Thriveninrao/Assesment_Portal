@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 
@@ -8,6 +8,7 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
+  @Input() profileName: string = '';
   isLoggedIn = false;
   user:any = null;
 
@@ -24,6 +25,20 @@ export class NavbarComponent implements OnInit {
 
   onClickLogin(){
     this.router.navigateByUrl('/login')
+  }
+
+  onClickButton(btnName:string){
+    if(btnName === 'profile'){
+      if(this.profileName === 'User'){
+        this.router.navigate(['/user/profile'])
+      }else if(this.profileName === 'Admin'){
+        this.router.navigate(['/admin/profile'])
+      }else{
+        alert('No routes found')
+      }
+    }else if(btnName === 'logout'){
+      this.logout
+    }
   }
 
   public logout() {

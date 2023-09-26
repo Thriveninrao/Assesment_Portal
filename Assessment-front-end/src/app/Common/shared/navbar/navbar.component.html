@@ -7,23 +7,27 @@
     <span class="example-spacer"></span>
   </span>
 
-  <div class="user-profile" id="user-profile" *ngIf="isLoggedIn">
-    <img src="../../../assets/login icon.png" alt="User Profile Image" id="profile-image">
-    <span class="user-name">John Doe</span>
+  <div class="user-profile" id="user-profile" *ngIf="!isLoggedIn">
+    <i class="material-icons">perm_identity</i>&nbsp;
+    <!-- <img src="../../../assets/login icon.png" alt="User Profile Image" id="profile-image"> -->
+    <span class="user-name">User Name</span>
 
     <!-- View Options Dropdown -->
     <div class="view-options" id="view-options">
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          <a class="" href="javascript:void(0)">Profile</a>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          
+          <button mat-button (click)="onClickButton('profile')">
+            <i class="material-icons">perm_identity</i>&nbsp;Profile</button>
         </li>
-        <li class="list-group-item">
-          <a class="" href="javascript:void(0)">Logout</a>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <button mat-button (click)="onClickButton('logout')">
+            <i class="material-icons">logout</i>&nbsp;Logout</button>
         </li>
       </ul>
     </div>
   </div>
-  <div class="user-profile">
+  <div class="user-profile " *ngIf="isLoggedIn">
     <button class="login-button" (click)="onClickLogin()">Login / Register</button>
   </div>
 

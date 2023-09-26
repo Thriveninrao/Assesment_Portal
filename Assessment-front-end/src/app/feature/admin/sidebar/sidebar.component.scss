@@ -19,13 +19,14 @@ mat-action-list {
   position: fixed;
   top: 0px;
   left: 0px;
-  width: 66px;
+  width: 60px;
   height: 100%;
   color: rgb(255, 255, 255);
   background-image: linear-gradient(315deg, #d5fefd 0%, #fffcff 74%);
   overflow: hidden;
   transition: all 500ms ease-in-out;
   margin-top: 60px;
+  box-shadow: 0px 0px 3px -3px #000 !important;
 }
 
 .icon{
@@ -33,7 +34,7 @@ mat-action-list {
 }
 
 .sidebar:hover {
-  width: 240px;
+  width: 200px;
 }
 
 .sidebar .wrapper {
@@ -42,7 +43,7 @@ mat-action-list {
 }
 
 .sidebar .links {
-  padding: 0px 5px;
+  padding: 0px;
 }
 
 .sidebar .links .link {
