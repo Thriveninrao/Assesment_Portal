@@ -73,8 +73,15 @@
       <button mat-stroked-button class="ml20" color="primary">
         Questions {{ a.numberOfQuestions }}
       </button>
-      <button mat-flat-button class="ml20" color="primary">Attempts</button>
-
+      <!-- <button mat-flat-button class="ml20" color="primary">Attempts</button> -->
+      <button
+        mat-raised-button
+        (click)="test()"
+        class="ml20"
+        color="primary"
+      >
+        Attempts
+      </button>
       <button
         [routerLink]="'/admin/update-assessment/' + a.assessmentId"
         mat-raised-button
@@ -98,6 +105,27 @@
         color="primary"
       >
         Export Assessment Questions
+      </button>
+      <!-- <button
+        mat-raised-button
+        [routerLink]="
+          '/admin/view-assessment-attended/' +
+          a.assessmentId +
+          '/' +
+          a.assessmentTitle
+        "
+        class="ml20"
+        color="primary"
+      >
+        assessment attended 
+      </button> -->
+      <button
+        mat-raised-button
+        (click)="navigateToAssessment(a)"
+        class="ml20"
+        color="primary"
+      >
+        assessment attended
       </button>
     </mat-card-actions>
   </mat-card>

@@ -12,3 +12,12 @@ export interface Assessment {
   };
   assessmentImage: string;
 }
+export interface ResultOfAssessment{
+  assessmentId: number;
+  assessmentTitle: string;
+  maxMarks: string;
+  numberOfQuestions: string;
+  obtainedMarks:number;
+  userId:number;
+  userName:string;
+}

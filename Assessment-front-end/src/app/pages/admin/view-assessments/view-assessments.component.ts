@@ -3,6 +3,7 @@ import { AssessmentService } from 'src/app/services/assessment.service';
 import Swal from 'sweetalert2';
 import { FileServicesService } from 'src/app/services/file-services.service';
 import { MatPaginator } from '@angular/material/paginator';
+import { Router,ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-view-assessments',
@@ -18,7 +19,9 @@ export class ViewAssessmentsComponent implements OnInit {
 
   constructor(
     private assessmentService: AssessmentService,
-    private fileService: FileServicesService
+    private fileService: FileServicesService,
+    private _router: Router,
+    private _route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -80,7 +83,34 @@ export class ViewAssessmentsComponent implements OnInit {
       window.URL.revokeObjectURL(url);
     });
   }
+  navigateToAssessment(a:Assessment) {
+    const { assessmentId, assessmentTitle } = a;
+    this._router.navigate(['/admin/view-assessment-attended', assessmentId, assessmentTitle]);
+  }
+
+  test(){
+    // const assessmentId = 3; // Replace with actual assessmentId
+    // const userId = 7; // Replace with actual userId
+    const assignId=75;
+    const marksObtained = 91; // Replace with actual marksObtained
+    console.log("marks are setted");
+    this.fileService.setMarks(marksObtained,assignId).subscribe(
+      response => {
+        console.log('Marks updated successfully', response);
+      },
+      error => {
+        console.error('Error updating marks', error);
+      }
+    );
+  }
 }
+
+
+
+
+
+
+ 
 
 interface Assessment {
   assessmentId: number;

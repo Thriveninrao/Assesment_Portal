@@ -31,6 +31,7 @@ import { UserAssessmentDetailsComponent } from './pages/admin/user-assessment-de
 import { AssessmentTakeupComponent } from './pages/user/assessment-takeup/assessment-takeup.component';
 import { PreinstructionsComponent } from './pages/user/preinstructions/preinstructions.component';
 import { StartTestComponent } from './pages/start-test/start-test.component';
+import { ViewAssessmentAttendedComponent } from './pages/admin/view-assessment-attended/view-assessment-attended.component';
 
 const routes: Routes = [
   {
@@ -135,7 +136,11 @@ const routes: Routes = [
       {
         path: 'user-assessment-details',
         component: UserAssessmentDetailsComponent,
+      },{
+        path:'view-assessment-attended/:assessmentTitle/:assessmentTitle',
+        component:ViewAssessmentAttendedComponent
       }
+
     ],
   },
   {

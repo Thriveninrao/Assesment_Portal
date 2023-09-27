@@ -46,4 +46,10 @@ export class AssessmentService {
   public updateMaxMarksAndQuestionsList(assessmentId: any) {
     return this._http.get(`${baseUrl}/assessment/question/${assessmentId}`);
   }
+
+  //get assessment attendees list with result 
+  public GetAttendentsAndResults(assessmentId:any){
+     return this._http.get(`${baseUrl}/assessment/resultsOfAssessment/${assessmentId}`);
+  }
+
 }
