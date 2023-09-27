@@ -1,10 +1,11 @@
-<app-navbar [profileName]="'Admin'"></app-navbar>
-<div class="content">
-  <div id="mySidebar" class="sidebar" (mouseover)="toggleSidebar(true)" (mouseout)="toggleSidebar(false)">
-    <app-sidebar></app-sidebar>
-  </div>
-
-  <div id="main" class="main-class">
-    <router-outlet></router-outlet>
+<div class="layout-wrapper">
+  <app-navbar [profileName]="'Admin'"></app-navbar>
+  <div class="content">
+    <div class="sidebar-content">
+      <app-layout></app-layout>
+    </div>
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

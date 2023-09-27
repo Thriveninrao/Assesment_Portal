@@ -74,7 +74,8 @@
   justify-content: space-between;
   padding: 10px;
   color: rgb(0, 0, 0);
-  background-image: linear-gradient(315deg, #d5fefd 0%, #fffcff 74%);
+ // background-image: linear-gradient(315deg, #d5fefd 0%, #fffcff 74%);
+  background: transparent;
   position: sticky; /* Make the header sticky */
   top: 0; /* Stick it to the top of the viewport */
   z-index: 1000; /* Ensure it's above other content */
@@ -103,6 +104,22 @@
   color: #fff;
   font-size: 24px;
   margin: 0;
+}
+
+.login-button {
+  border: 2px solid #d5fefd;
+  color: #000;
+  background: transparent;
+  margin-bottom: 5px;
+  padding: 4px 15px;
+  border-radius: 8px;
+  font-weight: 400;
+}
+
+.login-button:hover {
+  background: #fff;
+  color: #198f8d;
+  border-color: #198f8d;
 }
 
 /* Media query for screens with a maximum width of 768px (tablets) */

@@ -9,9 +9,10 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-admin-details',
   templateUrl: './admin-details.component.html',
-  styleUrls: ['./admin-details.component.css']
+  styleUrls: ['./admin-details.component.scss']
 })
 export class AdminDetailsComponent {
+  displayedColumns1: string[] = ['id', 'name', 'progress', 'fruit'];
   displayedColumns: string[] = ['image', 'id', 'name', 'username', 'email', 'actions'];
   admins: Admin[] = []; 
   dataSource!: MatTableDataSource<Admin>;
