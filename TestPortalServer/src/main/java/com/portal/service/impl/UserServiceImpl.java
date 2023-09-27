@@ -326,7 +326,7 @@ public class UserServiceImpl implements UserServiceInterface {
 
 				testAssigned++;
 
-				if (uaa.getTestAttempted()) {
+				if (uaa.getTestAttempted()!=0) {
 					testAttempted++;
 
 				}
@@ -354,7 +354,7 @@ public class UserServiceImpl implements UserServiceInterface {
 			List<Assessment> assessmentList = new ArrayList<Assessment>();
 			System.out.println(user.getUserAssessmentAssignment().size());
 			user.getUserAssessmentAssignment().forEach((uaa) -> {
-				if (!uaa.getTestAttempted()) {
+				if (uaa.getTestAttempted()==0) {
 					assessmentList.add(uaa.getAssessment());
 				}
 			});

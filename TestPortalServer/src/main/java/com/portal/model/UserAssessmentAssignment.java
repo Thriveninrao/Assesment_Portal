@@ -27,11 +27,16 @@ public class UserAssessmentAssignment {
 	private User user;
 	
 	@Column
-	private Boolean testAttempted = false;
+	private Integer testAttempted = 0;
+	
+	@Column
+	private Integer marksObtained;
+	
 	
 	@ManyToOne
 	private Assessment assessment;
-
+	
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
