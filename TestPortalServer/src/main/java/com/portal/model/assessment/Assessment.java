@@ -50,13 +50,14 @@ public class Assessment {
 	private Category category;
 
 	private String assessmentImage;
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	private User user;
 
 	@OneToMany(mappedBy = "assessment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Question> questions = new HashSet<>();
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "assessment")
 	@JsonIgnore
 	private Set<UserAssessmentAssignment> userAssessmentAssignment = new HashSet<>();

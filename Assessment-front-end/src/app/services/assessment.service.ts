@@ -16,7 +16,7 @@ export class AssessmentService {
   }
 
   public userAssessments(userId: any) {
-    console.log("In service");
+    console.log('In service');
     console.log(userId);
     return this._http.get(`${baseUrl}/assessment/userAssessment/${userId}`);
   }

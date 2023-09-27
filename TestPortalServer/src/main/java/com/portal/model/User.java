@@ -23,6 +23,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.portal.model.assessment.Assessment;
+import com.portal.model.assessment.TestResult;
 
 import lombok.Data;
 
@@ -73,7 +74,7 @@ public class User implements UserDetails {
 	@Column
 	private String profile;
 
-	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Assessment> assessments = new LinkedHashSet<>();
 

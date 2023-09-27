@@ -6,13 +6,20 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-preinstructions',
   templateUrl: './preinstructions.component.html',
-  styleUrls: ['./preinstructions.component.css']
+  styleUrls: ['./preinstructions.component.css'],
 })
 export class PreinstructionsComponent implements OnInit {
   assessmentId: any;
   assessmentTitle: any;
   assessment: any;
   questions: any;
+
+  assessmentData = {
+    assessmentId: 1,
+    assessmentDescription: '',
+    numberOfQuestions: 1,
+    maxMarks: 1,
+  };
 
   constructor(
     private _route: ActivatedRoute,
@@ -28,16 +35,20 @@ export class PreinstructionsComponent implements OnInit {
       (data) => {
         console.log(data);
         this.assessment = data;
+        this.assessmentData.assessmentDescription =
+          this.assessment.assessmentDescription;
+        this.assessmentData.numberOfQuestions =
+          this.assessment.numberOfQuestions;
+        this.assessmentData.maxMarks = this.assessment.maxMarks;
       },
       (error) => {
         Swal.fire('Error', 'Error in Loading Assessment Data', 'error');
       }
     );
-    
   }
   startTest() {
     Swal.fire({
-      title: 'Do you want to save the changes?',
+      title: 'Do you want to Start the Test?',
       showCancelButton: true,
       confirmButtonText: 'Start',
       icon: 'info',

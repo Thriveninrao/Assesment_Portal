@@ -6,7 +6,9 @@
         <div class="container text-center">
           <mat-card style="margin-top: 92px">
             <b><p>Progress</p></b>
-            <p>{{currentQuestionIndex + 1}} question of {{questions.length}}</p>
+            <p>
+              {{ currentQuestionIndex + 1 }} question of {{ questions.length }}
+            </p>
           </mat-card>
         </div>
       </div>
@@ -100,7 +102,7 @@
         <!-- Progress -->
         <mat-card style="margin-top: 92px">
           <mat-card-header class="mt20 mb20">
-            <mat-card-title> <b>Timer</b>  </mat-card-title>
+            <mat-card-title> <b>Timer</b> </mat-card-title>
             <mat-card-subtitle>
               Test will automatically end after <b>00:00</b>.
             </mat-card-subtitle>
@@ -118,7 +120,6 @@
     </div>
   </div>
 </div>
-
 <div class="bootstrap-wrapper text-center" *ngIf="isSubmit">
   <div class="row">
     <div class="col-md-6 offset-md-3">
@@ -133,7 +134,9 @@
         </mat-card-content>
         <mat-card-actions>
           <div class="container text-center">
-            <button mat-raised-button color="primary">Print</button>
+            <button (click)="saveResult()" mat-raised-button color="primary">
+              Submit
+            </button>
           </div>
         </mat-card-actions>
       </mat-card>

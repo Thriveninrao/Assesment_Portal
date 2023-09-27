@@ -1,86 +1,85 @@
 <mat-card class="mt20 mb20 ml20 mr20">
-    <div class="bootstrap-wrapper">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <mat-card class="mt20 mb20">
-              <mat-card-header>
-                <mat-card-title>
-                  <h1>Read the Instructions of this page carefully</h1>
-                </mat-card-title>
-                <mat-card-subtitle>
-                  <h3>One More Step to go</h3>
-                </mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <h1>{{ assessmentTitle }}</h1>
-                <p>{{ assessment.assessmentDescription }}</p>
-                <mat-divider></mat-divider><br />
-                <h2>Important Instructions</h2>
-                <ul>
-                  <li>This is only for the Practice purpose.</li>
-                  <li>
-                    You have to submit assessment within
-                    <b>{{ assessment.numberOfQuestions * 2 }} mins.</b>
-                  </li>
-                  <li>
-                    There are
-                    <b>{{ assessment.numberOfQuestions }} questions</b> in this
-                    Assessment.
-                  </li>
-                  <li>
-                    Each Question Carries
-                    <b>{{
-                      assessment.maxMarks / assessment.numberOfQuestions
-                    }}</b>
-                    and no negative marks.
-                  </li>
-                  <li>All Questions are of <b>MCQ</b> Type.</li>
-                </ul>
-                <mat-divider></mat-divider>
-                <br />
-                <h1>Attempting Questions</h1>
-                <ul>
-                  <li>Click <b>Start Test</b> button to start the test.</li>
-                  <li>
-                    The time will start the moment you click the
-                    <b>Start Test</b> Button.
-                  </li>
-                  <li>
-                    You cannot resume this assessment, if interrupted due to any
-                    reason.
-                  </li>
-                  <li>
-                    Click on the <b>Next</b> Button to move the next question.
-                  </li>
-                  <li>
-                    Click on <b>Submit</b> button to submit after the completion.
-                  </li>
-                  <li>
-                    Report will be sent to you after the the test is completed and
-                    evaluated.
-                  </li>
-                </ul>
-              </mat-card-content>
-              <div class="text-center mt40 mb20">
-                <button
-  
-               (click)="startTest()"
-                  mat-raised-button
-                  class="text-center"
-                  style="
-                    font-size: larger;
-                    font-weight: 800;
-                    background-color: rgb(6, 251, 104);
-                  "
-                >
-                  Start Test
-                </button>
-              </div>
-            </mat-card>
-          </div>
+  <div class="bootstrap-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <mat-card class="mt20 mb20">
+            <mat-card-header>
+              <mat-card-title>
+                <h1>Read the Instructions of this page carefully</h1>
+              </mat-card-title>
+              <mat-card-subtitle>
+                <h3>One More Step to go</h3>
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <h1>{{ assessmentTitle }}</h1>
+              <p>{{ assessmentData.assessmentDescription }}</p>
+              <mat-divider></mat-divider><br />
+              <h2>Important Instructions</h2>
+              <ul>
+                <li>This is only for the Practice purpose.</li>
+                <li>
+                  You have to submit assessment within
+                  <b>{{ assessmentData.numberOfQuestions * 2 }} mins.</b>
+                </li>
+                <li>
+                  There are
+                  <b>{{ assessmentData.numberOfQuestions }} questions</b> in this
+                  Assessment.
+                </li>
+                <li>
+                  Each Question Carries
+                  <b>{{
+                    assessmentData.maxMarks / assessmentData.numberOfQuestions
+                  }}</b>
+                  and no negative marks.
+                </li>
+                <li>All Questions are of <b>MCQ</b> Type.</li>
+              </ul>
+              <mat-divider></mat-divider>
+              <br />
+              <h1>Attempting Questions</h1>
+              <ul>
+                <li>Click <b>Start Test</b> button to start the test.</li>
+                <li>
+                  The time will start the moment you click the
+                  <b>Start Test</b> Button.
+                </li>
+                <li>
+                  You cannot resume this assessment, if interrupted due to any
+                  reason.
+                </li>
+                <li>
+                  Click on the <b>Next</b> Button to move the next question.
+                </li>
+                <li>
+                  Click on <b>Submit</b> button to submit after the completion.
+                </li>
+                <li>
+                  Report will be sent to you after the the test is completed and
+                  evaluated.
+                </li>
+              </ul>
+            </mat-card-content>
+            <div class="text-center mt40 mb20">
+              <button
+                (click)="startTest()"
+                mat-raised-button
+                class="text-center"
+                style="
+                  font-size: larger;
+                  font-weight: 800;
+                  background-color: rgb(6, 251, 104);
+                "
+              >
+                Start Test
+              </button>
+            </div>
+          </mat-card>
         </div>
       </div>
     </div>
-  </mat-card>
-  <!-- {{ assessment | json }} -->
+  </div>
+</mat-card>
+<!-- {{ assessment | json }} -->

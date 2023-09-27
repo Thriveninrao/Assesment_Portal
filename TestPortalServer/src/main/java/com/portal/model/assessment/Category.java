@@ -1,11 +1,13 @@
 package com.portal.model.assessment;
 
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,17 +38,17 @@ public class Category {
 
 	@Column(length = 1000)
 	private String categoryDescription;
-	
+
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
 	@JsonIgnore
-	private Set<Assessment> assessments= new LinkedHashSet<>();
+	private Set<Assessment> assessments = new LinkedHashSet<>();
 
 	public Category(String categoryTitle, String categoryDescription) {
 		super();
 		this.categoryTitle = categoryTitle;
 		this.categoryDescription = categoryDescription;
 	}
-	
+
 	public int getAssessmentSize() {
 		return this.assessments.size();
 	}
