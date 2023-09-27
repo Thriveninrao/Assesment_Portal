@@ -27,10 +27,10 @@ import { ViewUserAssessmentsComponent } from './pages/user/view-user-assessments
 import { UserDetailsComponent } from './pages/admin/user-details/user-details.component';
 import { AdminDetailsComponent } from './pages/admin/admin-details/admin-details.component';
 import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
-
-import { TakeUserAssessmentQuestionsComponent } from './pages/user/take-user-assessment-questions/take-user-assessment-questions.component';
-
 import { UserAssessmentDetailsComponent } from './pages/admin/user-assessment-details/user-assessment-details.component';
+import { AssessmentTakeupComponent } from './pages/user/assessment-takeup/assessment-takeup.component';
+import { PreinstructionsComponent } from './pages/user/preinstructions/preinstructions.component';
+import { StartTestComponent } from './pages/start-test/start-test.component';
 
 const routes: Routes = [
   {
@@ -96,17 +96,17 @@ const routes: Routes = [
       {
         path: 'add-user/:mode',
         component: AddUserComponent,
-      },{
+      }, {
         path: 'add-user/edit/:userId',
         component: AddUserComponent,
-        data: { mode: 'edit' } 
-      },{
+        data: { mode: 'edit' }
+      }, {
         path: 'add-admin/:mode',
         component: AddAdminComponent,
-      },{
+      }, {
         path: 'add-admin/edit/:adminId',
         component: AddAdminComponent,
-        data: { mode: 'edit' } 
+        data: { mode: 'edit' }
       },
       {
         path: 'add-admin',
@@ -139,26 +139,30 @@ const routes: Routes = [
     ],
   },
   {
-    path:'user',
-    component:UserDashboardComponent,
+    path: 'user',
+    component: UserDashboardComponent,
     canActivate: [NormalGuard],
-    children:[
+    children: [
       {
-        path:'',
-        component:UserWelcomeComponent,
+        path: '',
+        component: UserWelcomeComponent,
       },
       {
-        path:'profile',
-        component:ProfileComponent,
+        path: 'profile',
+        component: ProfileComponent,
       },
       {
-        path:'view-user-assessments',
-        component:ViewUserAssessmentsComponent,
+        path: 'view-user-assessments',
+        component: ViewUserAssessmentsComponent,
       },
       {
-        path:'take-user-assessment-questions/:assessmentId/:assessmentTitle',
-        component:TakeUserAssessmentQuestionsComponent,
+        path: 'assessment-takeup/:assessmentId/:assessmentTitle',
+        component: AssessmentTakeupComponent,
       },
+      {
+        path: 'preinstructions/:assessmentId/:assessmentTitle',
+        component: PreinstructionsComponent,
+      }
     ],
 
   },
@@ -168,6 +172,11 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [NormalGuard],
   },
+  {
+    path: 'start/:assessmentId/:assessmentTitle',
+    component: StartTestComponent,
+  },
+
 ];
 
 @NgModule({
