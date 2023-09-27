@@ -18,6 +18,7 @@ export class StartTestComponent implements OnInit {
   attempted = 0;
   score = 0;
   isSubmit = false;
+  currentQuestionIndex = 0;
   currentQuestion: any;
 
   timer: any;
@@ -31,8 +32,6 @@ export class StartTestComponent implements OnInit {
     // this.preventBackButton();
     this.assessmentId = this._route.snapshot.params['assessmentId'];
     this.assessmentTitle = this._route.snapshot.params['assessmentTitle'];
-    console.log(this.assessmentId);
-    console.log(this.assessmentTitle);
     this.loadQuestions();
   }
 
@@ -41,17 +40,48 @@ export class StartTestComponent implements OnInit {
       (data) => {
         console.log(data);
         this.questions = data;
-        this.timer = this.questions.length * 2 * 60;
-        this.questions.forEach((q: any) => {
-          q['givenAnswer'] = '';
-        });
+        this.timer = this.questions.length  * 60;
+        this.currentQuestionIndex = 0;
+        this.loadCurrentQuestion();
         this.startTimer();
+        // this.questions.forEach((q: any) => {
+        //   q['givenAnswer'] = '';
+        // });
+        // this.startTimer();
       },
       (error) => {
         console.log(error);
         Swal.fire('Error', 'Error Occured while loading Questions', 'error');
       }
     );
+  }
+
+  loadCurrentQuestion() {
+    if (this.currentQuestionIndex < this.questions.length) {
+      const currentQuestion = this.questions[this.currentQuestionIndex];
+      currentQuestion['givenAnswer'] = '';
+      this.currentQuestion = currentQuestion;
+    } else {
+      console.log('No more questions to display');
+    }
+  }
+
+  nextQuestion() {
+    if(this.currentQuestionIndex<this.questions.length-1)
+    this.currentQuestionIndex++;
+    this.loadCurrentQuestion();
+  }
+
+  previousQuestion() {
+    if (this.currentQuestionIndex > 0) {
+      this.currentQuestionIndex--;
+      this.loadCurrentQuestion();
+    }
+  }
+  
+  isLastQuestion()
+  {
+    return !(this.currentQuestionIndex+1<=this.questions.length - 1)?true : false ;
   }
 
   submitTest() {
@@ -108,6 +138,4 @@ export class StartTestComponent implements OnInit {
       history.pushState(null, '', location.href);
     });
   }
-} {
-
 }
