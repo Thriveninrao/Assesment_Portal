@@ -140,7 +140,7 @@ export class StartTestComponent implements OnInit {
         console.log('result', data);
         Swal.fire(
           'Submitted!',
-          'Test is Submitted wnd your results wull be provided to you through mail.',
+          'Test is Submitted and your results will be provided to you through mail.',
           'success'
         ).then((s) => {
           if (s.value) {

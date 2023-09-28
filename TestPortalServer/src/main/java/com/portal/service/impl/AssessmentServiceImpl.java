@@ -57,11 +57,6 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 		return new LinkedHashSet<Assessment>(this.assessRepo.findAll());
 	}
 
-//	@Override
-//	public Set<Assessment> getUserAssessment(Long userId) {
-//		return new LinkedHashSet<Assessment>(this.assessRepo.findAllByUserId());
-//	}
-
 	@Override
 	public Assessment getAssessment(Long assessmentId) {
 
@@ -71,7 +66,6 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 	@Override
 	public void deleteAssessment(Long assessmentId) {
 		Assessment assessment = assessRepo.findById(assessmentId).get();
-		System.out.println(assessment.getAssessmentTitle());
 		if (assessment != null) {
 			assessRepo.deleteById(assessmentId);
 			System.out.println("1");
@@ -82,7 +76,6 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 	@Override
 	public ByteArrayInputStream getAllQuestions(long AssesmentId) throws IOException {
 		Set<Question> questionsList = assessRepo.findById(AssesmentId).get().getQuestions();
-		int noOfQuestions = questionsList.size();
 		try (
 				// Create a new workbook
 				Workbook workbook = new XSSFWorkbook()) {
@@ -150,7 +143,6 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 		for (Question question : assessment.getQuestions()) {
 			totalMarks += question.getMarks();
 		}
-		System.out.println("Total Marks :: " + totalMarks);
 		assessment.setMaxMarks(totalMarks);
 		return this.assessRepo.save(assessment);
 	}
@@ -159,7 +151,6 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 	public String InsertAllQuestions(long AssesmentId, MultipartFile file) throws IOException {
 		System.out.println("AssessmentServiceImpl.InsertAllQuestions()");
 		Set<Question> questionlist = new HashSet<Question>();
-		Set<Question> questionsAlreadyExist = assessRepo.getReferenceById(AssesmentId).getQuestions();
 		Integer count = 0;
 		Workbook workbook = null;
 		try {
@@ -187,9 +178,8 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 			}
 			// questionlist.addAll(questionsAlreadyExist);
 
+			@SuppressWarnings("unused")
 			List<Question> savedAll = questionRepo.saveAll(questionlist);
-			System.out.println(savedAll.size());
-			// System.out.println(savedAll);
 			return "File uploaded successfully!!! and " + count + " number of questions are added";
 
 		} catch (Exception e) {

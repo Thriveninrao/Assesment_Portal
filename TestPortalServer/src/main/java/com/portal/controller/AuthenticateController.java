@@ -20,7 +20,6 @@ import com.portal.config.JwtUtils;
 import com.portal.model.JwtRequest;
 import com.portal.model.JwtResponse;
 import com.portal.model.User;
-import com.portal.service.UserServiceInterface;
 import com.portal.service.impl.UserDetailServiceImpl;
 
 @RestController
@@ -36,9 +35,6 @@ public class AuthenticateController {
 	@Autowired
 	private JwtUtils jwtUtils;
 
-	@Autowired
-	private UserServiceInterface userService;
-
 	// generate token
 	@PostMapping("/generate-token")
 	public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
@@ -50,19 +46,16 @@ public class AuthenticateController {
 			User user = (User) userDetails;
 			if (user.getLoggedIn() == true) {
 				// User has already logged in, return a message indicating that
-				System.out.println("You have already logged in.");
 				user.setLoginRequested(true);
 				userDetailService.updateUser(user);
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You have already logged in");
 			} else {
 				// Generate the token
 				String token = this.jwtUtils.generateToken(userDetails);
-				System.out.println(token);
 
 				System.out.println(user.getEmail());
 				if (!user.getUserRole().getRole().getRoleName().toUpperCase().equals("ADMIN")) {
 					if (!user.getEmail().contains("@softtek.com")) {
-						System.out.println("Hi");
 						user.setLoggedIn(true);
 						this.userDetailService.updateUser(user);
 					}

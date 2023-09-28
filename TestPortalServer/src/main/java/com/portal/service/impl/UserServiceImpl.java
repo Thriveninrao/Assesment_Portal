@@ -53,7 +53,6 @@ public class UserServiceImpl implements UserServiceInterface {
 
 		User local = userRepo.findByUsername(user.getUsername());
 		if (local != null) {
-			System.out.println("User Is Already There !!");
 			throw new Exception("User Is Already There !!");
 		} else {
 			// user create
@@ -119,32 +118,26 @@ public class UserServiceImpl implements UserServiceInterface {
 		user.setLastName(userMod.getLastName());
 		user.setPhone(userMod.getPhone());
 		if (!(userMod.getUsername().equals(user.getUsername()))) {
-			System.out.println("hi username changed");
 			user.setUsername(userMod.getUsername());
 			String generatedPassword = this.generatePassword();
-			System.out.println(" User Password :: " + generatedPassword);
 			user.setPassword(this.bCryptPasswordEncoder.encode(generatedPassword));
 
 			try {
 				emailService.sendEmailForUpdatedCredemtials(user, generatedPassword,
 						user.getUserRole().getRole().getRoleName().toUpperCase());
-				System.out.println("Email sent successfully!");
 			} catch (Exception e) {
 				System.out.println("Failed to send email: " + e.getMessage());
 			}
 		}
 
 		if (!(userMod.getEmail().equals(user.getEmail()))) {
-			System.out.println("hi email changed");
 			user.setEmail(userMod.getEmail());
 			String generatedPassword = this.generatePassword();
-			System.out.println(" User Password :: " + generatedPassword);
 			user.setPassword(this.bCryptPasswordEncoder.encode(generatedPassword));
 
 			try {
 				emailService.sendEmailForUpdatedEmail(user, generatedPassword,
 						user.getUserRole().getRole().getRoleName().toUpperCase());
-				System.out.println("Email sent successfully!");
 			} catch (Exception e) {
 				System.out.println("Failed to send email: " + e.getMessage());
 			}
@@ -283,7 +276,6 @@ public class UserServiceImpl implements UserServiceInterface {
 	@Override
 	public Boolean updateApproveUserRequest(String username) {
 		String newPassword = this.generatePassword();
-		System.out.println("New password :: " + newPassword);
 		userRepo.updateLoggedInToFalseByUsername(username);
 		userRepo.updateLoginRequestedToFalseByUsername(username);
 		userRepo.updatePasswordByUsername(username, this.bCryptPasswordEncoder.encode(newPassword));
