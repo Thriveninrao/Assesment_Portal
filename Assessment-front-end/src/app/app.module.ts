@@ -16,7 +16,6 @@ import { NavbarComponent } from './Common/shared/navbar/navbar.component';
 import { SignupComponent } from './authentication/signup/signup.component';
 import { PasswordResetComponent } from './authentication/password-reset/password-reset.component';
 import { ProfileComponent } from './Common/components/profile/profile.component';
-import { LayoutComponent } from './Common/components/layout/layout.component';
 import { SharedModule } from './Common/shared/shared.module';
 
 
@@ -29,7 +28,6 @@ import { SharedModule } from './Common/shared/shared.module';
     HomeComponent,
     PasswordResetComponent,
     ProfileComponent,
-    LayoutComponent
   ],
   imports: [
     BrowserModule,

@@ -7,7 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 @Component({
   selector: 'app-view-assessments',
   templateUrl: './view-assessments.component.html',
-  styleUrls: ['./view-assessments.component.css'],
+  styleUrls: ['./view-assessments.component.scss'],
 })
 export class ViewAssessmentsComponent implements OnInit {
   assessments: Assessment[] = []; // Replace YourAssessmentType with the actual type of your assessments

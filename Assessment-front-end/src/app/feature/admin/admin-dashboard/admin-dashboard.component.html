@@ -2,7 +2,7 @@
   <app-navbar [profileName]="'Admin'"></app-navbar>
   <div class="content">
     <div class="sidebar-content">
-      <app-layout></app-layout>
+      <app-layout [role]="'Admin'"></app-layout>
     </div>
     <div class="main-content">
       <router-outlet></router-outlet>

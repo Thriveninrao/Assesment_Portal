@@ -1,0 +1,28 @@
+// .full-width{
+//   width: 100%;
+// }
+
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 100px;
+}
+
+.logo-content{
+  margin-left: 225px;
+  margin-top: -50px;
+}
+
+.field-412px{
+  width: 412px !important;
+}
+
+.field-200px{
+  width: 200px !important;
+}
+
+a{
+  text-decoration: none;
+}

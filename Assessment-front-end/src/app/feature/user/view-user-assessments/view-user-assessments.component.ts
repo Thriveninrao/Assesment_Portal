@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-view-user-assessments',
   templateUrl: './view-user-assessments.component.html',
-  styleUrls: ['./view-user-assessments.component.css']
+  styleUrls: ['./view-user-assessments.component.scss']
 })
 
 export class ViewUserAssessmentsComponent implements OnInit {

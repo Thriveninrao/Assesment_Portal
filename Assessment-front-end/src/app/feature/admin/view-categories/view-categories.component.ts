@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-view-categories',
   templateUrl: './view-categories.component.html',
-  styleUrls: ['./view-categories.component.css'],
+  styleUrls: ['./view-categories.component.scss'],
 })
 export class ViewCategoriesComponent implements OnInit {
   categories: any = [

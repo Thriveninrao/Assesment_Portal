@@ -27,11 +27,25 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () => import('./feature/admin/admin.module').then(m => m.AdminModule)
+  },
+
+  {
+    path:'**',
+    redirectTo:'home',
+  },
+  {
+    path:'',
+    redirectTo:'home',
+    pathMatch:'full'
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    useHash: true,
+    scrollPositionRestoration: 'enabled',
+    onSameUrlNavigation: 'reload',
+  })],
   exports: [RouterModule],
 })
 export class AppRoutingModule { }

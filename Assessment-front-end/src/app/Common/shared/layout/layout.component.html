@@ -3,7 +3,7 @@
     <!-- <div mat-subheader class="matHeader mt20">Menu</div> -->
     <span *ngFor="let data of sidebarData">
       <div class="link">
-        <button mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink={{data.routeLink}}>
+        <button type="button" mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink={{data.routeLink}}>
           <mat-icon class="icon" mat-list-icon>{{data.icon}}</mat-icon>&nbsp; &nbsp;
           {{data.menuName}}
         </button>

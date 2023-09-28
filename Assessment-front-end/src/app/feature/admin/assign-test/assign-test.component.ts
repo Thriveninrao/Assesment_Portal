@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-assign-test',
   templateUrl: './assign-test.component.html',
-  styleUrls: ['./assign-test.component.css']
+  styleUrls: ['./assign-test.component.scss']
 })
 export class AssignTestComponent implements OnInit {
   disabled = false;

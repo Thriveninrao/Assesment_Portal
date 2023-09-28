@@ -1,117 +1,106 @@
-<!-- <app-navbar></app-navbar> -->
-<div class="bootstrap-wrapper mt20">
-  <div class="container">
-    <div class="row" style="margin-top: 20px">
-      <div class="col-md-6 offset-md-3">
-        <mat-card>
-          <mat-card-content>
-            <div class="container text-center">
-              <img
-                style="max-width: 100px"
-                src="../../../assets/logo.png"
-                alt=""
-              />
-            </div>
-            <h1 class="text-center">Register Here !!</h1>
-            <!-- {{user | json}} -->
-            <form (ngSubmit)="formSubmit()">
-              <!--User : Field-->
-              <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Username</mat-label>
-                <input
-                  required
-                  [(ngModel)]="user.username"
-                  name="username"
-                  type="text"
-                  matInput
-                  placeholder="Enter Your Username"
-                />
-                <!-- <mat-hint>Username must be Unique</mat-hint> -->
-              </mat-form-field>
-
-              <!--Password : Field-->
-              <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Password</mat-label>
-                <input
-                  required
-                  [(ngModel)]="user.password"
-                  name="password"
-                  type="password"
-                  matInput
-                  placeholder="Enter Your Password"
-                />
-              </mat-form-field>
-
-              <!--First Name : Field-->
-              <mat-form-field class="full-width" appearance="outline">
-                <mat-label>First Name</mat-label>
-                <input
-                  required
-                  [(ngModel)]="user.firstName"
-                  name="firstName"
-                  type="text"
-                  matInput
-                  placeholder="Enter Your First Name"
-                />
-              </mat-form-field>
-
-              <!--Last Name : Field-->
-              <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Last Name</mat-label>
-                <input
-                  required
-                  [(ngModel)]="user.lastName"
-                  name="lastName"
-                  type="text"
-                  matInput
-                  placeholder="Enter Your Last Name"
-                />
-              </mat-form-field>
-
-              <!--Email : Field-->
-              <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Email</mat-label>
-                <input
-                  required
-                  [(ngModel)]="user.email"
-                  name="email"
-                  type="text"
-                  matInput
-                  placeholder="Enter Your Email"
-                />
-              </mat-form-field>
-
-              <!--Phone : Field-->
-              <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Phone</mat-label>
-                <input
-                  required
-                  [(ngModel)]="user.phone"
-                  name="phone"
-                  type="text"
-                  matInput
-                  placeholder="Enter Your Phone"
-                />
-              </mat-form-field>
-
-              <button type="submit" mat-raised-button color="primary">
-                Register
-              </button>
-              <button
-                type="reset"
-                style="margin-left: 140px"
-                mat-stroked-button
-                color="warn"
-              >
-                Clear
-              </button>
-              <button mat-raised-button style="float: right" color="warn">
-                Back
-              </button>
-            </form>
-          </mat-card-content>
-        </mat-card>
-      </div>
+<div class="layout-wrapper" style="overflow: auto;">
+  <div class="login-container">
+    <div class="logo-content">
+      <img src="../../../assets/Softtek-logo.png"/>
     </div>
+    <div>
+      <mat-card>
+        <mat-card-content>
+          <div class="ls-tight h3 text-center" style="font-family: sans-serif;">
+            <span>Get Started. Register here</span>
+          </div>
+          <!-- <div class="container text-center">
+            <img style="max-width: 100px" src="../../../assets/logo.png" alt="" />
+          </div> -->
+          <!-- <h1 class="text-center">Register Here !!</h1> -->
+          <!-- {{user | json}} -->
+          <div class="mt-3">
+            <form [formGroup]="signUpForm">
+              <!--User : Field-->
+              <div>
+                <!--First Name : Field-->
+                <mat-form-field class="field-200px" appearance="outline">
+                  <mat-label>First Name</mat-label>
+                  <input required formControlName="firstname" name="firstName" type="text" matInput
+                    placeholder="Enter Your First Name" />
+                  <mat-error *ngIf="isSubmitted && signUpForm.controls['firstname'].hasError('required')">
+                    First Name is required
+                  </mat-error>
+                </mat-form-field> &nbsp; 
+                <!--Last Name : Field-->
+                <mat-form-field class="field-200px" appearance="outline">
+                  <mat-label>Last Name</mat-label>
+                  <input required formControlName="lastname" name="lastName" type="text" matInput
+                    placeholder="Enter Your Last Name" />
+                  <mat-error *ngIf="isSubmitted && signUpForm.controls['lastname'].hasError('required')">
+                    Last Name is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="field-412px" appearance="outline">
+                  <mat-label>Username</mat-label>
+                  <input required formControlName="username" name="username" type="text" matInput
+                    placeholder="Enter Your Username" />
+                  <mat-error *ngIf="signUpForm.controls['username'].hasError('required')">
+                    Username is required
+                  </mat-error>
+                  <!-- <mat-hint>Username must be Unique</mat-hint> -->
+                </mat-form-field>
+              </div>
+              <div>
+                <!--Password : Field-->
+                <mat-form-field class="field-412px" appearance="outline">
+                  <mat-label>Password</mat-label>
+                  <input required formControlName="password" name="password" type="password" matInput
+                    placeholder="Enter Your Password" />
+                  <mat-error *ngIf="isSubmitted && signUpForm.controls['password'].hasError('required')">
+                    Password is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+      
+              <div>
+                <!--Email : Field-->
+                <mat-form-field class="field-412px" appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input required formControlName="email" name="email" type="text" matInput
+                    placeholder="Enter Your Email" />
+                  <mat-error *ngIf="isSubmitted && signUpForm.controls['email'].hasError('required')">
+                    Email is required
+                  </mat-error>
+                  <mat-error *ngIf="isSubmitted && signUpForm.controls['email'].hasError('email')">
+                    Please enter valid Email
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div>
+                <!--Phone : Field-->
+                <mat-form-field class="field-412px" appearance="outline">
+                  <mat-label>Phone</mat-label>
+                  <input required formControlName="phone" name="phone" type="text" matInput
+                    placeholder="Enter Your Phone" />
+                  <mat-error *ngIf="isSubmitted && signUpForm.controls['phone'].hasError('required')">
+                    Phone is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </form>
+          </div>
+    
+          <div class="">
+            <button type="submit" mat-raised-button class="btn-main" style="width: 100%;"
+              (click)="formSubmit()">
+              Register
+            </button>
+          </div>
+          <div class="mt-3 text-sm text-muted text-center">
+            <span>Already have an account? 
+              <a href="javascript:void(0)" routerLink="/login">Sign In</a> to your account</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
   </div>
 </div>
