@@ -11,6 +11,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.portal.model.User;
+import com.portal.model.UserModel;
 import com.portal.model.assessment.Assessment;
 import com.portal.service.EmailServiceInterface;
 
@@ -261,7 +262,49 @@ public class EmailServiceImpl implements EmailServiceInterface {
 			javaMailSender.send(message);
 		}
 	}
+	@Override
+	public void sendOTP(User user, String otp) throws MessagingException {
+		
+		MimeMessage message = javaMailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
+		String subject = user.getFirstName() + " " + user.getLastName()
+				+ " | OTP Verification | Softtek Assessment Portal";
+
+		helper.setTo(user.getEmail());
+		helper.setSubject(subject);
+
+		String htmlContent = "<html>";
+		htmlContent += "<head>" + "    <style>" + "      .card {" + "            background-color: grey;"
+				+ "            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);" + "            max-width: 600px;"
+				+ "            margin: 0 auto;" + "            padding: 20px;" + "            text-align: center;"
+				+ "        }" + "        h2 {" + "            color: cyan;" + "        }" + "        p {"
+				+ "            color: white;" + "            margin-bottom: 20px;" + "        }"
+				+ "    </style> </head>";
+
+		htmlContent += "<body><div class=\"card\">";
+		htmlContent += "<h2 style =\"color: white;\"> Hi, " + user.getFirstName() + " " + user.getLastName()
+				+ "! </h2>\r\n"
+				+ "        <p> Your OTP for Email Verification is: </p>";
+
+		htmlContent += "<h2> " + otp + " </h2>";
+
+		
+
+		
+		htmlContent += "<p> If OTP was not requested by you, please reach out to us at <a href=\"mailto:softtek.assessment.portal@gmail.com\">softtek.assessment.portal@gmail.com </a>. </p>";
+
+		htmlContent += "<p> Best regards, </p>" + "<p> The Softtek Team </p>";
+		htmlContent += "</div></body></html>";
+
+		helper.setText(htmlContent, true);
+
+		javaMailSender.send(message);
+		
+	}
+
+
+	
 	@Override
 	public void sendEmailForUpdatedEmail(User user, String generatedPassword, String role) throws MessagingException {
 		if (role.equals("ADMIN")) {
@@ -269,5 +312,41 @@ public class EmailServiceImpl implements EmailServiceInterface {
 		} else {
 			this.sendEmail(user, generatedPassword, "new");
 		}
+	}
+
+	@Override
+	public void updatePasswordEmail(UserModel user) throws MessagingException {
+		MimeMessage message = javaMailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+		String subject = user.getFirstName() + " " + user.getLastName()
+				+ " | Password Changed | Softtek Assessment Portal";
+
+		helper.setTo(user.getEmail());
+		helper.setSubject(subject);
+
+		String htmlContent = "<html>";
+		htmlContent += "<head>" + "    <style>" + "      .card {" + "            background-color: grey;"
+				+ "            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);" + "            max-width: 600px;"
+				+ "            margin: 0 auto;" + "            padding: 20px;" + "            text-align: center;"
+				+ "        }" + "        h2 {" + "            color: cyan;" + "        }" + "        p {"
+				+ "            color: white;" + "            margin-bottom: 20px;" + "        }"
+				+ "    </style> </head>";
+
+		htmlContent += "<body><div class=\"card\">";
+		htmlContent += "<h2 style =\"color: white;\"> Hi, " + user.getFirstName() + " " + user.getLastName()
+				+ "! </h2>\r\n"
+				+ "        <p> Your password has been changed successfully. </p>";
+
+		htmlContent += "<p> Visit our portal at <a href=\"http://localhost:4200/login\">Softtek Assessment Portal</a> and use the provided credentials to log in. </p>";
+		
+		htmlContent += "<p> If this was not done by you, please reach out to our support team at <a href=\"mailto:softtek.assessment.portal@gmail.com\">softtek.assessment.portal@gmail.com </a>. </p>";
+
+		htmlContent += "<p> Best regards, </p>" + "<p> The Softtek Team </p>";
+		htmlContent += "</div></body></html>";
+
+		helper.setText(htmlContent, true);
+
+		javaMailSender.send(message);
 	}
 }

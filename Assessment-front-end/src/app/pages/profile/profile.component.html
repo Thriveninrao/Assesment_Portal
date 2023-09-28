@@ -29,12 +29,13 @@
       <mat-icon>download</mat-icon>Export User Report
     </button>
     <button
-      mat-raised-button
+      mat-raised-button 
+      routerLink="/admin/password-reset"
       color="warn"
       class="ml20"
       *ngIf="
-        user.profile === 'Admin.jpg' || user.email.includes('@softtek.com')
-      "
+        user.profile === 'Admin.jpg' || user.email.includes('@softtek.com')"
+        (click)="navigateToPasswordReset()"
     >
       <mat-icon>password</mat-icon>Password Reset
     </button>

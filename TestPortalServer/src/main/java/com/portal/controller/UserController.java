@@ -1,5 +1,7 @@
 package com.portal.controller;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -138,4 +140,18 @@ public class UserController {
 	public ResponseEntity<?> assignTest(@RequestBody DataSent assignAssessmentData) {
 		return ResponseEntity.ok(userService.assignTest(assignAssessmentData));
 	}
+	
+	@GetMapping("/getOTP/{username}")
+	public ResponseEntity<?> getOTP(@PathVariable("username") String username ) throws MessagingException {
+		System.out.println("Hi from Back end");
+		return ResponseEntity.ok(userService.generateOTP(username));	
+		
+	}
+	
+	@PutMapping("/resetPassword")
+    public ResponseEntity<?> resetPassword(@RequestBody UserModel user) {
+        return ResponseEntity.ok(userService.updatePassword(user));
+        
+       
+    }
 }

@@ -3,6 +3,8 @@ package com.portal.service;
 import java.util.List;
 import java.util.Set;
 
+import javax.mail.MessagingException;
+
 import com.portal.model.DataSent;
 import com.portal.model.SuccessMessage;
 import com.portal.model.User;
@@ -56,4 +58,12 @@ public interface UserServiceInterface {
 	public String updateUser(UserModel user);
 
 	public User getUserDetailById(Long userId);
+
+	public SuccessMessage generateOTP(String username) throws MessagingException;
+
+	public String generateOTP();
+
+	public SuccessMessage updatePassword(UserModel user);
+	
+	public User updateUserPassword(User user);
 }

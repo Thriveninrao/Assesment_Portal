@@ -65,4 +65,15 @@ export class UserserviceService {
     console.log(dataToSend)
     return this.http.post(`${baseUrl}/user/assignTest`, dataToSend);
   }
+  public sendOTP(username: string){
+    console.log(username);
+    console.log(typeof(username));
+    return this.http.get(`${baseUrl}/user/getOTP/${username}`);
+  }
+
+  public resetPassword(user: any){
+    console.log("in ser");
+    
+    return this.http.put(`${baseUrl}/user/resetPassword`, user);
+  }
 }
