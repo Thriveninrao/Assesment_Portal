@@ -41,6 +41,9 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if(this.loginForm.invalid){
+      Object.keys(this.loginForm.controls).forEach(field => {
+        this.loginForm.controls[field].markAsTouched({onlySelf:true})
+       })
       this.snack.open('Username and Password is required!!', '', {
         duration: 3000,
       });

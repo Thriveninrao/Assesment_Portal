@@ -23,7 +23,7 @@
                   <mat-label>First Name</mat-label>
                   <input required formControlName="firstname" name="firstName" type="text" matInput
                     placeholder="Enter Your First Name" />
-                  <mat-error *ngIf="isSubmitted && signUpForm.controls['firstname'].hasError('required')">
+                  <mat-error *ngIf="signUpForm.controls['firstname'].hasError('required')">
                     First Name is required
                   </mat-error>
                 </mat-form-field> &nbsp; 
@@ -32,7 +32,7 @@
                   <mat-label>Last Name</mat-label>
                   <input required formControlName="lastname" name="lastName" type="text" matInput
                     placeholder="Enter Your Last Name" />
-                  <mat-error *ngIf="isSubmitted && signUpForm.controls['lastname'].hasError('required')">
+                  <mat-error *ngIf="signUpForm.controls['lastname'].hasError('required')">
                     Last Name is required
                   </mat-error>
                 </mat-form-field>
@@ -54,7 +54,7 @@
                   <mat-label>Password</mat-label>
                   <input required formControlName="password" name="password" type="password" matInput
                     placeholder="Enter Your Password" />
-                  <mat-error *ngIf="isSubmitted && signUpForm.controls['password'].hasError('required')">
+                  <mat-error *ngIf="signUpForm.controls['password'].hasError('required')">
                     Password is required
                   </mat-error>
                 </mat-form-field>
@@ -66,10 +66,10 @@
                   <mat-label>Email</mat-label>
                   <input required formControlName="email" name="email" type="text" matInput
                     placeholder="Enter Your Email" />
-                  <mat-error *ngIf="isSubmitted && signUpForm.controls['email'].hasError('required')">
+                  <mat-error *ngIf="signUpForm.controls['email'].hasError('required')">
                     Email is required
                   </mat-error>
-                  <mat-error *ngIf="isSubmitted && signUpForm.controls['email'].hasError('email')">
+                  <mat-error *ngIf="signUpForm.controls['email'].hasError('email')">
                     Please enter valid Email
                   </mat-error>
                 </mat-form-field>
@@ -80,7 +80,7 @@
                   <mat-label>Phone</mat-label>
                   <input required formControlName="phone" name="phone" type="text" matInput
                     placeholder="Enter Your Phone" />
-                  <mat-error *ngIf="isSubmitted && signUpForm.controls['phone'].hasError('required')">
+                  <mat-error *ngIf="signUpForm.controls['phone'].hasError('required')">
                     Phone is required
                   </mat-error>
                 </mat-form-field>

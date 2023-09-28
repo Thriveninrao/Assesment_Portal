@@ -19,7 +19,7 @@
 .login-container {
     height: 100vh;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -51,4 +51,9 @@
     display: flex;
     justify-content: center;
     margin-top: 5px;
+  }
+
+  .logo-content{
+    margin-left: 225px;
+    margin-top: -50px;
   }
