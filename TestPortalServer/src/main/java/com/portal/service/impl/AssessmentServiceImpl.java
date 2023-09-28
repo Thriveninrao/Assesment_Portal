@@ -21,11 +21,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.portal.model.ResultOfAssessment;
 import com.portal.model.User;
 import com.portal.model.assessment.Assessment;
 import com.portal.model.assessment.Question;
+import com.portal.model.assessment.TestResult;
 import com.portal.repository.AssessmentRepository;
 import com.portal.repository.QuestionRepository;
+import com.portal.repository.TestResultRepo;
 import com.portal.repository.UserRepository;
 import com.portal.service.AssessmentServiceInterface;
 
@@ -38,6 +41,9 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 	private QuestionRepository questionRepo;
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private TestResultRepo testResultRepo;
 
 	@Override
 	public Assessment addAssessment(Assessment assessment) {
@@ -188,6 +194,24 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 			workbook.close();
 		}
 		return "Please upload the file";
+	}
+
+	@Override
+	public Set<ResultOfAssessment> getResultListOfAssessment(long AssesmentId) {
+		List<TestResult> testResultslist = testResultRepo.gettestResultslist(AssesmentId);
+		Set<ResultOfAssessment> resultAssessmentModelSet  = new HashSet<ResultOfAssessment>();
+		for(TestResult result:testResultslist) {
+			ResultOfAssessment resultAssessment = new ResultOfAssessment();
+			resultAssessment.setAssessmentId(result.getAssessmentId());
+			resultAssessment.setAssessmentTitle(assessRepo.getReferenceById(result.getAssessmentId()).getAssessmentTitle());
+			resultAssessment.setMaxMarks(result.getMaxMarks());
+			resultAssessment.setNumberOfQuestions(assessRepo.getReferenceById(result.getAssessmentId()).getNumberOfQuestions());
+			resultAssessment.setObtainedMarks(result.getMarksObtained());
+			resultAssessment.setUserId(result.getUserId());
+			resultAssessment.setUserName(userRepo.getReferenceById(result.getUserId()).getFirstName());
+			resultAssessmentModelSet.add(resultAssessment);
+		}
+		return resultAssessmentModelSet ;
 	}
 
 }

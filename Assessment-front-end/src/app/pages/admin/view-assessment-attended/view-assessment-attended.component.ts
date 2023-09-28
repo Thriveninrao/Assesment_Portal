@@ -15,68 +15,47 @@ import { MatTableModule } from '@angular/material/table';
   imports: [MatTableModule],
 })
 export class ViewAssessmentAttendedComponent implements OnInit {
-  // assessmentId: any;
-  // assessmentTitle: any;
-  // resultsOftheAssesment: ResultOfAssessment[] = [];
+  assessmentId: any;
+  assessmentTitle: any;
+  ELEMENT_DATA: ResultOfAssessment[] = [];
+  displayedColumns: string[] = ['userId', 'userName','obtainedMarks'];
+  dataSource = new MatTableDataSource<ResultOfAssessment>(this.ELEMENT_DATA);
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
     private __AssessmentService: AssessmentService
-  ) {}
+  ) {{this._route.params.subscribe(params => {
+    const assessmentId = params['assessmentId'];
+    const assessmentTitle = params['assessmentTitle'];
+    this.assessmentId = assessmentId;
+    this.assessmentTitle = assessmentTitle;
+  });
+}}
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.__AssessmentService.GetAttendentsAndResults(this.assessmentId).subscribe(
+      (data) => {
+        this.ELEMENT_DATA = data as ResultOfAssessment[];
+        this.dataSource = new MatTableDataSource<ResultOfAssessment>(this.ELEMENT_DATA);
+        console.log(this.dataSource);
+        if (this.ELEMENT_DATA.length === 0) {
+          Swal.fire(
+            'Info',
+            `Nobody attended this test till now`,
+            'info'
+          );
+        }
+      },
+      (error) => {
+        console.log(error);
+        Swal.fire(
+          'error',
+          `Issue in fetching Results of ${this.assessmentTitle}`,
+          'error'
+        );
+      }
+    );
+    
   }
-  // ngOnInit(): void {
-  //   this.assessmentId = this._route.snapshot.params['assessmentId'];
-  //   this.assessmentTitle = this._route.snapshot.params['assessmentTitle'];
 
-  //   this.__AssessmentService.GetAttendentsAndResults(this.assessmentId).subscribe(
-  //     (data) => { // Specify the type of 'data'
-  //       console.log(data);
-  //       this.resultsOftheAssesment = data as ResultOfAssessment[];
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //       Swal.fire(
-  //         'error',
-  //         `Issue in fetching Results of ${this.assessmentTitle}`,
-  //         'error'
-  //       );
-  //     }
-  //   );
-  // }
-
-   ELEMENT_DATA: ResultOfAssessment[] = [
-    {
-      assessmentId: 1,
-      assessmentTitle: 'java',
-      maxMarks: 10,
-      numberOfQuestions: 5,
-      obtainedMarks: 8,
-      userId: 1,
-      userName: 'shiva',
-    },
-    {
-      assessmentId: 2,
-      assessmentTitle: 'java',
-      maxMarks: 10,
-      numberOfQuestions: 5,
-      obtainedMarks: 7,
-      userId: 2,
-      userName: 'Ram',
-    },
-    {
-      assessmentId: 3,
-      assessmentTitle: 'java',
-      maxMarks: 10,
-      numberOfQuestions: 5,
-      obtainedMarks: 6,
-      userId: 2,
-      userName: 'shyam',
-    },
-  ];
-  
-  displayedColumns: string[] = ['userId', 'userName','obtainedMarks'];
-  dataSource = this.ELEMENT_DATA;
 }

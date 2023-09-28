@@ -85,7 +85,7 @@ export class ViewAssessmentsComponent implements OnInit {
   }
   navigateToAssessment(a:Assessment) {
     const { assessmentId, assessmentTitle } = a;
-    this._router.navigate(['/admin/view-assessment-attended', assessmentId, assessmentTitle]);
+    this._router.navigate(['/admin/view-assessment-attended', assessmentId,assessmentTitle]);
   }
 
   test(){

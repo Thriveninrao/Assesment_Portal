@@ -3,6 +3,7 @@ package com.portal.controller;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.portal.model.ResultOfAssessment;
 import com.portal.model.UserAssessmentAssignment;
 import com.portal.model.assessment.Assessment;
 import com.portal.service.AssessmentServiceInterface;
@@ -115,5 +117,17 @@ public class AssessmentController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file!!!");
 		}
 	}
+	@GetMapping("/resultsOfAssessment/{assessmentId}")
+	public ResponseEntity<?> GetAttendentsAndResults(@PathVariable("assessmentId") Long assessmentId){
+		try {
+			System.out.println("AssessmentController.GetAttendentsAndResults()");
+			Set<ResultOfAssessment> resultListOfAssessment = assessmentService.getResultListOfAssessment(assessmentId);
+			return new ResponseEntity<>(resultListOfAssessment,HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+
 
 }

@@ -137,7 +137,7 @@ const routes: Routes = [
         path: 'user-assessment-details',
         component: UserAssessmentDetailsComponent,
       },{
-        path:'view-assessment-attended/:assessmentTitle/:assessmentTitle',
+        path:'view-assessment-attended/:assessmentId/:assessmentTitle',
         component:ViewAssessmentAttendedComponent
       }
 
