@@ -21,4 +21,6 @@ public class UserModel {
 	private Integer testsAttempted;
 
 	private String profile;
+	
+	private String password;
 }

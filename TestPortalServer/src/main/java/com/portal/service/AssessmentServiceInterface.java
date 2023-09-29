@@ -3,10 +3,12 @@ package com.portal.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.portal.model.ResultOfAssessment;
 import com.portal.model.assessment.Assessment;
 
 public interface AssessmentServiceInterface {
@@ -24,6 +26,7 @@ public interface AssessmentServiceInterface {
 	public ByteArrayInputStream getAllQuestions(long AssesmentId) throws IOException;
 	public Assessment updateAssessmentQuestions(Long assessmentId);
 	public String InsertAllQuestions(long AssesmentId,MultipartFile excelFile) throws IOException;
+	public Set<ResultOfAssessment> getResultListOfAssessment(long AssesmentId);
 
 //	public Set<Assessment> getUserAssessment(Long userId);
 }

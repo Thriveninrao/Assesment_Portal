@@ -3,6 +3,7 @@ package com.portal.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -21,6 +22,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.portal.model.assessment.Assessment;
 
 import lombok.Data;
 
@@ -71,11 +73,15 @@ public class User implements UserDetails {
 	@Column
 	private String profile;
 
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Set<Assessment> assessments = new LinkedHashSet<>();
+
 	// user many roles
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
 	@JsonIgnore
 	private UserRole userRole;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
 	@JsonIgnore
 	private List<UserAssessmentAssignment> userAssessmentAssignment = new ArrayList<>();

@@ -3,6 +3,7 @@ import { AssessmentService } from 'src/app/services/assessment.service';
 import { UserserviceService } from 'src/app/services/userservice.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-assign-test',
@@ -16,6 +17,9 @@ export class AssignTestComponent implements OnInit {
   testUserRoleId !: number;
   selectedUsers: any[] = [];
   selectedAssessments: any[] = [];
+  onlyAssessmentsSelected: boolean = false;
+  onlyUsersSelected: boolean = false;
+
 
   assessmentSearch: string = '';
   userSearch: string = '';
@@ -23,7 +27,7 @@ export class AssignTestComponent implements OnInit {
   filteredAssessments: Assessment[] = this.assessments;
   filteredUsers: User[] = this.users;
 
-  constructor(private assessmentService: AssessmentService, private userService: UserserviceService,  private snack: MatSnackBar) { }
+  constructor(private assessmentService: AssessmentService, private userService: UserserviceService,  private snack: MatSnackBar, private _router: Router) { }
 
   ngOnInit(): void {
     this.assessmentService.assessments().subscribe(
@@ -91,6 +95,8 @@ export class AssignTestComponent implements OnInit {
         this.selectedAssessments.splice(index, 1);
       }
     }
+    this.onlyAssessmentsSelected = this.selectedAssessments.length > 0 && this.selectedUsers.length === 0;
+    this.onlyUsersSelected = this.selectedUsers.length > 0 && this.selectedAssessments.length === 0;
   }
 
   toggleUserSelection(user: any) {
@@ -102,6 +108,8 @@ export class AssignTestComponent implements OnInit {
         this.selectedUsers.splice(index, 1);
       }
     }
+    this.onlyUsersSelected = this.selectedUsers.length > 0 && this.selectedAssessments.length === 0;
+    this.onlyAssessmentsSelected = this.selectedAssessments.length > 0 && this.selectedUsers.length === 0;
   }
 
   public handleFABClick() {
@@ -136,7 +144,9 @@ export class AssignTestComponent implements OnInit {
       (data: any) => {
         console.log(data);
         //Success
-          Swal.fire('Success', data.message, 'success');
+          Swal.fire('Success', data.message, 'success').then(() => {
+            this._router.navigate(['/admin/user-details']);
+          });;
       },
       (error) => {
         //Error
@@ -150,6 +160,34 @@ export class AssignTestComponent implements OnInit {
         this.disabled = false;
       }
     );
+
+  }
+  groupAssessments(){
+    console.log("in method");
+    
+    this.userService.assessmentGroup(this.selectedAssessments).subscribe(
+      (data: any) => {
+        console.log(data);
+        //Success
+          Swal.fire('Success', data.message, 'success').then(() => {
+            this._router.navigate(['/admin/user-details']);
+          });;
+      },
+      (error) => {
+        //Error
+        console.log('error');
+        this.snack.open('Error in Test assignment', '', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+        });
+      },() => {
+        this.disabled = false;
+      }
+    );
+  }
+
+  groupUsers(){
 
   }
 

@@ -36,17 +36,17 @@ public class Category {
 
 	@Column(length = 1000)
 	private String categoryDescription;
-	
+
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
 	@JsonIgnore
-	private Set<Assessment> assessments= new LinkedHashSet<>();
+	private Set<Assessment> assessments = new LinkedHashSet<>();
 
 	public Category(String categoryTitle, String categoryDescription) {
 		super();
 		this.categoryTitle = categoryTitle;
 		this.categoryDescription = categoryDescription;
 	}
-	
+
 	public int getAssessmentSize() {
 		return this.assessments.size();
 	}

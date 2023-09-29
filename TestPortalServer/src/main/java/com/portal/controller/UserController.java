@@ -1,5 +1,7 @@
 package com.portal.controller;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,7 +58,6 @@ public class UserController {
 		if (!(userService.userExists(user))) {
 			user.setUsername(userService.generateUserName(user));
 			String generatedPassword = userService.generatePassword();
-			System.out.println(" User Password :: " + generatedPassword);
 			user.setPassword(this.bCryptPasswordEncoder.encode(generatedPassword));
 
 			user.setProfile("User.jpg");
@@ -67,7 +68,6 @@ public class UserController {
 
 			try {
 				emailService.sendEmail(user, generatedPassword, "new");
-				System.out.println("Email sent successfully!");
 			} catch (Exception e) {
 				System.out.println("Failed to send email: " + e.getMessage());
 			}
@@ -79,7 +79,6 @@ public class UserController {
 	
 	@PutMapping("/update")
 	public ResponseEntity<?> updateUser(@RequestBody UserModel user) throws Exception {
-		System.out.println("Hi from backend :: to update"+ user);
 		SuccessMessage message = new SuccessMessage(userService.updateUser(user));
 		return ResponseEntity.ok(message);
 	}
@@ -139,7 +138,20 @@ public class UserController {
 
 	@PostMapping("/assignTest")
 	public ResponseEntity<?> assignTest(@RequestBody DataSent assignAssessmentData) {
-		System.out.println("Hi from backend");
 		return ResponseEntity.ok(userService.assignTest(assignAssessmentData));
 	}
+	
+	@GetMapping("/getOTP/{username}")
+	public ResponseEntity<?> getOTP(@PathVariable("username") String username ) throws MessagingException {
+		System.out.println("Hi from Back end");
+		return ResponseEntity.ok(userService.generateOTP(username));	
+		
+	}
+	
+	@PutMapping("/resetPassword")
+    public ResponseEntity<?> resetPassword(@RequestBody UserModel user) {
+        return ResponseEntity.ok(userService.updatePassword(user));
+        
+       
+    }
 }

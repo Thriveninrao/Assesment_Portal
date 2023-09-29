@@ -50,13 +50,10 @@ public class AdminController {
 		if (!(userService.userExists(user))) {
 
 			String generateUserName = userService.generateUserName(user);
-			System.out.println("username :: " + generateUserName);
 			user.setUsername(generateUserName);
 
 			String generatePassword = userService.generatePassword();
 			user.setPassword(this.bCryptPasswordEncoder.encode(generatePassword));
-			System.out.println("password :: " + generatePassword);
-
 			user.setProfile("Admin.jpg");
 
 			userService.createUser(user, userRole);

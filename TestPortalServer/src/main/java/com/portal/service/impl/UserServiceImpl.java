@@ -53,7 +53,6 @@ public class UserServiceImpl implements UserServiceInterface {
 
 		User local = userRepo.findByUsername(user.getUsername());
 		if (local != null) {
-			System.out.println("User Is Already There !!");
 			throw new Exception("User Is Already There !!");
 		} else {
 			// user create
@@ -119,32 +118,26 @@ public class UserServiceImpl implements UserServiceInterface {
 		user.setLastName(userMod.getLastName());
 		user.setPhone(userMod.getPhone());
 		if (!(userMod.getUsername().equals(user.getUsername()))) {
-			System.out.println("hi username changed");
 			user.setUsername(userMod.getUsername());
 			String generatedPassword = this.generatePassword();
-			System.out.println(" User Password :: " + generatedPassword);
 			user.setPassword(this.bCryptPasswordEncoder.encode(generatedPassword));
 
 			try {
 				emailService.sendEmailForUpdatedCredemtials(user, generatedPassword,
 						user.getUserRole().getRole().getRoleName().toUpperCase());
-				System.out.println("Email sent successfully!");
 			} catch (Exception e) {
 				System.out.println("Failed to send email: " + e.getMessage());
 			}
 		}
 
 		if (!(userMod.getEmail().equals(user.getEmail()))) {
-			System.out.println("hi email changed");
 			user.setEmail(userMod.getEmail());
 			String generatedPassword = this.generatePassword();
-			System.out.println(" User Password :: " + generatedPassword);
 			user.setPassword(this.bCryptPasswordEncoder.encode(generatedPassword));
 
 			try {
 				emailService.sendEmailForUpdatedEmail(user, generatedPassword,
 						user.getUserRole().getRole().getRoleName().toUpperCase());
-				System.out.println("Email sent successfully!");
 			} catch (Exception e) {
 				System.out.println("Failed to send email: " + e.getMessage());
 			}
@@ -227,6 +220,24 @@ public class UserServiceImpl implements UserServiceInterface {
 		return password.toString();
 	}
 
+	@Override
+	public String generateOTP() {
+		final String CHAR_UPPER = "abcdefghijklmnopqrstuvwxyz".toUpperCase();
+		final String NUMBER = "0123456789";
+
+		final String OTP_ALLOW = CHAR_UPPER + NUMBER;
+
+		SecureRandom random = new SecureRandom();
+		StringBuilder otp = new StringBuilder(6);
+
+		for (int i = 0; i < 6; i++) {
+			int randomIndex = random.nextInt(OTP_ALLOW.length());
+			char randomChar = OTP_ALLOW.charAt(randomIndex);
+			otp.append(randomChar);
+		}
+		return otp.toString();
+	}
+
 	@PostConstruct
 	@Override
 	public void createADefaultAdmin() throws Exception {
@@ -283,7 +294,6 @@ public class UserServiceImpl implements UserServiceInterface {
 	@Override
 	public Boolean updateApproveUserRequest(String username) {
 		String newPassword = this.generatePassword();
-		System.out.println("New password :: " + newPassword);
 		userRepo.updateLoggedInToFalseByUsername(username);
 		userRepo.updateLoginRequestedToFalseByUsername(username);
 		userRepo.updatePasswordByUsername(username, this.bCryptPasswordEncoder.encode(newPassword));
@@ -326,7 +336,7 @@ public class UserServiceImpl implements UserServiceInterface {
 
 				testAssigned++;
 
-				if (uaa.getTestAttempted()) {
+				if (uaa.getTestAttempted()!=0) {
 					testAttempted++;
 
 				}
@@ -354,7 +364,7 @@ public class UserServiceImpl implements UserServiceInterface {
 			List<Assessment> assessmentList = new ArrayList<Assessment>();
 			System.out.println(user.getUserAssessmentAssignment().size());
 			user.getUserAssessmentAssignment().forEach((uaa) -> {
-				if (!uaa.getTestAttempted()) {
+				if (uaa.getTestAttempted()==0) {
 					assessmentList.add(uaa.getAssessment());
 				}
 			});
@@ -448,6 +458,50 @@ public class UserServiceImpl implements UserServiceInterface {
 	@Override
 	public Integer getCountOfUserAssessmentAssignIdByUserName() {
 		return userRepo.getCountOfUserAssessmentAssignIdByUserName();
+	}
+
+	@Override
+	public SuccessMessage generateOTP(String username) {
+		SuccessMessage msg;
+		User user = this.getUser(username);
+		String otp = this.generateOTP();
+		if (otp == null) {
+			msg = new SuccessMessage("Error in OTP Generation");
+		} else {
+			try {
+				msg = new SuccessMessage(otp);
+				emailService.sendOTP(user, otp);
+			} catch (MessagingException e) {
+				msg = new SuccessMessage("Error in mail Service");
+				e.printStackTrace();
+			}
+		}
+		System.out.println(otp);
+		return msg;
+	}
+
+	@Override
+	public SuccessMessage updatePassword(UserModel user) {
+		SuccessMessage msg;
+		User dbUser = this.getUserDetailById(user.getId());
+		dbUser.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
+		User updateduser = this.updateUserPassword(dbUser);
+		if (updateduser.getId() == user.getId()) {
+			try {
+				msg = new SuccessMessage("Success");
+				emailService.updatePasswordEmail(user);
+			} catch (MessagingException e) {
+				msg = new SuccessMessage("Error in mail Service");
+				e.printStackTrace();
+			}
+		} else
+			msg = new SuccessMessage("Password Updation Error");
+		return msg;
+	}
+
+	@Override
+	public User updateUserPassword(User user) {
+		return userRepo.save(user);
 	}
 
 }
