@@ -12,7 +12,7 @@ export class UserserviceService {
   //add User
   public addUser(user: any) {
     console.log("in service add");
-    
+
     return this.http.post(`${baseUrl}/user/create`, user);
   }
 
@@ -32,7 +32,7 @@ export class UserserviceService {
   //add Admin
   public addAdmin(user: any) {
     console.log("in add service");
-    
+
     return this.http.post(`${baseUrl}/admin/create`, user);
   }
 
@@ -61,19 +61,18 @@ export class UserserviceService {
   }
 
   public assignTest(dataToSend: any) {
-    console.log("in service")
-    console.log(dataToSend)
     return this.http.post(`${baseUrl}/user/assignTest`, dataToSend);
   }
-  public sendOTP(username: string){
-    console.log(username);
-    console.log(typeof(username));
+  public sendOTP(username: string) {
     return this.http.get(`${baseUrl}/user/getOTP/${username}`);
   }
 
-  public resetPassword(user: any){
-    console.log("in ser");
-    
+  public resetPassword(user: any) {
     return this.http.put(`${baseUrl}/user/resetPassword`, user);
+  }
+
+  public assessmentGroup(assessments: any) {
+    console.log("inservice ",assessments.length);
+    return this.http.post(`${baseUrl}/user/groupAssessments`, assessments);
   }
 }

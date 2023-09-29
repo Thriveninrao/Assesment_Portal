@@ -61,6 +61,9 @@ public class Assessment {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "assessment")
 	@JsonIgnore
 	private Set<UserAssessmentAssignment> userAssessmentAssignment = new HashSet<>();
+	
+	@ManyToOne
+	private AssessmentGroup assessmentGroup;
 
 	// add more Attributes
 }

@@ -28,12 +28,15 @@
         </mat-card-content>
       </mat-card>
       <div class="container text-center mt15">
-        <button
-          routerLink="/admin/add-assessment"
-          mat-raised-button
-          color="accent">
-          Add New Assessment
-        </button>
+        <div class="container text-center mt15">
+          <button
+            mat-raised-button
+            color="accent"
+            *ngIf="onlyAssessmentsSelected"
+            (click)="groupAssessments()">
+            Group Assessments
+          </button>
+        </div>
       </div>
     </div>
 
@@ -70,12 +73,15 @@
         </mat-card-content>
       </mat-card>
       <div class="container text-center mt15">
-        <button
-          routerLink="/admin/add-user"
-          mat-raised-button
-          color="accent">
-          Add New User
-        </button>
+        <div class="container text-center mt15">
+          <button
+            mat-raised-button
+            color="accent"
+            *ngIf="onlyUsersSelected"
+            (click)="groupUsers()">
+            Group Users
+          </button>
+        </div>
       </div>
     </div>
   </div>
