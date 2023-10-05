@@ -1,3 +1,14 @@
 .delete-button {
     color: red;
   }
+
+
+  .mat-table{
+    table{
+      background-color: transparent !important;
+  
+      th, td{
+        text-align: center;
+      }
+    }
+  }

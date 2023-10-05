@@ -1,16 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserserviceService } from 'src/app/services/userservice.service';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-admin.component.html',
-  styleUrls: ['./add-admin.component.css'],
+  styleUrls: ['./add-admin.component.scss'],
 })
 export class AddAdminComponent implements OnInit {
+
+
+  adminForm!:FormGroup;
+
   disabled = false;
   inputFieldsModified = false;
   mode: any;
@@ -19,9 +25,21 @@ export class AddAdminComponent implements OnInit {
     private userservice: UserserviceService,
     private snack: MatSnackBar,
     private route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private formBuilder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
   ngOnInit(): void {
+
+    this.adminForm = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email:['', [Validators.required, Validators.email]],
+      phone: ['', Validators.required]
+    })
+
+
+
     this.route.queryParams.subscribe((queryParams) => {
       this.mode = queryParams['mode'];
 

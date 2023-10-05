@@ -4,6 +4,7 @@ import { HomeComponent } from './Common/components/home/home.component';
 import { LoginComponent } from './authentication/login/login.component';
 import {  } from './services/normal.guard';
 import { SignupComponent } from './authentication/signup/signup.component';
+import { AdminGuard } from './services/admin.guard';
 
 const routes: Routes = [
   {
@@ -21,12 +22,14 @@ const routes: Routes = [
   },
   {
     path: 'user',
-    loadChildren: () => import('./feature/user/user.module').then(m => m.UserModule)
+    loadChildren: () => import('./feature/user/user.module').then(m => m.UserModule),
+    canActivate:[]
   },
 
   {
     path: 'admin',
-    loadChildren: () => import('./feature/admin/admin.module').then(m => m.AdminModule)
+    loadChildren: () => import('./feature/admin/admin.module').then(m => m.AdminModule),
+    canActivate:[AdminGuard]
   },
 
   {

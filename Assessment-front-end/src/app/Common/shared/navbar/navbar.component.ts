@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
     this.login.loginStatusSubject.asObservable().subscribe((data) => {
       this.isLoggedIn = this.login.isLoggedIn();
       this.user = this.login.getuserDetail();
+      console.log(this.user)
     });
   }
 
@@ -37,7 +38,7 @@ export class NavbarComponent implements OnInit {
         alert('No routes found')
       }
     }else if(btnName === 'logout'){
-      this.logout
+      this.logout();
     }
   }
 
@@ -45,7 +46,7 @@ export class NavbarComponent implements OnInit {
     
     if(this.login.logout()){
       this.router.navigate(['/']);
-      window.location.reload();
+      //window.location.reload();
     }
   }
 }

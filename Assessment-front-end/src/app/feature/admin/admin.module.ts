@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing/admin-routing.module';
 import { AccessRequestComponent } from './access-request/access-request.component';
-import { AddAdminComponent } from './add-admin/add-admin.component';
+import { AddAdminComponent } from './admin-details/add-admin/add-admin.component';
 import { AddAssessmentComponent } from './add-assessment/add-assessment.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { AddQuestionComponent } from './add-question/add-question.component';

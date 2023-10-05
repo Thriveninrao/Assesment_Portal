@@ -1,3 +1,4 @@
+import { environment } from "src/environments/environment";
 import { I_SIDEBAR } from "../utils/admin.interface";
 
 export const SIDEBAR:I_SIDEBAR[] = [
@@ -50,3 +51,10 @@ export const SIDEBAR:I_SIDEBAR[] = [
         "role": 'User'
     }
 ]
+
+
+export class ADMIN_ENDPOINTS {
+    public static GET_ASSIGNMENTS = environment.BASE_URL + 'assessment/';
+    public static GET_CATEGORIES = environment.BASE_URL + 'category/';
+    // public static GET_
+}

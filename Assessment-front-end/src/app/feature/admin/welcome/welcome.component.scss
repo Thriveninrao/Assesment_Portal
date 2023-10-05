@@ -361,3 +361,21 @@ th {
 
   font-size: 2em;
 }
+
+///
+
+.search-field{
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mat-table{
+  table{
+    background-color: transparent !important;
+
+    th, td{
+      text-align: center;
+    }
+  }
+}

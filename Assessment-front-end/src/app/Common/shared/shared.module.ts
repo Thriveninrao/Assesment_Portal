@@ -6,11 +6,13 @@ import { MaterialModule } from '../material/material.module';
 import { LayoutComponent } from './layout/layout.component';
 import { MatTableComponent } from './mat-table/mat-table.component';
 import { RouterModule } from '@angular/router';
+import { SearchFilterComponent } from './search-filter/search-filter.component';
 
 const components = [
   NavbarComponent,
   LayoutComponent,
-  MatTableComponent
+  MatTableComponent,
+  SearchFilterComponent
 ]
 
 @NgModule({

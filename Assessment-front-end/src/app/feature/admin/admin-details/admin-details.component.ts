@@ -5,6 +5,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import Swal from 'sweetalert2';
 import { LoginService } from 'src/app/services/login.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { AddAdminComponent } from './add-admin/add-admin.component';
 
 @Component({
   selector: 'app-admin-details',
@@ -23,7 +25,12 @@ export class AdminDetailsComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private _user: UserserviceService, private _login: LoginService,private router: Router) { this.dataSource = new MatTableDataSource<Admin>([]); }
+  constructor(
+    private _user: UserserviceService, 
+    private _login: LoginService,private router: Router,
+    private _dialog: MatDialog
+  )
+    { this.dataSource = new MatTableDataSource<Admin>([]); }
 
   ngOnInit(): void {
     this._login.getCurrentUser().subscribe(
@@ -115,6 +122,17 @@ export class AdminDetailsComponent {
     });
   }
 
+
+
+  openDialog(name:string) {
+    const dialogRef = this._dialog.open(AddAdminComponent, {
+      data:{headerName:name}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 }
 
 interface Admin {

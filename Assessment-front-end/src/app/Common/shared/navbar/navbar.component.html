@@ -10,7 +10,7 @@
   <div class="user-profile" id="user-profile" *ngIf="isLoggedIn">
     <i class="material-icons">perm_identity</i>&nbsp;
     <!-- <img src="../../../assets/login icon.png" alt="User Profile Image" id="profile-image"> -->
-    <span class="user-name">User Name</span>
+    <span class="user-name">{{user.firstName}}&nbsp;{{user.lastName}}</span>
 
     <!-- View Options Dropdown -->
     <div class="view-options" id="view-options">
