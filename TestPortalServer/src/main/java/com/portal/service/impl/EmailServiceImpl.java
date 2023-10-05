@@ -222,7 +222,7 @@ public class EmailServiceImpl implements EmailServiceInterface {
 	}
 
 	@Override
-	public void sendEmailForUpdatedCredemtials(User user, String generatedPassword, String role)
+	public void sendEmailForUpdatedCredentials(User user, String generatedPassword, String role)
 			throws MessagingException {
 		if (!(role.equals("ADMIN"))) {
 			MimeMessage message = javaMailSender.createMimeMessage();

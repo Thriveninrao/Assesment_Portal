@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserServiceInterface {
 			user.setPassword(this.bCryptPasswordEncoder.encode(generatedPassword));
 
 			try {
-				emailService.sendEmailForUpdatedCredemtials(user, generatedPassword,
+				emailService.sendEmailForUpdatedCredentials(user, generatedPassword,
 						user.getUserRole().getRole().getRoleName().toUpperCase());
 			} catch (Exception e) {
 				System.out.println("Failed to send email: " + e.getMessage());
@@ -201,25 +201,27 @@ public class UserServiceImpl implements UserServiceInterface {
 	@Override
 	public String generatePassword() {
 
-		final String CHAR_LOWER = "abcdefghijklmnopqrstuvwxyz";
-		final String CHAR_UPPER = CHAR_LOWER.toUpperCase();
-		final String NUMBER = "0123456789";
-		final String OTHER_CHAR = "!@#$%&*()_+-=[]?";
+	    final String CHAR_LOWER = "abcdefghijklmnopqrstuvwxyz";
+	    final String CHAR_UPPER = CHAR_LOWER.toUpperCase();
+	    final String NUMBER = "0123456789";
+	    final String OTHER_CHAR = "!@#$%&*()_+-=[]?";
 
-		final String PASSWORD_ALLOW_BASE = CHAR_LOWER + CHAR_UPPER + NUMBER + OTHER_CHAR;
-		final String PASSWORD_ALLOW = PASSWORD_ALLOW_BASE + OTHER_CHAR;
+	    final String PASSWORD_ALLOW_BASE = CHAR_LOWER + CHAR_UPPER + NUMBER + OTHER_CHAR;
 
-		SecureRandom random = new SecureRandom();
-		StringBuilder password = new StringBuilder(10);
+	    SecureRandom random = new SecureRandom();
+	    int passwordLength = 8; // Fixed password length
 
-		for (int i = 0; i < 10; i++) {
-			int randomIndex = random.nextInt(PASSWORD_ALLOW_BASE.length());
-			char randomChar = PASSWORD_ALLOW.charAt(randomIndex);
-			password.append(randomChar);
-		}
-		return password.toString();
+	    StringBuilder password = new StringBuilder(passwordLength);
+
+	    for (int i = 0; i < passwordLength; i++) {
+	        int randomIndex = random.nextInt(PASSWORD_ALLOW_BASE.length());
+	        char randomChar = PASSWORD_ALLOW_BASE.charAt(randomIndex);
+	        password.append(randomChar);
+	    }
+
+	    return password.toString();
 	}
-
+	
 	@Override
 	public String generateOTP() {
 		final String CHAR_UPPER = "abcdefghijklmnopqrstuvwxyz".toUpperCase();
