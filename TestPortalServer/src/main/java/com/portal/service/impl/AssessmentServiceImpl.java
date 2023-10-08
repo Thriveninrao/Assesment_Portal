@@ -349,4 +349,10 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 		return assessmentGroupDataModel;
 	}
 
+	@Override
+	public SuccessMessage deleteAssessmentGroups(AssessmentGroupDataModel assessGroupData) {
+//		return assessGroupRepo.delete(null);
+		return null;
+	}
+
 }

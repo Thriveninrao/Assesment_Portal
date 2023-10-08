@@ -61,4 +61,7 @@ export class AssessmentService {
     return this._http.get(`${baseUrl}/assessment/groupAssessments`);
   }
 
+  public deleteAssessmentGroups(assessGroupData: any) {
+    return this._http.delete(`${baseUrl}/assessment/groupAssessments`, assessGroupData);
+  }
 }

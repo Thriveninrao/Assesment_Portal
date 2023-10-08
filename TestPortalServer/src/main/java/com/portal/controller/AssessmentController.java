@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.portal.model.AssessmentGrouDataSent;
+import com.portal.model.AssessmentGroupDataModel;
 import com.portal.model.ResultOfAssessment;
 import com.portal.model.UserAssessmentAssignment;
 import com.portal.model.assessment.Assessment;
@@ -132,13 +133,19 @@ public class AssessmentController {
 
 	@PostMapping("/groupAssessments")
 	public ResponseEntity<?> addGroupOfAssessments(@RequestBody AssessmentGrouDataSent assessGroupData) {
-		System.out.println("Hi from back end :: "+assessGroupData);
+		System.out.println("Hi from back end :: " + assessGroupData);
 		return ResponseEntity.ok(assessmentService.addGroupOfAssessments(assessGroupData));
 	}
-	
+
 	@GetMapping("/groupAssessments")
 	public ResponseEntity<?> getAssessmentGroups() {
 		return ResponseEntity.ok(assessmentService.getAssessmentGroups());
+	}
+
+	@DeleteMapping("/groupAssessments")
+	public ResponseEntity<?> deleteAssessmentGroups(@RequestBody AssessmentGroupDataModel assessGroupData) {
+		System.out.println(assessGroupData);
+		return ResponseEntity.ok(assessmentService.deleteAssessmentGroups(assessGroupData));
 	}
 
 }

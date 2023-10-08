@@ -37,4 +37,6 @@ public interface AssessmentServiceInterface {
 
 	public List<AssessmentGroupDataModel> getAssessmentGroups();
 
+	public SuccessMessage deleteAssessmentGroups(AssessmentGroupDataModel assessGroupData);
+
 }

@@ -14,7 +14,7 @@ export class ViewAssessmentGroupsComponent {
   displayedColumns: string[] = ['groupId', 'groupName']; // Define the columns you want to display
   dataSource!: MatTableDataSource<any>;
   groups: any[] = [];
-  assessments: any[]=[];
+  assessments: any[] = [];
 
   constructor(private _assessment: AssessmentService, private router: Router) { }
 
@@ -42,13 +42,13 @@ export class ViewAssessmentGroupsComponent {
       });
   }
 
-  removeGroup(index: number): void {
-    // Implement logic to remove the group from the 'groups' array and make an API call to delete it from the backend
-    // Update 'this.groups' accordingly
-    console.log("Clicked on delete");
-    console.log(index);
-    
-    
+  removeGroup(group: number): void {
+    this._assessment.deleteAssessmentGroups(group).subscribe((data: any) => {
+      console.log(data);
+    }, (error) => {
+      console.log(error);
+    });
+
   }
 
   addGroup(): void {
@@ -58,7 +58,7 @@ export class ViewAssessmentGroupsComponent {
     this.router.navigate(['/admin/group-assessments'], { queryParams });
   }
 
-  handleGroupClick(group:any){
+  handleGroupClick(group: any) {
     const queryParams = {
       groupId: JSON.stringify(group.groupId),
       groupName: JSON.stringify(group.groupName),

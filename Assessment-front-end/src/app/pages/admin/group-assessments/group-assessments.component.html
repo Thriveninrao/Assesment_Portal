@@ -46,6 +46,7 @@
                   mat-button
                   color="primary"
                   [matMenuTriggerFor]="assessmentMenu"
+                  [disabled]="assessmentMenuItems.length === 0"
                 >
                   <mat-icon>add</mat-icon>
                 </button>
