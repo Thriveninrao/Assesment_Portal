@@ -28,7 +28,12 @@
                   assessment.category.categoryTitle
                 }}</mat-card-subtitle>
                 <mat-card-actions>
-                  <button mat-button color="warn" (click)="removeAssessment(i)">
+                  <button
+                    type="button"
+                    mat-button
+                    color="warn"
+                    (click)="removeAssessment(i)"
+                  >
                     <mat-icon>delete</mat-icon>
                   </button>
                 </mat-card-actions>
@@ -37,6 +42,7 @@
             <mat-card-header class="mr20 ml20 mb20">
               <div class="add-assessment-button">
                 <button
+                  type="button"
                   mat-button
                   color="primary"
                   [matMenuTriggerFor]="assessmentMenu"
@@ -48,8 +54,22 @@
           </div>
         </div>
         <div class="center-button">
-          <button type="submit" mat-raised-button color="primary" [disabled]="!groupForm.valid">
+          <button
+            type="submit"
+            mat-raised-button
+            color="primary"
+            [disabled]="!groupForm.valid"
+          >
             Save
+          </button>
+          <button
+            class="mr20 ml20"
+            type="button"
+            mat-raised-button
+            color="warn"
+            (click)="goBack()"
+          >
+            Back
           </button>
         </div>
       </form>

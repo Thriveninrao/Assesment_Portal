@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.portal.model.AssessmentGrouDataSent;
+import com.portal.model.AssessmentGroupDataModel;
 import com.portal.model.ResultOfAssessment;
 import com.portal.model.SuccessMessage;
 import com.portal.model.User;
@@ -327,8 +328,25 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 	}
 
 	@Override
-	public List<AssessmentGroup> getAssessmentGroups() {
-		return assessGroupRepo.findAllWithAssessments();
+	public List<AssessmentGroupDataModel> getAssessmentGroups() {
+		Set<AssessmentGroup> assessmentGroup = assessGroupRepo.findAllWithAssessments();
+		List<AssessmentGroupDataModel> assessmentGroupDataModel = new ArrayList<AssessmentGroupDataModel>();
+
+		for (AssessmentGroup ag : assessmentGroup) {
+			AssessmentGroupDataModel agDataModel = new AssessmentGroupDataModel();
+			agDataModel.setGroupId(ag.getGroupId());
+			agDataModel.setGroupName(ag.getGroupName());
+			List<Assessment> agdmAssessmentList = new ArrayList<Assessment>();
+			for (AssessmentGroupAssessment aga : ag.getAssessmentGroupAssessment()) {
+				Assessment assessment = aga.getAssessment();
+				agdmAssessmentList.add(assessment);
+			}
+			agDataModel.setAssessmentList(agdmAssessmentList);
+			assessmentGroupDataModel.add(agDataModel);
+		}
+		assessmentGroupDataModel.stream().forEach(agdm -> System.out.println(agdm));
+
+		return assessmentGroupDataModel;
 	}
 
 }

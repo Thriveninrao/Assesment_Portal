@@ -44,11 +44,40 @@ export class GroupAssessmentsComponent {
             }
           });
         }
+      }else if (params['groupId']) {
+        this.groupName = JSON.parse(params['groupName']);
+        this.selectedAssessments = JSON.parse(params['assessmentList']);
+        if (params['assessments']) {
+          this.assessments = JSON.parse(params['assessments']);
+          this.selectedAssessments.forEach(selectedAssessment => {
+            const index = this.assessments.findIndex(assessment => assessment.assessmentId === selectedAssessment.assessmentId);
+            if (index !== -1) {
+              this.assessments.splice(index, 1);
+            }
+          });
+        }
+        this.groupForm.get('groupName')!.setValue(this.groupName);
+        console.log('Users: ', this.assessments);
+        console.log('SelectedAssessments: ', this.selectedAssessments);
+      } else {
+        if (params['assessments']) {
+          this.assessments = JSON.parse(params['assessments']);
+          this.selectedAssessments.forEach(selectedAssessment => {
+            const index = this.assessments.findIndex(assessment => assessment.assessmentId === selectedAssessment.assessmentId);
+            if (index !== -1) {
+              this.assessments.splice(index, 1);
+            }
+          });
+        }
       }
 
       console.log('Users: ', this.assessments);
       console.log('SelectedAssessments: ', this.selectedAssessments);
 
+    });
+    this.groupForm.get('groupName')!.valueChanges.subscribe((value) => {
+      this.groupForm.get('groupName')!.setValidators([Validators.required]);
+      this.groupForm.get('groupName')!.updateValueAndValidity();
     });
     this.assessmentMenuItems = [...this.assessments];
   }
@@ -96,6 +125,10 @@ export class GroupAssessmentsComponent {
       this.assessments.push(removedAssessment[0]);
       this.assessmentMenuItems.push(removedAssessment[0]);
     }
+  }
+
+  goBack(){
+    window.history.back();
   }
 
   openAssessmentMenu() {

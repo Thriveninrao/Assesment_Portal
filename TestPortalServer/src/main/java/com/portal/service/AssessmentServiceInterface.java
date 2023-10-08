@@ -8,10 +8,10 @@ import java.util.Set;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.portal.model.AssessmentGrouDataSent;
+import com.portal.model.AssessmentGroupDataModel;
 import com.portal.model.ResultOfAssessment;
 import com.portal.model.SuccessMessage;
 import com.portal.model.assessment.Assessment;
-import com.portal.model.assessment.AssessmentGroup;
 
 public interface AssessmentServiceInterface {
 
@@ -35,6 +35,6 @@ public interface AssessmentServiceInterface {
 
 	public SuccessMessage addGroupOfAssessments(AssessmentGrouDataSent assessmentGroupDataSent);
 
-	public List<AssessmentGroup> getAssessmentGroups();
+	public List<AssessmentGroupDataModel> getAssessmentGroups();
 
 }

@@ -1,6 +1,6 @@
 package com.portal.repository;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -20,7 +20,7 @@ public interface AssessmentGroupRepository extends JpaRepository<AssessmentGroup
 	AssessmentGroup findByNameWithAssessments(@Param("groupName") String groupName);
 
 	@Query("SELECT ag FROM AssessmentGroup ag JOIN FETCH ag.assessmentGroupAssessment aga JOIN FETCH aga.assessment")
-	List<AssessmentGroup> findAllWithAssessments();
+	Set<AssessmentGroup> findAllWithAssessments();
 
 	@Query("SELECT count(aga.assessGroupAssessId) FROM AssessmentGroupAssessment aga WHERE aga.assessmentGroup.groupName = :groupName")
 	public Integer getCountOfAssessmentGroupByGroupName(@Param("groupName") String groupName);

@@ -17,7 +17,9 @@ export class GroupUsersComponent {
   selectedUsers: any[] = [];
   users: any[] = [];
   disabled!: boolean;
-  groupName:string ='';
+  groupName: string = '';
+  testUserRoleId: any;
+  filteredUsers: any[] = [];
 
   @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
   userMenuItems: any[] = []; // Create an array to store menu items
@@ -42,12 +44,39 @@ export class GroupUsersComponent {
             }
           });
         }
+      } else if (params['groupId']) {
+        this.groupName = JSON.parse(params['groupName']);
+        this.selectedUsers = JSON.parse(params['userList']);
+        if (params['users']) {
+          this.users = JSON.parse(params['users']);
+          this.selectedUsers.forEach(selectedUser => {
+            const index = this.users.findIndex(user => user.id === selectedUser.id);
+            if (index !== -1) {
+              this.users.splice(index, 1);
+            }
+          });
+        }
+        this.groupForm.get('groupName')!.setValue(this.groupName);
+        console.log('Users: ', this.users);
+        console.log('SelectedUsers: ', this.selectedUsers);
+      } else {
+        if (params['users']) {
+          this.users = JSON.parse(params['users']);
+          this.selectedUsers.forEach(selectedUser => {
+            const index = this.users.findIndex(user => user.id === selectedUser.id);
+            if (index !== -1) {
+              this.users.splice(index, 1);
+            }
+          });
+        }
       }
-
-      console.log('Users: ', this.users);
-      console.log('SelectedUsers: ', this.selectedUsers);
-
     });
+
+    this.groupForm.get('groupName')!.valueChanges.subscribe((value) => {
+      this.groupForm.get('groupName')!.setValidators([Validators.required]);
+      this.groupForm.get('groupName')!.updateValueAndValidity();
+    });
+
     this.userMenuItems = [...this.users];
   }
 
@@ -62,7 +91,7 @@ export class GroupUsersComponent {
       const selectedUserIds = this.selectedUsers.map(user => user.id);
 
       const dataToSend = {
-        groupName:this.groupName,
+        groupName: this.groupName,
         selectedUserIds: selectedUserIds
       };
 
@@ -76,7 +105,7 @@ export class GroupUsersComponent {
         },
         (error) => {
           //Error
-          console.log('error: ',error);
+          console.log('error: ', error);
           this.snack.open('Error in Test assignment', '', {
             duration: 3000,
             verticalPosition: 'bottom',
@@ -107,6 +136,10 @@ export class GroupUsersComponent {
     this.selectedUsers.push(user);
     this.removeUserFromMenu(user);
     this.trigger.closeMenu();
+  }
+
+  goBack(){
+    window.history.back();
   }
 
   // Method to remove assessment from assessmentMenuItems

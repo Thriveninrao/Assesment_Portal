@@ -8,7 +8,7 @@
             class="mr20 ml20 mb20"
             *ngFor="let group of groups; let i = index"
           >
-          <a [routerLink]="['/admin/view-user-groups', group.groupId]" (click)="handleGroupClick(group)" class="group-card-link">
+          <a (click)="handleGroupClick(group)" class="group-card-link">
             <mat-card class="mr20 ml20 mb20">
               <mat-card-header>
                 <mat-card-title>{{ group.groupName }}</mat-card-title>
@@ -28,7 +28,7 @@
           </mat-card>
           <mat-card-header class="mr20 ml20 mb20">
             <div class="add-user-group-button">
-              <button mat-button color="primary">
+              <button mat-button color="primary" (click)="addGroup()">
                 <mat-icon>add</mat-icon>
               </button>
             </div></mat-card-header

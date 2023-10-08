@@ -87,14 +87,8 @@ const routes: Routes = [
         path: 'view-user-groups',
         component: ViewUserGroupsComponent
       }, {
-        path: 'view-user-groups/:groupId',
-        component: GroupUsersComponent
-      }, {
         path: 'view-assessment-groups',
         component: ViewAssessmentGroupsComponent
-      }, {
-        path: 'view-assessment-groups/:groupId',
-        component: GroupAssessmentsComponent
       },
       {
         path: 'categories',

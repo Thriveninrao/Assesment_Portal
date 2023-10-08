@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserserviceService } from 'src/app/services/userservice.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -16,11 +15,40 @@ export class ViewUserGroupsComponent {
   displayedColumns: string[] = ['groupId', 'groupName']; // Define the columns you want to display
   dataSource!: MatTableDataSource<any>;
   groups: any[] = [];
+  users: any[]=[];
+  testUserRoleId:any;
+  filteredUsers:any[]=[];
 
 
   constructor(private _user: UserserviceService, private router: Router) { }
 
   ngOnInit(): void {
+
+    this._user.getUsers().subscribe(
+      (data: any) => {
+        this.users = data.map((user: any) => ({
+          ...user
+        }));
+
+        this.users.forEach((user) => {
+          this._user.getRoleId(user.username).subscribe((data: any) => {
+            this.testUserRoleId = data;
+            if (this.testUserRoleId === 44) {
+              const index = this.users.indexOf(user);
+              if (index !== -1) {
+                this.users.splice(index, 1); 
+              }
+            }
+            this.filteredUsers = [...this.users]
+          });
+        });
+        console.log(this.users);
+      },
+      (error) => {
+        console.log(error)
+        Swal.fire('Error !', 'Error Loading data', 'error');
+      });
+
     this._user.getUserGroups().subscribe(
       (data: any) => {
         console.log(data);
@@ -42,14 +70,20 @@ export class ViewUserGroupsComponent {
   }
 
   addGroup(): void {
-    // Implement logic to add a new group and make an API call to create it on the backend
-    // Update 'this.groups' accordingly
+    const queryParams = {
+      users: JSON.stringify(this.filteredUsers)
+    };
+    this.router.navigate(['/admin/group-users'], { queryParams });
   }
 
   handleGroupClick(group:any){
-    console.log(`Clicked on Group: ${group.groupName} (ID: ${group.groupId})`);
-console.log(group);
-
+    const queryParams = {
+      groupId: JSON.stringify(group.groupId),
+      groupName: JSON.stringify(group.groupName),
+      userList: JSON.stringify(group.userList),
+      users: JSON.stringify(this.filteredUsers)
+    };
+    this.router.navigate(['/admin/group-users'], { queryParams });
   }
 }
 
