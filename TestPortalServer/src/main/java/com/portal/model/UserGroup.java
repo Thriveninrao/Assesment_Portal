@@ -1,4 +1,4 @@
-package com.portal.model.assessment;
+package com.portal.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,17 +17,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Entity
-@Table(name = "ASSESSMENT_GROUP")
+@Table(name = "USER_GROUP")
 @Data
-public class AssessmentGroup {
-
+public class UserGroup {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long groupId;
 
 	private String groupName;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "assessmentGroup")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userGroup")
 	@JsonIgnore
-	private List<AssessmentGroupAssessment> assessmentGroupAssessment = new ArrayList<>();
+	private List<UserGroupUser> userGroupUser = new ArrayList<>();
 }

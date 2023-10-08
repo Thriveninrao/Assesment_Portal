@@ -18,10 +18,14 @@ import com.portal.model.Role;
 import com.portal.model.SuccessMessage;
 import com.portal.model.User;
 import com.portal.model.UserAssessmentAssignment;
+import com.portal.model.UserGroup;
+import com.portal.model.UserGroupDataSent;
+import com.portal.model.UserGroupUser;
 import com.portal.model.UserModel;
 import com.portal.model.UserRole;
 import com.portal.model.assessment.Assessment;
 import com.portal.repository.RoleRepository;
+import com.portal.repository.UserGroupRepository;
 import com.portal.repository.UserRepository;
 import com.portal.service.AssessmentServiceInterface;
 import com.portal.service.EmailServiceInterface;
@@ -32,6 +36,9 @@ public class UserServiceImpl implements UserServiceInterface {
 
 	@Autowired
 	private UserRepository userRepo;
+
+	@Autowired
+	private UserGroupRepository userGroupRepo;
 
 	@Autowired
 	private RoleRepository roleRepo;
@@ -336,7 +343,7 @@ public class UserServiceImpl implements UserServiceInterface {
 
 				testAssigned++;
 
-				if (uaa.getTestAttempted()!=0) {
+				if (uaa.getTestAttempted() != 0) {
 					testAttempted++;
 
 				}
@@ -364,7 +371,7 @@ public class UserServiceImpl implements UserServiceInterface {
 			List<Assessment> assessmentList = new ArrayList<Assessment>();
 			System.out.println(user.getUserAssessmentAssignment().size());
 			user.getUserAssessmentAssignment().forEach((uaa) -> {
-				if (uaa.getTestAttempted()==0) {
+				if (uaa.getTestAttempted() == 0) {
 					assessmentList.add(uaa.getAssessment());
 				}
 			});
@@ -502,6 +509,51 @@ public class UserServiceImpl implements UserServiceInterface {
 	@Override
 	public User updateUserPassword(User user) {
 		return userRepo.save(user);
+	}
+
+	@Override
+	public SuccessMessage addGroupOfUsers(UserGroupDataSent userGroupDataSent) {
+		try {
+			Integer groupCount = this.getCountOfUserGroupByGroupName(userGroupDataSent.getGroupName().toUpperCase());
+
+			if (groupCount == 0) {
+
+				UserGroup userGroup = new UserGroup();
+				userGroup.setGroupName(userGroupDataSent.getGroupName().toUpperCase());
+				UserGroup savedUserGroup = userGroupRepo.save(userGroup);
+
+				List<User> selectedUsers = new ArrayList<>();
+
+				for (Integer userIdInt : userGroupDataSent.getSelectedUserIds()) {
+					Long userId = Long.valueOf(userIdInt);
+					User user = this.getUserDetailById(userId);
+					selectedUsers.add(user);
+				}
+
+				List<UserGroupUser> userGroupUserList = new ArrayList<UserGroupUser>();
+
+				selectedUsers.stream().forEach((user) -> {
+					UserGroupUser userGroupUser = new UserGroupUser();
+					userGroupUser.setUserGroup(savedUserGroup);
+					userGroupUser.setUser(user);
+					userGroupUserList.add(userGroupUser);
+				});
+
+				savedUserGroup.setUserGroupUser(userGroupUserList);
+				userGroupRepo.save(savedUserGroup);
+
+				return new SuccessMessage("User group saved successfully");
+			} else {
+				return new SuccessMessage("User group name already exists");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new SuccessMessage("Failed to save user group");
+		}
+	}
+
+	private Integer getCountOfUserGroupByGroupName(String groupName) {
+		return userGroupRepo.getCountOfUserGroupByGroupName(groupName);
 	}
 
 }

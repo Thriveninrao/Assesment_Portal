@@ -73,6 +73,11 @@ export class UserserviceService {
 
   public assessmentGroup(assessments: any) {
     console.log("inservice ",assessments.length);
-    return this.http.post(`${baseUrl}/user/groupAssessments`, assessments);
+    return this.http.post(`${baseUrl}/assessment/groupAssessments`, assessments);
+  }
+
+  public userGroup(users: any) {
+    console.log("inservice ",users.length);
+    return this.http.post(`${baseUrl}/user/groupUsers`, users);
   }
 }

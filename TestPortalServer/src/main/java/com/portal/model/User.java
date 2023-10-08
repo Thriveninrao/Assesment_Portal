@@ -23,6 +23,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.portal.model.assessment.Assessment;
+import com.portal.model.assessment.AssessmentGroupAssessment;
 
 import lombok.Data;
 
@@ -85,6 +86,10 @@ public class User implements UserDetails {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
 	@JsonIgnore
 	private List<UserAssessmentAssignment> userAssessmentAssignment = new ArrayList<>();
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+	@JsonIgnore
+	private Set<UserGroupUser> userGroupUser = new HashSet<>();
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

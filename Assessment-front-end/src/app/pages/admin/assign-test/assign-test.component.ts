@@ -164,8 +164,21 @@ export class AssignTestComponent implements OnInit {
   }
   groupAssessments(){
     console.log("in method");
+    console.log("Selected Assessments",this.selectedAssessments);
     
-    this.userService.assessmentGroup(this.selectedAssessments).subscribe(
+    const queryParams = {
+      selectedAssessments: JSON.stringify(this.selectedAssessments),
+      assessments: JSON.stringify(this.assessments)
+    };
+
+    this._router.navigate(['/admin/group-assessments'], { queryParams });
+  }
+
+  groupUsers(){
+    console.log("in method");
+    console.log("Selected Users",this.selectedUsers);
+    
+    this.userService.userGroup(this.selectedUsers).subscribe(
       (data: any) => {
         console.log(data);
         //Success
@@ -185,10 +198,6 @@ export class AssignTestComponent implements OnInit {
         this.disabled = false;
       }
     );
-  }
-
-  groupUsers(){
-
   }
 
 }

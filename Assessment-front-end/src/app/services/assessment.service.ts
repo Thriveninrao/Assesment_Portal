@@ -52,4 +52,9 @@ export class AssessmentService {
      return this._http.get(`${baseUrl}/assessment/resultsOfAssessment/${assessmentId}`);
   }
 
+  public assessmentGroup(assessGroupData: any) {
+    console.log("inservice ",assessGroupData);
+    return this._http.post(`${baseUrl}/assessment/groupAssessments`, assessGroupData);
+  }
+
 }

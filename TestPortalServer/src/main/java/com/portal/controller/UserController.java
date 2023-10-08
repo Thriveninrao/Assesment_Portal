@@ -20,6 +20,7 @@ import com.portal.model.DataSent;
 import com.portal.model.Role;
 import com.portal.model.SuccessMessage;
 import com.portal.model.User;
+import com.portal.model.UserGroupDataSent;
 import com.portal.model.UserModel;
 import com.portal.model.UserRole;
 import com.portal.service.EmailServiceInterface;
@@ -151,7 +152,11 @@ public class UserController {
 	@PutMapping("/resetPassword")
     public ResponseEntity<?> resetPassword(@RequestBody UserModel user) {
         return ResponseEntity.ok(userService.updatePassword(user));
-        
-       
     }
+	
+	@PostMapping("/groupUsers")
+	public ResponseEntity<?> addGroupOfUsers(@RequestBody UserGroupDataSent userGroupData) {
+		System.out.println("Hi from back end :: "+userGroupData);
+		return ResponseEntity.ok(userService.addGroupOfUsers(userGroupData));
+	}
 }
