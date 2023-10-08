@@ -178,26 +178,12 @@ export class AssignTestComponent implements OnInit {
     console.log("in method");
     console.log("Selected Users",this.selectedUsers);
     
-    this.userService.userGroup(this.selectedUsers).subscribe(
-      (data: any) => {
-        console.log(data);
-        //Success
-          Swal.fire('Success', data.message, 'success').then(() => {
-            this._router.navigate(['/admin/user-details']);
-          });;
-      },
-      (error) => {
-        //Error
-        console.log('error');
-        this.snack.open('Error in Test assignment', '', {
-          duration: 3000,
-          verticalPosition: 'bottom',
-          horizontalPosition: 'center',
-        });
-      },() => {
-        this.disabled = false;
-      }
-    );
+    const queryParams = {
+      selectedUsers: JSON.stringify(this.selectedUsers),
+      users: JSON.stringify(this.users)
+    };
+
+    this._router.navigate(['/admin/group-users'], { queryParams });
   }
 
 }

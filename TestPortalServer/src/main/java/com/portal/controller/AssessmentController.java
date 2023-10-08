@@ -135,5 +135,10 @@ public class AssessmentController {
 		System.out.println("Hi from back end :: "+assessGroupData);
 		return ResponseEntity.ok(assessmentService.addGroupOfAssessments(assessGroupData));
 	}
+	
+	@GetMapping("/groupAssessments")
+	public ResponseEntity<?> getAssessmentGroups() {
+		return ResponseEntity.ok(assessmentService.getAssessmentGroups());
+	}
 
 }

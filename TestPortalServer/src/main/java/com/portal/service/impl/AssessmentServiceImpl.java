@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -68,7 +69,11 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 
 	@Override
 	public Set<Assessment> getAssessments() {
-
+		System.out.println("------------------------------------------------------------------------------------\n");
+		System.out.println("Based on ID :: " + this.assessGroupRepo.findByIdWithAssessments(17l) + "\n");
+		System.out.println("------------------------------------------------------------------------------------\n");
+		System.out.println("Full Data :: " + this.assessGroupRepo.findAllWithAssessments() + "\n");
+		System.out.println("------------------------------------------------------------------------------------\n");
 		return new LinkedHashSet<Assessment>(this.assessRepo.findAll());
 	}
 
@@ -231,19 +236,18 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 			Integer groupCount = this
 					.getCountOfAssessmentGroupByGroupName(assessmentGroupDataSent.getGroupName().toUpperCase());
 
-			if (groupCount == 0) {
+			List<Assessment> selectedAssessments = new ArrayList<>();
 
+			for (Integer assessId : assessmentGroupDataSent.getSelectedAssessmentIds()) {
+				Long assessmentId = Long.valueOf(assessId);
+				Assessment assessment = this.getAssessment(assessmentId);
+				selectedAssessments.add(assessment);
+			}
+
+			if (groupCount == 0) {
 				AssessmentGroup assessGroup = new AssessmentGroup();
 				assessGroup.setGroupName(assessmentGroupDataSent.getGroupName().toUpperCase());
 				AssessmentGroup savedAssessGroup = assessGroupRepo.save(assessGroup);
-
-				List<Assessment> selectedAssessments = new ArrayList<>();
-
-				for (Integer assessId : assessmentGroupDataSent.getSelectedAssessmentIds()) {
-					Long assessmentId = Long.valueOf(assessId);
-					Assessment assessment = this.getAssessment(assessmentId);
-					selectedAssessments.add(assessment);
-				}
 
 				List<AssessmentGroupAssessment> assessGroupAssessList = new ArrayList<AssessmentGroupAssessment>();
 
@@ -259,7 +263,58 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 
 				return new SuccessMessage("Assessment group saved successfully");
 			} else {
-				return new SuccessMessage("Assessment group name already exists");
+
+				AssessmentGroup assessGroup = assessGroupRepo
+						.findByNameWithAssessments(assessmentGroupDataSent.getGroupName());
+
+				List<AssessmentGroupAssessment> groupAssessments = assessGroup.getAssessmentGroupAssessment();
+
+				// Create a list of assessments to be deleted
+				List<AssessmentGroupAssessment> assessmentsToBeDeleted = groupAssessments.stream()
+						.filter(aga -> !selectedAssessments.contains(aga.getAssessment())).collect(Collectors.toList());
+
+				if (assessmentsToBeDeleted.size() != 0) {
+					assessmentsToBeDeleted.forEach((aga) -> {
+						assessGroupRepo
+								.deleteAssessmentGroupAssessmentByAssessGroupAssessId(aga.getAssessGroupAssessId());
+					});
+				}
+
+				// Create a list of assessments to be added
+				List<AssessmentGroupAssessment> assessmentsToBeAdded = selectedAssessments.stream()
+						.filter(selectedAssessment -> groupAssessments.stream()
+								.noneMatch(aga -> aga.getAssessment().equals(selectedAssessment)))
+						.map(selectedAssessment -> {
+							AssessmentGroupAssessment aga = new AssessmentGroupAssessment();
+							aga.setAssessment(selectedAssessment);
+							aga.setAssessmentGroup(assessGroup); // Set the assessment group
+							return aga;
+						}).collect(Collectors.toList());
+
+				if (assessmentsToBeAdded.size() != 0) {
+					assessGroup.setAssessmentGroupAssessment(assessmentsToBeAdded);
+					assessGroupRepo.save(assessGroup);
+				}
+
+				if (assessmentsToBeDeleted.size() != 0) {
+					if (assessmentsToBeAdded.size() != 0) {
+						return new SuccessMessage("Assessment group edited successfully. "
+								+ assessmentsToBeDeleted.size() + " assessments removed, " + assessmentsToBeAdded.size()
+								+ " assessments added.");
+					} else {
+						return new SuccessMessage("Assessment group edited successfully. "
+								+ assessmentsToBeDeleted.size() + " assessments removed.");
+					}
+
+				} else {
+					if (assessmentsToBeAdded.size() != 0) {
+						return new SuccessMessage("Assessment group edited successfully. " + assessmentsToBeAdded.size()
+								+ " assessments added.");
+					} else {
+						return new SuccessMessage("Assessment group already exists, no changes made.");
+					}
+				}
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -269,6 +324,11 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 
 	private Integer getCountOfAssessmentGroupByGroupName(String groupName) {
 		return assessGroupRepo.getCountOfAssessmentGroupByGroupName(groupName);
+	}
+
+	@Override
+	public List<AssessmentGroup> getAssessmentGroups() {
+		return assessGroupRepo.findAllWithAssessments();
 	}
 
 }

@@ -71,13 +71,12 @@ export class UserserviceService {
     return this.http.put(`${baseUrl}/user/resetPassword`, user);
   }
 
-  public assessmentGroup(assessments: any) {
-    console.log("inservice ",assessments.length);
-    return this.http.post(`${baseUrl}/assessment/groupAssessments`, assessments);
+  public userGroup(users: any) {
+    console.log("inservice ", users.length);
+    return this.http.post(`${baseUrl}/user/groupUsers`, users);
   }
 
-  public userGroup(users: any) {
-    console.log("inservice ",users.length);
-    return this.http.post(`${baseUrl}/user/groupUsers`, users);
+  public getUserGroups() {
+    return this.http.get(`${baseUrl}/user/groupUsers`);
   }
 }

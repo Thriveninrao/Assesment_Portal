@@ -30,4 +30,17 @@ public class AssessmentGroup {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "assessmentGroup")
 	@JsonIgnore
 	private List<AssessmentGroupAssessment> assessmentGroupAssessment = new ArrayList<>();
+
+	@Override
+	public String toString() {
+		System.out.println("-------------------------------------------------------------------------");
+		System.out.println("Assessment Group :: " + groupName);
+		System.out.println("Assessments in this group :: ");
+		assessmentGroupAssessment.forEach((assessGroup) -> {
+			System.out.println(assessGroup.getAssessment().getAssessmentTitle());
+		});
+		System.out.println("-------------------------------------------------------------------------");
+		return "AssessmentGroup [groupId=" + groupId + ", groupName=" + groupName;
+	}
+
 }

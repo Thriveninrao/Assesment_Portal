@@ -66,6 +66,8 @@ import { StartTestComponent } from './pages/start-test/start-test.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { GroupUsersComponent } from './pages/admin/group-users/group-users.component';
 import { GroupAssessmentsComponent } from './pages/admin/group-assessments/group-assessments.component';
+import { ViewUserGroupsComponent } from './pages/admin/view-user-groups/view-user-groups.component';
+import { ViewAssessmentGroupsComponent } from './pages/admin/view-assessment-groups/view-assessment-groups.component';
 
 
 
@@ -109,6 +111,8 @@ import { GroupAssessmentsComponent } from './pages/admin/group-assessments/group
       StartTestComponent,
       GroupUsersComponent,
       GroupAssessmentsComponent,
+      ViewUserGroupsComponent,
+      ViewAssessmentGroupsComponent,
 
   ],
   imports: [

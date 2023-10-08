@@ -8,6 +8,7 @@ import javax.mail.MessagingException;
 import com.portal.model.DataSent;
 import com.portal.model.SuccessMessage;
 import com.portal.model.User;
+import com.portal.model.UserGroupDataModel;
 import com.portal.model.UserGroupDataSent;
 import com.portal.model.UserModel;
 import com.portal.model.UserRole;
@@ -65,8 +66,10 @@ public interface UserServiceInterface {
 	public String generateOTP();
 
 	public SuccessMessage updatePassword(UserModel user);
-	
+
 	public User updateUserPassword(User user);
 
 	public SuccessMessage addGroupOfUsers(UserGroupDataSent userGroupData);
+
+	public List<UserGroupDataModel> getUserGroups();
 }

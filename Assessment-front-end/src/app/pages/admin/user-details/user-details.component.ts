@@ -3,6 +3,7 @@ import { UserserviceService } from 'src/app/services/userservice.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,10 +17,12 @@ export class UserDetailsComponent implements OnInit {
   dataSource!: MatTableDataSource<User>;
   searchQuery: string = '';
   image: any;
+  groups: any[] = [];
+  group:any;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private _user: UserserviceService, private router: Router) { this.dataSource = new MatTableDataSource<User>([]); } // No need to inject a service for static data
+  constructor(private _user: UserserviceService, private router: Router,private route: ActivatedRoute) { this.dataSource = new MatTableDataSource<User>([]); } // No need to inject a service for static data
 
   ngOnInit(): void {
     this._user.getUsers().subscribe(

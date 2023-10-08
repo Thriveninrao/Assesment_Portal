@@ -11,6 +11,7 @@ import com.portal.model.AssessmentGrouDataSent;
 import com.portal.model.ResultOfAssessment;
 import com.portal.model.SuccessMessage;
 import com.portal.model.assessment.Assessment;
+import com.portal.model.assessment.AssessmentGroup;
 
 public interface AssessmentServiceInterface {
 
@@ -34,5 +35,6 @@ public interface AssessmentServiceInterface {
 
 	public SuccessMessage addGroupOfAssessments(AssessmentGrouDataSent assessmentGroupDataSent);
 
-//	public Set<Assessment> getUserAssessment(Long userId);
+	public List<AssessmentGroup> getAssessmentGroups();
+
 }

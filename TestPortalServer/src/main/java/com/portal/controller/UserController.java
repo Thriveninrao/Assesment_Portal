@@ -129,6 +129,7 @@ public class UserController {
 
 	@GetMapping("/getUsers")
 	public ResponseEntity<?> getUsers() {
+		System.out.println(this.userService.getUsers());
 		return ResponseEntity.ok(this.userService.getUsers());
 	}
 
@@ -158,5 +159,11 @@ public class UserController {
 	public ResponseEntity<?> addGroupOfUsers(@RequestBody UserGroupDataSent userGroupData) {
 		System.out.println("Hi from back end :: "+userGroupData);
 		return ResponseEntity.ok(userService.addGroupOfUsers(userGroupData));
+	}
+	
+	@GetMapping("/groupUsers")
+	public ResponseEntity<?> getUserGroups() {
+		System.out.println(userService.getUserGroups());
+		return ResponseEntity.ok(userService.getUserGroups());
 	}
 }

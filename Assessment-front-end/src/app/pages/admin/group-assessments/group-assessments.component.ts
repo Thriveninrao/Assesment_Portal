@@ -73,7 +73,7 @@ export class GroupAssessmentsComponent {
           console.log(data);
           //Success
           Swal.fire('Success', data.message, 'success').then(() => {
-            this._router.navigate(['/admin/user-details']);
+            this._router.navigate(['/admin/view-assessment-groups']);
           });
         },
         (error) => {

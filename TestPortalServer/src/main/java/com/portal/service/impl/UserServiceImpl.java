@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.mail.MessagingException;
@@ -19,6 +20,7 @@ import com.portal.model.SuccessMessage;
 import com.portal.model.User;
 import com.portal.model.UserAssessmentAssignment;
 import com.portal.model.UserGroup;
+import com.portal.model.UserGroupDataModel;
 import com.portal.model.UserGroupDataSent;
 import com.portal.model.UserGroupUser;
 import com.portal.model.UserModel;
@@ -516,19 +518,19 @@ public class UserServiceImpl implements UserServiceInterface {
 		try {
 			Integer groupCount = this.getCountOfUserGroupByGroupName(userGroupDataSent.getGroupName().toUpperCase());
 
+			List<User> selectedUsers = new ArrayList<>();
+
+			for (Integer userIdInt : userGroupDataSent.getSelectedUserIds()) {
+				Long userId = Long.valueOf(userIdInt);
+				User user = this.getUserDetailById(userId);
+				selectedUsers.add(user);
+			}
+
 			if (groupCount == 0) {
 
 				UserGroup userGroup = new UserGroup();
 				userGroup.setGroupName(userGroupDataSent.getGroupName().toUpperCase());
 				UserGroup savedUserGroup = userGroupRepo.save(userGroup);
-
-				List<User> selectedUsers = new ArrayList<>();
-
-				for (Integer userIdInt : userGroupDataSent.getSelectedUserIds()) {
-					Long userId = Long.valueOf(userIdInt);
-					User user = this.getUserDetailById(userId);
-					selectedUsers.add(user);
-				}
 
 				List<UserGroupUser> userGroupUserList = new ArrayList<UserGroupUser>();
 
@@ -544,7 +546,52 @@ public class UserServiceImpl implements UserServiceInterface {
 
 				return new SuccessMessage("User group saved successfully");
 			} else {
-				return new SuccessMessage("User group name already exists");
+
+				UserGroup userGroup = userGroupRepo.findByNameWithUsers(userGroupDataSent.getGroupName());
+
+				List<UserGroupUser> groupUsers = userGroup.getUserGroupUser();
+
+				List<UserGroupUser> usersToBeDeleted = groupUsers.stream()
+						.filter(aga -> !selectedUsers.contains(aga.getUser())).collect(Collectors.toList());
+
+				if (usersToBeDeleted.size() != 0) {
+					usersToBeDeleted.forEach((aga) -> {
+						userGroupRepo.deleteUserGroupUserByUserGroupUserId(aga.getUserGroupUserId());
+					});
+				}
+
+				List<UserGroupUser> usersToBeAdded = selectedUsers.stream().filter(
+						selectedUser -> groupUsers.stream().noneMatch(aga -> aga.getUser().equals(selectedUser)))
+						.map(selectedUser -> {
+							UserGroupUser aga = new UserGroupUser();
+							aga.setUser(selectedUser);
+							aga.setUserGroup(userGroup);
+							return aga;
+						}).collect(Collectors.toList());
+
+				if (usersToBeAdded.size() != 0) {
+					userGroup.setUserGroupUser(usersToBeAdded);
+					userGroupRepo.save(userGroup);
+				}
+
+				if (usersToBeDeleted.size() != 0) {
+					if (usersToBeAdded.size() != 0) {
+						return new SuccessMessage("User group edited successfully. " + usersToBeDeleted.size()
+								+ " users removed, " + usersToBeAdded.size() + " users added.");
+					} else {
+						return new SuccessMessage(
+								"User group edited successfully. " + usersToBeDeleted.size() + " users removed.");
+					}
+
+				} else {
+					if (usersToBeAdded.size() != 0) {
+						return new SuccessMessage(
+								"User group edited successfully. " + usersToBeAdded.size() + " users added.");
+					} else {
+						return new SuccessMessage("User group already exists, no changes made.");
+					}
+				}
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -554,6 +601,28 @@ public class UserServiceImpl implements UserServiceInterface {
 
 	private Integer getCountOfUserGroupByGroupName(String groupName) {
 		return userGroupRepo.getCountOfUserGroupByGroupName(groupName);
+	}
+
+	@Override
+	public List<UserGroupDataModel> getUserGroups() {
+		Set<UserGroup> userGroup = userGroupRepo.findAllWithUsers();
+		List<UserGroupDataModel> userGroupDataModel = new ArrayList<UserGroupDataModel>();
+
+		for (UserGroup ug : userGroup) {
+			UserGroupDataModel ugDataModel = new UserGroupDataModel();
+			ugDataModel.setGroupId(ug.getGroupId());
+			ugDataModel.setGroupName(ug.getGroupName());
+			List<User> ugdmUserList = new ArrayList<User>();
+			for (UserGroupUser ugu : ug.getUserGroupUser()) {
+				User user = ugu.getUser();
+				ugdmUserList.add(user);
+			}
+			ugDataModel.setUserList(ugdmUserList);
+			userGroupDataModel.add(ugDataModel);
+		}
+		userGroupDataModel.stream().forEach(ugdm -> System.out.println(ugdm));
+
+		return userGroupDataModel;
 	}
 
 }

@@ -49,12 +49,12 @@ export class AssessmentService {
 
   //get assessment attendees list with result 
   public GetAttendentsAndResults(assessmentId:any){
-     return this._http.get(`${baseUrl}/assessment/resultsOfAssessment/${assessmentId}`);
+    return this._http.get(`${baseUrl}/assessment/resultsOfAssessment/${assessmentId}`);
   }
 
-  public assessmentGroup(assessGroupData: any) {
-    console.log("inservice ",assessGroupData);
-    return this._http.post(`${baseUrl}/assessment/groupAssessments`, assessGroupData);
-  }
+    public assessmentGroup(assessGroupData: any) {
+      console.log("inservice ",assessGroupData);
+      return this._http.post(`${baseUrl}/assessment/groupAssessments`, assessGroupData);
+    }
 
 }
