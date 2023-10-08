@@ -105,13 +105,6 @@ export class ViewAssessmentsComponent implements OnInit {
   }
 }
 
-
-
-
-
-
- 
-
 interface Assessment {
   assessmentId: number;
   assessmentTitle: string;

@@ -13,21 +13,29 @@ import { Router } from '@angular/router';
 export class AssignTestComponent implements OnInit {
   disabled = false;
   assessments: Assessment[] = [];
+  assessmentGroups: AssessmentGroup[] = [];
   users: User[] = [];
+  userGroups: UserGroup[] = [];
   testUserRoleId !: number;
   selectedUsers: any[] = [];
   selectedAssessments: any[] = [];
   onlyAssessmentsSelected: boolean = false;
   onlyUsersSelected: boolean = false;
+  selectedUserGroups: any[] = [];
+  selectedAssessmentGroups: any[] = [];
 
 
   assessmentSearch: string = '';
+  assessmentGroupSearch: string = '';
   userSearch: string = '';
+  userGroupSearch: string = '';
 
   filteredAssessments: Assessment[] = this.assessments;
+  filteredAssessmentGroups: AssessmentGroup[] = this.assessmentGroups;
   filteredUsers: User[] = this.users;
+  filteredUserGroups: UserGroup[] = this.userGroups;
 
-  constructor(private assessmentService: AssessmentService, private userService: UserserviceService,  private snack: MatSnackBar, private _router: Router) { }
+  constructor(private assessmentService: AssessmentService, private userService: UserserviceService, private snack: MatSnackBar, private _router: Router) { }
 
   ngOnInit(): void {
     this.assessmentService.assessments().subscribe(
@@ -45,6 +53,14 @@ export class AssignTestComponent implements OnInit {
       }
     );
 
+    this.assessmentService.getAssessmentGroups().subscribe((data: any) => {
+      this.assessmentGroups = data;
+      this.updateFilteredAssessmentGroups();
+    },
+      (error) => {
+        Swal.fire('Error !!', 'Error in loading data', 'error');
+      });
+
     this.userService.getUsers().subscribe(
       (data: any) => {
         this.users = data.map((user: any) => ({
@@ -52,13 +68,14 @@ export class AssignTestComponent implements OnInit {
           selected: false,
         }));
 
+
         this.users.forEach((user) => {
           this.userService.getRoleId(user.username).subscribe((data: any) => {
             this.testUserRoleId = data;
             if (this.testUserRoleId === 44) {
               const index = this.users.indexOf(user);
               if (index !== -1) {
-                this.users.splice(index, 1); 
+                this.users.splice(index, 1);
               }
             }
             this.filteredUsers = [...this.users]
@@ -70,6 +87,14 @@ export class AssignTestComponent implements OnInit {
         console.log(error)
         Swal.fire('Error !', 'Error Loading data', 'error');
       });
+
+    this.userService.getUserGroups().subscribe((data: any) => {
+      this.userGroups = data;
+      this.updateFilteredUserGroups();
+    },
+      (error) => {
+        Swal.fire('Error !!', 'Error in loading data', 'error');
+      });
   }
 
   updateFilteredAssessments() {
@@ -78,11 +103,23 @@ export class AssignTestComponent implements OnInit {
     );
   }
 
+  updateFilteredAssessmentGroups() {
+    this.filteredAssessmentGroups = this.assessmentGroups.filter((assessmentGroup) =>
+      assessmentGroup.groupName.toLowerCase().includes(this.assessmentGroupSearch.toLowerCase())
+    );
+  }
+
   updateFilteredUsers() {
     console.log(this.userSearch)
     console.log(this.filteredUsers)
     this.filteredUsers = this.users.filter((user) =>
       user.firstName.toLowerCase().includes(this.userSearch.toLowerCase()) || user.lastName.toLowerCase().includes(this.userSearch.toLowerCase()) || user.username.toLowerCase().includes(this.userSearch.toLowerCase())
+    );
+  }
+
+  updateFilteredUserGroups() {
+    this.filteredUserGroups = this.userGroups.filter((userGroup) =>
+      userGroup.groupName.toLowerCase().includes(this.userGroupSearch.toLowerCase())
     );
   }
 
@@ -99,6 +136,35 @@ export class AssignTestComponent implements OnInit {
     this.onlyUsersSelected = this.selectedUsers.length > 0 && this.selectedAssessments.length === 0;
   }
 
+  toggleAssessmentGroupSelection(assessmentGroup: any) {
+    if (assessmentGroup.selected) {
+      assessmentGroup.assessmentList.forEach((assessment: any) => {
+        this.selectedAssessments.push(assessment);
+        assessment.selected = true;
+      });
+    } else {
+      assessmentGroup.assessmentList.forEach((assessment: any) => {
+        const index = this.selectedAssessments.findIndex((a) => a.assessmentId === assessment.assessmentId);
+        if (index !== -1) {
+          this.selectedAssessments.splice(index, 1);
+        }
+        assessment.selected = false;
+      });
+    }
+    this.onlyAssessmentsSelected = this.selectedAssessments.length > 0 && this.selectedUsers.length === 0;
+    this.onlyUsersSelected = this.selectedUsers.length > 0 && this.selectedAssessments.length === 0;
+  }
+
+  assessmentGroupSelected(assessment: Assessment): boolean {
+    const group = this.filteredAssessmentGroups.find(
+      (assessmentGroup) =>
+        assessmentGroup.assessmentList.findIndex(
+          (a) => a.assessmentId === assessment.assessmentId && a.selected
+        ) !== -1
+    );
+    return group ? group.selected : false;
+  }
+
   toggleUserSelection(user: any) {
     if (user.selected) {
       this.selectedUsers.push(user);
@@ -112,7 +178,43 @@ export class AssignTestComponent implements OnInit {
     this.onlyAssessmentsSelected = this.selectedAssessments.length > 0 && this.selectedUsers.length === 0;
   }
 
+  toggleUserGroupSelection(userGroup: any) {
+    if (userGroup.selected) {
+      userGroup.userList.forEach((user: any) => {
+        this.selectedUsers.push(user);
+        user.selected = true;
+      });
+    } else {
+      userGroup.userList.forEach((user: any) => {
+        const index = this.selectedUsers.findIndex((u) => u.id === user.id);
+        if (index !== -1) {
+          this.selectedUsers.splice(index, 1);
+        }
+        user.selected = false;
+      });
+    }
+    this.onlyAssessmentsSelected = this.selectedAssessments.length > 0 && this.selectedUsers.length === 0;
+    this.onlyUsersSelected = this.selectedUsers.length > 0 && this.selectedAssessments.length === 0;
+  }
+
+  userGroupSelected(user: User): boolean {
+    const group = this.filteredUserGroups.find(
+      (userGroup) =>
+        userGroup.userList.findIndex(
+          (u) => u.id === user.id && u.selected
+        ) !== -1
+    );
+    return group ? group.selected : false;
+  }
+
   public handleFABClick() {
+
+    this.selectedUsers = this.selectedUsers.filter((user, index, self) =>
+      index === self.findIndex((u) => u.id === user.id)
+    );
+    this.selectedAssessments = this.selectedAssessments.filter((assessment, index, self) =>
+      index === self.findIndex((a) => a.assessmentId === assessment.assessmentId)
+    );
 
     if (this.selectedUsers.length === 0) {
       console.log('Please select at least one user');
@@ -121,7 +223,7 @@ export class AssignTestComponent implements OnInit {
         verticalPosition: 'bottom',
         horizontalPosition: 'center',
       });
-      return; 
+      return;
     }
 
     if (this.selectedAssessments.length === 0) {
@@ -131,7 +233,7 @@ export class AssignTestComponent implements OnInit {
         verticalPosition: 'bottom',
         horizontalPosition: 'center',
       });
-      return; 
+      return;
     }
 
     const dataToSend = {
@@ -144,9 +246,9 @@ export class AssignTestComponent implements OnInit {
       (data: any) => {
         console.log(data);
         //Success
-          Swal.fire('Success', data.message, 'success').then(() => {
-            this._router.navigate(['/admin/user-details']);
-          });;
+        Swal.fire('Success', data.message, 'success').then(() => {
+          this._router.navigate(['/admin/user-details']);
+        });;
       },
       (error) => {
         //Error
@@ -156,16 +258,19 @@ export class AssignTestComponent implements OnInit {
           verticalPosition: 'bottom',
           horizontalPosition: 'center',
         });
-      },() => {
+      }, () => {
         this.disabled = false;
       }
     );
 
   }
-  groupAssessments(){
+  groupAssessments() {
+    this.selectedAssessments = this.selectedAssessments.filter((assessment, index, self) =>
+      index === self.findIndex((a) => a.assessmentId === assessment.assessmentId)
+    );
     console.log("in method");
-    console.log("Selected Assessments",this.selectedAssessments);
-    
+    console.log("Selected Assessments", this.selectedAssessments);
+
     const queryParams = {
       selectedAssessments: JSON.stringify(this.selectedAssessments),
       assessments: JSON.stringify(this.assessments)
@@ -174,10 +279,13 @@ export class AssignTestComponent implements OnInit {
     this._router.navigate(['/admin/group-assessments'], { queryParams });
   }
 
-  groupUsers(){
+  groupUsers() {
+    this.selectedUsers = this.selectedUsers.filter((user, index, self) =>
+      index === self.findIndex((u) => u.id === user.id)
+    );
     console.log("in method");
-    console.log("Selected Users",this.selectedUsers);
-    
+    console.log("Selected Users", this.selectedUsers);
+
     const queryParams = {
       selectedUsers: JSON.stringify(this.selectedUsers),
       users: JSON.stringify(this.users)
@@ -202,5 +310,19 @@ interface Assessment {
   category: {
     categoryTitle: string;
   };
+  selected: boolean;
+}
+
+interface AssessmentGroup {
+  groupId: number;
+  groupName: string;
+  assessmentList: Assessment[];
+  selected: boolean;
+}
+
+interface UserGroup {
+  groupId: number;
+  groupName: string;
+  userList: User[];
   selected: boolean;
 }
