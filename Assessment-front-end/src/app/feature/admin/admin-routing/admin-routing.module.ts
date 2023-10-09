@@ -21,6 +21,7 @@ import { ViewCategoriesComponent } from '../view-categories/view-categories.comp
 import { WelcomeComponent } from '../welcome/welcome.component';
 import { ProfileComponent } from 'src/app/Common/components/profile/profile.component';
 import { PasswordResetComponent } from 'src/app/authentication/password-reset/password-reset.component';
+import { ViewUserGroupsComponent } from 'src/app/feature/admin/view-user-groups/view-user-groups.component';
 
 const routes:Routes = [
   {
@@ -110,6 +111,10 @@ const routes:Routes = [
       {
         path: 'user-assessment-details',
         component: UserAssessmentDetailsComponent,
+      },
+      {
+        path: 'view-user-groups',
+        component: ViewUserGroupsComponent
       }
     ],
   },

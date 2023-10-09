@@ -22,6 +22,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { MaterialModule } from 'src/app/Common/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/Common/shared/shared.module';
+import { ViewUserGroupsComponent } from './view-user-groups/view-user-groups.component';
 
 
 
@@ -44,7 +45,8 @@ import { SharedModule } from 'src/app/Common/shared/shared.module';
     ViewAssessmentQuestionsComponent,
     ViewAssessmentsComponent,
     ViewCategoriesComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    ViewUserGroupsComponent
   ],
   imports: [
     CommonModule,
