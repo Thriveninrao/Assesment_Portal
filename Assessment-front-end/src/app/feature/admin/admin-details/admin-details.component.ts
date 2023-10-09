@@ -94,7 +94,8 @@ export class AdminDetailsComponent {
 
   editAdmin(admin: any) {
     const adminId = admin.id;
-    this.router.navigate(['/admin/add-admin/edit',adminId], { queryParams: { mode: 'edit', adminId: adminId } });
+    // this.router.navigate(['/admin/add-admin/edit',adminId], { queryParams: { mode: 'edit', adminId: adminId } });
+    this.openDialog('Update', admin)
   }
   deleteAdmin(admin: any) {
     Swal.fire({
@@ -124,9 +125,9 @@ export class AdminDetailsComponent {
 
 
 
-  openDialog(name:string) {
+  openDialog(name:string, rowData:any) {
     const dialogRef = this._dialog.open(AddAdminComponent, {
-      data:{headerName:name}
+      data:{headerName:name, rowData:rowData}
     });
 
     dialogRef.afterClosed().subscribe(result => {

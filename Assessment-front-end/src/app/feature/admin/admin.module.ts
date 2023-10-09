@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing/admin-routing.module';
 import { AccessRequestComponent } from './access-request/access-request.component';
 import { AddAdminComponent } from './admin-details/add-admin/add-admin.component';
-import { AddAssessmentComponent } from './add-assessment/add-assessment.component';
-import { AddCategoryComponent } from './add-category/add-category.component';
+import { AddAssessmentComponent } from './view-assessments/add-assessment/add-assessment.component';
+import { AddCategoryComponent } from './view-categories/add-category/add-category.component';
 import { AddQuestionComponent } from './add-question/add-question.component';
-import { AddUserComponent } from './add-user/add-user.component';
+import { AddUserComponent } from './user-details/add-user/add-user.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminDetailsComponent } from './admin-details/admin-details.component';
 import { AssignTestComponent } from './assign-test/assign-test.component';
@@ -20,7 +20,7 @@ import { ViewAssessmentsComponent } from './view-assessments/view-assessments.co
 import { ViewCategoriesComponent } from './view-categories/view-categories.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { MaterialModule } from 'src/app/Common/material/material.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/Common/shared/shared.module';
 
 
@@ -51,7 +51,8 @@ import { SharedModule } from 'src/app/Common/shared/shared.module';
     AdminRoutingModule,
     MaterialModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminModule { }

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { UserserviceService } from 'src/app/services/userservice.service';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -15,7 +15,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddAdminComponent implements OnInit {
 
 
-  adminForm!:FormGroup;
+  adminForm!: FormGroup;
 
   disabled = false;
   inputFieldsModified = false;
@@ -27,18 +27,31 @@ export class AddAdminComponent implements OnInit {
     private route: ActivatedRoute,
     private _router: Router,
     private formBuilder: FormBuilder,
+    private dialogref: MatDialogRef<AddAdminComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
   ngOnInit(): void {
-
+    console.log(this.data)
     this.adminForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      email:['', [Validators.required, Validators.email]],
-      phone: ['', Validators.required]
+      email: ['', [
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|outlook\.com|hotmail\.com|icloud\.com|softtek\.com)$/i)]],
+      phone: ['', [Validators.required, Validators.pattern(/^[6-9]\d{9}$/)]]
     })
 
-
+    if (this.data?.rowData) {
+      this.adminForm.controls['firstName'].setValue(this.data?.rowData?.firstName)
+      this.adminForm.controls['lastName'].setValue(this.data?.rowData?.lastName)
+      this.adminForm.controls['email'].setValue(this.data?.rowData?.email)
+      this.adminForm.controls['phone'].setValue(this.data?.rowData?.phone)
+    } else {
+      this.adminForm.controls['firstName'].setValue('')
+      this.adminForm.controls['lastName'].setValue('')
+      this.adminForm.controls['email'].setValue('')
+      this.adminForm.controls['phone'].setValue('')
+    }
 
     this.route.queryParams.subscribe((queryParams) => {
       this.mode = queryParams['mode'];
@@ -205,5 +218,106 @@ export class AddAdminComponent implements OnInit {
     phone = phone.replace(/^\+91/, '');
     this.admin.phone = phone;
     return /^[6789]\d{9}$/.test(phone); // Check if it's a 10-digit number
+  }
+
+
+  onSubmitForm() {
+
+    if (this.adminForm.invalid) {
+      Object.keys(this.adminForm.controls).forEach(field => {
+        this.adminForm.controls[field].markAsTouched({ onlySelf: true })
+      })
+      this.snack.open('Please enter required fields', '', {
+        duration: 3000,
+      });
+      return;
+    }
+
+    const payload = {
+      firstName: this.adminForm.controls['firstName'].value,
+      lastName: this.adminForm.controls['lastName'].value,
+      email: this.adminForm.controls['email'].value,
+      phone: this.adminForm.controls['phone'].value,
+      username: this.data?.rowData ? this.data?.rowData?.username : ''
+    }
+
+    if (this.data?.rowData?.headerName === 'Add') {
+      this.userservice.addAdmin(payload).subscribe((data: any) => {
+        if (data.message === 'Success') {
+          Swal.fire(
+            data.message,
+            this.admin.firstName + ' is Registered as Admin',
+            'success'
+          )
+
+          this.dialogref.close()
+        } else {
+          Swal.fire(
+            data.message,
+            'Email or Phone Number already exists',
+            'warning'
+          );
+        }
+      }, (error) => {
+        this.snack.open('Error', '', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+        });
+      })
+
+    } else if (this.data?.headerName === 'Update') {
+      Swal.fire({
+        title: 'Confirm',
+        text: 'Are you certain about the updated details?',
+        icon: 'question',
+        confirmButtonText: 'Yes',
+        confirmButtonColor: 'green',
+        cancelButtonText: 'No',
+        showCancelButton: true,
+      }).then((result) => {
+        if (result.value) {
+          console.log("updating user");
+          this.disabled = true;
+          this.userservice.updateUser(payload).subscribe((data: any) => {
+            console.log(data.message);
+            if (data.message === 'Success') {
+              //Success
+              Swal.fire(
+                data.message,
+                'Details of ' + this.admin.firstName + ' is Updated.',
+                'success'
+              )
+            } else {
+              Swal.fire(
+                data.message,
+                'Email or Phone Number already exists',
+                'warning'
+              );
+            }
+          },
+            (error) => {
+              //Error
+              console.log(error);
+              this.snack.open('Error: Check the entered email or phone number', '', {
+                duration: 3000,
+                verticalPosition: 'bottom',
+                horizontalPosition: 'center',
+              });
+            }, () => {
+              this.disabled = false;
+            });
+        }
+      });
+    }
+  }
+
+  numberOnly(event: any): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
   }
 }

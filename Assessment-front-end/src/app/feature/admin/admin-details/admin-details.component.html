@@ -26,7 +26,7 @@
         <div class="">
           <div class="mt-4">
             <!-- *ngIf="isAdmin" [routerLink]="['/admin/add-admin/add']" [queryParams]="{ mode: 'add' }" -->
-            <button (click)="openDialog('Add')"
+            <button (click)="openDialog('Add', '')"
               mat-raised-button class="left-button btn-main">
               <mat-icon mat-list-icon>engineering</mat-icon>
               Add Admin
@@ -44,7 +44,7 @@
             <th mat-header-cell *matHeaderCellDef>Profile Image</th>
             <td mat-cell *matCellDef="let admin">
               <img *ngIf="admin.profile === 'Admin.jpg'" src="../../../assets/Profile Pictures/Admin.jpg"
-                style="max-width: 50px;border-radius: 25%; margin-top: 10px;" alt="" class="profile-image" />
+                alt="" style="max-width: 50px" class="profile-image" />
             </td>
           </ng-container>
 
@@ -73,11 +73,11 @@
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Actions</th>
             <td mat-cell *matCellDef="let admin">
-              <button mat-icon-button color="danger" (click)="editAdmin(admin)"
+              <button matTooltip="Edit" mat-icon-button color="danger" (click)="editAdmin(admin)"
                 *ngIf="loggedInAdmin.username === 'admin.admin'">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button (click)="deleteAdmin(admin)" *ngIf="loggedInAdmin.username === 'admin.admin'"
+              <button matTooltip="Delete" mat-icon-button (click)="deleteAdmin(admin)" *ngIf="loggedInAdmin.username === 'admin.admin'"
                 class="delete-button">
                 <mat-icon>delete</mat-icon>
               </button>

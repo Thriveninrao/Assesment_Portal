@@ -1,61 +1,120 @@
-<div class="mb-3">
-  <h1 mat-dialog-title>{{data.headerName}} Admin Details</h1>
-</div>
-<mat-dialog-content class="mat-typography">
-  <mat-card>
-    <mat-card-content>
-      <div class="container text-center">
-        <img style="max-width: 100px" src="../../../../assets/software-engineer.png" alt="" />
-      </div>
-      <!-- {{user | json}} -->
-      <form (ngSubmit)="formSubmit()">
-        <div class="">
-          <div class="col">
-            <mat-form-field appearance="outline">
-              <mat-label>First Name</mat-label>
-              <input required [(ngModel)]="admin.firstName" name="firstName" type="text" matInput
-                placeholder="Enter Your First Name" (ngModelChange)="inputFieldsModified = true" />
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field appearance="outline">
-              <mat-label>Last Name</mat-label>
-              <input required [(ngModel)]="admin.lastName" name="lastName" type="text" matInput
-                placeholder="Enter Your Last Name" (ngModelChange)="inputFieldsModified = true" />
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field appearance="outline">
-              <mat-label>Email</mat-label>
-              <input required [(ngModel)]="admin.email" name="email" type="text" matInput placeholder="Enter Your Email"
-                (ngModelChange)="inputFieldsModified = true" />
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field appearance="outline">
-              <mat-label>Phone</mat-label>
-              <input required [(ngModel)]="admin.phone" name="phone" type="text" matInput placeholder="Enter Your Phone"
-                (ngModelChange)="inputFieldsModified = true" />
-            </mat-form-field>
-          </div>
-        </div>
-        <!-- <div class="container text-left mt15">
-          <button type="submit" mat-raised-button color="primary" [disabled]="disabled || !inputFieldsModified">
-            {{ mode === "add" ? "Add" : "Update" }} Admin
-          </button>
-          <button type="reset" style="margin-left: 20px" mat-stroked-button color="warn" [disabled]="mode === 'edit'"
-            *ngIf="mode !== 'edit'">
-            Clear
-          </button>
-          <button mat-raised-button color="warn" style="margin-left: 20px" routerLink="/admin/admin-details">
-            Back
-          </button>
+<div>
+  <div class="mat-title d-flex justify-content-between">
+    <div class="">
+      <h1 mat-dialog-title>{{data.headerName}} Admin Details</h1>
+    </div>
+    <div class="close-icon" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </div>
+  </div>
+  <mat-dialog-content class="mat-typography">
+    <mat-card>
+      <mat-card-content>
+        <!-- <div class="container text-center">
+          <img style="max-width: 100px" src="../../../../assets/software-engineer.png" alt="" />
         </div> -->
-      </form>
-    </mat-card-content>
-  </mat-card>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-raised-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button class="btn-main" [mat-dialog-close]="true" cdkFocusInitial>Submit</button>
-</mat-dialog-actions>
+        <!-- {{user | json}} -->
+        <form [formGroup]="adminForm">
+  
+          <div class="">
+            <div class="col">
+              <mat-form-field appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input required formControlName="firstName" name="firstName" type="text" matInput
+                  placeholder="Enter Your First Name" />
+                <mat-error *ngIf="adminForm.controls['firstName'].hasError('required')">
+                  First Name is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input required formControlName="lastName" name="lastName" type="text" matInput
+                  placeholder="Enter Your Last Name" />
+                <mat-error *ngIf="adminForm.controls['lastName'].hasError('required')">
+                  Last Name is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input required formControlName="email" name="email" type="text" matInput
+                  placeholder="Enter Your Email" />
+                <mat-error *ngIf="adminForm.controls['email'].hasError('required')">
+                  Email is required
+                </mat-error>
+                <mat-error
+                  *ngIf="adminForm.controls['email'].hasError('pattern')">
+                  Please enter a valid email address
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="outline">
+                <mat-label>Phone</mat-label>
+                <input required formControlName="phone" name="phone" type="text" matInput placeholder="Enter Your Phone"
+                  (keypress)="numberOnly($event)" />
+                <mat-error *ngIf="adminForm.controls['phone'].hasError('required')">
+                  Phone is required
+                </mat-error>
+                <mat-error *ngIf="adminForm.controls['phone'].hasError('pattern')">
+                  Please enter valid 10 digit mobile
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+  
+          <!-- <div class="">
+            <div class="col">
+              <mat-form-field appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input required [(ngModel)]="admin.firstName" name="firstName" type="text" matInput
+                  placeholder="Enter Your First Name" (ngModelChange)="inputFieldsModified = true" />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input required [(ngModel)]="admin.lastName" name="lastName" type="text" matInput
+                  placeholder="Enter Your Last Name" (ngModelChange)="inputFieldsModified = true" />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input required [(ngModel)]="admin.email" name="email" type="text" matInput placeholder="Enter Your Email"
+                  (ngModelChange)="inputFieldsModified = true" />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="outline">
+                <mat-label>Phone</mat-label>
+                <input required [(ngModel)]="admin.phone" name="phone" type="text" matInput placeholder="Enter Your Phone"
+                  (ngModelChange)="inputFieldsModified = true" />
+              </mat-form-field>
+            </div>
+          </div> -->
+          <!-- <div class="container text-left mt15">
+            <button type="submit" mat-raised-button color="primary" [disabled]="disabled || !inputFieldsModified">
+              {{ mode === "add" ? "Add" : "Update" }} Admin
+            </button>
+            <button type="reset" style="margin-left: 20px" mat-stroked-button color="warn" [disabled]="mode === 'edit'"
+              *ngIf="mode !== 'edit'">
+              Clear
+            </button>
+            <button mat-raised-button color="warn" style="margin-left: 20px" routerLink="/admin/admin-details">
+              Back
+            </button>
+          </div> -->
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button class="btn-cancel" mat-dialog-close>Cancel</button>
+    <button mat-raised-button class="btn-main" cdkFocusInitial (click)="onSubmitForm()"
+    style="width: 85px;">{{data.headerName}}</button>
+  </mat-dialog-actions>
+</div>

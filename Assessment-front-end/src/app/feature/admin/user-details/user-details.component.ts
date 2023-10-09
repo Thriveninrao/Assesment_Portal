@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { MatDialog } from '@angular/material/dialog';
+import { AddUserComponent } from './add-user/add-user.component';
 
 @Component({
   selector: 'app-user-details',
@@ -19,7 +21,11 @@ export class UserDetailsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private _user: UserserviceService, private router: Router) { this.dataSource = new MatTableDataSource<User>([]); } // No need to inject a service for static data
+  constructor(
+    private _user: UserserviceService, 
+    private router: Router,
+    private _dialog: MatDialog
+  ) { this.dataSource = new MatTableDataSource<User>([]); } // No need to inject a service for static data
 
   ngOnInit(): void {
     this._user.getUsers().subscribe(
@@ -59,7 +65,8 @@ export class UserDetailsComponent implements OnInit {
 
   editUser(user: any) {
     const userId = user.id;
-    this.router.navigate(['/admin/add-user/edit', userId], { queryParams: { mode: 'edit', userId: userId } });
+   // this.router.navigate(['/admin/add-user/edit', userId], { queryParams: { mode: 'edit', userId: userId } });
+   this.openDialog('Update', user)
   }
 
   deleteUser(user: any) {
@@ -130,6 +137,17 @@ export class UserDetailsComponent implements OnInit {
   }
   onTestsAssignedClicked(user: any) {
     console.log("Hi", user.username);
+  }
+
+
+  openDialog(name: string, rowData: any) {
+    const dialogRef = this._dialog.open(AddUserComponent, {
+      data: { headerName: name, rowData: rowData }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }
 

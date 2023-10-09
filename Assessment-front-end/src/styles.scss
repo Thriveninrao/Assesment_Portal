@@ -21,6 +21,7 @@ body {
   position: fixed;
   width: 100%;
   background: -webkit-linear-gradient(180deg, #d5fefd 0%, #eef6f6 74%);
+  // background: linear-gradient(to bottom right, #45ACCD, #00C7A8, #00719E);
   display: grid;
   grid-template-rows: auto 1fr;
 
@@ -81,7 +82,27 @@ mat-paginator {
   font-weight: 400 !important;
 }
 
+.btn-cancel{
+  border-radius: 8px !important;
+  font-weight: 400 !important;
+  background-color: #eef6f6 !important;
+}
+
+.close-icon{
+  margin-top: 20px !important; 
+  margin-right: 20px !important;
+}
+
 .btn-main:hover{
   background: #fff !important;
   border: 2px solid #198f8d !important; 
+}
+
+.mat-mdc-dialog-title{
+  font-size: 20px !important;
+  font-weight: 400 !important;
+}
+
+.mat-title, mat-dialog-content, mat-dialog-actions{
+  background: -webkit-linear-gradient(180deg, #d5fefd 0%, #eef6f6 74%) !important;
 }

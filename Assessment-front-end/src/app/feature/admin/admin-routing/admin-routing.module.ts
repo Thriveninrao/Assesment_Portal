@@ -5,10 +5,10 @@ import { AdminDashboardComponent } from '../admin-dashboard/admin-dashboard.comp
 import { AdminGuard } from 'src/app/services/admin.guard';
 import { AccessRequestComponent } from '../access-request/access-request.component';
 import { AddAdminComponent } from '../admin-details/add-admin/add-admin.component';
-import { AddAssessmentComponent } from '../add-assessment/add-assessment.component';
-import { AddCategoryComponent } from '../add-category/add-category.component';
+import { AddAssessmentComponent } from '../view-assessments/add-assessment/add-assessment.component';
+import { AddCategoryComponent } from '../view-categories/add-category/add-category.component';
 import { AddQuestionComponent } from '../add-question/add-question.component';
-import { AddUserComponent } from '../add-user/add-user.component';
+import { AddUserComponent } from '../user-details/add-user/add-user.component';
 import { AdminDetailsComponent } from '../admin-details/admin-details.component';
 import { AssignTestComponent } from '../assign-test/assign-test.component';
 import { UpdateAssessmentComponent } from '../update-assessment/update-assessment.component';
