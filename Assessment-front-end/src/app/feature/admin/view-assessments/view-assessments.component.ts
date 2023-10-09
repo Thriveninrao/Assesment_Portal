@@ -116,6 +116,10 @@ export class ViewAssessmentsComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+
+  onUpdate(assessmentData:any){
+    this.openDialog('Update', assessmentData)
+  }
 }
 
 

@@ -18,7 +18,31 @@
         No Categories Found
       </div>
       <div>
-        <mat-card class="mt30 mr20 ml20" *ngFor="let c of categories">
+        <div class="mt-1" *ngFor="let c of categories">
+          <mat-accordion class="example-headers-align">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span>
+                    <img class="category-image" src="../../../../assets/category.png" alt="category">
+                  </span> &nbsp;
+                  {{ c.categoryTitle }}
+                </mat-panel-title>
+                <mat-panel-description>
+                 
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              {{ c.categoryDescription }}
+
+              <mat-action-row>
+                <button mat-button (click)="deleteCategory(c.categoryId)"
+                  color="warn">Delete</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+
+        <!-- <mat-card class="mt30 mr20 ml20" *ngFor="let c of categories">
           <mat-card-header>
             <div mat-card-avatar class="category-image"></div>
             <mat-card-title>
@@ -33,7 +57,7 @@
               Delete
             </button>
           </mat-card-actions>
-        </mat-card>
+        </mat-card> -->
       </div>
     </mat-card-content>
     <!-- <h1

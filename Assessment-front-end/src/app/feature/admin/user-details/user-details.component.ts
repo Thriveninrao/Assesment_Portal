@@ -13,7 +13,7 @@ import { AddUserComponent } from './add-user/add-user.component';
   styleUrls: ['./user-details.component.scss']
 })
 export class UserDetailsComponent implements OnInit {
-  displayedColumns: string[] = ['image', 'id', 'name', 'username', 'email', 'testsAssigned', 'testsAttempted', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'username', 'email', 'testsAssigned', 'testsAttempted', 'actions'];
   users: User[] = []; // Initialize an empty array to hold user data
   dataSource!: MatTableDataSource<User>;
   searchQuery: string = '';

@@ -15,7 +15,7 @@ import { AddAdminComponent } from './add-admin/add-admin.component';
 })
 export class AdminDetailsComponent {
   displayedColumns1: string[] = ['id', 'name', 'progress', 'fruit'];
-  displayedColumns: string[] = ['image', 'id', 'name', 'username', 'email', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'username', 'email', 'actions'];
   admins: Admin[] = []; 
   dataSource!: MatTableDataSource<Admin>;
   searchQuery: string = '';
