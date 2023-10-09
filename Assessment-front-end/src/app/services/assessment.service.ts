@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/internal/Observable';
   providedIn: 'root',
 })
 export class AssessmentService {
-  constructor(private _http: HttpClient, private _category: CategoryService) {}
+  constructor(private _http: HttpClient, private _category: CategoryService) { }
 
   // get Assessment List
   public assessments() {
@@ -48,8 +48,20 @@ export class AssessmentService {
   }
 
   //get assessment attendees list with result 
-  public GetAttendentsAndResults(assessmentId:any){
-     return this._http.get(`${baseUrl}/assessment/resultsOfAssessment/${assessmentId}`);
+  public GetAttendentsAndResults(assessmentId: any) {
+    return this._http.get(`${baseUrl}/assessment/resultsOfAssessment/${assessmentId}`);
   }
 
+  public assessmentGroup(assessGroupData: any) {
+    console.log("inservice ", assessGroupData);
+    return this._http.post(`${baseUrl}/assessment/groupAssessments`, assessGroupData);
+  }
+
+  public getAssessmentGroups() {
+    return this._http.get(`${baseUrl}/assessment/groupAssessments`);
+  }
+
+  public deleteAssessmentGroups(assessGroupData: any) {
+    return this._http.delete(`${baseUrl}/assessment/groupAssessments`, assessGroupData);
+  }
 }

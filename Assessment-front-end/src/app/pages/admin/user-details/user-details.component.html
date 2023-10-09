@@ -1,0 +1,144 @@
+<!-- user-table.component.html -->
+<mat-card class="w100">
+  <mat-card-content>
+    <div class="bootstrap-wrapper text-center">
+      <!-- Add this input field for searching -->
+      <div class="search-container">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Search</mat-label>
+          <input
+            [(ngModel)]="searchQuery"
+            name="searchQuery"
+            type="text"
+            matInput
+            placeholder="Search"
+            (input)="performSearch()"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="container text-left mt20">
+      <button
+        [routerLink]="['/admin/add-user/add']"
+        [queryParams]="{ mode: 'add' }"
+        mat-raised-button
+        color="accent"
+        class="left-button"
+      >
+        <mat-icon mat-list-icon>person_add</mat-icon>
+        Add User
+      </button>
+      <button
+        [routerLink]="['/admin/view-user-groups']"
+        [queryParams]="{ mode: 'add' }"
+        mat-raised-button
+        color="accent"
+        class="user-groups-button"
+      >
+        <mat-icon mat-list-icon>people_outline</mat-icon>
+        User Groups
+      </button>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div *ngIf="users.length === 0" class="empty-message">
+            It looks like there are NO users
+          </div>
+          <table mat-table [dataSource]="dataSource" *ngIf="users.length > 0">
+            <ng-container matColumnDef="image">
+              <th mat-header-cell *matHeaderCellDef>Profile Image</th>
+              <td mat-cell *matCellDef="let user">
+                <img
+                  *ngIf="user.profile === 'Admin.jpg'; else userImage"
+                  src="../../../assets/Profile Pictures/Admin.jpg"
+                  style="max-width: 50px"
+                  alt=""
+                  class="profile-image"
+                />
+                <ng-template #userImage>
+                  <img
+                    src="../../../assets/Profile Pictures/User.jpg"
+                    style="max-width: 50px"
+                    alt=""
+                    class="profile-image"
+                  />
+                </ng-template>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>ID</th>
+              <td mat-cell *matCellDef="let user">{{ user.id }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let user">
+                {{ user.firstName + " " + user.lastName }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef>Username</th>
+              <td mat-cell *matCellDef="let user">{{ user.username }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef>Email</th>
+              <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="testsAssigned">
+              <th mat-header-cell *matHeaderCellDef>Test Assigned</th>
+              <td mat-cell *matCellDef="let user">
+                <button
+                  mat-raised-button
+                  (click)="onTestsAssignedClicked(user)"
+                >
+                  {{ user.testsAssigned }}
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="testsAttempted">
+              <th mat-header-cell *matHeaderCellDef>Test Attempted</th>
+              <td mat-cell *matCellDef="let user">
+                <button
+                  mat-raised-button
+                  (click)="onTestsAttemptedClicked(user)"
+                >
+                  {{ user.testsAttempted }}
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let user">
+                <button mat-icon-button color="danger" (click)="editUser(user)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  (click)="deleteUser(user)"
+                  class="delete-button"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let user; columns: displayedColumns"></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+<mat-paginator
+  [pageSizeOptions]="[8, 10, 12]"
+  showFirstLastButtons
+></mat-paginator>

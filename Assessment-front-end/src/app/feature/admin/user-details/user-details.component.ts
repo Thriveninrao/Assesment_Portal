@@ -3,6 +3,7 @@ import { UserserviceService } from 'src/app/services/userservice.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUserComponent } from './add-user/add-user.component';
@@ -18,6 +19,8 @@ export class UserDetailsComponent implements OnInit {
   dataSource!: MatTableDataSource<User>;
   searchQuery: string = '';
   image: any;
+  groups: any[] = [];
+  group:any;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 

@@ -1,5 +1,10 @@
 .scrollable-list {
-    max-height: 520px; /* Set your desired maximum height here */
+    max-height: 330px; /* Set your desired maximum height here */
+    overflow-y: auto;
+  }
+
+  .scrollable-group-list{
+    max-height: 180px; /* Set your desired maximum height here */
     overflow-y: auto;
   }
   
