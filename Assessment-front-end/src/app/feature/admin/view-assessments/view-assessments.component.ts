@@ -4,6 +4,8 @@ import Swal from 'sweetalert2';
 import { FileServicesService } from 'src/app/services/file-services.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router,ActivatedRoute } from '@angular/router';
+import { AddAssessmentComponent } from './add-assessment/add-assessment.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-view-assessments',
@@ -21,7 +23,8 @@ export class ViewAssessmentsComponent implements OnInit {
     private assessmentService: AssessmentService,
     private fileService: FileServicesService,
     private _router: Router,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -102,6 +105,16 @@ export class ViewAssessmentsComponent implements OnInit {
         console.error('Error updating marks', error);
       }
     );
+  }
+
+  openDialog(name:string, rowData:any) {
+    const dialogRef = this._dialog.open(AddAssessmentComponent, {
+      data:{headerName:name, rowData:rowData}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }
 

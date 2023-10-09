@@ -9,13 +9,13 @@ export const SIDEBAR:I_SIDEBAR[] = [
         "role": 'Admin'
     },
     {
-        "menuName": 'Admins',
+        "menuName": 'Manage Admins',
         "icon": "people",
         "routeLink": '/admin/admin-details',
         "role": 'Admin'
     },
     {
-        "menuName": 'Users',
+        "menuName": 'Manage Users',
         "icon": "people_outline",
         "routeLink": '/admin/user-details',
         "role": 'Admin'

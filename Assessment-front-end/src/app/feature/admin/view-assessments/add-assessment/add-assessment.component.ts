@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-assessment',
   templateUrl: './add-assessment.component.html',
-  styleUrls: ['./add-assessment.component.css'],
+  styleUrls: ['./add-assessment.component.scss'],
 })
 export class AddAssessmentComponent implements OnInit {
   categories: any = [];

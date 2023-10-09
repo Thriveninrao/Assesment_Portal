@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { AssessmentService } from 'src/app/services/assessment.service';
 import { CategoryService } from 'src/app/services/category.service';
 import Swal from 'sweetalert2';
+import { AddCategoryComponent } from './add-category/add-category.component';
 
 @Component({
   selector: 'app-view-categories',
@@ -47,7 +49,8 @@ export class ViewCategoriesComponent implements OnInit {
   ];
   constructor(
     private _category: CategoryService,
-    private _assessment: AssessmentService
+    private _assessment: AssessmentService,
+    private _dialog:MatDialog
   ) {}
   ngOnInit(): void {
     this._category.categories().subscribe(
@@ -103,5 +106,16 @@ export class ViewCategoriesComponent implements OnInit {
       );
       this.ngOnInit();
     }
+  }
+
+
+  openDialog(name:string, rowData:any) {
+    const dialogRef = this._dialog.open(AddCategoryComponent, {
+      data:{headerName:name, rowData:rowData}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }
