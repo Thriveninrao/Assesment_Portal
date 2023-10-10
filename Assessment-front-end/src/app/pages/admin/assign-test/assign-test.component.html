@@ -3,10 +3,72 @@
     <div class="col-md-6">
       <mat-card>
         <mat-card-header>
+          <mat-card-title>Assessment Groups</mat-card-title>
+        </mat-card-header>
+        <mat-card-content
+          [class.scrollable-group-list]="filteredAssessmentGroups.length > 3"
+        >
+          <mat-form-field class="example-full-width">
+            <input
+              matInput
+              placeholder="Search Assessment Groups"
+              [(ngModel)]="assessmentGroupSearch"
+              (ngModelChange)="updateFilteredAssessmentGroups()"
+            />
+          </mat-form-field>
+          <mat-list>
+            <mat-list-item
+              *ngFor="let assessmentGroup of filteredAssessmentGroups"
+            >
+              <mat-checkbox
+                [(ngModel)]="assessmentGroup.selected"
+                (change)="toggleAssessmentGroupSelection(assessmentGroup)"
+                >{{ assessmentGroup.groupName }}</mat-checkbox
+              >
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+      <br>
+    </div>
+
+    <div class="col-md-6">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>User Groups</mat-card-title>
+        </mat-card-header>
+        <mat-card-content
+          [class.scrollable-group-list]="filteredUserGroups.length > 3"
+        >
+          <mat-form-field class="example-full-width">
+            <input
+              matInput
+              placeholder="Search User Groups"
+              [(ngModel)]="userGroupSearch"
+              (ngModelChange)="updateFilteredUserGroups()"
+            />
+          </mat-form-field>
+          <mat-list>
+            <mat-list-item *ngFor="let userGroup of filteredUserGroups">
+              <mat-checkbox
+                [(ngModel)]="userGroup.selected"
+                (change)="toggleUserGroupSelection(userGroup)"
+                >{{ userGroup.groupName }}</mat-checkbox
+              >
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+      <br />
+    </div>
+
+    <div class="col-md-6">
+      <mat-card>
+        <mat-card-header>
           <mat-card-title>Assessments</mat-card-title>
         </mat-card-header>
         <mat-card-content
-          [class.scrollable-list]="filteredAssessments.length > 6"
+          [class.scrollable-list]="filteredAssessments.length > 4"
         >
           <mat-form-field class="example-full-width">
             <input
@@ -21,6 +83,7 @@
               <mat-checkbox
                 [(ngModel)]="assessment.selected"
                 (change)="toggleAssessmentSelection(assessment)"
+                [disabled]="assessmentGroupSelected(assessment)"
                 >{{ assessment.assessmentTitle }}</mat-checkbox
               >
             </mat-list-item>
@@ -33,7 +96,8 @@
             mat-raised-button
             color="accent"
             *ngIf="onlyAssessmentsSelected"
-            (click)="groupAssessments()">
+            (click)="groupAssessments()"
+          >
             Group Assessments
           </button>
         </div>
@@ -45,7 +109,7 @@
         <mat-card-header>
           <mat-card-title>Users</mat-card-title>
         </mat-card-header>
-        <mat-card-content [class.scrollable-list]="filteredUsers.length > 6">
+        <mat-card-content [class.scrollable-list]="filteredUsers.length > 4">
           <mat-form-field class="example-full-width">
             <input
               matInput
@@ -59,6 +123,7 @@
               <mat-checkbox
                 [(ngModel)]="user.selected"
                 (change)="toggleUserSelection(user)"
+                [disabled]="userGroupSelected(user)"
                 >{{
                   user.firstName +
                     " " +
@@ -78,23 +143,26 @@
             mat-raised-button
             color="accent"
             *ngIf="onlyUsersSelected"
-            (click)="groupUsers()">
+            (click)="groupUsers()"
+          >
             Group Users
           </button>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="container text-center">
-  <div class="col-md-12 fab-container">
-    <button
-      mat-fab
-      color="primary"
-      (click)="handleFABClick()" [disabled]="disabled"
-      matTooltip="Assign Test">
-      <mat-icon>send</mat-icon>
-    </button>
+  <div class="container text-center">
+    <div class="col-md-12 fab-container">
+      <button
+        mat-fab
+        color="primary"
+        (click)="handleFABClick()"
+        [disabled]="disabled"
+        matTooltip="Assign Test"
+      >
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
   </div>
 </div>

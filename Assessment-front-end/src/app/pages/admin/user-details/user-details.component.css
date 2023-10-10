@@ -12,3 +12,12 @@
   background-color: #f0f0f0; 
 }
 
+.user-groups-button {
+  align-self: flex-start; 
+  margin-left: 20px; 
+}
+
+.center-checkbox {
+  display: flex;
+  align-items: center;
+}

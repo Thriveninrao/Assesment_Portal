@@ -32,6 +32,10 @@ import { AssessmentTakeupComponent } from './pages/user/assessment-takeup/assess
 import { PreinstructionsComponent } from './pages/user/preinstructions/preinstructions.component';
 import { StartTestComponent } from './pages/start-test/start-test.component';
 import { ViewAssessmentAttendedComponent } from './pages/admin/view-assessment-attended/view-assessment-attended.component';
+import { GroupAssessmentsComponent } from './pages/admin/group-assessments/group-assessments.component';
+import { GroupUsersComponent } from './pages/admin/group-users/group-users.component';
+import { ViewAssessmentGroupsComponent } from './pages/admin/view-assessment-groups/view-assessment-groups.component';
+import { ViewUserGroupsComponent } from './pages/admin/view-user-groups/view-user-groups.component';
 
 const routes: Routes = [
   {
@@ -73,6 +77,18 @@ const routes: Routes = [
       {
         path: 'admin-details',
         component: AdminDetailsComponent,
+      }, {
+        path: 'group-assessments',
+        component: GroupAssessmentsComponent
+      }, {
+        path: 'group-users',
+        component: GroupUsersComponent
+      }, {
+        path: 'view-user-groups',
+        component: ViewUserGroupsComponent
+      }, {
+        path: 'view-assessment-groups',
+        component: ViewAssessmentGroupsComponent
       },
       {
         path: 'categories',
@@ -136,9 +152,9 @@ const routes: Routes = [
       {
         path: 'user-assessment-details',
         component: UserAssessmentDetailsComponent,
-      },{
-        path:'view-assessment-attended/:assessmentId/:assessmentTitle',
-        component:ViewAssessmentAttendedComponent
+      }, {
+        path: 'view-assessment-attended/:assessmentId/:assessmentTitle',
+        component: ViewAssessmentAttendedComponent
       }
 
     ],

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+import { MatMenuModule } from '@angular/material/menu';
 import { ActivatedRoute } from '@angular/router';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -38,6 +39,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { AddAdminComponent } from './pages/admin/add-admin/add-admin.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { FileServicesService } from './services/file-services.service';
 import { AddUserComponent } from './pages/admin/add-user/add-user.component';
@@ -62,6 +64,10 @@ import { AssessmentTakeupComponent } from './pages/user/assessment-takeup/assess
 import { PreinstructionsComponent } from './pages/user/preinstructions/preinstructions.component';
 import { StartTestComponent } from './pages/start-test/start-test.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { GroupUsersComponent } from './pages/admin/group-users/group-users.component';
+import { GroupAssessmentsComponent } from './pages/admin/group-assessments/group-assessments.component';
+import { ViewUserGroupsComponent } from './pages/admin/view-user-groups/view-user-groups.component';
+import { ViewAssessmentGroupsComponent } from './pages/admin/view-assessment-groups/view-assessment-groups.component';
 
 
 
@@ -103,10 +109,15 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
       AssessmentTakeupComponent,
       PreinstructionsComponent,
       StartTestComponent,
+      GroupUsersComponent,
+      GroupAssessmentsComponent,
+      ViewUserGroupsComponent,
+      ViewAssessmentGroupsComponent,
 
   ],
   imports: [
     BrowserModule,
+    MatMenuModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
@@ -130,6 +141,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatTooltipModule,
     MatRadioModule,
     MatProgressSpinnerModule,
+    ReactiveFormsModule
   ],
   providers: [authInterceptorProviders, FileServicesService],
   bootstrap: [AppComponent],
