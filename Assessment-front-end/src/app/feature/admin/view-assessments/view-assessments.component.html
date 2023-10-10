@@ -27,9 +27,9 @@
         No Assessments Found
       </div>
 
-      <div class="mt-1" *ngFor="let a of pagedAssessments">
+      <div class="mt-1" *ngFor="let a of pagedAssessments;let i=index">
         <mat-accordion class="example-headers-align">
-          <mat-expansion-panel>
+          <mat-expansion-panel [expanded]="step === i" (opened)="setStep(i)">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 <span>
@@ -49,7 +49,11 @@
                 <ul class="list-group" style="background: transparent !important;">
                   <li class="list-group-item d-flex justify-content-between align-items-start" style="background: transparent;">
                     <div class="ms-2 me-auto">
-                      Questions
+                      <a matTooltip="Questions" [routerLink]="
+                      '/admin/view-assessment-questions/' +
+                      a.assessmentId +
+                      '/' +
+                      a.assessmentTitle">Questions</a>
                     </div>
                     <span class="badge bg-primary rounded-pill">{{ a.numberOfQuestions }}</span>
                   </li>
@@ -72,36 +76,38 @@
               </div>
             </div>
             <mat-action-row>
-              <button mat-raised-button [routerLink]="
+              <!-- <button mat-raised-button [routerLink]="
               '/admin/view-assessment-questions/' +
               a.assessmentId +
               '/' +
               a.assessmentTitle
             " class="ml20" color="primary">
                 Questions
-              </button>
+              </button> -->
               <!-- <button mat-stroked-button class="ml20" color="primary">
             Max Marks {{ a.maxMarks }}
           </button>
           <button mat-stroked-button class="ml20" color="primary">
             Questions {{ a.numberOfQuestions }}
           </button> -->
-              <button mat-flat-button class="ml20" color="primary">Attempts</button>
+              <button mat-raised-button class="ml20" color="primary">Attempts</button>
 
-              <button mat-button [routerLink]="'/admin/update-assessment/' + a.assessmentId" class="ml20"
+              <button mat-mini-fab matTooltip="Update" [routerLink]="'/admin/update-assessment/' + a.assessmentId"
                 color="accent">
-                Update
+                <mat-icon>edit</mat-icon>
               </button>
-              <button mat-button (click)="deleteAssessment(a.assessmentId)" class="ml20" color="warn">
-                Delete
+              <button mat-mini-fab matTooltip="Delete" (click)="deleteAssessment(a.assessmentId)" color="warn">
+                <mat-icon>delete</mat-icon>
               </button>
-              <button (click)="downloadFile(a.assessmentId)" mat-raised-button class="ml20" color="primary">
-                Export Assessment
+              <button mat-mini-fab matTooltip="Export Assessment" (click)="downloadFile(a.assessmentId)" color="primary">
+                <mat-icon>download</mat-icon>
               </button>
             </mat-action-row>
           </mat-expansion-panel>
         </mat-accordion>
       </div>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="pageSize" [pageIndex]="pageIndex" aria-label="Select page of users"
+      [length]="assessments.length" (page)="onPageChange($event)"></mat-paginator>
 
       <!-- <mat-card class="mt30 mr20 ml20 mb20" *ngFor="let a of pagedAssessments">
         <mat-card-header>
@@ -147,6 +153,9 @@
         </mat-card-actions>
       </mat-card> -->
     </mat-card-content>
+  
+    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 50, 100]" [pageSize]="pageSize" [pageIndex]="pageIndex"
+    [length]="assessments.length" (page)="onPageChange($event)" showFirstLastButtons></mat-paginator> -->
     <!-- <div class="container text-left mt20">
       <button routerLink="/admin/add-assessment" mat-raised-button color="accent">
         Add New Assessment
@@ -215,7 +224,4 @@
       </mat-card-actions>
     </mat-card> -->
   </mat-card>
-
-  <mat-paginator [pageSizeOptions]="[3, 6, 10]" [pageSize]="pageSize" [pageIndex]="pageIndex"
-    [length]="assessments.length" (page)="onPageChange($event)" showFirstLastButtons></mat-paginator>
 </div>

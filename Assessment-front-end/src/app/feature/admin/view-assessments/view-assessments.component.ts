@@ -15,9 +15,10 @@ import { MatDialog } from '@angular/material/dialog';
 export class ViewAssessmentsComponent implements OnInit {
   assessments: Assessment[] = []; // Replace YourAssessmentType with the actual type of your assessments
   pagedAssessments: Assessment[] = [];
-  pageSize = 3; // Number of items to display per page
+  pageSize = 5; // Number of items to display per page
   pageIndex = 0; // Current page index
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  step!: number;
 
   constructor(
     private assessmentService: AssessmentService,
@@ -28,10 +29,15 @@ export class ViewAssessmentsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getAssessments();
+  }
+
+  getAssessments(){
     this.assessmentService.assessments().subscribe(
       (data: any) => {
         this.assessments = data;
         this.pagedAssessments = this.assessments;
+        this.pagedAssessments = this.assessments.slice(0, 5);
         console.log(data);
       },
       (error) => {
@@ -113,12 +119,16 @@ export class ViewAssessmentsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.getAssessments();
     });
   }
 
   onUpdate(assessmentData:any){
     this.openDialog('Update', assessmentData)
+  }
+
+  setStep(index: number) {
+    this.step = index;
   }
 }
 

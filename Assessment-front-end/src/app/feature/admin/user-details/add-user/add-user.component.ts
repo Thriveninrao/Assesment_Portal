@@ -256,7 +256,7 @@ export class AddUserComponent implements OnInit {
       username: this.data?.rowData ? this.data?.rowData?.username : ''
     }
 
-    if (this.data?.rowData?.headerName === 'Add') {
+    if (this.data?.headerName === 'Add') {
       this.userservice.addUser(payload).subscribe((data: any) => {
         if (data.message === 'Success') {
           Swal.fire(
@@ -303,6 +303,7 @@ export class AddUserComponent implements OnInit {
                 'Details of ' + this.user.firstName + ' is Updated.',
                 'success'
               )
+              this.dialogref.close()
             } else {
               Swal.fire(
                 data.message,

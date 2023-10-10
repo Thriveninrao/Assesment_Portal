@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { CategoryService } from 'src/app/services/category.service';
@@ -17,7 +18,8 @@ export class AddCategoryComponent implements OnInit {
   constructor(
     private _category: CategoryService,
     private _snack: MatSnackBar,
-    private _router: Router
+    private _router: Router,
+    private _dialog: MatDialogRef<AddCategoryComponent>
   ) {}
   ngOnInit(): void {}
 
@@ -36,13 +38,13 @@ export class AddCategoryComponent implements OnInit {
       (data) => {
         this.category.categoryTitle = '';
         this.category.categoryDescription = '';
+        
         Swal.fire(
           'Success !!',
           'Category is added successfully',
           'success'
-        ).then((result) => {
-          this._router.navigate(['admin/categories']);
-        });
+        )
+        this._dialog.close();
       },
       (error) => {
         console.log(error);

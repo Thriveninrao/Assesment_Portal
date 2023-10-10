@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AssessmentService } from 'src/app/services/assessment.service';
@@ -35,7 +36,8 @@ export class AddAssessmentComponent implements OnInit {
     private _snack: MatSnackBar,
     private _assessmentService: AssessmentService,
     private _router: Router,
-    private _login: LoginService
+    private _login: LoginService,
+    private _dialog: MatDialogRef<AddAssessmentComponent>
   ) {}
 
   ngOnInit(): void {
@@ -76,6 +78,7 @@ export class AddAssessmentComponent implements OnInit {
             this._router.navigate(['/admin/view-assessments']);
           }
         );
+        this._dialog.close();
         this.assessmentData = {
           assessmentId: 23,
           assessmentTitle: '',

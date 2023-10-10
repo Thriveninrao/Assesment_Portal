@@ -18,9 +18,9 @@
         No Categories Found
       </div>
       <div>
-        <div class="mt-1" *ngFor="let c of categories">
+        <div class="mt-1" *ngFor="let c of categoriesData;let i = index">
           <mat-accordion class="example-headers-align">
-            <mat-expansion-panel>
+            <mat-expansion-panel hideToggle [expanded]="step === i" (opened)="setStep(i)">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   <span>
@@ -35,13 +35,14 @@
               {{ c.categoryDescription }}
 
               <mat-action-row>
-                <button mat-button (click)="deleteCategory(c.categoryId)"
-                  color="warn">Delete</button>
+                <button mat-mini-fab matTooltip="Delete" (click)="deleteCategory(c.categoryId)"
+                  color="warn"><mat-icon>delete</mat-icon></button>
               </mat-action-row>
             </mat-expansion-panel>
           </mat-accordion>
         </div>
-
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="pageSize" [pageIndex]="pageIndex" aria-label="Select page of users"
+        [length]="categories.length" (page)="onPageChange($event)"></mat-paginator>
         <!-- <mat-card class="mt30 mr20 ml20" *ngFor="let c of categories">
           <mat-card-header>
             <div mat-card-avatar class="category-image"></div>

@@ -31,6 +31,10 @@ export class UserDetailsComponent implements OnInit {
   ) { this.dataSource = new MatTableDataSource<User>([]); } // No need to inject a service for static data
 
   ngOnInit(): void {
+    this.getUsersData();
+  } 
+
+  getUsersData(){
     this._user.getUsers().subscribe(
       (data: any) => {
         console.log(data);
@@ -149,7 +153,7 @@ export class UserDetailsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.getUsersData()
     });
   }
 }

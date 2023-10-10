@@ -241,7 +241,7 @@ export class AddAdminComponent implements OnInit {
       username: this.data?.rowData ? this.data?.rowData?.username : ''
     }
 
-    if (this.data?.rowData?.headerName === 'Add') {
+    if (this.data?.headerName === 'Add') {
       this.userservice.addAdmin(payload).subscribe((data: any) => {
         if (data.message === 'Success') {
           Swal.fire(
@@ -288,6 +288,7 @@ export class AddAdminComponent implements OnInit {
                 'Details of ' + this.admin.firstName + ' is Updated.',
                 'success'
               )
+              this.dialogref.close()
             } else {
               Swal.fire(
                 data.message,

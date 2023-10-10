@@ -33,6 +33,11 @@ export class AdminDetailsComponent {
     { this.dataSource = new MatTableDataSource<Admin>([]); }
 
   ngOnInit(): void {
+    this.getCurrentUser()
+      this.getUsersData()
+  }
+
+  getCurrentUser(){
     this._login.getCurrentUser().subscribe(
       (data: any) => {
         console.log(data);
@@ -48,7 +53,9 @@ export class AdminDetailsComponent {
       }
 
     );
+  }
 
+  getUsersData(){
     this._user.getUsers().subscribe(
       (data: any) => {
         console.log(data);
@@ -131,7 +138,7 @@ export class AdminDetailsComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.getUsersData();
     });
   }
 }

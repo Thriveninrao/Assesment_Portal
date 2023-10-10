@@ -83,21 +83,27 @@
             </mat-form-field>
           </div>
         </div>
-        <div class="text-end">
+        <!-- <div class="text-end">
           <button class="ml30" type="reset" mat-raised-button mat-dialog-close>
             Cancel
           </button>&nbsp;
-          <button mat-raised-button class="btn-main">Add Assessment</button> 
+          <button mat-raised-button class="btn-main">Add Assessment</button>  -->
        
           <!-- <button class="ml20" routerLink="/admin/view-assessments/" mat-raised-button color="accent">
             View Assessments List
           </button> -->
-        </div>
+        <!-- </div> -->
       </form>
     </mat-card-content>
 
   </mat-card>
 
 </mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="ml30" type="reset" mat-raised-button mat-dialog-close>
+    Cancel
+  </button>&nbsp;
+  <button mat-raised-button class="btn-main" (click)="addAssessment()">Add Assessment</button> 
+</mat-dialog-actions>
 
 <!-- {{ assessmentData | json }} -->
