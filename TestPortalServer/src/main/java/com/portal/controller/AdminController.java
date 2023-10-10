@@ -56,22 +56,28 @@ public class AdminController {
 			user.setPassword(this.bCryptPasswordEncoder.encode(generatePassword));
 			user.setProfile("Admin.jpg");
 
-			userService.createUser(user, userRole);
+			if(user.getEmail().contains("@softtek.com")) {
+				userService.createUser(user, userRole);
+				message = new SuccessMessage("Success");
+				try {
+					emailService.sendEmailAdmin(user, generatePassword);
+					System.out.println("Email sent successfully!");
+				} catch (Exception e) {
+					System.out.println("Failed to send email: " + e.getMessage());
+				}
+				}
 
-			message = new SuccessMessage("Success");
-			
-			try {
-				emailService.sendEmailAdmin(user, generatePassword);
-				System.out.println("Email sent successfully!");
-			} catch (Exception e) {
-				System.out.println("Failed to send email: " + e.getMessage());
+				else {
+					message=new SuccessMessage("This Email is not allowed, try with a softtek mail id.");
+				}
+				
+				
+				
+			} else {
+				message = new SuccessMessage("Email or Phone Number already exists");
 			}
-			
-		} else {
-			message = new SuccessMessage("Already Exists");
+			return ResponseEntity.ok(message);
 		}
-		return ResponseEntity.ok(message);
-	}
 
 	@GetMapping("/{username}")
 	public User getUser(@PathVariable("username") String username) {
