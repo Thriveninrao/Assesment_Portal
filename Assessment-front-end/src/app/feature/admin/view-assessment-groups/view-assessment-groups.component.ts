@@ -8,7 +8,7 @@ import { AssessmentService } from 'src/app/services/assessment.service';
 @Component({
   selector: 'app-view-assessment-groups',
   templateUrl: './view-assessment-groups.component.html',
-  styleUrls: ['./view-assessment-groups.component.css']
+  styleUrls: ['./view-assessment-groups.component.scss']
 })
 export class ViewAssessmentGroupsComponent {
   displayedColumns: string[] = ['groupId', 'groupName']; // Define the columns you want to display

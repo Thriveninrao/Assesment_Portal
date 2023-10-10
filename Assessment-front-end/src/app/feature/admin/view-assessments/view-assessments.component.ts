@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Router,ActivatedRoute } from '@angular/router';
 import { AddAssessmentComponent } from './add-assessment/add-assessment.component';
 import { MatDialog } from '@angular/material/dialog';
+import { UpdateAssessmentComponent } from './update-assessment/update-assessment.component';
 
 @Component({
   selector: 'app-view-assessments',
@@ -116,6 +117,16 @@ export class ViewAssessmentsComponent implements OnInit {
   openDialog(name:string, rowData:any) {
     const dialogRef = this._dialog.open(AddAssessmentComponent, {
       data:{headerName:name, rowData:rowData}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAssessments();
+    });
+  }
+
+  openUpdateAssessmentDialog(assmentId:any){
+    const dialogRef = this._dialog.open(UpdateAssessmentComponent, {
+      data:{assessmentId:assmentId}
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -7,21 +7,24 @@ import { AccessRequestComponent } from '../access-request/access-request.compone
 import { AddAdminComponent } from '../admin-details/add-admin/add-admin.component';
 import { AddAssessmentComponent } from '../view-assessments/add-assessment/add-assessment.component';
 import { AddCategoryComponent } from '../view-categories/add-category/add-category.component';
-import { AddQuestionComponent } from '../add-question/add-question.component';
+import { AddQuestionComponent } from '../view-assessments/add-question/add-question.component';
 import { AddUserComponent } from '../user-details/add-user/add-user.component';
 import { AdminDetailsComponent } from '../admin-details/admin-details.component';
 import { AssignTestComponent } from '../assign-test/assign-test.component';
-import { UpdateAssessmentComponent } from '../update-assessment/update-assessment.component';
-import { UpdateSingleQuestionComponent } from '../update-single-question/update-single-question.component';
+import { UpdateAssessmentComponent } from '../view-assessments/update-assessment/update-assessment.component';
+import { UpdateSingleQuestionComponent } from '../view-assessments/update-single-question/update-single-question.component';
 import { UserAssessmentDetailsComponent } from '../user-assessment-details/user-assessment-details.component';
 import { UserDetailsComponent } from '../user-details/user-details.component';
-import { ViewAssessmentQuestionsComponent } from '../view-assessment-questions/view-assessment-questions.component';
+import { ViewAssessmentQuestionsComponent } from '../view-assessments/view-assessment-questions/view-assessment-questions.component';
 import { ViewAssessmentsComponent } from '../view-assessments/view-assessments.component';
 import { ViewCategoriesComponent } from '../view-categories/view-categories.component';
 import { WelcomeComponent } from '../welcome/welcome.component';
 import { ProfileComponent } from 'src/app/Common/components/profile/profile.component';
 import { PasswordResetComponent } from 'src/app/authentication/password-reset/password-reset.component';
 import { ViewUserGroupsComponent } from 'src/app/feature/admin/view-user-groups/view-user-groups.component';
+import { ViewAssessmentGroupsComponent } from '../view-assessment-groups/view-assessment-groups.component';
+import { GroupAssessmentsComponent } from '../group-assessments/group-assessments.component';
+
 
 const routes:Routes = [
   {
@@ -115,6 +118,14 @@ const routes:Routes = [
       {
         path: 'view-user-groups',
         component: ViewUserGroupsComponent
+      },
+      {
+        path: 'view-assessment-groups',
+        component: ViewAssessmentGroupsComponent
+      },
+      {
+        path: 'group-assessments',
+        component: GroupAssessmentsComponent
       }
     ],
   },

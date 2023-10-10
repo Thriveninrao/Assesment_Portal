@@ -20,6 +20,9 @@
           <!-- *ngIf="isAdmin" [routerLink]="['/admin/add-admin/add']" [queryParams]="{ mode: 'add' }" -->
           <button mat-raised-button class="left-button btn-main" (click)="openDialog('Add', '')">
             Add New Assessment
+          </button>&nbsp;
+          <button mat-raised-button class="left-button btn-main" routerLink="/admin/view-assessment-groups">
+            Assessment Groups
           </button>
         </div>
       </div>
@@ -47,7 +50,8 @@
               </div>
               <div class="col-3">
                 <ul class="list-group" style="background: transparent !important;">
-                  <li class="list-group-item d-flex justify-content-between align-items-start" style="background: transparent;">
+                  <li class="list-group-item d-flex justify-content-between align-items-start"
+                    style="background: transparent;">
                     <div class="ms-2 me-auto">
                       <a matTooltip="Questions" [routerLink]="
                       '/admin/view-assessment-questions/' +
@@ -57,7 +61,8 @@
                     </div>
                     <span class="badge bg-primary rounded-pill">{{ a.numberOfQuestions }}</span>
                   </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-start" style="background: transparent;">
+                  <li class="list-group-item d-flex justify-content-between align-items-start"
+                    style="background: transparent;">
                     <div class="ms-2 me-auto">
                       Max Marks
                     </div>
@@ -92,22 +97,22 @@
           </button> -->
               <button mat-raised-button class="ml20" color="primary">Attempts</button>
 
-              <button mat-mini-fab matTooltip="Update" [routerLink]="'/admin/update-assessment/' + a.assessmentId"
-                color="accent">
+              <button mat-mini-fab matTooltip="Update" (click)="openUpdateAssessmentDialog(a.assessmentId)" color="accent">
                 <mat-icon>edit</mat-icon>
               </button>
               <button mat-mini-fab matTooltip="Delete" (click)="deleteAssessment(a.assessmentId)" color="warn">
                 <mat-icon>delete</mat-icon>
               </button>
-              <button mat-mini-fab matTooltip="Export Assessment" (click)="downloadFile(a.assessmentId)" color="primary">
+              <button mat-mini-fab matTooltip="Export Assessment" (click)="downloadFile(a.assessmentId)"
+                color="primary">
                 <mat-icon>download</mat-icon>
               </button>
             </mat-action-row>
           </mat-expansion-panel>
         </mat-accordion>
       </div>
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="pageSize" [pageIndex]="pageIndex" aria-label="Select page of users"
-      [length]="assessments.length" (page)="onPageChange($event)"></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="pageSize" [pageIndex]="pageIndex"
+        aria-label="Select page of users" [length]="assessments.length" (page)="onPageChange($event)"></mat-paginator>
 
       <!-- <mat-card class="mt30 mr20 ml20 mb20" *ngFor="let a of pagedAssessments">
         <mat-card-header>
@@ -153,7 +158,7 @@
         </mat-card-actions>
       </mat-card> -->
     </mat-card-content>
-  
+
     <!-- <mat-paginator [pageSizeOptions]="[5, 10, 50, 100]" [pageSize]="pageSize" [pageIndex]="pageIndex"
     [length]="assessments.length" (page)="onPageChange($event)" showFirstLastButtons></mat-paginator> -->
     <!-- <div class="container text-left mt20">

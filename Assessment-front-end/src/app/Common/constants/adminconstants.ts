@@ -33,9 +33,15 @@ export const SIDEBAR:I_SIDEBAR[] = [
         "role": 'Admin'
     },
     {
-        "menuName": 'Access Requests',
+        "menuName": 'Assign Test',
         "icon": "work",
         "routeLink": '/admin/assign-test',
+        "role": 'Admin'
+    },
+    {
+        "menuName": 'Access Requests',
+        "icon": "accessibility",
+        "routeLink": '/admin/access-request',
         "role": 'Admin'
     },
     {
@@ -49,6 +55,12 @@ export const SIDEBAR:I_SIDEBAR[] = [
         "icon": "category",
         "routeLink": '/user/view-user-assessments',
         "role": 'User'
+    },
+    {
+        "menuName": 'Support',
+        "icon": "help",
+        "routeLink": '',
+        "role": "Admin"
     }
 ]
 

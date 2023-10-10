@@ -20,6 +20,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion'
+import { MatMenuModule } from '@angular/material/menu';
 
 const modules = [
   MatButtonModule,
@@ -41,7 +42,8 @@ const modules = [
   MatTooltipModule,
   MatRadioModule,
   MatDialogModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatMenuModule
 ]
 
 @NgModule({

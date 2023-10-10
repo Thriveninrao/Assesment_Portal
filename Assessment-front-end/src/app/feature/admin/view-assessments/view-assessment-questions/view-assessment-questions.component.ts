@@ -4,11 +4,14 @@ import { AssessmentService } from 'src/app/services/assessment.service';
 import { QuestionService } from 'src/app/services/question.service';
 import Swal from 'sweetalert2';
 import { FileServicesService } from 'src/app/services/file-services.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddQuestionComponent } from '../add-question/add-question.component';
+import { UpdateSingleQuestionComponent } from '../update-single-question/update-single-question.component';
 
 @Component({
   selector: 'app-view-assessment-questions',
   templateUrl: './view-assessment-questions.component.html',
-  styleUrls: ['./view-assessment-questions.component.css'],
+  styleUrls: ['./view-assessment-questions.component.scss'],
 })
 export class ViewAssessmentQuestionsComponent implements OnInit {
   assessmentId: any;
@@ -21,16 +24,25 @@ export class ViewAssessmentQuestionsComponent implements OnInit {
     private _question: QuestionService,
     private _assessment: AssessmentService,
     private fileService: FileServicesService,
-    private _router: Router
+    private _router: Router,
+    private _dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.assessmentId = this._route.snapshot.params['assessmentId'];
     this.assessmentTitle = this._route.snapshot.params['assessmentTitle'];
+    // console.log(this.assessmentId);
+    // console.log(this.assessmentTitle);
+    this.getAssessmentQuestions();
+    this.updateMarksandQuestions();
+  }
+
+  getAssessmentQuestions(){
     this._question.getAssessmentQuestions(this.assessmentId).subscribe(
       (data) => {
         console.log(data);
         this.questions = data;
+        console.log(this.questions)
       },
       (error) => {
         console.log(error);
@@ -41,19 +53,20 @@ export class ViewAssessmentQuestionsComponent implements OnInit {
         );
       }
     );
+  }
+
+  updateMarksandQuestions(){
     this._assessment
-      .updateMaxMarksAndQuestionsList(this.assessmentId)
-      .subscribe(
-        (data) => {
-          console.log(data);
-        },
-        (error) => {
-          console.log(error);
-          Swal.fire('Error', 'Error in updating quuestionsList', 'error');
-        }
-      );
-    // console.log(this.assessmentId);
-    // console.log(this.assessmentTitle);
+    .updateMaxMarksAndQuestionsList(this.assessmentId)
+    .subscribe(
+      (data) => {
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+        Swal.fire('Error', 'Error in updating quuestionsList', 'error');
+      }
+    );
   }
 
   // delete question
@@ -100,5 +113,24 @@ export class ViewAssessmentQuestionsComponent implements OnInit {
       console.error('No file selected.');
     }
     window.location.reload();
+  }
+
+  openQuestionDialog(){
+    const dialogRef = this._dialog.open(AddQuestionComponent, {
+      data: {assessmentID:this.assessmentId, assessmentTitle:this.assessmentTitle }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAssessmentQuestions()
+    });
+  }
+  openQuestionUpdateDialog(questionId:any){
+    const dialogRef = this._dialog.open(UpdateSingleQuestionComponent, {
+      data: {assessmentID:this.assessmentId, assessmentTitle:this.assessmentTitle, qstId: questionId}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAssessmentQuestions()
+    });
   }
 }

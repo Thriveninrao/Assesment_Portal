@@ -1,21 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AssessmentService } from 'src/app/services/assessment.service';
 import { CategoryService } from 'src/app/services/category.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-update-assessment',
   templateUrl: './update-assessment.component.html',
-  styleUrls: ['./update-assessment.component.css'],
+  styleUrls: ['./update-assessment.component.scss'],
 })
 export class UpdateAssessmentComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _assessment: AssessmentService,
     private _category: CategoryService,
-    private router: Router
+    private router: Router,
+    private dialogref: MatDialogRef<UpdateAssessmentComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
   categories: any = [];
@@ -27,7 +30,7 @@ export class UpdateAssessmentComponent implements OnInit {
   assessment: any;
   assessmentId = 0;
   ngOnInit(): void {
-    this.assessmentId = this._route.snapshot.params['assessmentId'];
+    this.assessmentId = this.data.assessmentId;
     // alert(this.assessmentId);
     this._assessment.getAssessment(this.assessmentId).subscribe(
       (data) => {
