@@ -24,7 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/Common/shared/shared.module';
 import { ViewUserGroupsComponent } from './view-user-groups/view-user-groups.component';
 import { ViewAssessmentGroupsComponent } from './view-assessment-groups/view-assessment-groups.component';
-import { GroupAssessmentsComponent } from './group-assessments/group-assessments.component';
+import { GroupAssessmentsComponent } from './view-assessment-groups/group-assessments/group-assessments.component';
 
 
 

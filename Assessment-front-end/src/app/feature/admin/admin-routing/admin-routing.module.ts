@@ -23,7 +23,7 @@ import { ProfileComponent } from 'src/app/Common/components/profile/profile.comp
 import { PasswordResetComponent } from 'src/app/authentication/password-reset/password-reset.component';
 import { ViewUserGroupsComponent } from 'src/app/feature/admin/view-user-groups/view-user-groups.component';
 import { ViewAssessmentGroupsComponent } from '../view-assessment-groups/view-assessment-groups.component';
-import { GroupAssessmentsComponent } from '../group-assessments/group-assessments.component';
+import { GroupAssessmentsComponent } from '../view-assessment-groups/group-assessments/group-assessments.component';
 
 
 const routes:Routes = [
