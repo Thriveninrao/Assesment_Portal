@@ -4,6 +4,9 @@ import { UserserviceService } from 'src/app/services/userservice.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { GroupAssessmentsComponent } from '../view-assessment-groups/group-assessments/group-assessments.component';
+import { GroupUsersComponent } from '../view-user-groups/group-users/group-users.component';
 
 @Component({
   selector: 'app-assign-test',
@@ -35,9 +38,22 @@ export class AssignTestComponent implements OnInit {
   filteredUsers: User[] = this.users;
   filteredUserGroups: UserGroup[] = this.userGroups;
 
-  constructor(private assessmentService: AssessmentService, private userService: UserserviceService, private snack: MatSnackBar, private _router: Router) { }
+  constructor(
+    private assessmentService: AssessmentService, 
+    private userService: UserserviceService, 
+    private snack: MatSnackBar, 
+    private _router: Router,
+    private _dialog: MatDialog
+    ) { }
 
   ngOnInit(): void {
+    this.getAssessmentData();
+    this.getAssessmentGroupData();
+    this.getUserData();
+    this.getUserGroupData()
+  }
+
+  getAssessmentData(){
     this.assessmentService.assessments().subscribe(
       (data: any) => {
         this.assessments = data.map((assessment: any) => ({
@@ -52,7 +68,9 @@ export class AssignTestComponent implements OnInit {
         Swal.fire('Error !', 'Error Loading data', 'error');
       }
     );
+  }
 
+  getAssessmentGroupData(){
     this.assessmentService.getAssessmentGroups().subscribe((data: any) => {
       this.assessmentGroups = data;
       this.updateFilteredAssessmentGroups();
@@ -61,6 +79,9 @@ export class AssignTestComponent implements OnInit {
         Swal.fire('Error !!', 'Error in loading data', 'error');
       });
 
+  }
+
+  getUserData(){
     this.userService.getUsers().subscribe(
       (data: any) => {
         this.users = data.map((user: any) => ({
@@ -87,7 +108,9 @@ export class AssignTestComponent implements OnInit {
         console.log(error)
         Swal.fire('Error !', 'Error Loading data', 'error');
       });
+  }
 
+  getUserGroupData(){
     this.userService.getUserGroups().subscribe((data: any) => {
       this.userGroups = data;
       this.updateFilteredUserGroups();
@@ -268,15 +291,30 @@ export class AssignTestComponent implements OnInit {
     this.selectedAssessments = this.selectedAssessments.filter((assessment, index, self) =>
       index === self.findIndex((a) => a.assessmentId === assessment.assessmentId)
     );
-    console.log("in method");
-    console.log("Selected Assessments", this.selectedAssessments);
+    // console.log("in method");
+    // console.log("Selected Assessments", this.selectedAssessments);
 
-    const queryParams = {
-      selectedAssessments: JSON.stringify(this.selectedAssessments),
-      assessments: JSON.stringify(this.assessments)
-    };
+    // const queryParams = {
+    //   selectedAssessments: JSON.stringify(this.selectedAssessments),
+    //   assessments: JSON.stringify(this.assessments)
+    // };
 
-    this._router.navigate(['/admin/group-assessments'], { queryParams });
+    // this._router.navigate(['/admin/group-assessments'], { queryParams });
+    this.openAssessmentGroupDialog();
+  }
+
+  openAssessmentGroupDialog(){
+    const dialogRef = this._dialog.open(GroupAssessmentsComponent, {
+      data: {
+        selectedAssessments: JSON.stringify(this.selectedAssessments),
+        assessments: JSON.stringify(this.assessments)
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAssessmentData();
+      this.getAssessmentGroupData();
+    });
   }
 
   groupUsers() {
@@ -286,12 +324,27 @@ export class AssignTestComponent implements OnInit {
     console.log("in method");
     console.log("Selected Users", this.selectedUsers);
 
-    const queryParams = {
-      selectedUsers: JSON.stringify(this.selectedUsers),
-      users: JSON.stringify(this.users)
-    };
+    // const queryParams = {
+    //   selectedUsers: JSON.stringify(this.selectedUsers),
+    //   users: JSON.stringify(this.users)
+    // };
 
-    this._router.navigate(['/admin/group-users'], { queryParams });
+    // this._router.navigate(['/admin/group-users'], { queryParams });
+    this.openUserGroupDialog()
+  }
+
+  openUserGroupDialog(){
+    const dialogRef = this._dialog.open(GroupUsersComponent, {
+      data: {
+        selectedUsers: JSON.stringify(this.selectedUsers),
+        users: JSON.stringify(this.users)
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getUserData();
+      this.getUserGroupData();
+    });
   }
 
 }

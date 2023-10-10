@@ -128,10 +128,10 @@ export class GroupAssessmentsComponent {
         });
       }
     }
-    // this.groupForm.get('groupName')!.valueChanges.subscribe((value) => {
-    //   this.groupForm.get('groupName')!.setValidators([Validators.required]);
-    //   this.groupForm.get('groupName')!.updateValueAndValidity();
-    // });
+    this.groupForm.get('groupName')!.valueChanges.subscribe((value) => {
+      this.groupForm.get('groupName')!.setValidators([Validators.required]);
+      this.groupForm.get('groupName')!.updateValueAndValidity();
+    });
     this.assessmentMenuItems = [...this.assessments];
 
   }

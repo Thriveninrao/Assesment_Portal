@@ -4,13 +4,13 @@
     clear: both;
   }
   
-  .selected-users-row {
+  .selected-group-row {
     display: flex;
     flex-wrap: wrap;
   }
   
-  .selected-users-row mat-card {
-    width: calc(20% - 40px); /* Adjust the width as needed */
+  .selected-group-row mat-card {
+    width: 300px; /* Adjust the width as needed */
     margin: 10px;
   }
   
@@ -33,12 +33,12 @@
     font-size: 24px; /* Adjust the font size as needed */
   }
   
-  .user-menu {
-    max-height: 20px; /* Adjust the height as needed */
-    overflow-y: auto;
-  }
-  
   .center-button {
     margin-top: 16px; /* Optional: Add space between other form elements and button */
+  }
+
+  a{
+    cursor: pointer;
+    text-decoration: none;
   }
   

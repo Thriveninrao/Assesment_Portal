@@ -19,9 +19,11 @@
         <div style="display:flex; justify-content: flex-end;" class="mb-4">
           <!-- *ngIf="isAdmin" [routerLink]="['/admin/add-admin/add']" [queryParams]="{ mode: 'add' }" -->
           <button mat-raised-button class="left-button btn-main" (click)="openDialog('Add', '')">
+            <mat-icon mat-list-icon>category</mat-icon>
             Add New Assessment
           </button>&nbsp;
           <button mat-raised-button class="left-button btn-main" routerLink="/admin/view-assessment-groups">
+            <mat-icon mat-list-icon>category</mat-icon>
             Assessment Groups
           </button>
         </div>

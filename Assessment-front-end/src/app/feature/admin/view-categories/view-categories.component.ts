@@ -109,6 +109,7 @@ export class ViewCategoriesComponent implements OnInit {
                 (test: any) => test.categoryId != categoryId
               );
               Swal.fire('Success', 'Category Deleted', 'success');
+              this.getCategories();
             },
             (error) => {
               Swal.fire('Error', 'Error in deleting', 'error');

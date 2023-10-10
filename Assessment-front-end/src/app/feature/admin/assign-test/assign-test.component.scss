@@ -4,7 +4,11 @@
   }
 
   .scrollable-group-list{
-    max-height: 180px; /* Set your desired maximum height here */
+    max-height: 380px; /* Set your desired maximum height here */
     overflow-y: auto;
+  }
+
+  mat-card{
+    height: 350px;
   }
   

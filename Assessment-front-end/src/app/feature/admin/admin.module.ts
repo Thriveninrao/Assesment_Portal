@@ -25,6 +25,7 @@ import { SharedModule } from 'src/app/Common/shared/shared.module';
 import { ViewUserGroupsComponent } from './view-user-groups/view-user-groups.component';
 import { ViewAssessmentGroupsComponent } from './view-assessment-groups/view-assessment-groups.component';
 import { GroupAssessmentsComponent } from './view-assessment-groups/group-assessments/group-assessments.component';
+import { GroupUsersComponent } from './view-user-groups/group-users/group-users.component';
 
 
 
@@ -50,7 +51,8 @@ import { GroupAssessmentsComponent } from './view-assessment-groups/group-assess
     WelcomeComponent,
     ViewUserGroupsComponent,
     ViewAssessmentGroupsComponent,
-    GroupAssessmentsComponent
+    GroupAssessmentsComponent,
+    GroupUsersComponent
   ],
   imports: [
     CommonModule,

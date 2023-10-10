@@ -24,10 +24,13 @@
           </mat-form-field> -->
         </div>
         <div class="mt-4">
-          <button (click)="openDialog('Add', '')" mat-raised-button
-            class="btn-main">
+          <button (click)="openDialog('Add', '')" mat-raised-button class="btn-main">
             <mat-icon mat-list-icon>person_add</mat-icon>
             Add User
+          </button> &nbsp;
+          <button routerLink="/admin/view-user-groups" mat-raised-button class="btn-main">
+            <mat-icon mat-list-icon>person_add</mat-icon>
+            Add User Groups
           </button>
         </div>
       </div>
