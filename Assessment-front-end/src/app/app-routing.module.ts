@@ -160,10 +160,11 @@ const routes: Routes = [
           path:'feedback',
           component:FeedbackComponent
           },
-      }
+        ],
+      },
 
-    ],
-  },
+  
+  
   {
     path: 'user',
     component: UserDashboardComponent,

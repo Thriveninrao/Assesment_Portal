@@ -69,7 +69,6 @@ import { GroupAssessmentsComponent } from './pages/admin/group-assessments/group
 import { ViewUserGroupsComponent } from './pages/admin/view-user-groups/view-user-groups.component';
 import { ViewAssessmentGroupsComponent } from './pages/admin/view-assessment-groups/view-assessment-groups.component';
 import { FeedbackComponent } from './pages/user/feedback/feedback.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { ViewAssessmentAttendedComponent } from './pages/admin/view-assessment-attended/view-assessment-attended.component';
 import { MatSortModule } from '@angular/material/sort';
 
