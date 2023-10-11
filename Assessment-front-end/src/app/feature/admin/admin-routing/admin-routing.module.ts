@@ -42,10 +42,6 @@ const routes:Routes = [
         component: ProfileComponent,
       },
       {
-        path: 'password-reset',
-        component: PasswordResetComponent,
-      },
-      {
         path: 'user-details',
         component: UserDetailsComponent,
       },

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,9 +14,10 @@ import { authInterceptorProviders } from './services/auth.interceptor';
 import { FileServicesService } from './services/file-services.service';
 import { NavbarComponent } from './Common/shared/navbar/navbar.component';
 import { SignupComponent } from './authentication/signup/signup.component';
-import { PasswordResetComponent } from './authentication/password-reset/password-reset.component';
 import { ProfileComponent } from './Common/components/profile/profile.component';
 import { SharedModule } from './Common/shared/shared.module';
+import { PasswordResetComponent } from './authentication/password-reset/password-reset.component';
+import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { SharedModule } from './Common/shared/shared.module';
     HomeComponent,
     PasswordResetComponent,
     ProfileComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +42,7 @@ import { SharedModule } from './Common/shared/shared.module';
     SharedModule
   ],
   providers: [authInterceptorProviders, FileServicesService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

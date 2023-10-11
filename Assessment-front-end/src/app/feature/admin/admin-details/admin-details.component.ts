@@ -22,6 +22,7 @@ export class AdminDetailsComponent {
   image: any;
   loggedInAdmin!: Admin;
   isAdmin: boolean = false;
+  isSubmitted:boolean = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -38,8 +39,10 @@ export class AdminDetailsComponent {
   }
 
   getCurrentUser(){
+    this.isSubmitted = true;
     this._login.getCurrentUser().subscribe(
       (data: any) => {
+        this.isSubmitted = false
         console.log(data);
         this.loggedInAdmin = data;
         if (this.loggedInAdmin.username === 'admin.admin') {
@@ -48,6 +51,7 @@ export class AdminDetailsComponent {
 
       },
       (error) => {
+        this.isSubmitted = false;
         console.log(error);
         alert("Error");
       }
@@ -56,8 +60,10 @@ export class AdminDetailsComponent {
   }
 
   getUsersData(){
+    this.isSubmitted = true;
     this._user.getUsers().subscribe(
       (data: any) => {
+        this.isSubmitted = false;
         console.log(data);
         this.admins = data;
 
@@ -83,6 +89,7 @@ export class AdminDetailsComponent {
       },
       (error) => {
         console.log(error);
+        this.isSubmitted = false;
         Swal.fire('Error !!', 'Error in loading data', 'error');
       }
     );
@@ -114,8 +121,10 @@ export class AdminDetailsComponent {
       showCancelButton: true,
     }).then((result) => {
       if (result.value) {
+        this.isSubmitted = true;
         this._user.forceDelete(admin.username).subscribe((dataOfForceDelete: any) => {
           console.log("Data:", dataOfForceDelete);
+          this.isSubmitted = false;
           if (dataOfForceDelete.message === "deleted Successfully") {
             const index = this.admins.findIndex(a => a.username === admin.username);
             if (index !== -1) {
@@ -125,6 +134,8 @@ export class AdminDetailsComponent {
             Swal.fire('Success', admin.firstName + ' ' + admin.lastName + ' successfully deleted', 'success');
           } else
             Swal.fire('Error', 'Error in deletion, Try again!', 'error');
+        }, error => {
+          this.isSubmitted = false;
         });
       }
     });

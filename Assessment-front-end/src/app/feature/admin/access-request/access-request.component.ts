@@ -17,6 +17,7 @@ export class AccessRequestComponent implements OnInit {
   users: User[] = []; // Initialize an empty array to hold user data
   dataSource!: MatTableDataSource<User>;
   searchQuery: string = '';
+  isSubmitted:boolean = false
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -24,8 +25,14 @@ export class AccessRequestComponent implements OnInit {
     private _user: UserserviceService,
   ) { this.dataSource = new MatTableDataSource<User>([]); }
   ngOnInit(): void {
+    this.getAcessRequest()
+  }
+
+  getAcessRequest(){
+    this.isSubmitted = true;
     this._user.getUserAccessRequest().subscribe(
       (data: any) => {
+        this.isSubmitted = false
         //success
         this.users = data;
         this.dataSource.data = this.users;
@@ -33,6 +40,7 @@ export class AccessRequestComponent implements OnInit {
         console.log(this.users);
       },
       (error) => {
+        this.isSubmitted = false
         console.log(error);
         Swal.fire('Error !!', 'Error in loading data', 'error');
       }

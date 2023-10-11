@@ -7,12 +7,14 @@ import { LayoutComponent } from './layout/layout.component';
 import { MatTableComponent } from './mat-table/mat-table.component';
 import { RouterModule } from '@angular/router';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
+import { LoaderComponent } from './loader/loader.component';
 
 const components = [
   NavbarComponent,
   LayoutComponent,
   MatTableComponent,
-  SearchFilterComponent
+  SearchFilterComponent,
+  LoaderComponent,
 ]
 
 @NgModule({

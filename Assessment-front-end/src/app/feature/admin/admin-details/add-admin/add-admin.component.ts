@@ -21,6 +21,7 @@ export class AddAdminComponent implements OnInit {
   inputFieldsModified = false;
   mode: any;
   loadedAdmin: any;
+  isSubmitted:boolean = false;
   constructor(
     private userservice: UserserviceService,
     private snack: MatSnackBar,
@@ -74,13 +75,16 @@ export class AddAdminComponent implements OnInit {
   }
 
   loadAdminData(adminId: number): any {
+    this.isSubmitted = true;
     this.userservice.getUserById(adminId).subscribe(
       (adminData: any) => {
+        this.isSubmitted = false;
         console.log(adminData);
         this.admin = adminData;
         this.loadedAdmin = adminData;
       },
       (error: any) => {
+        this.isSubmitted = false
         console.error('Error loading user data:', error);
       }
     );
@@ -116,8 +120,10 @@ export class AddAdminComponent implements OnInit {
       console.log("adding admin");
       //addUser : userservice
       this.disabled = true;
+      this.isSubmitted = true;
       this.userservice.addAdmin(this.admin).subscribe(
         (data: any) => {
+          this.isSubmitted = false
           if (data.message === 'Success') {
             //Success
             Swal.fire(
@@ -146,6 +152,7 @@ export class AddAdminComponent implements OnInit {
         },
         (error) => {
           //Error
+          this.isSubmitted = false
           console.log(error);
           this.snack.open('Error', '', {
             duration: 3000,
@@ -169,8 +176,10 @@ export class AddAdminComponent implements OnInit {
         if (result.value) {
           console.log("updating user");
           this.disabled = true;
+          this.isSubmitted = true;
           this.userservice.updateUser(this.admin).subscribe((data: any) => {
             console.log(data.message);
+            this.isSubmitted = false
             if (data.message === 'Success') {
               //Success
               Swal.fire(
@@ -197,6 +206,7 @@ export class AddAdminComponent implements OnInit {
           },
             (error) => {
               //Error
+              this.isSubmitted = false
               console.log(error);
               this.snack.open('Error: Check the entered email or phone number', '', {
                 duration: 3000,
@@ -244,7 +254,9 @@ export class AddAdminComponent implements OnInit {
     }
 
     if (this.data?.headerName === 'Add') {
+      this.isSubmitted = true
       this.userservice.addAdmin(payload).subscribe((data: any) => {
+        this.isSubmitted = false
         if (data.message === 'Success') {
           Swal.fire(
             data.message,
@@ -261,6 +273,7 @@ export class AddAdminComponent implements OnInit {
           );
         }
       }, (error) => {
+        this.isSubmitted = false
         this.snack.open('Error', '', {
           duration: 3000,
           verticalPosition: 'bottom',
@@ -281,8 +294,10 @@ export class AddAdminComponent implements OnInit {
         if (result.value) {
           console.log("updating user");
           this.disabled = true;
+          this.isSubmitted = true;
           this.userservice.updateUser(payload).subscribe((data: any) => {
             console.log(data.message);
+            this.isSubmitted = false;
             if (data.message === 'Success') {
               //Success
               Swal.fire(
@@ -301,6 +316,7 @@ export class AddAdminComponent implements OnInit {
           },
             (error) => {
               //Error
+              this.isSubmitted = false
               console.log(error);
               this.snack.open('Error: Check the entered email or phone number', '', {
                 duration: 3000,
