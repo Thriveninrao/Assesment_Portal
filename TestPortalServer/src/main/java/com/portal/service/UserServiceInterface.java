@@ -5,13 +5,13 @@ import java.util.Set;
 
 import javax.mail.MessagingException;
 
-import com.portal.model.DataSent;
-import com.portal.model.SuccessMessage;
 import com.portal.model.User;
 import com.portal.model.UserGroupDataModel;
 import com.portal.model.UserGroupDataSent;
-import com.portal.model.UserModel;
 import com.portal.model.UserRole;
+import com.portal.model.data.DataSent;
+import com.portal.model.data.SuccessMessage;
+import com.portal.model.data.UserModel;
 
 public interface UserServiceInterface {
 

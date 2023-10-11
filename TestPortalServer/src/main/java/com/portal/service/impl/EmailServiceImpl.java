@@ -11,8 +11,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.portal.model.User;
-import com.portal.model.UserModel;
 import com.portal.model.assessment.Assessment;
+import com.portal.model.data.UserModel;
 import com.portal.service.EmailServiceInterface;
 
 @Service

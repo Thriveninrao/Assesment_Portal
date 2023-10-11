@@ -14,18 +14,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.portal.model.DataSent;
 import com.portal.model.Role;
-import com.portal.model.SuccessMessage;
 import com.portal.model.User;
 import com.portal.model.UserAssessmentAssignment;
 import com.portal.model.UserGroup;
 import com.portal.model.UserGroupDataModel;
 import com.portal.model.UserGroupDataSent;
 import com.portal.model.UserGroupUser;
-import com.portal.model.UserModel;
 import com.portal.model.UserRole;
 import com.portal.model.assessment.Assessment;
+import com.portal.model.data.DataSent;
+import com.portal.model.data.SuccessMessage;
+import com.portal.model.data.UserModel;
 import com.portal.repository.RoleRepository;
 import com.portal.repository.UserGroupRepository;
 import com.portal.repository.UserRepository;
@@ -230,7 +230,7 @@ public class UserServiceImpl implements UserServiceInterface {
 
 	    return password.toString();
 	}
-	
+
 	@Override
 	public String generateOTP() {
 		final String CHAR_UPPER = "abcdefghijklmnopqrstuvwxyz".toUpperCase();
@@ -258,8 +258,8 @@ public class UserServiceImpl implements UserServiceInterface {
 		user.setEmail("admin.admin@softtek.com");
 		user.setPhone("9999999999");
 		Role role = new Role();
-		role.setRoleId(43L);
-		role.setRoleName("SUPER-ADMIN");
+		role.setRoleId(44L);
+		role.setRoleName("ADMIN");
 
 		UserRole userRole = new UserRole();
 		userRole.setRole(role);
@@ -305,6 +305,7 @@ public class UserServiceImpl implements UserServiceInterface {
 	@Override
 	public Boolean updateApproveUserRequest(String username) {
 		String newPassword = this.generatePassword();
+		userRepo.updateLoginLimitToOneByUsername(username);
 		userRepo.updateLoggedInToFalseByUsername(username);
 		userRepo.updateLoginRequestedToFalseByUsername(username);
 		userRepo.updatePasswordByUsername(username, this.bCryptPasswordEncoder.encode(newPassword));

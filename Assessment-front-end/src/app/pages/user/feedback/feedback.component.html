@@ -1,0 +1,51 @@
+<!-- assessment-form.component.html -->
+
+<form [formGroup]="assessmentForm" (ngSubmit)="submitForm()">
+    <div class="form-group">
+      <label for="relevancyToObjective">Relevancy to Objective</label>
+      <input type="number" formControlName="relevancyToObjective" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="recommendationToFellowSofttekians">Recommendation to Fellow Softtekians</label>
+      <input type="number" formControlName="recommendationToFellowSofttekians" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="anyOtherAssessmentTobeAdded">Any Other Assessment to be Added</label>
+      <input type="text" formControlName="anyOtherAssessmentTobeAdded">
+    </div>
+  
+    <div class="form-group">
+      <label for="TrainerName">Trainer Name</label>
+      <input type="text" formControlName="TrainerName" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="trainerOverall">Trainer Overall</label>
+      <input type="number" formControlName="trainerOverall" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="rateBeforeTakingTraining">Rate Before Taking Training</label>
+      <input type="number" formControlName="rateBeforeTakingTraining" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="rateAfterTakingTraining">Rate After Taking Training</label>
+      <input type="number" formControlName="rateAfterTakingTraining" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="rateTheTrainerOnExpertise">Rate the Trainer on Expertise</label>
+      <input type="number" formControlName="rateTheTrainerOnExpertise" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="sugestions">Suggestions</label>
+      <textarea formControlName="sugestions"></textarea>
+    </div>
+  
+    <button type="submit">Submit</button>
+  </form>
+  

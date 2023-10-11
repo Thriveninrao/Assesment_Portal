@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.portal.model.Role;
-import com.portal.model.SuccessMessage;
 import com.portal.model.User;
 import com.portal.model.UserRole;
+import com.portal.model.data.SuccessMessage;
 import com.portal.service.EmailServiceInterface;
 import com.portal.service.UserServiceInterface;
 

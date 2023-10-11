@@ -9,9 +9,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.portal.model.AssessmentGrouDataSent;
 import com.portal.model.AssessmentGroupDataModel;
-import com.portal.model.ResultOfAssessment;
-import com.portal.model.SuccessMessage;
 import com.portal.model.assessment.Assessment;
+import com.portal.model.data.ResultOfAssessment;
+import com.portal.model.data.SuccessMessage;
 
 public interface AssessmentServiceInterface {
 

@@ -25,14 +25,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.portal.model.AssessmentGrouDataSent;
 import com.portal.model.AssessmentGroupDataModel;
-import com.portal.model.ResultOfAssessment;
-import com.portal.model.SuccessMessage;
 import com.portal.model.User;
 import com.portal.model.assessment.Assessment;
 import com.portal.model.assessment.AssessmentGroup;
 import com.portal.model.assessment.AssessmentGroupAssessment;
 import com.portal.model.assessment.Question;
 import com.portal.model.assessment.TestResult;
+import com.portal.model.data.ResultOfAssessment;
+import com.portal.model.data.SuccessMessage;
 import com.portal.repository.AssessmentGroupRepository;
 import com.portal.repository.AssessmentRepository;
 import com.portal.repository.QuestionRepository;
@@ -225,6 +225,7 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 			resultAssessment.setObtainedMarks(result.getMarksObtained());
 			resultAssessment.setUserId(result.getUserId());
 			resultAssessment.setUserName(userRepo.getReferenceById(result.getUserId()).getFirstName());
+			resultAssessment.setAssessmentTookDate(result.getAssessmentTookDate());
 			resultAssessmentModelSet.add(resultAssessment);
 		}
 		return resultAssessmentModelSet;

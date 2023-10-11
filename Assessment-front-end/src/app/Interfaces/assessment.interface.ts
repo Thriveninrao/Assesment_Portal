@@ -20,4 +20,18 @@ export interface ResultOfAssessment {
   obtainedMarks: number;
   userId: number;
   userName: string;
+  assessmentTookDate:string
+}
+
+
+export interface AssessmentFeedBack{
+  relevancyToObjective:number;
+  recommendationToFellowSofttekians:number;
+  anyOtherAssessmentTobeAdded:string;
+  TrainerName:string;
+  trainerOverall:number;
+  rateBeforetakingTraining:number;
+  rateAfterTakingTraining:number;
+  rateTheTrainerOnExpertise:number;
+  sugestions:string;
 }
