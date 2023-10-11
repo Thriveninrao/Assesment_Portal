@@ -51,7 +51,6 @@ public class AssessmentController {
 			e.printStackTrace();
 			return new ResponseEntity<String>("Couldn't insert Assessment record", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
 	}
 
 	@GetMapping("/{assessmentId}")
