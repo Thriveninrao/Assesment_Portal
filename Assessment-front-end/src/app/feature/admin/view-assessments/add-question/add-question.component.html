@@ -1,0 +1,138 @@
+<div class="mat-title d-flex justify-content-between">
+  <div class="">
+    <h1 mat-dialog-title>Adding Questions to {{ assessmentTitle }}</h1>
+  </div>
+  <div class="close-icon" mat-dialog-close=>
+    <mat-icon>close</mat-icon>
+  </div>
+</div>
+<mat-dialog-content class="mat-typography" style="width: 720px;">
+  <mat-accordion class="example-headers-align">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+        </mat-panel-title>
+        <mat-panel-description>
+          Excel Upload
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="m-3 text-center">
+        <input type="file" (change)="onFileSelected($event)" accept=".xlsx" />
+      </div>
+      <mat-action-row>
+        <button mat-raised-button matTooltip="Upload" (click)="onSubmit()" class="btn-main">Upload</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+        </mat-panel-title>
+        <mat-panel-description>
+          Add Question
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-card>
+        <mat-card-content class="text-center">
+          <form class="mt30" (submit)="formSubmit()">
+            <!-- Content field -->
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field appearance="outline" class="w100">
+                  <mat-label><b>Write your Question</b></mat-label>
+                  <textarea rows="2" name="content" [(ngModel)]="question.content" matInput
+                    placeholder="Enter your Question Content"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <!-- options field -->
+            <div class="row">
+              <div class="col-md-6">
+                <!-- option1 -->
+                <mat-form-field appearance="outline" class="w100">
+                  <mat-label>Enter Option 1</mat-label>
+                  <textarea rows="1" name="option1" [(ngModel)]="question.option1" matInput
+                    placeholder="Enter the first option"></textarea>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <!-- option2 -->
+                <mat-form-field appearance="outline" class="w100">
+                  <mat-label>Enter Option 2</mat-label>
+                  <textarea rows="1" name="option2" [(ngModel)]="question.option2" matInput
+                    placeholder="Enter the second option"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <!-- option3 -->
+                <mat-form-field appearance="outline" class="w100">
+                  <mat-label>Enter Option 3</mat-label>
+                  <textarea rows="1" name="option3" [(ngModel)]="question.option3" matInput
+                    placeholder="Enter the third option"></textarea>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <!-- option4 -->
+                <mat-form-field appearance="outline" class="w100">
+                  <mat-label>Enter Option 4</mat-label>
+                  <textarea rows="1" name="option4" [(ngModel)]="question.option4" matInput
+                    placeholder="Enter the fourth option"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w100">
+                  <mat-label>Select Answer</mat-label>
+                  <mat-select name="answer" [(ngModel)]="question.answer" placeholder="Select Correct Option">
+                    <mat-option *ngIf="question.option1" [value]="question.option1">{{ question.option1 }}</mat-option>
+                    <mat-option *ngIf="question.option2" [value]="question.option2">{{ question.option2 }}</mat-option>
+                    <mat-option *ngIf="question.option3" [value]="question.option3">{{ question.option3 }}</mat-option>
+                    <mat-option *ngIf="question.option4" [value]="question.option4">{{ question.option4 }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w100">
+                  <mat-label>Marks</mat-label>
+                  <input matInput placeholder="Enter Question Marks" [(ngModel)]="question.marks" [defaultValue]="1"
+                    name="marks" />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <!-- answer -->
+
+            <!--        
+            <div class="container">
+            
+            </div> -->
+          </form>
+        </mat-card-content>
+      </mat-card>
+      <mat-action-row>
+        <!-- <button class="ml30" mat-raised-button mat-dialog-close="">
+          Cancel
+        </button> -->
+        <button mat-raised-button class="btn-main" (click)="formSubmit()">
+          Add Question
+        </button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+</mat-dialog-content>
+
+<!-- <div class="bootstrap-wrapper">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="heading mt20 ml20">
+        Adding Question to {{ assessmentTitle }}
+      </h1>
+      
+    </div>
+  </div>
+</div> -->
+<!-- {{ question | json }} -->

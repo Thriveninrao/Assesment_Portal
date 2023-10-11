@@ -1,0 +1,40 @@
+<mat-card class="mt20 mr20 ml20">
+  <mat-card>
+    <mat-card-header>
+      <div class="mb-3">
+        <h4>User Groups</h4>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="add-user-group-button d-flex" style="justify-content: flex-end;">
+        <button mat-raised-button class="btn-main" (click)="addGroup()">
+          <mat-icon>add</mat-icon>Add User Group
+        </button>
+      </div>
+      <div class="selected-group-row" *ngIf="groups.length !== 0">
+        <mat-card *ngFor="let group of groups; let i = index">
+          <div class="d-flex justify-content-between">
+            <div>
+              <a (click)="handleGroupClick(group)" class="group-card-link">
+                <mat-card-header>
+                  <mat-card-title>{{ group.groupName }}</mat-card-title>
+                  <!-- <mat-card-subtitle>Group ID: {{ group.groupId }}</mat-card-subtitle> -->
+                </mat-card-header>
+              </a>
+            </div>
+            <div >
+              <mat-card-header>
+                <button mat-button color="warn" (click)="removeGroup(i)">
+                  <mat-icon style="margin-top: -8px;">delete</mat-icon>
+                </button>
+              </mat-card-header>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+      <div class="text-center" *ngIf="groups.length === 0">
+        <p>No Groups Found</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</mat-card>

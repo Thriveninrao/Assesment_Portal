@@ -1,0 +1,20 @@
+.delete-button {
+    color: red;
+  }
+
+
+  .mat-table{
+    table{
+      background-color: transparent !important;
+  
+      th, td{
+        text-align: center;
+      }
+    }
+  }
+
+  .profile-image{
+    max-width: 40px;
+    border-radius: 25%; 
+    margin: 5px;
+  }

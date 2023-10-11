@@ -1,0 +1,77 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <div class="mb-3">
+        <h4>Questions of {{ assessmentTitle }}</h4>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row mb-2">
+        <div class="d-flex" style="justify-content: flex-end;">
+          <button mat-raised-button class="left-button btn-main" (click)="openQuestionDialog()">
+            Add Questions
+          </button>
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="mb-4 text-center">
+         <div>
+            <input type="file" (change)="onFileSelected($event)" accept=".xlsx" />
+          </div>
+          <div class="mt-4">
+            <button type="submit" mat-raised-button class="btn-main">
+              Upload
+            </button>
+          </div>
+        </div>
+      </div> -->
+     <div *ngIf="questions?.numberOfQuestions !==0">
+      <mat-card class="mt20" *ngFor="let q of questions; let i = index">
+        <div class="m-3 d-flex"  style="justify-content: flex-end;">
+          <h6>Number Of Questions : {{ questions.length }}</h6>
+        </div>
+        <mat-card-content>
+          <p>
+            <b>Q{{ i + 1 }}</b>
+            <span class="ml20" [innerHTML]="q.content"></span>
+          </p>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6">
+                <p><b>1) </b> {{ q.option1 }}</p>
+              </div>
+              <div class="col-md-6">
+                <p><b>2) </b> {{ q.option2 }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <p><b>3) </b> {{ q.option3 }}</p>
+              </div>
+              <div class="col-md-6">
+                <p><b>4) </b> {{ q.option4 }}</p>
+              </div>
+            </div>
+            <mat-divider> </mat-divider>
+            <p class="mt20">
+              <b>Correct Answer : {{ q.answer }}</b>
+            </p>
+          </div>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button (click)="deleteQuestion(q.questionId)" class="ml30 mb10" mat-raised-button color="warn">
+            Delete
+          </button>&nbsp;
+          <button (click)="openQuestionUpdateDialog(q.questionId)" mat-raised-button class="btn-main">
+            Update
+          </button>
+          <!-- <button class="ml30 mb10" mat-raised-button style="background-color: greenyellow;">Update</button> -->
+        </mat-card-actions>
+      </mat-card>
+     </div>
+     <div *ngIf="questions?.numberOfQuestions === 0">
+      No Questions Found
+     </div>
+    </mat-card-content>
+  </mat-card>
+</div>

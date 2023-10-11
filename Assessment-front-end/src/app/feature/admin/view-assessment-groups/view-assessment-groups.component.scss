@@ -1,0 +1,43 @@
+.clear-float::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  .selected-group-row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .selected-group-row mat-card {
+    width: 300px; /* Adjust the width as needed */
+    margin: 10px;
+  }
+  
+  /* Styling for the delete button */
+  .delete-button {
+    margin-left: auto; /* Push the delete button to the right */
+    padding: 5px;
+  }
+  
+  /* Style the delete button icon */
+  .delete-button button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .delete-button button mat-icon {
+    font-size: 24px; /* Adjust the font size as needed */
+  }
+  
+  .center-button {
+    margin-top: 16px; /* Optional: Add space between other form elements and button */
+  }
+  
+  a{
+    cursor: pointer;
+    text-decoration: none;
+  }

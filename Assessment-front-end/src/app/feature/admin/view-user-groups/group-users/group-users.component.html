@@ -1,0 +1,63 @@
+<div class="mat-title d-flex justify-content-between">
+  <div class="">
+    <h1 mat-dialog-title>Group Users</h1>
+  </div>
+  <div class="close-icon" mat-dialog-close=>
+    <mat-icon>close</mat-icon>
+  </div>
+</div>
+<mat-dialog-content style="width: 750px;">
+  <mat-card class="mt20 mr20 ml20">
+    <mat-card>
+      <mat-card-content>
+        <form (ngSubmit)="onSubmit()" [formGroup]="groupForm">
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="groupName" placeholder="Group Name" required />
+          </mat-form-field>
+          <div>
+            <div class="selected-users-row">
+              <mat-card class="mr20 ml20 mb20" *ngFor="let user of selectedUsers; let i = index">
+                <div class="d-flex justify-content-between">
+                  <div class="m-3" style="justify-content: flex-start;">
+                    <mat-card-title style="font-size: medium;">{{ user.firstName }} {{ user.lastName }} [{{
+                      user.username
+                      }}]</mat-card-title>
+                    <mat-card-subtitle style="font-size: small;">{{ user.email }}</mat-card-subtitle>
+                  </div>
+                  <div class="m-2" style="justify-content: flex-end;">
+                    <button type="button" mat-button color="warn" (click)="removeUser(i)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </mat-card>
+              <mat-card-header class="mr20 ml20 mb20">
+                <div class="add-user-button">
+                  <button type="button" mat-button color="primary" [matMenuTriggerFor]="userMenu"
+                    [disabled]="userMenuItems.length === 0">
+                    <mat-icon>add</mat-icon> Add User
+                  </button>
+                </div>
+              </mat-card-header>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </mat-card>
+  <mat-menu #userMenu="matMenu" class="user-menu">
+    <button mat-menu-item *ngFor="let user of userMenuItems" (click)="addUserFromMenu(user)">
+      {{ user.firstName }} {{ user.lastName }} [{{ user.username }}]
+    </button>
+  </mat-menu>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="mr20 ml20" type="button" mat-raised-button mat-dialog-close="">
+    Cancel
+  </button>
+  <button type="submit" mat-raised-button class="btn-main"
+    [disabled]="!groupForm.valid || !groupForm.get('groupName')?.value" (click)="onSubmit()">
+    Save
+  </button>
+
+</mat-dialog-actions>
