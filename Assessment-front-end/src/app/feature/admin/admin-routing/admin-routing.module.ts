@@ -24,6 +24,7 @@ import { PasswordResetComponent } from 'src/app/authentication/password-reset/pa
 import { ViewUserGroupsComponent } from 'src/app/feature/admin/view-user-groups/view-user-groups.component';
 import { ViewAssessmentGroupsComponent } from '../view-assessment-groups/view-assessment-groups.component';
 import { GroupAssessmentsComponent } from '../view-assessment-groups/group-assessments/group-assessments.component';
+import { SupportComponent } from '../support/support.component';
 
 
 const routes:Routes = [
@@ -126,6 +127,10 @@ const routes:Routes = [
       {
         path: 'group-assessments',
         component: GroupAssessmentsComponent
+      },
+      {
+        path: 'support',
+        component: SupportComponent
       }
     ],
   },

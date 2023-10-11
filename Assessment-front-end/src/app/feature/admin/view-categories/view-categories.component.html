@@ -16,7 +16,7 @@
         </div>
       </div>
       <div *ngIf="categories.length === 0" class="empty-message">
-        No Categories Found
+        <p>No Categories Found</p>
       </div>
       <div>
         <div class="mt-1" *ngFor="let c of categoriesData;let i = index">

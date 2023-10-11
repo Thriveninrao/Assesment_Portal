@@ -107,8 +107,8 @@
 }
 
 .login-button {
-  border: 2px solid #d5fefd;
-  color: #000;
+  border: none;
+  color: #fff;
   background: transparent;
   margin-bottom: 5px;
   padding: 4px 15px;
@@ -120,6 +120,7 @@
   background: #fff;
   color: #198f8d;
   border-color: #198f8d;
+  border: 2px solid #198f8d;
 }
 
 /* Media query for screens with a maximum width of 768px (tablets) */
@@ -158,4 +159,5 @@
 .title{
   font-size: x-large;
   font-weight: 600;
+  color: #fff;
 }

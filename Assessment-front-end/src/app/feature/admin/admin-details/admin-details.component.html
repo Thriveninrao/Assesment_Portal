@@ -35,7 +35,7 @@
         </div>
       </div>
       <div *ngIf="admins.length === 0" class="empty-message text-center">
-        It looks like there are no other Admins
+        <p>It looks like there are no other Admins</p>
       </div>
       <div class="mat-table mat-elevation-z4" *ngIf="admins.length !== 0">
         <table mat-table [dataSource]="dataSource" *ngIf="admins.length > 0">

@@ -26,8 +26,7 @@ import { ViewUserGroupsComponent } from './view-user-groups/view-user-groups.com
 import { ViewAssessmentGroupsComponent } from './view-assessment-groups/view-assessment-groups.component';
 import { GroupAssessmentsComponent } from './view-assessment-groups/group-assessments/group-assessments.component';
 import { GroupUsersComponent } from './view-user-groups/group-users/group-users.component';
-
-
+import { SupportComponent } from './support/support.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +51,8 @@ import { GroupUsersComponent } from './view-user-groups/group-users/group-users.
     ViewUserGroupsComponent,
     ViewAssessmentGroupsComponent,
     GroupAssessmentsComponent,
-    GroupUsersComponent
+    GroupUsersComponent,
+    SupportComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +60,7 @@ import { GroupUsersComponent } from './view-user-groups/group-users/group-users.
     MaterialModule,
     FormsModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class AdminModule { }

@@ -8,7 +8,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 @Component({
   selector: 'app-access-request',
   templateUrl: './access-request.component.html',
-  styleUrls: ['./access-request.component.css']
+  styleUrls: ['./access-request.component.scss']
 })
 
 export class AccessRequestComponent implements OnInit {

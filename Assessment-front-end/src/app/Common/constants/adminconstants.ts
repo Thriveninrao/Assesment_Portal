@@ -45,6 +45,12 @@ export const SIDEBAR:I_SIDEBAR[] = [
         "role": 'Admin'
     },
     {
+        "menuName": 'Support',
+        "icon": "help",
+        "routeLink": '/admin/support',
+        "role": "Admin"
+    },
+    {
         "menuName": 'Dashboard',
         "icon": "work",
         "routeLink": '/user',
@@ -55,12 +61,6 @@ export const SIDEBAR:I_SIDEBAR[] = [
         "icon": "category",
         "routeLink": '/user/view-user-assessments',
         "role": 'User'
-    },
-    {
-        "menuName": 'Support',
-        "icon": "help",
-        "routeLink": '',
-        "role": "Admin"
     }
 ]
 

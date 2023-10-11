@@ -36,7 +36,7 @@
       </div>
 
       <div *ngIf="users.length === 0" class="empty-message text-center">
-        It looks like there are no Users
+        <p>It looks like there are no Users</p>
       </div>
       <div class="mat-table mat-elevation-z4" *ngIf="users.length !== 0">
         <table mat-table [dataSource]="dataSource" *ngIf="users.length > 0">
