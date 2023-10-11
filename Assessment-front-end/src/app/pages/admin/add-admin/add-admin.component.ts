@@ -103,10 +103,12 @@ export class AddAdminComponent implements OnInit {
               phone: '',
               username: ''
             };
-          } else {
+          }
+
+          else {
             Swal.fire(
+              'Warning',
               data.message,
-              'Email or Phone Number already exists',
               'warning'
             );
           }

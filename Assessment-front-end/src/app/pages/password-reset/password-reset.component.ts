@@ -15,6 +15,7 @@ export class PasswordResetComponent implements OnInit {
   step: number = 1;
   newPassword: string = '';
   confirmPassword: string = '';
+  hidePassword: boolean = true;
   passwordMismatchError: boolean = false;
   otp: string = '';
   timer: number = 60;
@@ -171,7 +172,7 @@ export class PasswordResetComponent implements OnInit {
 
   resetPassword() {
     // Define a regular expression pattern for password complexity
-    const passwordPattern = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{10,}$/;
+    const passwordPattern = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,}$/;
     if (this.newPassword.length != 0) {
       // Check if the new password and confirm password match
       if (this.newPassword === this.confirmPassword) {
@@ -182,7 +183,7 @@ export class PasswordResetComponent implements OnInit {
           // Password complexity is met, proceed with the password reset
           this.user.password = this.confirmPassword;
           console.log("HI password is ok");
-          this.resetDisabled=true;
+          this.resetDisabled = true;
           this.userservice.resetPassword(this.user).subscribe(
             (data: any) => {
               console.log(data);
@@ -203,7 +204,7 @@ export class PasswordResetComponent implements OnInit {
 
                 this.newPassword = '';
                 this.confirmPassword = '';
-              }else if(data.message == 'Error in mail Service'){
+              } else if (data.message == 'Error in mail Service') {
                 Swal.fire(
                   data.message,
                   'Password Reset Successful, But Mail could not be sent.',
@@ -211,13 +212,13 @@ export class PasswordResetComponent implements OnInit {
                 ).then((result) => {
                   this._router.navigate(['/admin/profile']);
                 });
-              }else{
+              } else {
                 Swal.fire(
                   data.message,
                   'Password Reset Failed',
                   'error'
                 );
-                this.resetDisabled=false;
+                this.resetDisabled = false;
               }
             },
             (error) => {
@@ -257,10 +258,13 @@ export class PasswordResetComponent implements OnInit {
 
 
   }
+  togglePasswordVisibility() {
+    this.hidePassword = !this.hidePassword;
+  }
 
   isPasswordComplex(): boolean {
     // Define a regular expression pattern for password complexity
-    const passwordPattern = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{10,}$/;
+    const passwordPattern = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,}$/;
     return !passwordPattern.test(this.newPassword);
   }
 }

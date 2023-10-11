@@ -15,7 +15,7 @@ public interface EmailServiceInterface {
 
 	public void sendEmailAdmin(User user, String generatedPassword) throws MessagingException;
 
-	public void sendEmailForUpdatedCredemtials(User user, String generatedPassword, String role)
+	public void sendEmailForUpdatedCredentials(User user, String generatedPassword, String role)
 			throws MessagingException;
 
 	public void sendEmailForUpdatedEmail(User user, String generatedPassword, String role) throws MessagingException;

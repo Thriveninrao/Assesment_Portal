@@ -3,10 +3,12 @@ package com.portal.service.impl;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -21,11 +23,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.portal.model.AssessmentGrouDataSent;
+import com.portal.model.AssessmentGroupDataModel;
 import com.portal.model.User;
 import com.portal.model.assessment.Assessment;
+import com.portal.model.assessment.AssessmentGroup;
+import com.portal.model.assessment.AssessmentGroupAssessment;
 import com.portal.model.assessment.Question;
 import com.portal.model.assessment.TestResult;
 import com.portal.model.data.ResultOfAssessment;
+import com.portal.model.data.SuccessMessage;
+import com.portal.repository.AssessmentGroupRepository;
 import com.portal.repository.AssessmentRepository;
 import com.portal.repository.QuestionRepository;
 import com.portal.repository.TestResultRepo;
@@ -37,11 +45,14 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 
 	@Autowired
 	private AssessmentRepository assessRepo;
+
+	@Autowired
+	private AssessmentGroupRepository assessGroupRepo;
 	@Autowired
 	private QuestionRepository questionRepo;
 	@Autowired
 	private UserRepository userRepo;
-	
+
 	@Autowired
 	private TestResultRepo testResultRepo;
 
@@ -59,14 +70,18 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 
 	@Override
 	public Set<Assessment> getAssessments() {
-
+		System.out.println("------------------------------------------------------------------------------------\n");
+		System.out.println("Based on ID :: " + this.assessGroupRepo.findByIdWithAssessments(17l) + "\n");
+		System.out.println("------------------------------------------------------------------------------------\n");
+		System.out.println("Full Data :: " + this.assessGroupRepo.findAllWithAssessments() + "\n");
+		System.out.println("------------------------------------------------------------------------------------\n");
 		return new LinkedHashSet<Assessment>(this.assessRepo.findAll());
 	}
 
 	@Override
 	public Assessment getAssessment(Long assessmentId) {
 
-		return this.assessRepo.findById(assessmentId).get();
+		return this.assessRepo.getReferenceById(assessmentId);
 	}
 
 	@Override
@@ -199,20 +214,146 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 	@Override
 	public Set<ResultOfAssessment> getResultListOfAssessment(long AssesmentId) {
 		List<TestResult> testResultslist = testResultRepo.gettestResultslist(AssesmentId);
-		Set<ResultOfAssessment> resultAssessmentModelSet  = new HashSet<ResultOfAssessment>();
-		for(TestResult result:testResultslist) {
+		Set<ResultOfAssessment> resultAssessmentModelSet = new HashSet<ResultOfAssessment>();
+		for (TestResult result : testResultslist) {
 			ResultOfAssessment resultAssessment = new ResultOfAssessment();
 			resultAssessment.setAssessmentId(result.getAssessmentId());
-			resultAssessment.setAssessmentTitle(assessRepo.getReferenceById(result.getAssessmentId()).getAssessmentTitle());
+			resultAssessment
+					.setAssessmentTitle(assessRepo.getReferenceById(result.getAssessmentId()).getAssessmentTitle());
 			resultAssessment.setMaxMarks(result.getMaxMarks());
-			resultAssessment.setNumberOfQuestions(assessRepo.getReferenceById(result.getAssessmentId()).getNumberOfQuestions());
+			resultAssessment
+					.setNumberOfQuestions(assessRepo.getReferenceById(result.getAssessmentId()).getNumberOfQuestions());
 			resultAssessment.setObtainedMarks(result.getMarksObtained());
 			resultAssessment.setUserId(result.getUserId());
 			resultAssessment.setUserName(userRepo.getReferenceById(result.getUserId()).getFirstName());
 			resultAssessment.setAssessmentTookDate(result.getAssessmentTookDate());
 			resultAssessmentModelSet.add(resultAssessment);
 		}
-		return resultAssessmentModelSet ;
+		return resultAssessmentModelSet;
+	}
+
+	@Override
+	public SuccessMessage addGroupOfAssessments(AssessmentGrouDataSent assessmentGroupDataSent) {
+		try {
+			Integer groupCount = this
+					.getCountOfAssessmentGroupByGroupName(assessmentGroupDataSent.getGroupName().toUpperCase());
+
+			List<Assessment> selectedAssessments = new ArrayList<>();
+
+			for (Integer assessId : assessmentGroupDataSent.getSelectedAssessmentIds()) {
+				Long assessmentId = Long.valueOf(assessId);
+				Assessment assessment = this.getAssessment(assessmentId);
+				selectedAssessments.add(assessment);
+			}
+
+			if (groupCount == 0) {
+				AssessmentGroup assessGroup = new AssessmentGroup();
+				assessGroup.setGroupName(assessmentGroupDataSent.getGroupName().toUpperCase());
+				AssessmentGroup savedAssessGroup = assessGroupRepo.save(assessGroup);
+
+				List<AssessmentGroupAssessment> assessGroupAssessList = new ArrayList<AssessmentGroupAssessment>();
+
+				selectedAssessments.stream().forEach((assessment) -> {
+					AssessmentGroupAssessment assessmentGroupAssessment = new AssessmentGroupAssessment();
+					assessmentGroupAssessment.setAssessmentGroup(savedAssessGroup);
+					assessmentGroupAssessment.setAssessment(assessment);
+					assessGroupAssessList.add(assessmentGroupAssessment);
+				});
+
+				savedAssessGroup.setAssessmentGroupAssessment(assessGroupAssessList);
+				assessGroupRepo.save(savedAssessGroup);
+
+				return new SuccessMessage("Assessment group saved successfully");
+			} else {
+
+				AssessmentGroup assessGroup = assessGroupRepo
+						.findByNameWithAssessments(assessmentGroupDataSent.getGroupName());
+
+				List<AssessmentGroupAssessment> groupAssessments = assessGroup.getAssessmentGroupAssessment();
+
+				// Create a list of assessments to be deleted
+				List<AssessmentGroupAssessment> assessmentsToBeDeleted = groupAssessments.stream()
+						.filter(aga -> !selectedAssessments.contains(aga.getAssessment())).collect(Collectors.toList());
+
+				if (assessmentsToBeDeleted.size() != 0) {
+					assessmentsToBeDeleted.forEach((aga) -> {
+						assessGroupRepo
+								.deleteAssessmentGroupAssessmentByAssessGroupAssessId(aga.getAssessGroupAssessId());
+					});
+				}
+
+				// Create a list of assessments to be added
+				List<AssessmentGroupAssessment> assessmentsToBeAdded = selectedAssessments.stream()
+						.filter(selectedAssessment -> groupAssessments.stream()
+								.noneMatch(aga -> aga.getAssessment().equals(selectedAssessment)))
+						.map(selectedAssessment -> {
+							AssessmentGroupAssessment aga = new AssessmentGroupAssessment();
+							aga.setAssessment(selectedAssessment);
+							aga.setAssessmentGroup(assessGroup); // Set the assessment group
+							return aga;
+						}).collect(Collectors.toList());
+
+				if (assessmentsToBeAdded.size() != 0) {
+					assessGroup.setAssessmentGroupAssessment(assessmentsToBeAdded);
+					assessGroupRepo.save(assessGroup);
+				}
+
+				if (assessmentsToBeDeleted.size() != 0) {
+					if (assessmentsToBeAdded.size() != 0) {
+						return new SuccessMessage("Assessment group edited successfully. "
+								+ assessmentsToBeDeleted.size() + " assessments removed, " + assessmentsToBeAdded.size()
+								+ " assessments added.");
+					} else {
+						return new SuccessMessage("Assessment group edited successfully. "
+								+ assessmentsToBeDeleted.size() + " assessments removed.");
+					}
+
+				} else {
+					if (assessmentsToBeAdded.size() != 0) {
+						return new SuccessMessage("Assessment group edited successfully. " + assessmentsToBeAdded.size()
+								+ " assessments added.");
+					} else {
+						return new SuccessMessage("Assessment group already exists, no changes made.");
+					}
+				}
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new SuccessMessage("Failed to save assessment group");
+		}
+	}
+
+	private Integer getCountOfAssessmentGroupByGroupName(String groupName) {
+		return assessGroupRepo.getCountOfAssessmentGroupByGroupName(groupName);
+	}
+
+	@Override
+	public List<AssessmentGroupDataModel> getAssessmentGroups() {
+		Set<AssessmentGroup> assessmentGroup = assessGroupRepo.findAllWithAssessments();
+		List<AssessmentGroupDataModel> assessmentGroupDataModel = new ArrayList<AssessmentGroupDataModel>();
+
+		for (AssessmentGroup ag : assessmentGroup) {
+			AssessmentGroupDataModel agDataModel = new AssessmentGroupDataModel();
+			agDataModel.setGroupId(ag.getGroupId());
+			agDataModel.setGroupName(ag.getGroupName());
+			List<Assessment> agdmAssessmentList = new ArrayList<Assessment>();
+			for (AssessmentGroupAssessment aga : ag.getAssessmentGroupAssessment()) {
+				Assessment assessment = aga.getAssessment();
+				agdmAssessmentList.add(assessment);
+			}
+			agDataModel.setAssessmentList(agdmAssessmentList);
+			assessmentGroupDataModel.add(agDataModel);
+		}
+		assessmentGroupDataModel.stream().forEach(agdm -> System.out.println(agdm));
+
+		return assessmentGroupDataModel;
+	}
+
+	@Override
+	public SuccessMessage deleteAssessmentGroups(AssessmentGroupDataModel assessGroupData) {
+//		return assessGroupRepo.delete(null);
+		return null;
 	}
 
 }

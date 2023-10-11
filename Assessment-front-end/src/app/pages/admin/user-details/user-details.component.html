@@ -28,6 +28,16 @@
         <mat-icon mat-list-icon>person_add</mat-icon>
         Add User
       </button>
+      <button
+        [routerLink]="['/admin/view-user-groups']"
+        [queryParams]="{ mode: 'add' }"
+        mat-raised-button
+        color="accent"
+        class="user-groups-button"
+      >
+        <mat-icon mat-list-icon>people_outline</mat-icon>
+        User Groups
+      </button>
     </div>
 
     <div class="container">
@@ -37,7 +47,6 @@
             It looks like there are NO users
           </div>
           <table mat-table [dataSource]="dataSource" *ngIf="users.length > 0">
-            <!-- Define columns -->
             <ng-container matColumnDef="image">
               <th mat-header-cell *matHeaderCellDef>Profile Image</th>
               <td mat-cell *matCellDef="let user">
@@ -84,7 +93,10 @@
             <ng-container matColumnDef="testsAssigned">
               <th mat-header-cell *matHeaderCellDef>Test Assigned</th>
               <td mat-cell *matCellDef="let user">
-                <button mat-raised-button (click)="onTestsAssignedClicked(user)">
+                <button
+                  mat-raised-button
+                  (click)="onTestsAssignedClicked(user)"
+                >
                   {{ user.testsAssigned }}
                 </button>
               </td>
@@ -93,7 +105,10 @@
             <ng-container matColumnDef="testsAttempted">
               <th mat-header-cell *matHeaderCellDef>Test Attempted</th>
               <td mat-cell *matCellDef="let user">
-                <button mat-raised-button (click)="onTestsAttemptedClicked(user)">
+                <button
+                  mat-raised-button
+                  (click)="onTestsAttemptedClicked(user)"
+                >
                   {{ user.testsAttempted }}
                 </button>
               </td>
