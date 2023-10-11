@@ -1,8 +1,8 @@
 <div class="layout-wrapper">
-  <app-navbar [profileName]="'User'"></app-navbar>
+  <app-navbar [profileName]="role"></app-navbar>
   <div class="content">
     <div class="sidebar-content">
-      <app-layout [role]="'User'"></app-layout>
+      <app-layout [role]="role"></app-layout>
     </div>
     <div class="main-content">
       <router-outlet></router-outlet>

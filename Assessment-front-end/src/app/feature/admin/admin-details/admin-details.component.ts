@@ -25,6 +25,7 @@ export class AdminDetailsComponent {
   isSubmitted:boolean = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  role!: any;
 
   constructor(
     private _user: UserserviceService, 
@@ -34,6 +35,8 @@ export class AdminDetailsComponent {
     { this.dataSource = new MatTableDataSource<Admin>([]); }
 
   ngOnInit(): void {
+    this.role = JSON.parse(localStorage.getItem('user') as string).authorities[0].authority;
+    console.log(this.role)
     this.getCurrentUser()
       this.getUsersData()
   }

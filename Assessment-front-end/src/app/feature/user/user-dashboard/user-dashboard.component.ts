@@ -1,11 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.scss']
 })
-export class UserDashboardComponent {
+export class UserDashboardComponent implements OnInit {
+  role: any;
+
+  ngOnInit(): void {
+    this.role = JSON.parse(localStorage.getItem('user') as string).authorities[0].authority;
+  }
 
   toggleSidebar(isHovered: boolean) {
     const mySidebarElement = document.getElementById("mySidebar");

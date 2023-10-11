@@ -30,9 +30,9 @@ export class NavbarComponent implements OnInit {
 
   onClickButton(btnName:string){
     if(btnName === 'profile'){
-      if(this.profileName === 'User'){
+      if(this.profileName === 'NORMAL'){
         this.router.navigate(['/user/profile'])
-      }else if(this.profileName === 'Admin'){
+      }else if(this.profileName === 'ADMIN' || (this.profileName === 'SUPER-ADMIN')){
         this.router.navigate(['/admin/profile'])
       }else{
         alert('No routes found')

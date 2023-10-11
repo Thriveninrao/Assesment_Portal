@@ -1,11 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss']
 })
-export class AdminDashboardComponent {
+export class AdminDashboardComponent implements OnInit {
+  role: any;
+
+  ngOnInit(): void {
+    this.role = JSON.parse(localStorage.getItem('user') as string).authorities[0].authority;
+  }
+
   toggleSidebar(isHovered: boolean) {
     const mySidebarElement = document.getElementById("mySidebar");
     const mainElement = document.getElementById("main");

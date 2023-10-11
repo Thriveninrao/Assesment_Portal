@@ -6,61 +6,61 @@ export const SIDEBAR:I_SIDEBAR[] = [
         "menuName": 'Dashboard',
         "icon": "home",
         "routeLink": '/admin',
-        "role": 'Admin'
+        "role": ['ADMIN', 'SUPER-ADMIN']
     },
     {
         "menuName": 'Manage Admins',
         "icon": "people",
         "routeLink": '/admin/admin-details',
-        "role": 'Admin'
+        "role": ['ADMIN', 'SUPER-ADMIN']
     },
     {
         "menuName": 'Manage Users',
         "icon": "people_outline",
         "routeLink": '/admin/user-details',
-        "role": 'Admin'
+        "role": ['ADMIN', 'SUPER-ADMIN']
     },
     {
         "menuName": 'Categories',
         "icon": "auto_awesome_motion",
         "routeLink": '/admin/categories',
-        "role": 'Admin'
+        "role": ['ADMIN', 'SUPER-ADMIN']
     },
     {
         "menuName": 'Assessments',
         "icon": "category",
         "routeLink": '/admin/view-assessments',
-        "role": 'Admin'
+        "role": ['ADMIN', 'SUPER-ADMIN']
     },
     {
         "menuName": 'Assign Test',
         "icon": "work",
         "routeLink": '/admin/assign-test',
-        "role": 'Admin'
+        "role": ['ADMIN', 'SUPER-ADMIN']
     },
     {
         "menuName": 'Access Requests',
         "icon": "accessibility",
         "routeLink": '/admin/access-request',
-        "role": 'Admin'
+        "role": ['ADMIN', 'SUPER-ADMIN']
     },
     {
         "menuName": 'Support',
         "icon": "help",
         "routeLink": '/admin/support',
-        "role": "Admin"
+        "role": ["ADMIN", 'SUPER-ADMIN']
     },
     {
         "menuName": 'Dashboard',
         "icon": "work",
         "routeLink": '/user',
-        "role": 'User'
+        "role": ['NORMAL']
     },
     {
         "menuName": 'Assessments',
         "icon": "category",
         "routeLink": '/user/view-user-assessments',
-        "role": 'User'
+        "role": ['NORMAL']
     }
 ]
 

@@ -19,7 +19,7 @@ export class LayoutComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-    this.sidebarData = this.sidebarData.filter((x:I_SIDEBAR) => x.role === this.role)
+    this.sidebarData = this.sidebarData.filter((x:I_SIDEBAR) => x.role?.includes(this.role))
   }
 
   onClickMenuButton(routeData:string){

@@ -21,6 +21,7 @@ export class UserDetailsComponent implements OnInit {
   image: any;
   groups: any[] = [];
   group:any;
+  isSubmitted:boolean = false
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -35,8 +36,10 @@ export class UserDetailsComponent implements OnInit {
   } 
 
   getUsersData(){
+    this.isSubmitted = true;
     this._user.getUsers().subscribe(
       (data: any) => {
+        this.isSubmitted = false
         console.log(data);
         this.users = data;
         this.users = data.filter((user: User) => user.profile === 'User.jpg');
@@ -53,6 +56,7 @@ export class UserDetailsComponent implements OnInit {
         console.log(this.users);
       },
       (error) => {
+        this.isSubmitted = false
         console.log(error);
         Swal.fire('Error !!', 'Error in loading data', 'error');
       }
@@ -86,7 +90,9 @@ export class UserDetailsComponent implements OnInit {
       showCancelButton: true,
     }).then((result) => {
       if (result.value) {
+        this.isSubmitted = true
         this._user.deleteUser(user.username).subscribe((dataOfDelete: any) => {
+          this.isSubmitted = false
           console.log("Data:", dataOfDelete);
           if (dataOfDelete.message === "deleted Successfully") {
             const index = this.users.findIndex(u => u.username === user.username);
@@ -115,7 +121,9 @@ export class UserDetailsComponent implements OnInit {
               });
             }).then((forceDeleteResult) => {
               if (forceDeleteResult.value) {
+                this.isSubmitted = true
                 this._user.forceDelete(user.username).subscribe((dataOfForceDelete: any) => {
+                  this.isSubmitted = false
                   console.log("Data:", dataOfForceDelete);
                   if (dataOfForceDelete.message === "deleted Successfully") {
                     const index = this.users.findIndex(u => u.username === user.username);
@@ -126,11 +134,14 @@ export class UserDetailsComponent implements OnInit {
                     Swal.fire('Success', user.firstName + ' ' + user.lastName + ' successfully deleted', 'success');
                   } else
                     Swal.fire('Error', 'Error in deletion, Try again!', 'error');
+                }, error => {
+                  this.isSubmitted = false
                 });
               }
             });
           }
         }, (error) => {
+          this.isSubmitted = false
           console.log(error);
           Swal.fire('Error', 'Error', 'error');
         });

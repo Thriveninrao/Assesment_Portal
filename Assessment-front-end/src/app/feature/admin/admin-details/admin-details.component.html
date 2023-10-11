@@ -25,7 +25,8 @@
         </mat-form-field> -->
         </div>
         <div class="">
-          <div class="mt-4">
+          <!-- *ngIf="role === 'SUPER-ADMIN'" -->
+          <div class="mt-4" *ngIf="role === 'SUPER-ADMIN'">
             <!-- *ngIf="isAdmin" [routerLink]="['/admin/add-admin/add']" [queryParams]="{ mode: 'add' }" -->
             <button (click)="openDialog('Add', '')"
               mat-raised-button class="left-button btn-main">
