@@ -80,8 +80,7 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 
 	@Override
 	public Assessment getAssessment(Long assessmentId) {
-
-		return this.assessRepo.getReferenceById(assessmentId);
+		return this.assessRepo.findById(assessmentId).get();
 	}
 
 	@Override
