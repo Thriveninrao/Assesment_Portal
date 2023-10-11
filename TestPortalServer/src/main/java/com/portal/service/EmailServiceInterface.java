@@ -5,8 +5,8 @@ import java.util.List;
 import javax.mail.MessagingException;
 
 import com.portal.model.User;
-import com.portal.model.UserModel;
 import com.portal.model.assessment.Assessment;
+import com.portal.model.data.UserModel;
 
 public interface EmailServiceInterface {
 	public void sendEmail(User user, String generatedPassword, String userType) throws MessagingException;

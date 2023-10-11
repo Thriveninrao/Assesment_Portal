@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.portal.model.ResultOfAssessment;
 import com.portal.model.UserAssessmentAssignment;
 import com.portal.model.assessment.Assessment;
+import com.portal.model.data.ResultOfAssessment;
 import com.portal.service.AssessmentServiceInterface;
 import com.portal.service.UserAssessmentServiceInterface;
 
@@ -120,7 +120,6 @@ public class AssessmentController {
 	@GetMapping("/resultsOfAssessment/{assessmentId}")
 	public ResponseEntity<?> GetAttendentsAndResults(@PathVariable("assessmentId") Long assessmentId){
 		try {
-			System.out.println("AssessmentController.GetAttendentsAndResults()");
 			Set<ResultOfAssessment> resultListOfAssessment = assessmentService.getResultListOfAssessment(assessmentId);
 			return new ResponseEntity<>(resultListOfAssessment,HttpStatus.OK);
 		} catch (Exception e) {

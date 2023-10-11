@@ -21,11 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.portal.model.ResultOfAssessment;
 import com.portal.model.User;
 import com.portal.model.assessment.Assessment;
 import com.portal.model.assessment.Question;
 import com.portal.model.assessment.TestResult;
+import com.portal.model.data.ResultOfAssessment;
 import com.portal.repository.AssessmentRepository;
 import com.portal.repository.QuestionRepository;
 import com.portal.repository.TestResultRepo;
@@ -209,6 +209,7 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 			resultAssessment.setObtainedMarks(result.getMarksObtained());
 			resultAssessment.setUserId(result.getUserId());
 			resultAssessment.setUserName(userRepo.getReferenceById(result.getUserId()).getFirstName());
+			resultAssessment.setAssessmentTookDate(result.getAssessmentTookDate());
 			resultAssessmentModelSet.add(resultAssessment);
 		}
 		return resultAssessmentModelSet ;

@@ -23,6 +23,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.portal.model.assessment.Assessment;
+import com.portal.model.data.Authority;
 
 import lombok.Data;
 
@@ -63,12 +64,13 @@ public class User implements UserDetails {
 
 	@Column
 	private Boolean loggedIn = false;
+	// private Integer loginLimit=3;
 
 	@Column
 	private Boolean loginRequested = false;
 
 	@Column
-	private Boolean testAttwmpted = false;
+	private Boolean testAttempted = false;
 
 	@Column
 	private String profile;

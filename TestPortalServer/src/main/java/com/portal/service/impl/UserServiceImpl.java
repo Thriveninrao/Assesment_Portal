@@ -13,14 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.portal.model.DataSent;
 import com.portal.model.Role;
-import com.portal.model.SuccessMessage;
 import com.portal.model.User;
 import com.portal.model.UserAssessmentAssignment;
-import com.portal.model.UserModel;
 import com.portal.model.UserRole;
 import com.portal.model.assessment.Assessment;
+import com.portal.model.data.DataSent;
+import com.portal.model.data.SuccessMessage;
+import com.portal.model.data.UserModel;
 import com.portal.repository.RoleRepository;
 import com.portal.repository.UserRepository;
 import com.portal.service.AssessmentServiceInterface;
@@ -294,7 +294,7 @@ public class UserServiceImpl implements UserServiceInterface {
 	@Override
 	public Boolean updateApproveUserRequest(String username) {
 		String newPassword = this.generatePassword();
-		userRepo.updateLoggedInToFalseByUsername(username);
+		userRepo.updateLoginLimitToOneByUsername(username);
 		userRepo.updateLoginRequestedToFalseByUsername(username);
 		userRepo.updatePasswordByUsername(username, this.bCryptPasswordEncoder.encode(newPassword));
 
@@ -336,7 +336,7 @@ public class UserServiceImpl implements UserServiceInterface {
 
 				testAssigned++;
 
-				if (uaa.getTestAttempted()!=0) {
+				if (uaa.getTestAttempted() != 0) {
 					testAttempted++;
 
 				}
@@ -364,7 +364,7 @@ public class UserServiceImpl implements UserServiceInterface {
 			List<Assessment> assessmentList = new ArrayList<Assessment>();
 			System.out.println(user.getUserAssessmentAssignment().size());
 			user.getUserAssessmentAssignment().forEach((uaa) -> {
-				if (uaa.getTestAttempted()==0) {
+				if (uaa.getTestAttempted() == 0) {
 					assessmentList.add(uaa.getAssessment());
 				}
 			});

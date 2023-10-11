@@ -11,7 +11,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -62,7 +62,12 @@ import { AssessmentTakeupComponent } from './pages/user/assessment-takeup/assess
 import { PreinstructionsComponent } from './pages/user/preinstructions/preinstructions.component';
 import { StartTestComponent } from './pages/start-test/start-test.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
+import { FeedbackComponent } from './pages/user/feedback/feedback.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ViewAssessmentAttendedComponent } from './pages/admin/view-assessment-attended/view-assessment-attended.component';
+import { MatSortModule } from '@angular/material/sort';
+// import { MatSort } from '@angular/material/sort';
+// import { MatPaginator } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -95,6 +100,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     ViewUserAssessmentsComponent,
     UserSidebarComponent,
     AdminDetailsComponent,
+    ViewAssessmentAttendedComponent,
 
    
 
@@ -103,6 +109,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
       AssessmentTakeupComponent,
       PreinstructionsComponent,
       StartTestComponent,
+      FeedbackComponent,
 
   ],
   imports: [
@@ -125,11 +132,15 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatSlideToggleModule,
     MatSelectModule,
     MatPaginatorModule,
+    MatSortModule,
     MatCheckboxModule,
     MatTabsModule,
     MatTooltipModule,
     MatRadioModule,
     MatProgressSpinnerModule,
+    ReactiveFormsModule,
+    // MatSort,
+    // MatPaginator,
   ],
   providers: [authInterceptorProviders, FileServicesService],
   bootstrap: [AppComponent],

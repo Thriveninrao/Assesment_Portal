@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.portal.model.DataSent;
 import com.portal.model.Role;
-import com.portal.model.SuccessMessage;
 import com.portal.model.User;
-import com.portal.model.UserModel;
 import com.portal.model.UserRole;
+import com.portal.model.data.DataSent;
+import com.portal.model.data.SuccessMessage;
+import com.portal.model.data.UserModel;
 import com.portal.service.EmailServiceInterface;
 import com.portal.service.UserServiceInterface;
 
@@ -42,7 +42,7 @@ public class UserController {
 	// creating user
 	@PostMapping("/create")
 	public ResponseEntity<?> createUser(@RequestBody User user) throws Exception {
-		
+
 		System.out.println("Hi");
 
 		Role role = new Role();
@@ -76,7 +76,7 @@ public class UserController {
 		}
 		return ResponseEntity.ok(message);
 	}
-	
+
 	@PutMapping("/update")
 	public ResponseEntity<?> updateUser(@RequestBody UserModel user) throws Exception {
 		SuccessMessage message = new SuccessMessage(userService.updateUser(user));
@@ -87,7 +87,7 @@ public class UserController {
 	public User getUser(@PathVariable("username") String username) {
 		return userService.getUser(username);
 	}
-	
+
 	@GetMapping("/getUserById/{userId}")
 	public ResponseEntity<?> getUserById(@PathVariable("userId") Long userId) {
 		return ResponseEntity.ok(this.userService.getUserById(userId));
@@ -140,18 +140,15 @@ public class UserController {
 	public ResponseEntity<?> assignTest(@RequestBody DataSent assignAssessmentData) {
 		return ResponseEntity.ok(userService.assignTest(assignAssessmentData));
 	}
-	
+
 	@GetMapping("/getOTP/{username}")
-	public ResponseEntity<?> getOTP(@PathVariable("username") String username ) throws MessagingException {
-		System.out.println("Hi from Back end");
-		return ResponseEntity.ok(userService.generateOTP(username));	
-		
+	public ResponseEntity<?> getOTP(@PathVariable("username") String username) throws MessagingException {
+		return ResponseEntity.ok(userService.generateOTP(username));
 	}
-	
+
 	@PutMapping("/resetPassword")
-    public ResponseEntity<?> resetPassword(@RequestBody UserModel user) {
-        return ResponseEntity.ok(userService.updatePassword(user));
-        
-       
-    }
+	public ResponseEntity<?> resetPassword(@RequestBody UserModel user) {
+		return ResponseEntity.ok(userService.updatePassword(user));
+
+	}
 }

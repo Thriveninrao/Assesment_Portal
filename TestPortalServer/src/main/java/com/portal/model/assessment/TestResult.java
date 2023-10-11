@@ -1,5 +1,7 @@
 package com.portal.model.assessment;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,6 +24,8 @@ public class TestResult {
 	private Long resultId;
 
 	private Long assessmentId;
+	
+	private String assessmentTookDate;
 
 	private Integer marksObtained;
 
@@ -30,4 +34,6 @@ public class TestResult {
 	private Integer maxMarks;
 
 	private Long userId;
+
+	
 }

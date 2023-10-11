@@ -1,0 +1,32 @@
+# Use an image with Maven installed.
+image: maven:latest
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+cache:
+  paths:
+    - .m2/repository
+
+stages:
+  - build
+  - deploy  
+
+build:
+  stage: build
+  script:
+    - echo "Runner PATH"
+    - echo PATH
+    - which mvn
+    - mvn --version
+    - echo "Building the project..."
+    # - mvn clean package
+    # Add additional build steps here if needed.
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying the project..."
+    # Add your deployment commands here.
+
+# Add any additional configuration as needed.

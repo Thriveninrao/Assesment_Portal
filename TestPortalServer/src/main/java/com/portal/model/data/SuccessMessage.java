@@ -1,4 +1,4 @@
-package com.portal.model;
+package com.portal.model.data;
 
 public class SuccessMessage {
 	private String message;

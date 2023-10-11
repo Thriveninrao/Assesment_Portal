@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.portal.config.JwtUtils;
-import com.portal.model.JwtRequest;
-import com.portal.model.JwtResponse;
 import com.portal.model.User;
+import com.portal.model.data.JwtRequest;
+import com.portal.model.data.JwtResponse;
 import com.portal.service.impl.UserDetailServiceImpl;
 
 @RestController
@@ -48,7 +48,7 @@ public class AuthenticateController {
 				// User has already logged in, return a message indicating that
 				user.setLoginRequested(true);
 				userDetailService.updateUser(user);
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You have already logged in");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You don't have access to login ");
 			} else {
 				// Generate the token
 				String token = this.jwtUtils.generateToken(userDetails);

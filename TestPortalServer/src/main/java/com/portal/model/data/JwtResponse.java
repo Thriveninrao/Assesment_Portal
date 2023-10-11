@@ -1,4 +1,4 @@
-package com.portal.model;
+package com.portal.model.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
