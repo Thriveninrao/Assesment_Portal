@@ -1,4 +1,6 @@
 /target/
+/target/m2e-wtp
+/m2e-wtp/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
