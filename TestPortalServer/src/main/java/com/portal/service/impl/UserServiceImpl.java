@@ -306,6 +306,7 @@ public class UserServiceImpl implements UserServiceInterface {
 	public Boolean updateApproveUserRequest(String username) {
 		String newPassword = this.generatePassword();
 		userRepo.updateLoginLimitToOneByUsername(username);
+		userRepo.updateLoggedInToFalseByUsername(username);
 		userRepo.updateLoginRequestedToFalseByUsername(username);
 		userRepo.updatePasswordByUsername(username, this.bCryptPasswordEncoder.encode(newPassword));
 

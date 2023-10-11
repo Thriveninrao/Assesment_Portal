@@ -27,6 +27,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Transactional
 	@Query("UPDATE User u SET u.loggedIn= false WHERE u.username = ?1")
 	public void updateLoginLimitToOneByUsername(String username);
+	@Query("UPDATE User u SET u.loggedIn = false WHERE u.username = ?1")
+	public void updateLoggedInToFalseByUsername(String username);
 
 	@Modifying
 	@Transactional
