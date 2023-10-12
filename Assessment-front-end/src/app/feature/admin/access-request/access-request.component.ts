@@ -116,7 +116,7 @@ export class AccessRequestComponent implements OnInit {
         this.isSubmitted = true;
         this._user.approveUserRequest(user.username).subscribe(
           (data: any) => {
-            this.isSubmitted=true;
+            this.isSubmitted=false;
             console.log("hi i am subscribed to approve")
             console.log(data);
             if (data.message === "User Request successfully Accepted") {

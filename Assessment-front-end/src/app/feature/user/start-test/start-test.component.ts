@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-start-test',
   templateUrl: './start-test.component.html',
-  styleUrls: ['./start-test.component.css'],
+  styleUrls: ['./start-test.component.scss'],
 })
 export class StartTestComponent implements OnInit {
   assessmentId: any;

@@ -1,0 +1,72 @@
+<div class="container mb-4">
+  <mat-card class="mb-4">
+    <div class="text-center mt-4">
+      <h1>{{ assessmentTitle }}</h1>
+      <p>{{ assessmentData.assessmentDescription }}</p>
+    </div>
+    <mat-card-content>
+      <div class="text-center mb-4">
+        <h5>Read the Instructions of this page carefully</h5>
+        <h6>One More Step to go</h6>
+      </div>
+      <mat-divider></mat-divider><br />
+      <div class="">
+        <h6 class="">Important Instructions</h6>
+        <ul>
+          <li>This is only for the Practice purpose.</li>
+          <li>
+            You have to submit assessment within
+            <b>{{ assessmentData.numberOfQuestions * 2 }} mins.</b>
+          </li>
+          <li>
+            There are
+            <b>{{ assessmentData.numberOfQuestions }} questions</b> in this
+            Assessment.
+          </li>
+          <li>
+            Each Question Carries
+            <b>{{
+              assessmentData.maxMarks / assessmentData.numberOfQuestions
+              }}</b>
+            and no negative marks.
+          </li>
+          <li>All Questions are of <b>MCQ</b> Type.</li>
+        </ul>
+      </div>
+
+      <mat-divider></mat-divider>
+      <br />
+      <div>
+        <h5>Attempting Questions</h5>
+        <ul>
+          <li>Click <b>Start Test</b> button to start the test.</li>
+          <li>
+            The time will start the moment you click the
+            <b>Start Test</b> Button.
+          </li>
+          <li>
+            You cannot resume this assessment, if interrupted due to any
+            reason.
+          </li>
+          <li>
+            Click on the <b>Next</b> Button to move the next question.
+          </li>
+          <li>
+            Click on <b>Submit</b> button to submit after the completion.
+          </li>
+          <li>
+            Report will be sent to you after the the test is completed and
+            evaluated.
+          </li>
+        </ul>
+      </div>
+
+    </mat-card-content>
+    <div class="text-center mb-4">
+      <button (click)="startTest()" mat-raised-button class="start-btn">
+        Start Test
+      </button>
+    </div>
+  </mat-card>
+</div>
+<!-- {{ assessment | json }} -->

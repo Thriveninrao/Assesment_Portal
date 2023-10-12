@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-preinstructions',
   templateUrl: './preinstructions.component.html',
-  styleUrls: ['./preinstructions.component.css'],
+  styleUrls: ['./preinstructions.component.scss'],
 })
 export class PreinstructionsComponent implements OnInit {
   assessmentId: any;
@@ -25,7 +25,7 @@ export class PreinstructionsComponent implements OnInit {
     private _route: ActivatedRoute,
     private _assessmentService: AssessmentService,
     private _router: Router
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.assessmentId = this._route.snapshot.params['assessmentId'];
     this.assessmentTitle = this._route.snapshot.params['assessmentTitle'];
@@ -56,7 +56,7 @@ export class PreinstructionsComponent implements OnInit {
       /* Read more about isConfirmed, isDenied below */
       if (result.value) {
         this._router.navigate([
-          '/start/' + this.assessmentId + '/' + this.assessmentTitle,
+          '/user/start', this.assessmentId, this.assessmentTitle
         ]);
       } else if (result.dismiss) {
         Swal.fire('', '', 'info');

@@ -61,7 +61,13 @@ export const SIDEBAR:I_SIDEBAR[] = [
         "icon": "category",
         "routeLink": '/user/view-user-assessments',
         "role": ['NORMAL']
-    }
+    },
+    {
+        "menuName": 'Feedback',
+        "icon": "reviews",
+        "routeLink": '/user/feedback',
+        "role": ['NORMAL']
+    },
 ]
 
 

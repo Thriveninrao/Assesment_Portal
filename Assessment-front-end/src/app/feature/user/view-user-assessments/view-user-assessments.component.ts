@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AssessmentService } from 'src/app/services/assessment.service';
 import { LoginService } from 'src/app/services/login.service';
 import Swal from 'sweetalert2';
@@ -14,7 +15,11 @@ export class ViewUserAssessmentsComponent implements OnInit {
   assessments: Assessment[] = [];
   user: any =null;
 
-  constructor(private assessmentService: AssessmentService, private login: LoginService) { }
+  constructor(
+    private assessmentService: AssessmentService, 
+    private login: LoginService,
+    private router:Router
+    ) { }
 
   ngOnInit(): void {
 
@@ -35,6 +40,11 @@ export class ViewUserAssessmentsComponent implements OnInit {
         alert("Error");
       }
     )
+  }
+
+  takeTest(data:any){
+    this.router.navigate(['/user/pre-instructions', data.assessmentId,  data.assessmentTitle])
+    // this.router.navigate(['/user/take-user-assessment-questions/', data.assessmentId,  data.assessmentTitle])
   }
 }
 
