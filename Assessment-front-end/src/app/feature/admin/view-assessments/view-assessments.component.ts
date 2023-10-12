@@ -7,6 +7,7 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { AddAssessmentComponent } from './add-assessment/add-assessment.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateAssessmentComponent } from './update-assessment/update-assessment.component';
+import { ViewAssessmentAttendedComponent } from './view-assessment-attended/view-assessment-attended.component';
 
 @Component({
   selector: 'app-view-assessments',
@@ -132,6 +133,15 @@ export class ViewAssessmentsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.getAssessments();
     });
+  }
+
+  openAttempts(rowData:any){
+    const dialogRef = this._dialog.open(ViewAssessmentAttendedComponent, {
+      data:{rowData:rowData}
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('')
+    })
   }
 
   onUpdate(assessmentData:any){

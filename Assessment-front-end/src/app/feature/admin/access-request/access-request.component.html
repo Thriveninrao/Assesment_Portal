@@ -47,20 +47,14 @@
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let user">
-              <button
-                class="ml20 mr20"
-                mat-raised-button
-                style="background-color: forestgreen; color: aliceblue"
-                (click)="approveUser(user)" [disabled]="disabled">
-                Approve
+              <button mat-icon-button matTooltip="Approve" style="color: forestgreen" (click)="approveUser(user)"
+                [disabled]="disabled">
+                <mat-icon>check</mat-icon>
               </button>
-              <span class="action-button-spacing"></span>
-              <button
-                class="ml20 mr20"
-                mat-raised-button
-                style="background-color: rgb(225, 70, 14); color: aliceblue"
+              <!-- <span class="action-button-spacing"></span> -->
+              <button mat-icon-button matTooltip="Reject" style="color:  rgb(225, 70, 14)"
                 (click)="rejectUser(user)" [disabled]="disabled">
-                Reject
+                <mat-icon>close</mat-icon>
               </button>
             </td>
           </ng-container>

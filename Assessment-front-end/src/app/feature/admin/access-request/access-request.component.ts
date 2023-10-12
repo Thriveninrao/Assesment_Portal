@@ -71,8 +71,10 @@ export class AccessRequestComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.disabled=true;
+        this.isSubmitted = true;
         this._user.rejectUserRequest(user.username).subscribe(
           (data: any) => {
+            this.isSubmitted = false;
             console.log("hi i am subscribed")
             console.log(data);
             if (data.message === "User Request successfully Rejected") {
@@ -85,6 +87,7 @@ export class AccessRequestComponent implements OnInit {
             }
           },
           (error) => {
+            this.isSubmitted = false
             console.log(error);
             Swal.fire('Error', 'Error', 'error');
           },() => {
@@ -109,8 +112,10 @@ export class AccessRequestComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.disabled=true;
+        this.isSubmitted = true;
         this._user.approveUserRequest(user.username).subscribe(
           (data: any) => {
+            this.isSubmitted = false
             console.log("hi i am subscribed to approve")
             console.log(data);
             if (data.message === "User Request successfully Accepted") {
@@ -123,6 +128,7 @@ export class AccessRequestComponent implements OnInit {
             }
           },
           (error) => {
+            this.isSubmitted = false
             console.log(error);
             Swal.fire('Error', 'Error', 'error');
           },() => {

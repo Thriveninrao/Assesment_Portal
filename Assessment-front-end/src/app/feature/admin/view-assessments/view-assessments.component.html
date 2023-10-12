@@ -97,7 +97,9 @@
           <button mat-stroked-button class="ml20" color="primary">
             Questions {{ a.numberOfQuestions }}
           </button> -->
-              <button mat-raised-button class="ml20" color="primary">Attempts</button>
+              <button mat-mini-fab matTooltip="Attempts" class="ml20" color="primary" (click)="openAttempts(a)">
+                <mat-icon>view_list</mat-icon>
+              </button>
 
               <button mat-mini-fab matTooltip="Update" (click)="openUpdateAssessmentDialog(a.assessmentId)" color="accent">
                 <mat-icon>edit</mat-icon>

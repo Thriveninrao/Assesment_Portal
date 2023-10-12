@@ -27,6 +27,7 @@ import { ViewAssessmentGroupsComponent } from './view-assessment-groups/view-ass
 import { GroupAssessmentsComponent } from './view-assessment-groups/group-assessments/group-assessments.component';
 import { GroupUsersComponent } from './view-user-groups/group-users/group-users.component';
 import { SupportComponent } from './support/support.component';
+import { ViewAssessmentAttendedComponent } from './view-assessments/view-assessment-attended/view-assessment-attended.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { SupportComponent } from './support/support.component';
     ViewAssessmentGroupsComponent,
     GroupAssessmentsComponent,
     GroupUsersComponent,
-    SupportComponent
+    SupportComponent,
+    ViewAssessmentAttendedComponent
   ],
   imports: [
     CommonModule,
