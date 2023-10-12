@@ -47,6 +47,7 @@ export class AddAdminComponent implements OnInit {
       this.adminForm.controls['lastName'].setValue(this.data?.rowData?.lastName)
       this.adminForm.controls['email'].setValue(this.data?.rowData?.email)
       this.adminForm.controls['phone'].setValue(this.data?.rowData?.phone)
+      this.adminForm.controls['email'].disable()
     } else {
       this.adminForm.controls['firstName'].setValue('')
       this.adminForm.controls['lastName'].setValue('')
