@@ -2,6 +2,7 @@ package com.portal.service;
 
 import java.util.Set;
 
+import com.portal.model.QuestionModel;
 import com.portal.model.assessment.Assessment;
 import com.portal.model.assessment.Question;
 
@@ -9,7 +10,7 @@ public interface QuestionServiceInterface {
 
 	public Question addQuestion(Question question);
 
-	public Question updateQuestion(Question question);
+	public Question updateQuestion(QuestionModel question);
 
 	public Set<Question> getQuestions();
 

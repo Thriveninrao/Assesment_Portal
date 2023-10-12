@@ -41,7 +41,7 @@
             <mat-form-field appearance="outline">
               <mat-label>Category</mat-label>
               <mat-select name="food" [(ngModel)]="assessmentData.category.categoryId">
-                <mat-option *ngFor="let c of categories" [value]="c.categoryId">
+                <mat-option *ngFor="let c of categories" [value]="c.categoryId" required>
                   {{ c.categoryTitle }}
                 </mat-option>
               </mat-select>
@@ -51,7 +51,7 @@
         <div class="row">
           <div class="col-md-6">
             <!-- max marks -->
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" *ngIf="showMaxMarksField">
               <mat-label>Maximum Marks</mat-label>
               <input type="text" name="maxMarks" placeholder="Enter here" required matInput
                 [(ngModel)]="assessmentData.maxMarks" />
@@ -59,7 +59,7 @@
           </div>
           <div class="col-md-6">
             <!-- number of questions to be shown -->
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" *ngIf="showMaxMarksField">
               <mat-label>Number of Questions</mat-label>
               <input type="text" name="numberOfQuestions" placeholder="Enter here" required matInput
                 [(ngModel)]="assessmentData.numberOfQuestions" />

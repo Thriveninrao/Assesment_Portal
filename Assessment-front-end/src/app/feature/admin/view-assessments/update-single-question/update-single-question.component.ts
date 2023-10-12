@@ -17,6 +17,7 @@ export class UpdateSingleQuestionComponent implements OnInit {
   assessmentTitle: any;
   questionId: any;
   question: any = {
+    questionId:0,
     assessment: {
       assessmentId: 1,
     },
@@ -27,6 +28,19 @@ export class UpdateSingleQuestionComponent implements OnInit {
     option4: '',
     answer: '',
     image: '',
+    marks: 1,
+  };
+  questionModel: any = {
+    questionId:0,
+    assessment: {
+      assessmentId: 1,
+    },
+    content: '',
+    option1: '',
+    option2: '',
+    option3: '',
+    option4: '',
+    answer: '',
     marks: 1,
   };
   constructor(
@@ -103,8 +117,17 @@ export class UpdateSingleQuestionComponent implements OnInit {
         duration: 3000,
       });
     } else {
-      // form subission
-      this._questions.addQuestion(this.question).subscribe(
+      this.questionModel.questionId=this.question.questionId;
+      this.questionModel.assessment.assessmentId=this.assessmentId;
+      this.questionModel.content=this.question.content;
+      this.questionModel.option1=this.question.option1;
+      this.questionModel.option2=this.question.option2;
+      this.questionModel.option3=this.question.option3;
+      this.questionModel.option4=this.question.option4;
+      this.questionModel.answer=this.question.answer;
+      this.questionModel.marks=this.question.marks;
+
+      this._questions.addQuestion(this.questionModel).subscribe(
         (data: any) => {
           console.log('question added :: ', data);
           Swal.fire(

@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.portal.model.AssessmentGrouDataSent;
 import com.portal.model.AssessmentGroupDataModel;
+import com.portal.model.AssessmentModel;
 import com.portal.model.User;
 import com.portal.model.assessment.Assessment;
 import com.portal.model.assessment.AssessmentGroup;
@@ -64,7 +65,17 @@ public class AssessmentServiceImpl implements AssessmentServiceInterface {
 	}
 
 	@Override
-	public Assessment updateAssessment(Assessment assessment) {
+	public Assessment updateAssessment(AssessmentModel assessmentModel) {
+		System.out.println("AssessmentServiceImpl.updateAssessment()");
+		Assessment assessment = this.getAssessment(assessmentModel.getAssessmentId());
+		
+		System.out.println("Before :: "+assessment.getAssessmentTitle());
+		
+		assessment.setAssessmentDescription(assessmentModel.getAssessmentDescription());
+		assessment.setAssessmentTitle(assessmentModel.getAssessmentTitle());
+		assessment.setCategory(assessmentModel.getCategory());
+		
+		System.out.println("After :: "+assessment.getAssessmentTitle());
 		return this.assessRepo.save(assessment);
 	}
 

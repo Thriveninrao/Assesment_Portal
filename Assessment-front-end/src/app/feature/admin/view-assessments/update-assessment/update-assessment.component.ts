@@ -27,9 +27,20 @@ export class UpdateAssessmentComponent implements OnInit {
     categoryTitle: '',
     categoryDescription: '',
   };
+  assessmentModel = {
+    assessmentId: 0,
+    assessmentTitle: '',
+    ssessmentDescription: '',
+    category: {
+      categoryId: '',
+      categoryTitle: '',
+      categoryDescription: '',
+    }
+  }
+  showMaxMarksField: boolean = false;
   assessment: any;
   assessmentId = 0;
-  
+
   ngOnInit(): void {
     this.assessmentId = this.data.assessmentId;
     // alert(this.assessmentId);
@@ -56,19 +67,15 @@ export class UpdateAssessmentComponent implements OnInit {
 
   // update form submit
   public updateAssessmentData(assessment: any) {
-    console.log(assessment);
+    this.assessmentModel.assessmentId = assessment.assessmentId;
+    this.assessmentModel.assessmentTitle = assessment.assessmentTitle;
+    this.assessmentModel.ssessmentDescription = assessment.assessmentDescription;
+    this.assessmentModel.category = assessment.category;
 
-    this._assessment.updateAssessment(assessment).subscribe(
+    this._assessment.updateAssessment(this.assessmentModel).subscribe(
       (data) => {
-        console.log(data);
-        Swal.fire({
-          icon: 'success',
-          title: 'Assessment Successfully Updated',
-          confirmButtonText: 'OK',
-        }).then((result) => {
-          if (result.value) {
-            this.router.navigate(['/admin/view-assessments']);
-          }
+        Swal.fire('Success', this.assessmentModel.assessmentTitle + ' Assessment Successfully Updated', 'success').then((result) => {
+          this.router.navigate(['/admin/view-assessments']);
         });
         // this.assessment = {
         //   assessmentId: null,

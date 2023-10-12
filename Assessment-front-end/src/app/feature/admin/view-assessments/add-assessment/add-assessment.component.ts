@@ -19,6 +19,7 @@ export class AddAssessmentComponent implements OnInit {
     categoryTitle: '',
     categoryDescription: '',
   };
+  showMaxMarksField: boolean = false;
   assessmentData = {
     assessmentId: 23,
     assessmentTitle: '',
@@ -69,6 +70,8 @@ export class AddAssessmentComponent implements OnInit {
 
     // we can provide multiple Validations for all the Fields.
     this.assessmentData.user.id = this._login.getuserDetail().id;
+    this.assessmentData.maxMarks='0';
+    this.assessmentData.numberOfQuestions='0';
     // call server
     this._assessmentService.addAssessment(this.assessmentData).subscribe(
       //success

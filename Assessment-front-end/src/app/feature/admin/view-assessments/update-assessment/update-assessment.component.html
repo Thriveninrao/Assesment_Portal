@@ -1,6 +1,6 @@
 <div class="mat-title d-flex justify-content-between">
   <div class="">
-    <h1 mat-dialog-title>Update New Assessment</h1>
+    <h1 mat-dialog-title>Update Assessment</h1>
   </div>
   <div class="close-icon" mat-dialog-close>
     <mat-icon>close</mat-icon>
@@ -38,7 +38,7 @@
         <div class="row">
           <div class="col-md-6">
             <!-- max marks -->
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" *ngIf="showMaxMarksField">
               <mat-label>Maximum Marks</mat-label>
               <input type="text" name="maxMarks" placeholder="Enter here" required matInput
                 [(ngModel)]="assessment.maxMarks" />
@@ -46,7 +46,7 @@
           </div>
           <div class="col-md-6">
             <!-- number of questions to be shown -->
-            <mat-form-field  appearance="outline">
+            <mat-form-field  appearance="outline" *ngIf="showMaxMarksField">
               <mat-label>Number of Questions</mat-label>
               <input type="text" name="numberOfQuestions" placeholder="Enter here" required matInput
                 [(ngModel)]="assessment.numberOfQuestions" />

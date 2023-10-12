@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.portal.model.AssessmentGrouDataSent;
 import com.portal.model.AssessmentGroupDataModel;
+import com.portal.model.AssessmentModel;
 import com.portal.model.UserAssessmentAssignment;
 import com.portal.model.assessment.Assessment;
 import com.portal.model.data.ResultOfAssessment;
@@ -69,7 +70,7 @@ public class AssessmentController {
 	}
 
 	@PutMapping("/")
-	public ResponseEntity<Assessment> updateAssessment(@RequestBody Assessment assessment) {
+	public ResponseEntity<Assessment> updateAssessment(@RequestBody AssessmentModel assessment) {
 		return ResponseEntity.ok(this.assessmentService.updateAssessment(assessment));
 	}
 

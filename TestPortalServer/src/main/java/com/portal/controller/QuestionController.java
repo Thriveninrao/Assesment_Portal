@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.portal.model.QuestionModel;
 import com.portal.model.assessment.Assessment;
 import com.portal.model.assessment.Question;
 import com.portal.service.QuestionServiceInterface;
@@ -36,7 +37,7 @@ public class QuestionController {
 	}
 
 	@PutMapping("/")
-	public ResponseEntity<Question> updateQuestion(@RequestBody Question question) {
+	public ResponseEntity<Question> updateQuestion(@RequestBody QuestionModel question) {
 		return ResponseEntity.ok(this.questionService.updateQuestion(question));
 	}
 

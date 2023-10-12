@@ -48,10 +48,10 @@
   </mat-menu>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button type="submit" mat-raised-button class="btn-main" [disabled]="!groupForm.valid" (click)="onSubmit()">
-    Save
-  </button>
   <button class="mr20 ml20" type="button" mat-raised-button mat-dialog-close="">
     Cancel
+  </button>
+  <button type="submit" mat-raised-button class="btn-main" [disabled]="!groupForm.valid" (click)="onSubmit()">
+    Save
   </button>
 </mat-dialog-actions>

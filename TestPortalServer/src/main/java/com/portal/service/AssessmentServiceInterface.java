@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.portal.model.AssessmentGrouDataSent;
 import com.portal.model.AssessmentGroupDataModel;
+import com.portal.model.AssessmentModel;
 import com.portal.model.assessment.Assessment;
 import com.portal.model.data.ResultOfAssessment;
 import com.portal.model.data.SuccessMessage;
@@ -17,7 +18,7 @@ public interface AssessmentServiceInterface {
 
 	public Assessment addAssessment(Assessment assessment);
 
-	public Assessment updateAssessment(Assessment assessment);
+	public Assessment updateAssessment(AssessmentModel assessment);
 
 	public Set<Assessment> getAssessments();
 
