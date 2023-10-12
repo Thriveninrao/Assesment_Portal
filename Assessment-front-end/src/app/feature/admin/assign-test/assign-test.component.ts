@@ -267,9 +267,10 @@ export class AssignTestComponent implements OnInit {
     };
 
     this.disabled = true;
+    this.isSubmitted = true
     this.userService.assignTest(dataToSend).subscribe(
       (data: any) => {
-        this.isSubmitted=true;
+        this.isSubmitted = false
         console.log(data);
         //Success
         Swal.fire('Success', data.message, 'success').then(() => {
@@ -279,6 +280,7 @@ export class AssignTestComponent implements OnInit {
       (error) => {
         this.isSubmitted=true;
         //Error
+        this.isSubmitted = false
         console.log('error');
         this.snack.open('Error in Test assignment', '', {
           duration: 3000,

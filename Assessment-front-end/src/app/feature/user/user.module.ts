@@ -7,7 +7,7 @@ import { UserSidebarComponent } from './user-sidebar/user-sidebar.component';
 import { UserWelcomeComponent } from './user-welcome/user-welcome.component';
 import { ViewUserAssessmentsComponent } from './view-user-assessments/view-user-assessments.component';
 import { MaterialModule } from 'src/app/Common/material/material.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/Common/shared/shared.module';
 
 
@@ -25,7 +25,8 @@ import { SharedModule } from 'src/app/Common/shared/shared.module';
     UserRoutingModule,
     MaterialModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class UserModule { }

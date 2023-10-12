@@ -42,7 +42,7 @@ export class AddQuestionComponent implements OnInit {
   ngOnInit(): void {
     // this.assessmentId = this._route.snapshot.params['assessmentId'];
     // this.assessmentTitle = this._route.snapshot.params['assessmentTitle'];
-    this.assessmentId = this.data?.assessmentId;
+    this.assessmentId = this.data?.assessmentID;
     this.assessmentTitle = this.data?.assessmentTitle;
     this.question.assessment['assessmentId'] = this.assessmentId;
   }

@@ -8,7 +8,7 @@ import { FileServicesService } from 'src/app/services/file-services.service';
 @Component({
   selector: 'app-take-user-assessment-questions',
   templateUrl: './take-user-assessment-questions.component.html',
-  styleUrls: ['./take-user-assessment-questions.component.css']
+  styleUrls: ['./take-user-assessment-questions.component.scss']
 })
 export class TakeUserAssessmentQuestionsComponent implements OnInit {
   assessmentId: number = 1;

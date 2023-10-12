@@ -1,4 +1,42 @@
 <div class="container">
+  <mat-card>
+    <mat-card-header>
+      <div class="mb-3">
+        <h4>Assessments List</h4>
+      </div>
+    </mat-card-header>
+    <div *ngIf="assessments.length === 0" class="text-center">
+      <p>No assessments found</p>
+    </div>
+    <mat-card-content class="text-center">
+      <mat-card *ngFor="let a of assessments">
+        <mat-card-header>
+          <div mat-card-avatar class="assessment-image"></div>
+          <mat-card-title>
+            {{ a.assessmentTitle }}
+          </mat-card-title>
+          <mat-card-subtitle>
+            {{ a.category.categoryTitle }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ a.assessmentDescription }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button [routerLink]="
+            '/user/take-user-assessment-questions/' +
+            a.assessmentId +
+            '/' +
+            a.assessmentTitle
+          " class="btn-main" mat-raised-button >TakeUp</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+<!-- <div class="container">
   <mat-card class="mt20 mr20 ml20">
     <h1 class="text-center mt10" style="
           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -36,4 +74,4 @@
       </mat-card-actions>
     </mat-card>
   </mat-card>
-</div>
+</div> -->

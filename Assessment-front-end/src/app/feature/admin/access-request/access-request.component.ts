@@ -87,7 +87,8 @@ export class AccessRequestComponent implements OnInit {
             }
           },
           (error) => {
-            this.isSubmitted=true;
+            this.isSubmitted = false
+            this.disabled = false;
             console.log(error);
             Swal.fire('Error', 'Error', 'error');
           },() => {
@@ -128,7 +129,8 @@ export class AccessRequestComponent implements OnInit {
             }
           },
           (error) => {
-            this.isSubmitted=true;
+            this.isSubmitted = false
+            this.disabled = false;
             console.log(error);
             Swal.fire('Error', 'Error', 'error');
           },() => {
