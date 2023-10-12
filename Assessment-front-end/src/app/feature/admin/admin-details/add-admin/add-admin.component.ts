@@ -247,6 +247,7 @@ export class AddAdminComponent implements OnInit {
     }
 
     const payload = {
+      id: this.data?.headerName === 'Update' ? this.data?.rowData?.id : null,
       firstName: this.adminForm.controls['firstName'].value,
       lastName: this.adminForm.controls['lastName'].value,
       email: this.adminForm.controls['email'].value,

@@ -27,6 +27,9 @@ function validateTrainerOverall(
   }
   return null;
 }
+
+
+
 @Component({
   selector: 'app-feedback',
   templateUrl: './feedback.component.html',
@@ -34,6 +37,8 @@ function validateTrainerOverall(
 })
 export class FeedbackComponent {
   assessmentForm: FormGroup;
+
+
   constructor(
     private formBuilder: FormBuilder,
     private feedbackService: FeedbackserviceService
@@ -51,22 +56,27 @@ export class FeedbackComponent {
     });
   }
   submitForm() {
-    if (this.assessmentForm.valid) {
-      console.log('Form submitted!', this.assessmentForm.value);
+    console.log(this.assessmentForm.value)
+    // if (this.assessmentForm.valid) {
+    //   console.log('Form submitted!', this.assessmentForm.value);
 
-      const assessmentFeedback: AssessmentFeedBack = this.assessmentForm.value;
+    //   const assessmentFeedback: AssessmentFeedBack = this.assessmentForm.value;
 
-      // Assuming your addFeedback method returns an Observable
-      this.feedbackService.addFeedBack(assessmentFeedback).subscribe(
-        (response) => {
-          console.log('Feedback saved successfully!', response);
-          // You can do additional handling here if needed
-        },
-        (error) => {
-          console.error('Error saving feedback:', error);
-          // Handle error here
-        }
-      );
-    }
+    //   // Assuming your addFeedback method returns an Observable
+    //   this.feedbackService.addFeedBack(assessmentFeedback).subscribe(
+    //     (response) => {
+    //       console.log('Feedback saved successfully!', response);
+    //       // You can do additional handling here if needed
+    //     },
+    //     (error) => {
+    //       console.error('Error saving feedback:', error);
+    //       // Handle error here
+    //     }
+    //   );
+    // }
+  }
+
+  setValues(event:any, control:any){
+    this.assessmentForm.controls[control].setValue(event)
   }
 }

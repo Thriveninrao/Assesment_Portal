@@ -1,0 +1,6 @@
+<div class="m-2">
+    <i *ngFor="let star of stars" (click)="rate(star)" title="{{ star.display }}"
+        class="material-icons star" [ngClass]="star.checked ? 'starcolor':''">{{
+        star.checked ? 'star' : 'star_border' }}
+    </i>
+</div>
