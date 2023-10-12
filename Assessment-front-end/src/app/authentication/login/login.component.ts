@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 export class LoginComponent implements OnInit {
   loginForm! : FormGroup
   hidePassword: boolean = true;
+  hide = true;
   constructor(
     private formBuilder: FormBuilder,
     private snack: MatSnackBar, 

@@ -8,30 +8,32 @@
     <div *ngIf="assessments.length === 0" class="text-center">
       <p>No assessments found</p>
     </div>
-    <mat-card-content >
-      <mat-card *ngFor="let a of assessments" style="width: 30%;"
-      (click)="takeTest(a)">
-        <mat-card-header>
-          <div mat-card-avatar class="assessment-image"></div>
-          <mat-card-title>
-            {{ a.assessmentTitle }}
-          </mat-card-title>
-          <mat-card-subtitle>
-            {{ a.category.categoryTitle }}
-          </mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>{{ a.assessmentDescription }}</p>
-        </mat-card-content>
-        <!-- <mat-card-actions>
-          <button [routerLink]="
-            '/user/take-user-assessment-questions/' +
-            a.assessmentId +
-            '/' +
-            a.assessmentTitle
-          " class="btn-main" mat-raised-button >TakeUp</button>
-        </mat-card-actions> -->
-      </mat-card>
+    <mat-card-content>
+      <div class="d-flex" style="flex-wrap: wrap; ">
+        <mat-card (click)="takeTest(a)" *ngFor="let a of assessments" style="width: 31%; margin: 10px;">
+          <mat-card-header>
+            <div mat-card-avatar class="assessment-image"></div>
+            <mat-card-title>
+              {{ a.assessmentTitle }}
+            </mat-card-title>
+            <mat-card-subtitle>
+              {{ a.category.categoryTitle }}
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ a.assessmentDescription }}</p>
+          </mat-card-content>
+          <!-- <mat-card-actions>
+            <button [routerLink]="
+              '/user/take-user-assessment-questions/' +
+              a.assessmentId +
+              '/' +
+              a.assessmentTitle
+            " class="btn-main" mat-raised-button >TakeUp</button>
+          </mat-card-actions> -->
+        </mat-card>
+      </div>
+
     </mat-card-content>
   </mat-card>
 </div>
