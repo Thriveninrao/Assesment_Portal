@@ -37,7 +37,7 @@ import { GroupUsersComponent } from './pages/admin/group-users/group-users.compo
 import { ViewAssessmentGroupsComponent } from './pages/admin/view-assessment-groups/view-assessment-groups.component';
 import { FeedbackComponent } from './pages/user/feedback/feedback.component';
 import { ViewUserGroupsComponent } from './pages/admin/view-user-groups/view-user-groups.component';
-
+import { FeedbackUpdatedComponent } from './pages/user/feedback-updated/feedback-updated.component';
 const routes: Routes = [
   {
     path: '',
@@ -160,6 +160,10 @@ const routes: Routes = [
           path:'feedback',
           component:FeedbackComponent
           },
+          {
+            path:'feedback1',
+            component:FeedbackUpdatedComponent
+            },
         ],
       },
 

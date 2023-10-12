@@ -1,0 +1,116 @@
+<form [formGroup]="reviewForm">
+  <div class="form-group">
+    <label for="rating"
+      >How do you rate yourself on the knowledge of the topic "before" attending
+      the session? (1 Basic and 5 Expert)</label
+    >
+    <select id="rating" formControlName="rating">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="objectives"
+      >The objectives of the training were clearly defined at the beginning of
+      the program. (1 Strongly Agree and 5 Strongly Disagree)</label
+    >
+    <select id="objectives" formControlName="objectives">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="topics"
+      >The topics covered were relevant to me & my job role. (1 Strongly Agree
+      and 5 Strongly Disagree)</label
+    >
+    <select id="topics" formControlName="topics">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="content"
+      >The content & the entire training program was well organized and easy to
+      follow. (1 Strongly Agree and 5 Strongly Disagree)</label
+    >
+    <select id="content" formControlName="content">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="trainer"
+      >The trainer was knowledgeable about the training topics. (1 Strongly
+      Agree and 5 Strongly Disagree)</label
+    >
+    <select id="trainer" formControlName="trainer">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="takeaways"
+      >Mention your 3 major takeaways from this session.</label
+    >
+    <textarea
+      id="takeaways"
+      formControlName="takeaways"
+      rows="5"
+      cols="33"
+    ></textarea>
+  </div>
+  <div class="form-group">
+    <label for="recommendation"
+      >How likely are you to recommend this session to your fellow Softtekians?
+    </label>
+    <select id="recommendation" formControlName="recommendation">
+      <option value="1">Highly Recommend</option>
+      <option value="2">Neutral</option>
+      <option value="3">Not Likely to Recommend</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="feedback"
+      >Any suggestions/feedback that would make this training more effective?
+    </label>
+    <textarea
+      id="feedback"
+      formControlName="feedback"
+      rows="5"
+      cols="33"
+    ></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="rating"
+      >How would you rate the overall quality of the training? (1 Poor and 5
+      Excellent)</label
+    >
+    <select id="rating" formControlName="overallQuality">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+  </div>
+</form>

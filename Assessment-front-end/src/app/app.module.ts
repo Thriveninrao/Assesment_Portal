@@ -71,6 +71,8 @@ import { ViewAssessmentGroupsComponent } from './pages/admin/view-assessment-gro
 import { FeedbackComponent } from './pages/user/feedback/feedback.component';
 import { ViewAssessmentAttendedComponent } from './pages/admin/view-assessment-attended/view-assessment-attended.component';
 import { MatSortModule } from '@angular/material/sort';
+import { FeedbackUpdatedComponent } from './pages/user/feedback-updated/feedback-updated.component';
+
 
 
 
@@ -118,6 +120,7 @@ import { MatSortModule } from '@angular/material/sort';
       ViewUserGroupsComponent,
       ViewAssessmentGroupsComponent,
       FeedbackComponent,
+      FeedbackUpdatedComponent,
 
   ],
   imports: [
