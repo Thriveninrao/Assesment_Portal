@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
           console.log(user);
           // redirect ...ADMIN:: Admin-dashboard
           // redirect ...Normal:: Normal-dashboard
-          if (this.login.getUserRole() == 'ADMIN') {
+          if (this.login.getUserRole() == 'ADMIN' || this.login.getUserRole()=='SUPER-ADMIN') {
             // admin dashboard
             // window.location.href = '/admin';
             this.router.navigate(['admin']);
