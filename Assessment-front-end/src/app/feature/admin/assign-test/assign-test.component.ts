@@ -93,7 +93,7 @@ export class AssignTestComponent implements OnInit {
         this.users.forEach((user) => {
           this.userService.getRoleId(user.username).subscribe((data: any) => {
             this.testUserRoleId = data;
-            if (this.testUserRoleId === 44) {
+            if (this.testUserRoleId === 43 || this.testUserRoleId === 44) {
               const index = this.users.indexOf(user);
               if (index !== -1) {
                 this.users.splice(index, 1);
