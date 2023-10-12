@@ -8,6 +8,7 @@ import { MatTableComponent } from './mat-table/mat-table.component';
 import { RouterModule } from '@angular/router';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
 import { LoaderComponent } from './loader/loader.component';
+import { StarRatingComponent } from './star-rating/star-rating.component';
 
 const components = [
   NavbarComponent,
@@ -15,6 +16,7 @@ const components = [
   MatTableComponent,
   SearchFilterComponent,
   LoaderComponent,
+  StarRatingComponent
 ]
 
 @NgModule({

@@ -1,0 +1,11 @@
+.star {
+    color:  #00C7A8;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  .starcolor{
+    color: #00C7A8;
+  }
