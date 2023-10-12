@@ -26,6 +26,7 @@ export class AssignTestComponent implements OnInit {
   onlyUsersSelected: boolean = false;
   selectedUserGroups: any[] = [];
   selectedAssessmentGroups: any[] = [];
+  isSubmitted: boolean = false;
 
 
   assessmentSearch: string = '';
@@ -231,6 +232,7 @@ export class AssignTestComponent implements OnInit {
   }
 
   public handleFABClick() {
+    this.isSubmitted=true;
 
     this.selectedUsers = this.selectedUsers.filter((user, index, self) =>
       index === self.findIndex((u) => u.id === user.id)
@@ -267,6 +269,7 @@ export class AssignTestComponent implements OnInit {
     this.disabled = true;
     this.userService.assignTest(dataToSend).subscribe(
       (data: any) => {
+        this.isSubmitted=true;
         console.log(data);
         //Success
         Swal.fire('Success', data.message, 'success').then(() => {
@@ -274,6 +277,7 @@ export class AssignTestComponent implements OnInit {
         });;
       },
       (error) => {
+        this.isSubmitted=true;
         //Error
         console.log('error');
         this.snack.open('Error in Test assignment', '', {
