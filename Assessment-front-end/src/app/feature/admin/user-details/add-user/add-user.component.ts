@@ -259,6 +259,7 @@ export class AddUserComponent implements OnInit {
     }
 
     const payload = {
+      id: this.data?.headerName === 'Update' ? this.data?.rowData?.id : null,
       firstName: this.userForm.controls['firstName'].value,
       lastName: this.userForm.controls['lastName'].value,
       email: this.userForm.controls['email'].value,

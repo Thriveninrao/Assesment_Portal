@@ -19,7 +19,7 @@ export class UpdateAssessmentComponent implements OnInit {
     private router: Router,
     private dialogref: MatDialogRef<UpdateAssessmentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-  ) {}
+  ) { }
 
   categories: any = [];
   category = {
@@ -29,6 +29,7 @@ export class UpdateAssessmentComponent implements OnInit {
   };
   assessment: any;
   assessmentId = 0;
+  
   ngOnInit(): void {
     this.assessmentId = this.data.assessmentId;
     // alert(this.assessmentId);
@@ -55,8 +56,11 @@ export class UpdateAssessmentComponent implements OnInit {
 
   // update form submit
   public updateAssessmentData(assessment: any) {
+    console.log(assessment);
+
     this._assessment.updateAssessment(assessment).subscribe(
       (data) => {
+        console.log(data);
         Swal.fire({
           icon: 'success',
           title: 'Assessment Successfully Updated',
@@ -66,15 +70,18 @@ export class UpdateAssessmentComponent implements OnInit {
             this.router.navigate(['/admin/view-assessments']);
           }
         });
-        this.assessment = {
-          assessmentId: null,
-          assessmentTitle: null,
-          assessmentDescription: null,
-          maxMarks: null,
-          numberOfQuestions: null,
-          active: null,
-          category: { categoryId: null },
-        };
+        // this.assessment = {
+        //   assessmentId: null,
+        //   assessmentTitle: null,
+        //   assessmentDescription: null,
+        //   maxMarks: null,
+        //   numberOfQuestions: null,
+        //   active: null,
+        //   category: { categoryId: null },
+        //   user: {
+        //     id: null
+        //   }
+        // };
       },
       (error) => {
         console.log(error);
