@@ -1,0 +1,146 @@
+// .profile-image {
+//   max-width: 150px;
+//   max-height: 150px;
+//   border: 2px solid rgb(68, 31, 217);
+//   border-radius: 50%;
+// }
+
+// .table {
+//   width: 100%;
+//   /* border: 0.5px solid #fcf7f7;    */
+//   border-collapse: collapse;
+// }
+
+// .table tr td {
+//   padding: 15px 10px;
+//   /* border: 0.5px solid #e7e7e7;  */
+// }
+
+// .text-center {
+//   text-align: center;
+// }
+
+
+// mat-card {
+//   /* background: linear-gradient(135deg, #71b7e6, #9b59b6); */
+
+//   /* background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); */
+
+//   /* background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%); */
+
+//   /* background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%); */
+
+//   /* background-image: linear-gradient(-225deg, #FFFEFF 0%, #D7FFFE 100%); */
+
+//   /* background-image: linear-gradient(to top, #9795f0 0%, #fbc8d4 100%); */
+
+//   /* background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%); */
+
+//   background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+
+//   margin: 100px;
+
+//   text-align: center;
+
+//   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+// }
+
+
+.heading {
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 20px;
+}
+
+.button-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  padding-right: 20px;
+}
+
+.button-section .child-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 15px;
+}
+.edit-content {
+  display: flex;
+  flex-wrap: nowrap;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 35px;
+}
+
+.profile {
+  flex: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.user-profile img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+}
+
+.user-data {
+  color: #385b68;
+  font-weight: 600;
+  font-size: 16px;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.user-data-item {
+  margin-bottom: 10px;
+}
+
+.edit-profile {
+  padding-left: 35px;
+  flex: 75%;
+  justify-content: center;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: none !important;
+}
+
+.edit-form {
+  display: flex;
+}
+
+.edit-form {
+  width: 100%;
+  max-width: 800px;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.form-field {
+  flex: 1;
+  margin-right: 16px !important;
+}
+
+.form-row:last-child .form-field:last-child {
+  margin-right: 0;
+}
+
+.edit-buttons {
+  display: flex;
+  padding-top: 15px;
+  padding-left: 27.5%;
+}
+.edit-text {
+  color: #224958;
+  text-decoration: underline;
+  cursor: pointer;
+}

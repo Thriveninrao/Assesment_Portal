@@ -1,0 +1,163 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+ 
+.fixed-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Set a z-index to ensure it's above other content */
+}
+
+.navbar{
+  position: fixed;
+  top: 20;
+  left: 0;
+  width: 250px; /* Adjust the width as needed */
+  height: 100%; /* Make it full height */
+  background-color: #fff; /* Set the background color */
+  border-right: 1px solid #ddd; /* Add a border if desired */
+  overflow-y: auto; /* Enable scrolling if content exceeds sidebar height */
+  z-index: 1000; /* Ensure it's on top of other content */
+}
+
+
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  position: relative; /* Position relative for absolute positioning */
+  cursor: pointer; /* Add pointer cursor for interaction */
+}
+
+/* Styles for the View Options Dropdown */
+.view-options {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: none; /* Initially hidden */
+}
+
+.view-options ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.view-options li {
+  padding: 10px;
+}
+
+/* Hover effect for the user profile to show the dropdown */
+.user-profile:hover .view-options {
+  display: block;
+}
+
+
+
+
+
+
+.header img {
+  max-height: 43px;
+  margin-right: 10px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  color: rgb(0, 0, 0);
+ // background-image: linear-gradient(315deg, #d5fefd 0%, #fffcff 74%);
+  background: transparent;
+  position: sticky; /* Make the header sticky */
+  top: 0; /* Stick it to the top of the viewport */
+  z-index: 1000; /* Ensure it's above other content */
+  box-shadow: 0px 0px 3px -3px #000 !important;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  margin-right: 50px;
+}
+
+.user-profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-name {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.logoname {
+  color: #fff;
+  font-size: 24px;
+  margin: 0;
+}
+
+.login-button {
+  border: none;
+  color: #fff;
+  background: transparent;
+  margin-bottom: 5px;
+  padding: 4px 15px;
+  border-radius: 8px;
+  font-weight: 400;
+}
+
+.login-button:hover {
+  background: #fff;
+  color: #198f8d;
+  border-color: #198f8d;
+  border: 2px solid #198f8d;
+}
+
+/* Media query for screens with a maximum width of 768px (tablets) */
+@media (max-width: 768px) {
+  .header {
+      flex-direction: column;
+      /* Stack elements vertically */
+      text-align: center;
+      /* Center-align text */
+  }
+
+  .header img {
+      margin-bottom: 10px;
+      /* Add spacing between images */
+  }
+
+  .logoname {
+      font-size: 20px;
+      /* Reduce font size for smaller screens */
+  }
+}
+
+/* Media query for screens with a maximum width of 480px (mobile devices) */
+@media (max-width: 480px) {
+  .header img {
+      max-height: 30px;
+      /* Further reduce image size for mobile devices */
+  }
+
+  .logoname {
+      font-size: 18px;
+      /* Reduce font size for smaller screens */
+  }
+}
+
+.title{
+  font-size: x-large;
+  font-weight: 600;
+  color: #fff;
+}

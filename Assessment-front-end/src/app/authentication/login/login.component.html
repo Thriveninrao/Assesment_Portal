@@ -1,0 +1,148 @@
+<!-- <app-navbar></app-navbar> -->
+<!-- <div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row" style="margin-top: 20px">
+      <div class="col-md-6 offset-md-3">
+        <mat-card class="card">
+          <mat-card-content>
+            <div class="container text-center">
+              <img style="max-width: 200px" src="../../../assets/Softtek-logo.png" alt="" />
+            </div>
+            <br> -->
+
+<!-- Display the Login Form -->
+<!-- <div *ngIf="!showNewPasswordForm">
+              <form (ngSubmit)="formSubmit()" #loginForm="ngForm"> -->
+<!-- {{ loginData | json }} -->
+<!-- <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Username</mat-label>
+                  <input [(ngModel)]="loginData.username" required name="username" type="text" matInput
+                    placeholder="Enter Your User Name" />
+                </mat-form-field> -->
+
+<!-- <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Password</mat-label>
+                  <input [(ngModel)]="loginData.password" required name="password" [type]="hidePassword ? 'password' : 'text'" matInput
+                    placeholder="Enter Your Password" />
+                  <mat-hint></mat-hint>
+                  <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </mat-form-field>
+
+                <div class="container text-center">
+                  <button type="submit" mat-raised-button color="primary">
+                    Login
+                  </button>
+                  <button class="ml20" type="reset" mat-raised-button color="accent">
+                    Reset
+                  </button> -->
+<!-- <br>
+                  <br> -->
+<!-- <div class="container text-center">
+                    <button class="ml20" mat-raised-button color="accent" (click)="onRequestNewPasswordClick()">Request New Password</button>
+                  </div> -->
+<!-- </div>
+                <br>
+              </form>
+            </div> -->
+
+<!-- Display the New Password Request Form -->
+<!-- <div *ngIf="showNewPasswordForm">
+              <form (ngSubmit)="requestNewPassword()" #newPasswordForm="ngForm">
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Username</mat-label>
+                  <input [(ngModel)]="newPasswordData.username" required name="username" type="text" matInput
+                    placeholder="Enter Your Username" />
+                </mat-form-field>
+
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input [(ngModel)]="newPasswordData.email" required name="email" type="email" matInput
+                    placeholder="Enter Your Email" />
+                </mat-form-field>
+
+                <div class="container text-center">
+                  <button type="submit" mat-raised-button color="primary">
+                    Request
+                  </button>
+                  <button class="ml20" type="button" mat-raised-button color="accent"
+                    (click)="showNewPasswordForm = false">Cancel</button>
+                </div>
+              </form>
+            </div> -->
+<!-- </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="layout-wrapper">
+  <div class="login-container">
+    <div class="logo-content text-center">
+      <img src="../../../assets/Softtek-logo.png" alt="" />
+    </div>
+    <div style="margin-right: 100px;">
+      <mat-card>
+        <!-- <div class=" text-center">
+          <img class="softtek-logo" src="../../../assets/Softtek-logo.png" alt="" />
+        </div> -->
+        <div class="login-content text-center">
+          <mat-card-content>
+            <div class="mb-3 ls-tight h3 text-center" style="font-family: sans-serif;">
+              <span>Sign in to your account</span>
+            </div>
+            <form [formGroup]="loginForm">
+              <div class="" style="margin-bottom: 10px;">
+                <mat-form-field appearance="outline" class="">
+                  <mat-label>Username</mat-label>
+                  <span matPrefix>
+                    <span class="material-icons input-icon">
+                      account_circle
+                    </span>
+                  </span>
+                  <input matInput type="text" formControlName="username">
+                  <mat-error *ngIf="loginForm.controls['username'].hasError('required')">
+                    Please enter a valid username
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="">
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-label>Password</mat-label>
+                  <span matPrefix>
+                    <span class="material-icons input-icon">
+                      password
+                    </span>
+                  </span>
+                  <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+                  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+                    Please enter a valid password
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="forgot-password">
+                <a class="forgot-password-link" routerLink="/password-reset">Forgot Password?</a>
+              </div>
+            </form>
+            <div>
+              <button type="submit" mat-raised-button class="btn-main" style="width: 100%;"
+                (click)="onSubmit()">Login</button>
+            </div>
+            <div class="register-here d-flex">
+              <div class="text-sm text-muted">
+                Don't have an account? &nbsp;
+              </div>
+              <div>
+                <a href="javascript:void(0)" style="text-decoration: none;" routerLink="/signup"
+                  class="forgot-password-link">Sign up</a>
+              </div>
+            </div>
+          </mat-card-content>
+        </div>
+  
+      </mat-card>
+    </div>
+
+  </div>
+</div>

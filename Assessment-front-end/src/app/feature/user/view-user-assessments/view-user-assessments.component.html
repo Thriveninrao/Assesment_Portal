@@ -1,0 +1,80 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <div class="mb-3">
+        <h4>Assessments List</h4>
+      </div>
+    </mat-card-header>
+    <div *ngIf="assessments.length === 0" class="text-center">
+      <p>No assessments found</p>
+    </div>
+    <mat-card-content>
+      <div class="d-flex" style="flex-wrap: wrap; ">
+        <mat-card (click)="takeTest(a)" *ngFor="let a of assessments" style="width: 31%; margin: 10px;">
+          <mat-card-header>
+            <div mat-card-avatar class="assessment-image"></div>
+            <mat-card-title>
+              {{ a.assessmentTitle }}
+            </mat-card-title>
+            <mat-card-subtitle>
+              {{ a.category.categoryTitle }}
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ a.assessmentDescription }}</p>
+          </mat-card-content>
+          <!-- <mat-card-actions>
+            <button [routerLink]="
+              '/user/take-user-assessment-questions/' +
+              a.assessmentId +
+              '/' +
+              a.assessmentTitle
+            " class="btn-main" mat-raised-button >TakeUp</button>
+          </mat-card-actions> -->
+        </mat-card>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+<!-- <div class="container">
+  <mat-card class="mt20 mr20 ml20">
+    <h1 class="text-center mt10" style="
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          color: rgb(37, 66, 50);
+          font-size: 40px;
+          font-weight: 700;">
+      Assessments List
+    </h1>
+    <div class="container mt20 ml10">
+      <div *ngIf="assessments.length === 0" class="text-center">
+        <p>No assessments found</p>
+      </div>
+    </div>
+    <mat-card class="mt30 mr20 ml20 mb20" *ngFor="let a of assessments">
+      <mat-card-header>
+        <div mat-card-avatar class="assessment-image"></div>
+        <mat-card-title>
+          {{ a.assessmentTitle }}
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{ a.category.categoryTitle }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ a.assessmentDescription }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+  
+        <button [routerLink]="
+          '/user/take-user-assessment-questions/' +
+          a.assessmentId +
+          '/' +
+          a.assessmentTitle
+        " class="mt10 mb10 ml20" mat-raised-button color="primary">TakeUp</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-card>
+</div> -->

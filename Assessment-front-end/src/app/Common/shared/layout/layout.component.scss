@@ -1,0 +1,39 @@
+  .icon {
+    margin-bottom: -6px;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0px;
+    left: 5px;
+    width: 200px;
+    height: 100%;
+    overflow: hidden;
+    transition: 500ms;
+    margin-top: 80px;
+
+    .link:hover {
+     // background: #99b6db;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .link {
+      padding: 0px;
+
+      button {
+        color: #fff;
+      }
+    }
+  }
+
+  .active{
+    background: #fff; 
+    color: #198f8d; 
+    border-color: 2px solid #198f8d;
+    border: 2px solid #198f8d; 
+    margin-bottom: 5px; 
+    padding: 4px 15px;
+    border-radius: 8px;
+    font-weight: 400;
+  }

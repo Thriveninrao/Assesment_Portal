@@ -258,8 +258,8 @@ public class UserServiceImpl implements UserServiceInterface {
 		user.setEmail("admin.admin@softtek.com");
 		user.setPhone("9999999999");
 		Role role = new Role();
-		role.setRoleId(44L);
-		role.setRoleName("ADMIN");
+		role.setRoleId(43L);
+		role.setRoleName("SUPER-ADMIN");
 
 		UserRole userRole = new UserRole();
 		userRole.setRole(role);
@@ -305,7 +305,6 @@ public class UserServiceImpl implements UserServiceInterface {
 	@Override
 	public Boolean updateApproveUserRequest(String username) {
 		String newPassword = this.generatePassword();
-		userRepo.updateLoginLimitToOneByUsername(username);
 		userRepo.updateLoggedInToFalseByUsername(username);
 		userRepo.updateLoginRequestedToFalseByUsername(username);
 		userRepo.updatePasswordByUsername(username, this.bCryptPasswordEncoder.encode(newPassword));

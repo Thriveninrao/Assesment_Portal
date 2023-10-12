@@ -1,0 +1,132 @@
+<div class="container" *ngIf="!isSubmit">
+  <mat-card>
+    <div class="header mb-4 mt-4 text-center" *ngIf="currentQuestion">
+      <h4>On going Test {{ questions[0].assessment.assessmentTitle }}</h4>
+    </div>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-md-2" style="padding-left: 15px;">
+          <!-- progress -->
+          <div class="text-center">
+            <mat-card>
+              <p class="" style="margin-top: 50%;"><b>Progress</b></p>
+              <p class="mt-0">{{ currentQuestionIndex + 1 }} question of {{ questions.length }}</p>
+            </mat-card>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <!-- questions -->
+
+          <mat-card class="mt10">
+            <mat-card-content>
+              <p>
+                Q {{ currentQuestionIndex + 1 }}) &nbsp;<span [innerHTML]="currentQuestion.content"></span>
+              </p>
+
+              <mat-divider></mat-divider><br />
+
+              <div class="row mt10">
+                <div class="col-md-6">
+                  <input [(ngModel)]="currentQuestion.givenAnswer" type="radio" [value]="currentQuestion.option1"
+                    [name]="currentQuestionIndex.toString()" />
+                  {{ currentQuestion.option1 }}
+                </div>
+                <div class="col-md-6">
+                  <input [(ngModel)]="currentQuestion.givenAnswer" type="radio" [value]="currentQuestion.option2"
+                    [name]="currentQuestionIndex.toString()" />
+                  {{ currentQuestion.option2 }}
+                </div>
+              </div>
+              <div class="row mt20">
+                <div class="col-md-6">
+                  <input [(ngModel)]="currentQuestion.givenAnswer" type="radio" [value]="currentQuestion.option3"
+                    [name]="currentQuestionIndex.toString()" />
+                  {{ currentQuestion.option3 }}
+                </div>
+                <div class="col-md-6">
+                  <input [(ngModel)]="currentQuestion.givenAnswer" type="radio" [value]="currentQuestion.option4"
+                    [name]="currentQuestionIndex.toString()" />
+                  {{ currentQuestion.option4 }}
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+          <div class="container text-center mt-3">
+            <button *ngIf="isLastQuestion()" (click)="submitTest()" mat-raised-button class="btn-main">
+              Submit Test
+            </button>
+            <button style="float: left" (click)="previousQuestion()" [disabled]="currentQuestionIndex === 0"
+              mat-raised-button class="btn-main">
+              Previous
+            </button>
+            <button style="float: right" (click)="nextQuestion()"
+              [disabled]="currentQuestionIndex === questions.length - 1" mat-raised-button class="btn-main">
+              Next
+            </button>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <!-- Progress -->
+          <mat-card>
+            <mat-card-header class="mt20 mb20">
+              <mat-card-title> <b>Timer</b> </mat-card-title>
+              <mat-card-subtitle>
+                Test will automatically end after <b>00:00</b>.
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>{{ getFormattedTime() }}</p>
+              <mat-spinner mode="determinate" style="margin: auto"
+                [value]="(timer / (this.questions.length * 60)) * 100"></mat-spinner>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>
+<div class="container text-center" *ngIf="isSubmit">
+  <div>
+    <mat-card>
+      <div class=" text-center" style="margin-top: 20px;">
+        <h4>Test Result</h4>
+      </div>
+      <mat-card-content style="text-align: center !important;">
+        <ul class="list-group" style="background: transparent !important;">
+          <li class="list-group-item d-flex justify-content-between align-items-start" style="background: transparent;">
+            <div class="ms-2 me-auto">
+              <h6>Marks Obtained</h6>
+            </div>
+            <span>
+              <h6>{{correctAnswers}}</h6>
+            </span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-start" style="background: transparent;">
+            <div class="ms-2 me-auto">
+              <h6>Correct Answers</h6>
+            </div>
+            <span>
+              <h6>{{ correctAnswers }}</h6>
+            </span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-start" style="background: transparent;">
+            <div class="ms-2 me-auto">
+              <h6>Questions Attempted</h6>
+            </div>
+            <span>
+              <h6>{{ attempted }}</h6>
+            </span>
+          </li>
+        </ul>
+      </mat-card-content>
+      <mat-card-actions>
+        <div class="container text-center">
+          <button (click)="saveResult()" mat-raised-button class="btn-main">
+            Submit
+          </button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

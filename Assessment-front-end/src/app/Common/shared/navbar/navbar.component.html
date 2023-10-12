@@ -1,0 +1,100 @@
+<div class="header">
+  <span>
+    <span style="margin-left: 50px;">
+      <img src="/assets/Softtek-logo.png" alt="Header Image">
+    </span>
+    <!-- <span class="ml30 font-size-x-large">Softtek Assessment Portal</span> -->
+    <span class="example-spacer"></span>
+  </span>
+
+  <div class="title">
+    <span>Softtek Assessment Portal</span>
+  </div>
+
+  <div class="user-profile" id="user-profile" *ngIf="isLoggedIn">
+    <i class="material-icons">perm_identity</i>&nbsp;
+    <!-- <img src="../../../assets/login icon.png" alt="User Profile Image" id="profile-image"> -->
+    <span class="user-name">{{user.firstName}}&nbsp;{{user.lastName}}</span>
+
+    <!-- View Options Dropdown -->
+    <div class="view-options" id="view-options">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          
+          <button mat-button (click)="onClickButton('profile')">
+            <i class="material-icons">perm_identity</i>&nbsp;Profile</button>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <button mat-button (click)="onClickButton('logout')">
+            <i class="material-icons">logout</i>&nbsp;Logout</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="user-profile " *ngIf="!isLoggedIn">
+    <button type="button" class="login-button" (click)="onClickLogin()">Login / Register</button>
+  </div>
+
+</div>
+
+<!-- <div>
+  <mat-toolbar
+    style="
+      color: rgb(0, 0, 0);
+      background-image: linear-gradient(315deg, #d5fefd 0%, #fffcff 74%);
+    "
+  >
+    <a
+      [routerLink]="'/'"
+      mat-button
+      class="example-icon"
+      aria-label="Example icon-button with menu icon font-size-larger"
+      style="height: 60px"
+    >
+      <img
+        src="../../../assets/Softtek-logo.png"
+        style="max-width: 100px"
+        alt=""
+      />
+    </a>
+
+    <span class="ml30 font-size-x-large">Softtek Assessment Portal</span>
+    <span class="example-spacer"></span>
+    <a
+      *ngIf="!isLoggedIn"
+      [routerLink]="'/login'"
+      mat-button
+      style="margin-left: 0"
+      class="example-icon favorite-icon mr20 ml20 font-size-larger"
+      aria-label="Example icon-button with heart icon"
+    >
+      <img
+        src="../../../assets/login icon.png"
+        class="mt10"
+        style="max-width: 20px"
+      />
+      Login
+    </a>
+
+    <a
+      *ngIf="isLoggedIn && user"
+      mat-button
+      class="example-icon favorite-icon mr10 ml40 font-size-large"
+      style="margin-right: 150px"
+      aria-label="Example icon-button with heart icon"
+      routerLink="/admin/profile"
+    >
+      {{ user.username }}
+    </a>
+
+    <a
+      (click)="logout()"
+      *ngIf="isLoggedIn"
+      mat-button
+      class="example-icon favorite-icon mr10 ml40 font-size-large"
+      aria-label="Example icon-button with heart icon"
+    >
+      <mat-icon style="max-width: 20px">logout</mat-icon> Logout
+    </a>
+  </mat-toolbar>
+</div> -->

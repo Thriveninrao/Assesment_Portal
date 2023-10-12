@@ -1,0 +1,132 @@
+/* You can add global styles to this file, and also import other style files */
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+}
+
+.layout-wrapper {
+  position: fixed;
+  width: 100%;
+//   background-image: linear-gradient(180deg, rgba(255,255,255, 0.01), rgba(255,255,255, 1) 85%),
+// radial-gradient(ellipse at top left, rgba(13,110,253, 0.5), transparent 50%),
+// radial-gradient(ellipse at top right, rgba(255,228,132, 0.5), transparent 50%),
+// radial-gradient(ellipse at center right, rgba(112.520718,44.062154,249.437846, 0.5), transparent 50%),
+// radial-gradient(ellipse at center left, rgba(214,51,132, 0.5), transparent 50%);
+  // background: -webkit-linear-gradient(180deg, #d5fefd 0%, #eef6f6 74%);
+  background: linear-gradient(to bottom right, #45ACCD, #00C7A8, #00719E);
+  display: grid;
+  grid-template-rows: auto 1fr;
+
+  .content {
+    width: 100%;
+    overflow: auto;
+    position: relative;
+    height: 90vh;
+    margin-top: 0.19rem !important;
+    display: flex;
+
+    .sidebar-content {
+      width: 15%;
+      height: 100%;
+    }
+
+    .main-content {
+      margin-left: 45px;
+      margin-top: 5px;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+
+mat-form-field {
+  width: 350px;
+}
+
+.input-icon {
+  padding-left: 10px;
+}
+
+mat-card {
+  background: -webkit-linear-gradient(180deg, #d5fefd 0%, #eef6f6 74%) !important;
+  border-radius: 10px !important;
+  box-shadow: 0px 2px 8px #000 !important;
+}
+
+mat-error {
+  font-size: 14px;
+}
+
+mat-paginator {
+  background: transparent !important;
+}
+
+.container {
+  width: 100%;
+}
+
+.btn-main {
+  background: -webkit-linear-gradient(180deg, #d5fefd 0%, #eef6f6 74%) !important;
+  color: #198f8d !important;
+  border-radius: 8px !important;
+  border: 2px solid #198f8d !important;
+  font-weight: 400 !important;
+}
+
+.btn-cancel {
+  border-radius: 8px !important;
+  font-weight: 400 !important;
+  background-color: #eef6f6 !important;
+}
+
+.close-icon {
+  margin-top: 20px !important;
+  margin-right: 20px !important;
+}
+
+.btn-main:hover {
+  background: #fff !important;
+  border: 2px solid #198f8d !important;
+}
+
+.mat-mdc-dialog-title {
+  font-size: 20px !important;
+  font-weight: 400 !important;
+}
+
+.mat-title,
+mat-dialog-content,
+mat-dialog-actions {
+  background: -webkit-linear-gradient(180deg, #d5fefd 0%, #eef6f6 74%) !important;
+}
+
+.mat-expansion-panel {
+  background: transparent !important;
+}
+
+.mat-expansion-panel-header-title{
+  font-weight: 400 !important;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-mdc-form-field + .mat-mdc-form-field {
+  margin-left: 8px;
+}

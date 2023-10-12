@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SignupComponent } from './pages/signup/signup.component';
-import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/login/login.component';
-import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
-import { UserDashboardComponent } from './pages/user/user-dashboard/user-dashboard.component';
+import { HomeComponent } from './Common/components/home/home.component';
+import { LoginComponent } from './authentication/login/login.component';
+import {  } from './services/normal.guard';
+import { SignupComponent } from './authentication/signup/signup.component';
 import { AdminGuard } from './services/admin.guard';
 import { NormalGuard } from './services/normal.guard';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -38,6 +37,8 @@ import { ViewAssessmentGroupsComponent } from './pages/admin/view-assessment-gro
 import { FeedbackComponent } from './pages/user/feedback/feedback.component';
 import { ViewUserGroupsComponent } from './pages/admin/view-user-groups/view-user-groups.component';
 import { FeedbackUpdatedComponent } from './pages/user/feedback-updated/feedback-updated.component';
+import { PasswordResetComponent } from './authentication/password-reset/password-reset.component';
+import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 const routes: Routes = [
   {
     path: '',
@@ -46,13 +47,11 @@ const routes: Routes = [
   },
   {
     path: 'signup',
-    component: SignupComponent,
-    pathMatch: 'full',
+    component: SignupComponent
   },
   {
     path: 'login',
-    component: LoginComponent,
-    pathMatch: 'full',
+    component: LoginComponent
   },
   {
     path: 'admin',
@@ -167,55 +166,42 @@ const routes: Routes = [
         ],
       },
 
-  
-  
+
+
   {
     path: 'user',
-    component: UserDashboardComponent,
-    canActivate: [NormalGuard],
-    children: [
-      {
-        path: '',
-        component: UserWelcomeComponent,
-      },
-      {
-        path: 'profile',
-        component: ProfileComponent,
-      },
-      {
-        path: 'view-user-assessments',
-        component: ViewUserAssessmentsComponent,
-      },
-      {
-        path: 'assessment-takeup/:assessmentId/:assessmentTitle',
-        component: AssessmentTakeupComponent,
-      },
-      {
-        path: 'preinstructions/:assessmentId/:assessmentTitle',
-        component: PreinstructionsComponent,
-      },
-      {
-        path:'feedback',
-        component:FeedbackComponent
-      }
-    ],
-
-  },
-  {
-    path: 'user-dashboard',
-    component: UserDashboardComponent,
-    pathMatch: 'full',
-    canActivate: [NormalGuard],
-  },
-  {
-    path: 'start/:assessmentId/:assessmentTitle',
-    component: StartTestComponent,
+    loadChildren: () => import('./feature/user/user.module').then(m => m.UserModule),
+    canActivate:[]
   },
 
+  {
+    path: 'admin',
+    loadChildren: () => import('./feature/admin/admin.module').then(m => m.AdminModule),
+    canActivate:[AdminGuard]
+  },
+
+  {
+    path: 'password-reset',
+    component: ForgotPasswordComponent
+  },
+
+  {
+    path:'**',
+    redirectTo:'home',
+  },
+  {
+    path:'',
+    redirectTo:'home',
+    pathMatch:'full'
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    useHash: true,
+    scrollPositionRestoration: 'enabled',
+    onSameUrlNavigation: 'reload',
+  })],
   exports: [RouterModule],
 })
 export class AppRoutingModule { }

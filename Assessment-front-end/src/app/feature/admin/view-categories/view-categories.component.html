@@ -1,0 +1,109 @@
+<div class="container">
+  <mat-card class="w100">
+    <mat-card-header>
+      <div class="mb-3">
+        <h4>Categories
+          <span class="desc">( To promote better understanding and clarity, skills can be systematically categorized into distinct groups. )</span>
+        </h4>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div style="display:flex; justify-content: flex-end;" class="mb-4">
+          <!-- *ngIf="isAdmin" [routerLink]="['/admin/add-admin/add']" [queryParams]="{ mode: 'add' }" -->
+          <button mat-raised-button class="left-button btn-main" (click)="openDialog('Add', '')">
+            <mat-icon mat-list-icon>auto_awesome_motion</mat-icon>
+            Add New Category
+          </button>
+        </div>
+      </div>
+      <div *ngIf="categories.length === 0" class="empty-message">
+        <p>No Categories Found</p>
+      </div>
+      <div>
+        <div class="mt-1" *ngFor="let c of categoriesData;let i = index">
+          <mat-accordion class="example-headers-align">
+            <mat-expansion-panel hideToggle [expanded]="step === i" (opened)="setStep(i)">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span>
+                    <img class="category-image" src="../../../../assets/category.png" alt="category">
+                  </span> &nbsp;
+                  {{ c.categoryTitle }}
+                </mat-panel-title>
+                <mat-panel-description>
+                 
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              {{ c.categoryDescription }}
+
+              <mat-action-row>
+                <button mat-mini-fab matTooltip="Delete" (click)="deleteCategory(c.categoryId)"
+                  color="warn"><mat-icon>delete</mat-icon></button>
+              </mat-action-row>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="pageSize" [pageIndex]="pageIndex" aria-label="Select page of users"
+        [length]="categories.length" (page)="onPageChange($event)"></mat-paginator>
+        <!-- <mat-card class="mt30 mr20 ml20" *ngFor="let c of categories">
+          <mat-card-header>
+            <div mat-card-avatar class="category-image"></div>
+            <mat-card-title>
+              {{ c.categoryTitle }}
+            </mat-card-title>
+            <mat-card-subtitle>
+              {{ c.categoryDescription }}
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-actions class="mt10 mb10">
+            <button (click)="deleteCategory(c.categoryId)" mat-raised-button class="ml20" color="warn">
+              Delete
+            </button>
+          </mat-card-actions>
+        </mat-card> -->
+      </div>
+    </mat-card-content>
+    <!-- <h1
+      class="text-center mt10"
+      style="
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: rgb(37, 66, 50);
+        font-size: 40px;
+        font-weight: 700;
+      ">
+      Categories
+    </h1> -->
+    <!-- <div class="container text-left mt20">
+      <button routerLink="/admin/add-category" mat-raised-button color="accent">
+        Add New Category
+      </button>
+    </div> -->
+    <!-- <div class="container  mt20 ml10">
+      <div *ngIf="categories.length === 0" class="text-center mt10">
+        <p>No categories found</p>
+      </div>
+    </div> -->
+    <!-- <mat-card class="mt30 mr20 ml20" *ngFor="let c of categories">
+      <mat-card-header>
+        <div mat-card-avatar class="category-image"></div>
+        <mat-card-title>
+          {{ c.categoryTitle }}
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{ c.categoryDescription }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions class="mt10 mb10">
+        <button
+          (click)="deleteCategory(c.categoryId)"
+          mat-raised-button
+          class="ml20"
+          color="warn"
+        >
+          Delete
+        </button>
+      </mat-card-actions>
+    </mat-card> -->
+  </mat-card>
+</div>
