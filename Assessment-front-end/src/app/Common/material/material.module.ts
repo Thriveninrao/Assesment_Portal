@@ -21,6 +21,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatMenuModule } from '@angular/material/menu';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 const modules = [
   MatButtonModule,
@@ -43,7 +44,8 @@ const modules = [
   MatRadioModule,
   MatDialogModule,
   MatExpansionModule,
-  MatMenuModule
+  MatMenuModule,
+  MatProgressSpinnerModule
 ]
 
 @NgModule({

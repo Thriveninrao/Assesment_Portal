@@ -1,0 +1,21 @@
+mat-card{
+    min-height: 300px !important;
+}
+
+.col-md-8{
+    padding: 0px;
+}
+.col-md-2{
+    padding: 0px 10px 0px 10px;
+}
+
+button:disabled{
+    border: #fff !important;
+    background: #fff !important;
+    color: #000 !important;
+}
+
+ul{
+    width: 40%;
+    display: inline-block;
+}

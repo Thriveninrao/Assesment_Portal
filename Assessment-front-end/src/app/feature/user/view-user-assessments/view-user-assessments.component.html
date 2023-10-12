@@ -8,8 +8,9 @@
     <div *ngIf="assessments.length === 0" class="text-center">
       <p>No assessments found</p>
     </div>
-    <mat-card-content class="text-center">
-      <mat-card *ngFor="let a of assessments">
+    <mat-card-content >
+      <mat-card *ngFor="let a of assessments" style="width: 30%;"
+      (click)="takeTest(a)">
         <mat-card-header>
           <div mat-card-avatar class="assessment-image"></div>
           <mat-card-title>
@@ -22,14 +23,14 @@
         <mat-card-content>
           <p>{{ a.assessmentDescription }}</p>
         </mat-card-content>
-        <mat-card-actions>
+        <!-- <mat-card-actions>
           <button [routerLink]="
             '/user/take-user-assessment-questions/' +
             a.assessmentId +
             '/' +
             a.assessmentTitle
           " class="btn-main" mat-raised-button >TakeUp</button>
-        </mat-card-actions>
+        </mat-card-actions> -->
       </mat-card>
     </mat-card-content>
   </mat-card>

@@ -9,6 +9,9 @@ import { ViewUserAssessmentsComponent } from './view-user-assessments/view-user-
 import { MaterialModule } from 'src/app/Common/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/Common/shared/shared.module';
+import { PreinstructionsComponent } from './preinstructions/preinstructions.component';
+import { StartTestComponent } from './start-test/start-test.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 
 
@@ -18,7 +21,10 @@ import { SharedModule } from 'src/app/Common/shared/shared.module';
     TakeUserAssessmentQuestionsComponent,
     UserSidebarComponent,
     UserWelcomeComponent,
-    ViewUserAssessmentsComponent
+    ViewUserAssessmentsComponent,
+    PreinstructionsComponent,
+    StartTestComponent,
+    FeedbackComponent
   ],
   imports: [
     CommonModule,
