@@ -3,12 +3,11 @@ import { AssessmentService } from 'src/app/services/assessment.service';
 import Swal from 'sweetalert2';
 import { FileServicesService } from 'src/app/services/file-services.service';
 import { MatPaginator } from '@angular/material/paginator';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { AddAssessmentComponent } from './add-assessment/add-assessment.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateAssessmentComponent } from './update-assessment/update-assessment.component';
 import { ViewAssessmentAttendedComponent } from './view-assessment-attended/view-assessment-attended.component';
-import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-view-assessments',
@@ -22,39 +21,23 @@ export class ViewAssessmentsComponent implements OnInit {
   pageIndex = 0; // Current page index
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   step!: number;
-  currentUser: any
 
   constructor(
     private assessmentService: AssessmentService,
     private fileService: FileServicesService,
     private _router: Router,
     private _route: ActivatedRoute,
-    private _dialog: MatDialog,
-    private _login: LoginService,
-  ) { }
+    private _dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
-    this.getCurrentLoggedInUser();
     this.getAssessments();
   }
 
-  getCurrentLoggedInUser() {
-    this._login.getCurrentUser().subscribe(
-      (data) => {
-        this.currentUser = data;
-      },
-      (error) => {
-        console.log(error);
-        Swal.fire('Error', 'Error in fetching Current User')
-      }
-    )
-  }
-
-  getAssessments() {
+  getAssessments(){
     this.assessmentService.assessments().subscribe(
       (data: any) => {
         this.assessments = data;
-        this.assessments = data.filter((assessment: { user: { username: any; }; }) => assessment.user.username === this.currentUser.username);
         this.pagedAssessments = this.assessments;
         this.pagedAssessments = this.assessments.slice(0, 5);
         console.log(data);
@@ -111,18 +94,18 @@ export class ViewAssessmentsComponent implements OnInit {
       window.URL.revokeObjectURL(url);
     });
   }
-  navigateToAssessment(a: Assessment) {
+  navigateToAssessment(a:Assessment) {
     const { assessmentId, assessmentTitle } = a;
-    this._router.navigate(['/admin/view-assessment-attended', assessmentId, assessmentTitle]);
+    this._router.navigate(['/admin/view-assessment-attended', assessmentId,assessmentTitle]);
   }
 
-  test() {
+  test(){
     // const assessmentId = 3; // Replace with actual assessmentId
     // const userId = 7; // Replace with actual userId
-    const assignId = 75;
+    const assignId=75;
     const marksObtained = 91; // Replace with actual marksObtained
     console.log("marks are setted");
-    this.fileService.setMarks(marksObtained, assignId).subscribe(
+    this.fileService.setMarks(marksObtained,assignId).subscribe(
       response => {
         console.log('Marks updated successfully', response);
       },
@@ -132,9 +115,9 @@ export class ViewAssessmentsComponent implements OnInit {
     );
   }
 
-  openDialog(name: string, rowData: any) {
+  openDialog(name:string, rowData:any) {
     const dialogRef = this._dialog.open(AddAssessmentComponent, {
-      data: { headerName: name, rowData: rowData }
+      data:{headerName:name, rowData:rowData}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -142,9 +125,9 @@ export class ViewAssessmentsComponent implements OnInit {
     });
   }
 
-  openUpdateAssessmentDialog(assmentId: any) {
+  openUpdateAssessmentDialog(assmentId:any){
     const dialogRef = this._dialog.open(UpdateAssessmentComponent, {
-      data: { assessmentId: assmentId }
+      data:{assessmentId:assmentId}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -152,16 +135,16 @@ export class ViewAssessmentsComponent implements OnInit {
     });
   }
 
-  openAttempts(rowData: any) {
+  openAttempts(rowData:any){
     const dialogRef = this._dialog.open(ViewAssessmentAttendedComponent, {
-      data: { rowData: rowData }
+      data:{rowData:rowData}
     })
     dialogRef.afterClosed().subscribe(result => {
       console.log('')
     })
   }
 
-  onUpdate(assessmentData: any) {
+  onUpdate(assessmentData:any){
     this.openDialog('Update', assessmentData)
   }
 
