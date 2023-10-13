@@ -144,7 +144,7 @@ export class StartTestComponent implements OnInit {
           'success'
         ).then((s) => {
           if (s.value) {
-            this._router.navigate(['/user/profile']);
+            this._router.navigate(['/user/feedback', this.assessmentId]);
           }
         });
       },
