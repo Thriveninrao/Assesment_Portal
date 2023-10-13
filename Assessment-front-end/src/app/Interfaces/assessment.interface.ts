@@ -28,10 +28,10 @@ export interface AssessmentFeedBack{
   relevancyToObjective:number;
   recommendationToFellowSofttekians:number;
   anyOtherAssessmentTobeAdded:string;
-  TrainerName:string;
-  trainerOverall:number;
+  trainerAssessmentOverall:number;
   rateBeforetakingTraining:number;
   rateAfterTakingTraining:number;
   rateTheTrainerOnExpertise:number;
   sugestions:string;
+  AssessmentId:number;
 }

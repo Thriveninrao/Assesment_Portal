@@ -12,13 +12,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { authInterceptorProviders } from './services/auth.interceptor';
 import { FileServicesService } from './services/file-services.service';
-import { NavbarComponent } from './Common/shared/navbar/navbar.component';
-import { SignupComponent } from './authentication/signup/signup.component';
 import { ProfileComponent } from './Common/components/profile/profile.component';
 import { SharedModule } from './Common/shared/shared.module';
 import { PasswordResetComponent } from './authentication/password-reset/password-reset.component';
+import { SignupComponent } from './authentication/signup/signup.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
-
+import { FeedbackUpdatedComponent } from './pages/user/feedback-updated/feedback-updated.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +29,8 @@ import { ForgotPasswordComponent } from './authentication/forgot-password/forgot
     PasswordResetComponent,
     ProfileComponent,
     ForgotPasswordComponent,
+    FeedbackUpdatedComponent
+
   ],
   imports: [
     BrowserModule,

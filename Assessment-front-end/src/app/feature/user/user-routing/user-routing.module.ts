@@ -41,7 +41,7 @@ const routes:Routes = [
         component:StartTestComponent,
       },
       {
-        path:'feedback',
+        path:'feedback/:assessmentId',
         component:FeedbackComponent
       }
     ]

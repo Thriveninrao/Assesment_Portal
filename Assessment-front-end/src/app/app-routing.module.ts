@@ -5,7 +5,7 @@ import { LoginComponent } from './authentication/login/login.component';
 import {  } from './services/normal.guard';
 import { SignupComponent } from './authentication/signup/signup.component';
 import { AdminGuard } from './services/admin.guard';
-import { PasswordResetComponent } from './authentication/password-reset/password-reset.component';
+import { NormalGuard } from './services/normal.guard';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 
 const routes: Routes = [
@@ -22,6 +22,8 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
+
+
   {
     path: 'user',
     loadChildren: () => import('./feature/user/user.module').then(m => m.UserModule),
