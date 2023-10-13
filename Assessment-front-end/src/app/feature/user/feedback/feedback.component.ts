@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
@@ -9,24 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AssessmentFeedBack } from 'src/app/Interfaces/assessment.interface';
 import { FeedbackserviceService } from 'src/app/services/feedbackservice.service';
 
-function validateRelevancy(
-  control: AbstractControl
-): { [key: string]: any } | null {
-  const value = control.value;
-  if (value < 1 || value > 10) {
-    return { invalidRelevancy: true };
-  }
-  return null;
-}
-function validateTrainerOverall(
-  control: AbstractControl
-): { [key: string]: any } | null {
-  const value = control.value;
-  if (value < 1 || value > 10) {
-    return { invalidTrainerOverall: true };
-  }
-  return null;
-}
+
 
 
 
@@ -41,42 +27,63 @@ export class FeedbackComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private feedbackService: FeedbackserviceService
+    private feedbackService: FeedbackserviceService,
+    private _snackBar:MatSnackBar,
+    private _router:Router
   ) {
     this.assessmentForm = this.formBuilder.group({
-      relevancyToObjective: [null, [Validators.required, validateRelevancy]],
+      relevancyToObjective: [null, [Validators.required]],
       recommendationToFellowSofttekians: ['', Validators.required],
       anyOtherAssessmentTobeAdded: [''],
-      TrainerName: ['', Validators.required],
-      trainerOverall: ['', Validators.required],
-      rateBeforeTakingTraining: ['', Validators.required],
-      rateAfterTakingTraining: ['', Validators.required],
-      rateTheTrainerOnExpertise: ['', Validators.required],
+      trainerAssessmentOverall: ['',Validators.required],
+      rateBeforetakingTraining: [''],
+      rateAfterTakingTraining: [''],
+      rateTheTrainerOnExpertise: [''],
       sugestions: [''],
     });
   }
   submitForm() {
     console.log(this.assessmentForm.value)
-    // if (this.assessmentForm.valid) {
-    //   console.log('Form submitted!', this.assessmentForm.value);
-
-    //   const assessmentFeedback: AssessmentFeedBack = this.assessmentForm.value;
-
-    //   // Assuming your addFeedback method returns an Observable
-    //   this.feedbackService.addFeedBack(assessmentFeedback).subscribe(
-    //     (response) => {
-    //       console.log('Feedback saved successfully!', response);
-    //       // You can do additional handling here if needed
-    //     },
-    //     (error) => {
-    //       console.error('Error saving feedback:', error);
-    //       // Handle error here
-    //     }
-    //   );
-    // }
-  }
+    if (this.assessmentForm.valid) {
+      const assessmentFeedback: AssessmentFeedBack = this.assessmentForm.value;
+      this.feedbackService.addFeedBack(assessmentFeedback).subscribe(
+        (response) => {
+          Swal.fire('Success!','We truly value your input and will use it to improve our services. Your contribution is greatly appreciated.','success')
+        },
+        (error) => {
+          Swal.fire('Error !', 'Error in submitting the feedback', 'error');
+        }
+      );
+    }
+    else{
+      Object.values(this.assessmentForm.controls).forEach(control => {
+        control.markAsTouched();
+      });
+  
+      for (const control in this.assessmentForm.controls) {
+        if (this.assessmentForm.controls[control].invalid) {
+          const formControl = this.assessmentForm.controls[control];
+          const labelElement = document.querySelector(`label[for=${control}]`);
+          
+          const label = labelElement?.textContent;
+          
+          if (label) {
+            const errorMessage = `${label.trim()} is required.`;
+            this._snackBar.open(errorMessage, 'Close', {
+              duration: 3000,
+              verticalPosition: 'top'
+            });
+          }
+        }
+      }
+    }
+    }
+  
 
   setValues(event:any, control:any){
     this.assessmentForm.controls[control].setValue(event)
+  }
+  skipForm() {
+    this._router.navigate(['']); 
   }
 }

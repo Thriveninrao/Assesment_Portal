@@ -10,7 +10,7 @@ export class FeedbackserviceService {
   constructor(private _http: HttpClient) {}
 
   public addFeedBack(assessmentFeedback:AssessmentFeedBack) {
-   return this._http.post(`${baseUrl}/addFeedback`,assessmentFeedback);
+   return this._http.post(`${baseUrl}/assessmentfeedback/addFeedback`,assessmentFeedback);
   }
 
   

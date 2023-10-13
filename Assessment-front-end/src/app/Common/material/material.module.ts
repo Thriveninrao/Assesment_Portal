@@ -23,6 +23,7 @@ import { MatExpansionModule } from '@angular/material/expansion'
 import { MatMenuModule } from '@angular/material/menu';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatSortModule } from '@angular/material/sort';
 
 const modules = [
   MatButtonModule,
@@ -47,7 +48,8 @@ const modules = [
   MatExpansionModule,
   MatMenuModule,
   MatProgressSpinnerModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatSortModule
 ]
 
 @NgModule({

@@ -10,52 +10,59 @@
     <mat-card-content>
       <form [formGroup]="assessmentForm" (ngSubmit)="submitForm()">
         <div class="form-group">
-          <label for="relevancyToObjective">Relevancy to Objective</label>
+          <label for="relevancyToObjective">The topics covered were relevant to Objective. 
+            ( 1 Strongly Agree and 5 Strongly Disagree)<span class="required">*</span></label>
           <app-star-rating (ratingChanged)="setValues($event, 'relevancyToObjective')"></app-star-rating>
           <!-- <input type="number" class="form-control" formControlName="relevancyToObjective" required> -->
         </div>
 
         <div class="form-group">
-          <label for="recommendationToFellowSofttekians">Recommendation to Fellow Softtekians</label>
+          <label for="recommendationToFellowSofttekians">How likely are you to recommend this session and Assessment to your fellow Softtekians?<span class="required">*</span></label>
           <app-star-rating (ratingChanged)="setValues($event, 'recommendationToFellowSofttekians')"></app-star-rating>
           <!-- <input type="number" class="form-control" formControlName="recommendationToFellowSofttekians" required> -->
         </div>
 
         <div class="form-group">
-          <label for="trainerOverall">Trainer Overall</label>
-          <app-star-rating (ratingChanged)="setValues($event, 'trainerOverall')"></app-star-rating>
+          <label for="trainerAssessmentOverall">How do you rate about the assessment and training  overall( 1 awful and 5 awesome)<span class="required">*</span></label>
+          <app-star-rating (ratingChanged)="setValues($event, 'trainerAssessmentOverall')"></app-star-rating>
           <!-- <input type="number" class="form-control" formControlName="trainerOverall" required> -->
         </div>
 
-        <div class="form-group">
-          <label for="rateBeforeTakingTraining">Rate Before Taking Training</label>
-          <app-star-rating (ratingChanged)="setValues($event, 'rateBeforeTakingTraining')"></app-star-rating>
-          <!-- <input type="number" class="form-control" formControlName="rateBeforeTakingTraining" required> -->
-        </div>
+       <div class="form-group"> 
+          <label for="rateBeforetakingTraining">How do you rate yourself on the knowledge of the topic "before" attending the session? 
+            ( 1 Basic and 5 Expert) </label>
+          <app-star-rating (ratingChanged)="setValues($event, 'rateBeforetakingTraining')"></app-star-rating>
+             <!-- <input type="number" class="form-control" formControlName="rateBeforeTakingTraining" required>-->
+        </div> 
+
+    
 
         <div class="form-group">
-          <label for="rateAfterTakingTraining">Rate After Taking Training</label>
+          <label for="rateAfterTakingTraining">How do you rate yourself on the knowledge of the topic "at the end" of the session? 
+            ( 1 Basic and 5 Expert)</label>
           <app-star-rating (ratingChanged)="setValues($event, 'rateAfterTakingTraining')"></app-star-rating>
           <!-- <input type="number" class="form-control" formControlName="rateAfterTakingTraining" required> -->
         </div>
 
         <div class="form-group">
-          <label for="rateTheTrainerOnExpertise">Rate the Trainer on Expertise</label>
+          <label for="rateTheTrainerOnExpertise">The trainer was knowledgeable about the training topics 
+            ( 1 Strongly Agree and 5 Strongly Disagree)</label>
           <app-star-rating (ratingChanged)="setValues($event, 'rateTheTrainerOnExpertise')"></app-star-rating>
           <!-- <input type="number" class="form-control" formControlName="rateTheTrainerOnExpertise" required> -->
         </div>
 
         <div class="form-group">
-          <label for="anyOtherAssessmentTobeAdded">Any Other Assessment to be Added</label>
+          <label for="anyOtherAssessmentTobeAdded">Any other training topics and Assessment that you would like to explore in the future.</label>
           <input type="text" class="form-control" formControlName="anyOtherAssessmentTobeAdded">
         </div>
         <div class="form-group">
-          <label for="sugestions">Suggestions</label>
+          <label for="sugestions">Any suggestions/feedback that would make this training/Assessment more effective</label>
           <textarea class="form-control" formControlName="sugestions"></textarea>
         </div>
 
         <div class="text-center">
-          <button type="submit" mat-raised-button class="btn-main" (click)="submitForm()">Submit</button>
+          <button type="submit" mat-raised-button class="btn-main" (click)="submitForm()">Submit</button> &nbsp;
+          <button type="button" mat-button (click)="skipForm()">Skip</button>
         </div>
       </form>
     </mat-card-content>
