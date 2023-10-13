@@ -25,7 +25,6 @@ export interface ResultOfAssessment {
 
 
 export interface AssessmentFeedBack{
-  
   relevancyToObjective:number;
   recommendationToFellowSofttekians:number;
   anyOtherAssessmentTobeAdded:string;
@@ -35,6 +34,4 @@ export interface AssessmentFeedBack{
   rateAfterTakingTraining:number;
   rateTheTrainerOnExpertise:number;
   sugestions:string;
-  AssessmentId:number;
-
 }
