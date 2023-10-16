@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import Swal from 'sweetalert2';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
@@ -29,7 +29,8 @@ export class FeedbackComponent {
     private formBuilder: FormBuilder,
     private feedbackService: FeedbackserviceService,
     private _snackBar:MatSnackBar,
-    private _router:Router
+    private _router:Router,
+    private _ActivatedRoute:ActivatedRoute
   ) {
     this.assessmentForm = this.formBuilder.group({
       relevancyToObjective: [null, [Validators.required]],
@@ -46,6 +47,7 @@ export class FeedbackComponent {
     console.log(this.assessmentForm.value)
     if (this.assessmentForm.valid) {
       const assessmentFeedback: AssessmentFeedBack = this.assessmentForm.value;
+      assessmentFeedback.AssessmentId= this._ActivatedRoute.snapshot.params['assessmentId'];
       this.feedbackService.addFeedBack(assessmentFeedback).subscribe(
         (response) => {
           Swal.fire('Success!','We truly value your input and will use it to improve our services. Your contribution is greatly appreciated.','success')
